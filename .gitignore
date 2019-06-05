@@ -1,0 +1,17 @@
+/expansions/Printer.cdb
+/expansions/7cgl.cdb
+/expansions/script/c121212*.lua
+/expansions/pics/121212*.jpg
+*.7z
+*.rar
+*.zip
+*.swp
+/ygopro
+/.gitingore
+/expansions/pre-*.cdb
+/pics
+/localdata
+/datapush.sln
+/.vs
+/.vscode
+/sound

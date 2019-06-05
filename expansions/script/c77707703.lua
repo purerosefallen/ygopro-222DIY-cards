@@ -1,0 +1,52 @@
+--Vessel of Sin ¿µç÷Ëþ¾Æ±­
+function c77707703.initial_effect(c)
+	 local e1=Effect.CreateEffect(c)
+	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_NEGATE)
+	e1:SetType(EFFECT_TYPE_QUICK_O)
+	e1:SetRange(LOCATION_HAND)
+	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetCountLimit(1,77707703+EFFECT_COUNT_CODE_DUEL)
+	e1:SetCost(c77707703.cost)
+	e1:SetOperation(c77707703.operation)
+	c:RegisterEffect(e1)
+end
+function c77707703.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	local c=e:GetHandler()
+	if chk==0 then return true end
+	Duel.SendtoGrave(c,REASON_COST+REASON_DISCARD)
+end
+function c77707703.operation(e,tp,eg,ep,ev,re,r,rp)
+	local op=Duel.SelectOption(tp,77707703*16,77707703*16+1)
+	if op==1 then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_FIELD)
+		e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+		e1:SetCode(EFFECT_CANNOT_TO_GRAVE)
+		e1:SetTargetRange(0,1)
+		e1:SetTarget(function(e,c,tp)
+			return c:IsLocation(LOCATION_DECK)
+		end)
+		e1:SetReset(RESET_PHASE+PHASE_END)
+		Duel.RegisterEffect(e1,tp)
+		local e2=e1:Clone()
+		e2:SetCode(EFFECT_CANNOT_DISCARD_DECK)
+		Duel.RegisterEffect(e2,tp)
+	else
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_FIELD)
+		e1:SetCode(EFFECT_CANNOT_REMOVE)
+		e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+		e1:SetTargetRange(0,1)
+		e1:SetValue(1)
+		e1:SetReset(RESET_PHASE+PHASE_END)
+		Duel.RegisterEffect(e1,tp)
+		--30459350 chk
+		local e2=Effect.CreateEffect(e:GetHandler())
+		e2:SetType(EFFECT_TYPE_FIELD)
+		e2:SetCode(30459350)
+		e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+		e2:SetTargetRange(0,1)
+		e2:SetReset(RESET_PHASE+PHASE_END)
+		Duel.RegisterEffect(e2,tp)
+	end
+end
