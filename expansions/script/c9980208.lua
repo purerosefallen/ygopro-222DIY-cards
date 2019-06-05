@@ -1,5 +1,8 @@
 --美丽的守护女神next·翠绿之心next
 function c9980208.initial_effect(c)
+	--pendulum summon
+	aux.EnablePendulumAttribute(c)
+	c:EnableReviveLimit()
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980208,2))

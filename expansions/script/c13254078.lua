@@ -4,6 +4,7 @@ function c13254078.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetCondition(c13254078.pccon)
 	e1:SetTarget(c13254078.pctg)
 	e1:SetOperation(c13254078.pcop)
 	c:RegisterEffect(e1)
@@ -17,6 +18,9 @@ function c13254078.initial_effect(c)
 	e2:SetOperation(c13254078.activate2)
 	c:RegisterEffect(e2)
 	
+end
+function c13254078.pccon(e,tp,eg,ep,ev,re,r,rp)
+	return not Duel.GetFieldCard(tp,LOCATION_PZONE,0) and not Duel.GetFieldCard(tp,LOCATION_PZONE,1)
 end
 function c13254078.pcfilter(c)
 	return c:IsType(TYPE_PENDULUM) and c:IsSetCard(0x5356) and not c:IsForbidden() and c:IsLevelBelow(2)

@@ -29,11 +29,16 @@ function c13257326.filter(c)
 	local eflist=mt[c]
 	local i=1
 	while eflist[i] do
-		if eflist[i]=="power_capsule" then i=i+1 break end
+		--if eflist[i]=="power_capsule" then i=i+1 break end
+		if eflist[i]=="power_capsule" then
+			--i=i+1
+			--local PCe=eflist[i]
+			--return PCe
+			return true
+		end
 		i=i+1
 	end
-	local PCe=eflist[i]
-	return PCe -- and PCe:IsActivatable(PCe:GetOwnerPlayer())
+	return false -- and PCe:IsActivatable(PCe:GetOwnerPlayer())
 end
 function c13257326.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and c13257326.filter(chkc) end
@@ -51,21 +56,23 @@ function c13257326.activate(e,tp,eg,ep,ev,re,r,rp)
 			local eflist=mt[tc]
 			local i=1
 			while eflist[i] do
-				if eflist[i]=="power_capsule" then i=i+1 break end
+				if eflist[i]=="power_capsule" then i=i+1
+					if eflist[i] then
+						local PCe=eflist[i]
+						local cost=PCe:GetCost()
+						local target=PCe:GetTarget()
+						local operation=PCe:GetOperation()
+						Duel.ClearTargetCard()
+						e:SetProperty(PCe:GetProperty())
+						tc:CreateEffectRelation(PCe)
+						if cost then cost(PCe,tep,eg,ep,ev,re,r,rp,1) end
+						if target then target(PCe,tep,eg,ep,ev,re,r,rp,1) end
+						if operation then operation(PCe,tep,eg,ep,ev,re,r,rp) end
+						tc:ReleaseEffectRelation(PCe)
+					end
+					return
+				end
 				i=i+1
-			end
-			if eflist[i] then
-				local PCe=eflist[i]
-				local cost=PCe:GetCost()
-				local target=PCe:GetTarget()
-				local operation=PCe:GetOperation()
-				Duel.ClearTargetCard()
-				e:SetProperty(PCe:GetProperty())
-				tc:CreateEffectRelation(PCe)
-				if cost then cost(PCe,tep,eg,ep,ev,re,r,rp,1) end
-				if target then target(PCe,tep,eg,ep,ev,re,r,rp,1) end
-				if operation then operation(PCe,tep,eg,ep,ev,re,r,rp) end
-				tc:ReleaseEffectRelation(PCe)
 			end
 		end
 	end

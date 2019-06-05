@@ -47,13 +47,13 @@ function c9980200.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE+LOCATION_EXTRA)
 end
 function c9980200.mfilter(c)
-	return c:IsCode(9980205) or c:IsCode(9980206) or c:IsCode(9980207)or c:IsCode(9980208)
+	return c:IsCode(9980205,9980206,9980207,9980208)
 end
 function c9980200.activate(e,tp,eg,ep,ev,re,r,rp)
 	local mg=Duel.GetRitualMaterial(tp)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local tg=Duel.SelectMatchingCard(tp,c9980200.filter,tp,LOCATION_HAND,0,1,1,nil,e,tp,mg,ft)
+	local tg=Duel.SelectMatchingCard(tp,c9980200.filter,tp,LOCATION_HAND+LOCATION_GRAVE+LOCATION_EXTRA,0,1,1,nil,e,tp,mg,ft)
 	local tc=tg:GetFirst()
 	if tc then
 		mg=mg:Filter(Card.IsCanBeRitualMaterial,tc,tc)

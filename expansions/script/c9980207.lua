@@ -52,10 +52,10 @@ function c9980207.initial_effect(c)
 	e2:SetCode(EVENT_SPSUMMON)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCountLimit(1)
-	e2:SetCondition(c9980207.discon)
-	e2:SetCost(c9980207.discost)
-	e2:SetTarget(c9980207.distg)
-	e2:SetOperation(c9980207.disop)
+	e2:SetCondition(c9980207.discon3)
+	e2:SetCost(c9980207.discost3)
+	e2:SetTarget(c9980207.distg3)
+	e2:SetOperation(c9980207.disop3)
 	c:RegisterEffect(e2)
 end
 function c9980207.filter(c,e,tp,m1,m2,ft)
@@ -166,24 +166,24 @@ function c9980207.desop2(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Destroy(g,REASON_EFFECT)
 	end
 end
-function c9980207.discon(e,tp,eg,ep,ev,re,r,rp)
+function c9980207.discon3(e,tp,eg,ep,ev,re,r,rp)
 	return tp~=ep and Duel.GetCurrentChain()==0
 end
 function c9980207.disfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xbc8) and c:IsAbleToHandAsCost()
 end
-function c9980207.discost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c9980207.discost3(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980207.disfilter,tp,LOCATION_ONFIELD,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
 	local g=Duel.SelectMatchingCard(tp,c9980207.disfilter,tp,LOCATION_ONFIELD,0,1,1,nil)
 	Duel.SendtoHand(g,nil,REASON_COST)
 end
-function c9980207.distg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c9980207.distg3(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE_SUMMON,eg,eg:GetCount(),0,0)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,eg,eg:GetCount(),0,0)
 end
-function c9980207.disop(e,tp,eg,ep,ev,re,r,rp)
+function c9980207.disop3(e,tp,eg,ep,ev,re,r,rp)
 	Duel.NegateSummon(eg)
 	Duel.Remove(eg,POS_FACEUP,REASON_EFFECT)
 end
