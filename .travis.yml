@@ -40,7 +40,7 @@ script:
 
 - git add ./redtext.txt
 - git commit -m "test redtext of $TRAVIS_COMMIT"
-- git push -f https://$NANAHIRA@github.com/purerosefallen/ygopro-222DIY-data HEAD:redtext
+- git push -f https://$NANAHIRA@github.com/purerosefallen/ygopro-222DIY-cards HEAD:redtext
 
 branches:
   only:
