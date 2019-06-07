@@ -15,7 +15,7 @@ function c81006014.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetRange(LOCATION_HAND)
-	e1:SetHintTiming(0,TIMING_MAIN_END)
+	e1:SetHintTiming(0,TIMING_MAIN_END+TIMINGS_CHECK_MONSTER)
 	e1:SetCondition(c81006014.spcon)
 	e1:SetCost(c81006014.spcost)
 	e1:SetTarget(c81006014.sptg)
@@ -23,7 +23,7 @@ function c81006014.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c81006014.rellimit(e,c,tp,sumtp)
-	return c:IsControler(tp) and c:IsType(TYPE_MONSTER)
+	return c:GetOwner()==e:GetHandler():GetOwner() and c:IsType(TYPE_MONSTER)
 end
 function c81006014.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2
