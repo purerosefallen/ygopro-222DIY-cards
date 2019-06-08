@@ -17,13 +17,13 @@ function c65020013.initial_effect(c)
 	e2:SetOperation(c65020013.op)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
-	e3:SetProperty(EFFECT_TYPE_QUICK_O)
+	e3:SetType(EFFECT_TYPE_QUICK_O)
 	e3:SetCode(EVENT_CHAINING)
 	e3:SetCondition(c65020013.ccon)
 	c:RegisterEffect(e3)
 end
 function c65020013.ccon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()~=tp and re:GetHandlerPlayer()~=tp
+	return Duel.GetTurnPlayer()~=tp and ep~=tp
 end
 
 function c65020013.tg(e,tp,eg,ep,ev,re,r,rp,chk)

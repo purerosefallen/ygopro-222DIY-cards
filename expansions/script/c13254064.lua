@@ -157,8 +157,9 @@ function c13254064.penop(e,tp,eg,ep,ev,re,r,rp)
 	local sg=g:Filter(Card.IsRelateToEffect,nil,e)
 	if Duel.SendtoDeck(sg,nil,2,REASON_EFFECT)~=1 then return end
 	Duel.BreakEffect()
-	if not Duel.CheckLocation(tp,LOCATION_PZONE,0) and not Duel.CheckLocation(tp,LOCATION_PZONE,1) then return false end
 	local c=e:GetHandler()
+	if not c:IsRelateToEffect(e) then return end
+	if not Duel.CheckLocation(tp,LOCATION_PZONE,0) and not Duel.CheckLocation(tp,LOCATION_PZONE,1) then return false end
 	Duel.MoveToField(c,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 end
 function c13254064.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

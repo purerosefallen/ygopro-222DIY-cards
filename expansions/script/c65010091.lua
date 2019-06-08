@@ -34,7 +34,7 @@ function c65010091.initial_effect(c)
 	--counter
 	local e4=Effect.CreateEffect(c)
 	e4:SetCategory(CATEGORY_DISABLE_SUMMON)
-	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e4:SetType(EFFECT_TYPE_QUICK_O)
 	e4:SetCode(EVENT_SPSUMMON)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCountLimit(1,65010091)
@@ -65,7 +65,7 @@ function c65010091.discon(e,tp,eg,ep,ev,re,r,rp)
 	return tp~=ep and Duel.GetCurrentChain()==0 and e:GetHandler():IsSummonType(SUMMON_TYPE_ADVANCE)
 end
 function c65010091.costfil(c)
-	return c:IsSetCard(0x9da0) and c:IsAbleToHandAsCost()
+	return c:IsSetCard(0x9da0) and c:IsAbleToHandAsCost() and c:IsType(TYPE_MONSTER)
 end
 function c65010091.discost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c65010091.costfil,tp,LOCATION_MZONE,0,1,nil) end
