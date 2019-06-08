@@ -4,7 +4,7 @@ function c960009.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetHintTiming(0,TIMING_END_PHASE)
+	e1:SetHintTiming(0,TIMING_ATTACK+TIMING_BATTLE_START+TIMINGS_CHECK_MONSTER)
 	e1:SetCountLimit(1,960009)
 	e1:SetCost(c960009.cost)
 	e1:SetOperation(c960009.activate)
@@ -26,23 +26,27 @@ function c960009.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,500)
 end
 function c960009.activate(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local e1=Effect.CreateEffect(c)
+	--local c=e:GetHandler()
+	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_AVOID_BATTLE_DAMAGE)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetTargetRange(1,0)
+	e1:SetTargetRange(1,1)
 	e1:SetValue(1)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
-	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_SINGLE)
-	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetCode(EFFECT_IMMUNE_EFFECT)
-	e3:SetValue(c960009.efilter)
-	e3:SetReset(RESET_EVENT+RESETS_STANDARD)
-	Duel.RegisterEffect(e3,tp)
+
+
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_IMMUNE_EFFECT)
+	e1:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
+	e1:SetTarget(c960009.etarget)
+	e1:SetValue(c960009.efilter)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(e1,tp)
+
+
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(960009,0)) 
 end
 function c960009.thfilter(c)
@@ -61,5 +65,9 @@ function c960009.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c960009.efilter(e,te)
-	return te:GetOwner()~=e:GetOwner()
+	return te:GetHandler()~=e:GetHandler()
+end
+
+function c960009.etarget(e,c)
+	return true
 end
