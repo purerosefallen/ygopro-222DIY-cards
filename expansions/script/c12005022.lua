@@ -2,7 +2,6 @@
 function c12005022.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_NEGATE+CATEGORY_DAMAGE+CATEGORY_SPECIAL_SUMMON+CATEGORY_TODECK+CATEGORY_TOGRAVE+CATEGORY_DRAW+CATEGORY_TODECK)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_CHAINING)
 	e1:SetCondition(c12005022.condition)
@@ -65,16 +64,20 @@ function c12005022.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,100)
 	local ex=Duel.GetOperationInfo(ev,CATEGORY_REMOVE)
 	if re:IsHasCategory(CATEGORY_SPECIAL_SUMMON) then
+		e:SetCategory(CATEGORY_SPECIAL_SUMMON)
 		Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 		Duel.SetOperationInfo(0,CATEGORY_TODECK,c,1,0,0)
 	end
 	if re:IsHasCategory(CATEGORY_DRAW+CATEGORY_TOHAND) then
+		e:SetCategory(CATEGORY_DRAW)
 		Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 	end
 	if re:IsHasCategory(CATEGORY_DESTROY+CATEGORY_REMOVE) or ex then
+		e:SetCategory(CATEGORY_DESTROY)
 		Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,0,LOCATION_ONFIELD)
 	end
 	if re:IsHasCategory(CATEGORY_DISABLE+CATEGORY_NEGATE+CATEGORY_DISABLE_SUMMON) then
+		e:SetCategory(CATEGORY_DISABLE+CATEGORY_NEGATE+CATEGORY_DISABLE_SUMMON)
 		Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 	end
 end
