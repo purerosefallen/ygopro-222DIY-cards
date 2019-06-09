@@ -83,7 +83,7 @@ function c12008018.desop(e,tp,eg,ep,ev,re,r,rp)
 		local ct=Duel.Destroy(g,REASON_EFFECT)
 		if ct>0 then
 			Duel.Recover(tp,1000,REASON_EFFECT)
-			local fg=Duel.GetMatchingGroup(aux.NecroValleyFilter(c12008018.ffilter),tp,LOCATION_GRAVE,LOCATION_GRAVE,nil)
+			local fg=Duel.GetMatchingGroup(aux.NecroValleyFilter(c12008018.ffilter),tp,LOCATION_DECK+LOCATION_GRAVE,LOCATION_DECK+LOCATION_GRAVE,nil)
 			if fg:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(12008018,2)) then
 				Duel.BreakEffect()
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
