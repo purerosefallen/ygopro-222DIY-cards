@@ -1383,13 +1383,19 @@ function rstg.disnegtg(disorneg,waystring)
 	end
 end
 function rstg.distg(waystring)
-	rstg.disnegtg("dis",waystring)
+	return function(...)
+		return rstg.disnegtg("dis",waystring)(...)
+	end
 end
 function rstg.negtg(waystring)
-	rstg.disnegtg("neg",waystring)
+	return function(...)
+		return rstg.disnegtg("neg",waystring)(...)
+	end
 end
 function rstg.negsumtg(waystring)
-	rstg.disnegtg("sum",waystring)
+	return function(...)
+		return rstg.disnegtg("sum",waystring)(...)
+	end
 end
 --Target function: Get target attributes
 function rstg.GetTargetAttribute(e,tp,eg,ep,ev,re,r,rp,targetlist)
@@ -2071,10 +2077,14 @@ function rscon.disnegcon(disorneg,filterfun,playerfun)
 	end 
 end
 function rscon.discon(filterfun,playerfun)
-	rscon.disnegcon("dis",filterfun,playerfun)
+	return function(...)
+		return rscon.disnegcon("dis",filterfun,playerfun)(...)
+	end
 end
 function rscon.negcon(filterfun,playerfun)
-	rscon.disnegcon("neg",filterfun,playerfun)
+	return function(...)
+		return rscon.disnegcon("neg",filterfun,playerfun)(...)
+	end
 end
 --Condition: Is exisit matching card
 function rscon.excardfilter(filter,varlist,e,tp,eg,ep,ev,re,r,rp)
@@ -2163,13 +2173,19 @@ function rsop.disnegop(disorneg,waystring)
 	end
 end
 function rsop.disop(waystring)
-	return rsop.disnegop("dis",waystring)
+	return function(...)
+		return rsop.disnegop("dis",waystring)(...)
+	end
 end
 function rsop.negop(waystring)
-	return rsop.disnegop("neg",waystring)
+	return function(...)
+		return rsop.disnegop("neg",waystring)(...)
+	end
 end
 function rsop.negsumop(waystring)
-	return rsop.disnegop("sum",waystring)
+	return function(...)
+		return rsop.disnegop("sum",waystring)(...)
+	end
 end
 --Operation: Equip 
 function rsop.eqop(e,eqc,eqtc,pos,opside)
