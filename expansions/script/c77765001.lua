@@ -3,7 +3,7 @@ local cm=_G["c"..m]
 Duel.LoadScript("c77765000.lua")
 function cm.initial_effect(c)
 	local function difficulty_filter(c)
-		return Kaguya.IsDifficulty(c) and c:GetActivateEffect():IsActivatable(tp,true,true)
+		return Kaguya.IsDifficulty(c)-- and c:GetActivateEffect():IsActivatable(tp,true,true)
 	end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_IGNITION)
