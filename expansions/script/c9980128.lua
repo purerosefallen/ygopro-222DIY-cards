@@ -79,14 +79,14 @@ end
 function c9980128.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return c:GetFlagEffect(9980128)==0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,9980128,0x4bc8,0x21,1900,1000,3,RACE_FAIRY,ATTRIBUTE_WATER) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,9980128,0x4bc8,0x21,1900,1000,3,RACE_CYBERSE,ATTRIBUTE_WATER) end
 	c:RegisterFlagEffect(9980128,RESET_CHAIN,0,1)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
 end
 function c9980128.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and Duel.IsPlayerCanSpecialSummonMonster(tp,9980128,0x4bc8,0x21,1900,1000,3,RACE_FAIRY,ATTRIBUTE_WATER) then
+	if c:IsRelateToEffect(e) and Duel.IsPlayerCanSpecialSummonMonster(tp,9980128,0x4bc8,0x21,1900,1000,3,RACE_CYBERSE,ATTRIBUTE_WATER) then
 		c:AddMonsterAttribute(TYPE_NORMAL)
 		Duel.SpecialSummonStep(c,0,tp,tp,true,false,POS_FACEUP)
 		local e2=Effect.CreateEffect(c)
@@ -115,7 +115,7 @@ function c9980128.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and ((eg and eg:GetFirst() == cet) or (re and re:GetHandler() == cet))
 end
 function c9980128.spfilter2(c,e,tp)
-	return c:IsSetCard(0x4bc8) or (c:IsType(TYPE_NORMAL) and c:IsRace(RACE_FAIRY)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x4bc8) or (c:IsType(TYPE_NORMAL) and c:IsRace(RACE_CYBERSE)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980128.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

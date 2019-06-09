@@ -39,7 +39,7 @@ function c9980219.splimit(e,se,sp,st)
 	return not e:GetHandler():IsLocation(LOCATION_EXTRA) or bit.band(st,SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
 end
 function c9980219.ffilter(c)
-	return (c:IsLevelBelow(4) or c:IsAttackBelow(1500)) and c:IsFusionType(TYPE_MONSTER)
+	return c:IsLevelAbove(5) and c:IsSetCard(0xbc8)and c:IsFusionType(TYPE_MONSTER)
 end
 function c9980219.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end

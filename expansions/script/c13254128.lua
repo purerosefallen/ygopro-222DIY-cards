@@ -81,7 +81,7 @@ function c13254128.tgfilter1(c,tc)
 	return (c:IsCode(13254049) or c:IsCode(13254050)) and not c:IsCode(tc:GetCode()) and c:IsAbleToGrave()
 end
 function c13254128.spfilter(c,e,tp)
-	return c:IsCode(13254052) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
+	return c:IsCode(13254052) and c:IsCanBeSpecialSummoned(e,0,tp,true,true,POS_FACEDOWN_DEFENSE)
 end
 function c13254128.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(tp) and c13254128.tgfilter(chkc,tp) end
@@ -104,7 +104,8 @@ function c13254128.spop(e,tp,eg,ep,ev,re,r,rp)
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 			local sg1=g1:Select(tp,1,1,nil):GetFirst()
 			Duel.BreakEffect()
-			Duel.SpecialSummon(sg1,0,tp,tp,true,true,POS_FACEUP)
+			Duel.SpecialSummon(sg1,0,tp,tp,true,true,POS_FACEDOWN_DEFENSE)
+			Duel.ConfirmCards(1-tp,sg1)
 			sg1:CompleteProcedure()
 		end
 	end

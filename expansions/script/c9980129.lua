@@ -1,11 +1,5 @@
 --女神救援
 function c9980129.initial_effect(c)
-	--act in hand
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_TRAP_ACT_IN_HAND)
-	e2:SetCondition(c9980129.handcon)
-	c:RegisterEffect(e2)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH+CATEGORY_SPECIAL_SUMMON)
@@ -29,9 +23,6 @@ function c9980129.initial_effect(c)
 	e2:SetTarget(c9980129.thtg)
 	e2:SetOperation(c9980129.thop)
 	c:RegisterEffect(e2)
-end
-function c9980129.handcon(e)
-	return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_ONFIELD,0)==0
 end
 function c9980129.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) end
@@ -76,7 +67,7 @@ function c9980129.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function c9980129.splimit(e,c)
-	return not c:IsRace(RACE_FAIRY)
+	return not c:IsSetCard(0xbc8)
 end
 function c9980129.descon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetLabelObject()

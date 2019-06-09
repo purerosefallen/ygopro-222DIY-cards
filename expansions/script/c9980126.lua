@@ -2,12 +2,8 @@
 function c9980126.initial_effect(c)
 	 --activate
 	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,9980126)
-	e1:SetOperation(c9980126.thop)
-	c:RegisterEffect(e1)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980126,1))
@@ -29,19 +25,6 @@ function c9980126.initial_effect(c)
 	e1:SetOperation(c9980126.drop)
 	c:RegisterEffect(e1)
 end
-function c9980126.filter(c)
-	return c:IsSetCard(0x4bc8) and c:IsType(TYPE_SPELL) and not c:IsCode(9980126) and c:IsAbleToHand()
-end
-function c9980126.thop(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local g=Duel.GetMatchingGroup(c9980126.filter,tp,LOCATION_DECK,0,nil)
-	if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(9980126,0)) then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-		local sg=g:Select(tp,1,1,nil)
-		Duel.SendtoHand(sg,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,sg)
-	end
-end
 function c9980126.filter0(c)
 	return c:IsSetCard(0xbc8) and c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave()
 end
@@ -49,7 +32,7 @@ function c9980126.filter1(c,e)
 	return not c:IsImmuneToEffect(e)
 end
 function c9980126.filter2(c,e,tp,m,f,chkf)
-	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x4bc8) and (not f or f(c))
+	return c:IsType(TYPE_FUSION) and c:IsSetCard(0xbc8) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
 function c9980126.cfilter(c)

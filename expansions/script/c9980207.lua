@@ -9,25 +9,11 @@ function c9980207.initial_effect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_PZONE)
-	e1:SetCountLimit(1)
+	e1:SetCountLimit(1,99802070)
+	e1:SetCost(c9980207.spcost)
 	e1:SetTarget(c9980207.sptg)
 	e1:SetOperation(c9980207.spop)
 	c:RegisterEffect(e1)
-	--destroy
-	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(9980207,0))
-	e2:SetCategory(CATEGORY_DESTROY)
-	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
-	e2:SetType(EFFECT_TYPE_QUICK_O)
-	e2:SetCode(EVENT_CHAINING)
-	e2:SetRange(LOCATION_HAND)
-	e2:SetHintTiming(0,TIMINGS_CHECK_MONSTER+TIMING_END_PHASE)
-	e2:SetCountLimit(1,9980207)
-	e2:SetCondition(c9980207.descon1)
-	e2:SetCost(c9980207.descost)
-	e2:SetTarget(c9980207.destg)
-	e2:SetOperation(c9980207.desop)
-	c:RegisterEffect(e2)
 	--destroy
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(9980207,0))
@@ -36,7 +22,7 @@ function c9980207.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetCountLimit(1,9980207)
-	e2:SetCost(c9980207.descon2)
+	e2:SetCondition(c9980207.descon2)
 	e2:SetTarget(c9980207.destg2)
 	e2:SetOperation(c9980207.desop2)
 	c:RegisterEffect(e2)
@@ -51,12 +37,28 @@ function c9980207.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_SPSUMMON)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1)
+	e2:SetCountLimit(1,99802071)
 	e2:SetCondition(c9980207.discon3)
 	e2:SetCost(c9980207.discost3)
 	e2:SetTarget(c9980207.distg3)
 	e2:SetOperation(c9980207.disop3)
 	c:RegisterEffect(e2)
+end
+function c9980207.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetCustomActivityCount(9980207,tp,ACTIVITY_SPSUMMON)==0
+		and aux.bfgcost(e,tp,eg,ep,ev,re,r,rp,0) end
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	e1:SetTargetRange(1,0)
+	e1:SetTarget(c9980207.splimit)
+	Duel.RegisterEffect(e1,tp)
+	aux.bfgcost(e,tp,eg,ep,ev,re,r,rp,1)
+end
+function c9980207.splimit(e,c)
+	return not c:IsType(TYPE_PENDULUM)
 end
 function c9980207.filter(c,e,tp,m1,m2,ft)
 	if not (c:IsSetCard(0xbc8) and c:IsType(TYPE_PENDULUM)) and (c:IsLocation(LOCATION_GRAVE+LOCATION_HAND) or (c:IsFaceup() and c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCountFromEx(tp,tp,c)>0)) or bit.band(c:GetType(),0x81)~=0x81
@@ -117,39 +119,6 @@ function c9980207.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.BreakEffect()
 		Duel.SpecialSummon(tc,SUMMON_TYPE_RITUAL,tp,tp,false,true,POS_FACEUP)
 		tc:CompleteProcedure()
-	end
-end
-function c9980207.descost(e,tp,eg,ep,ev,re,r,rp,chk)
-	 if chk==0 then return e:GetHandler():IsDiscardable() end
-	Duel.SendtoGrave(e:GetHandler(),REASON_COST+REASON_DISCARD)
-end
-function c9980207.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xbc8)
-end
-function c9980207.descon1(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c9980207.cfilter,tp,LOCATION_ONFIELD+LOCATION_EXTRA,0,1,nil)
-end
-function c9980207.descon2(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL)
-end
-function c9980207.descon3(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsSummonType(SUMMON_TYPE_RITUAL)
-end
-function c9980207.desfilter(c)
-	return c:IsFaceup()
-end
-function c9980207.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() and c9980207.desfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c9980207.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,c9980207.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
-end
-function c9980207.desop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end
 function c9980207.destg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

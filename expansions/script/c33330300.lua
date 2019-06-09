@@ -33,15 +33,29 @@ function cm.initial_effect(c)
 	e2:SetOperation(cm.tkop)
 	c:RegisterEffect(e2)
 	--Draw
+   -- local e3=Effect.CreateEffect(c)
+   -- e3:SetDescription(aux.Stringid(m,1))
+   -- e3:SetCategory(CATEGORY_TODECK+CATEGORY_DRAW)
+	--e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	--e3:SetCode(EVENT_TO_GRAVE)
+   -- e3:SetProperty(EFFECT_FLAG_DELAY)
+   -- e3:SetCondition(cm.tdcon)
+   -- e3:SetTarget(cm.tdtg)
+   -- e3:SetOperation(cm.tdop)
+   -- c:RegisterEffect(e3)
+	--local e4=e3:Clone()
+   -- e4:SetCode(EVENT_REMOVE)
+	--c:RegisterEffect(e4)
+   --Special Summon
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(m,1))
 	e3:SetCategory(CATEGORY_TODECK+CATEGORY_DRAW)
 	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_TO_GRAVE)
 	e3:SetProperty(EFFECT_FLAG_DELAY)
-	e3:SetCondition(cm.tdcon)
-	e3:SetTarget(cm.tdtg)
-	e3:SetOperation(cm.tdop)
+	e3:SetCondition(cm.spcon)
+	e3:SetTarget(cm.sptg)
+	e3:SetOperation(cm.spop)
 	c:RegisterEffect(e3)
 	local e4=e3:Clone()
 	e4:SetCode(EVENT_REMOVE)
@@ -141,29 +155,33 @@ end
 function cm.desop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(e:GetHandler(),REASON_EFFECT)
 end
---Draw
-function cm.tdfilter(c)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToDeck()
+
+--Special Summon
+function cm.spfilter(c,e,tp)
+	return (c:IsSetCard(0x2552) or c.HopeSoul) and c:IsType(TYPE_MONSTER)
+		and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function cm.shuffle(c,tp)
-	return c:IsControler(tp) and c:IsLocation(LOCATION_DECK)
+function cm.thfilter(c)
+	return c:GetSummonLocation()~=LOCATION_HAND
 end
-function cm.tdcon(e,tp,eg,ep,ev,re,r,rp)
+function cm.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp==1-tp
 end
-function cm.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local g=Duel.GetMatchingGroup(cm.tdfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED+LOCATION_EXTRA,LOCATION_GRAVE+LOCATION_REMOVED+LOCATION_EXTRA,nil)
-	if chk==0 then return g:GetCount()>0 and Duel.IsPlayerCanDraw(tp,cm.draw) end
-	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,g:GetCount(),0,0)
-	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,cm.draw)
-end
-function cm.tdop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(cm.tdfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED+LOCATION_EXTRA,LOCATION_GRAVE+LOCATION_REMOVED+LOCATION_EXTRA,nil)
-	if g:GetCount()>0 and Duel.SendtoDeck(g,nil,2,REASON_EFFECT)~=0 then
-		local og=Duel.GetOperatedGroup()
-		if og:IsExists(cm.shuffle,1,nil,tp) then Duel.ShuffleDeck(tp) end
-		if og:IsExists(cm.shuffle,1,nil,1-tp) then Duel.ShuffleDeck(1-tp) end
-		Duel.BreakEffect()
-		Duel.Draw(tp,cm.draw,REASON_EFFECT)
+function cm.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetMZoneCount(tp)>0
+		and Duel.IsExistingMatchingCard(cm.spfilter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE)
+	local g=Duel.GetMatchingGroup(cm.thfilter,tp,0,LOCATION_MZONE,nil)
+	if g:GetCount()>0 then
+		Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,g:GetCount(),0,0)
 	end
+end
+function cm.spop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetMZoneCount(tp)<1 then return end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectMatchingCard(tp,cm.spfilter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp)
+	if g:GetCount()==0 then return end
+	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+	local sg=Duel.GetMatchingGroup(cm.thfilter,tp,0,LOCATION_MZONE,nil)
+	Duel.SendtoHand(sg,nil,REASON_EFFECT)
 end

@@ -1,8 +1,8 @@
 --异次元女神·神次元漆黑之心
 function c9980223.initial_effect(c)
-	 --link summon
+	--link summon
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkRace,RACE_FAIRY),2)
+	aux.AddLinkProcedure(c,c9980223.matfilter,3)
 	--search
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980223,0))
@@ -35,25 +35,21 @@ function c9980223.initial_effect(c)
 	e3:SetTarget(c9980223.drtg)
 	e3:SetOperation(c9980223.drop)
 	c:RegisterEffect(e3)
-	--Atk update
+	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetValue(c9980223.atkval1)
+	e1:SetValue(c9980223.atkval)
 	c:RegisterEffect(e1)
-	local e2=e1:Clone()
-	e2:SetValue(c9980223.atkval2)
-	c:RegisterEffect(e2)
 end
-function c9980223.atkval1(e,c)
-	local v=Duel.GetLP(c:GetControler())-Duel.GetLP(1-c:GetControler())
-	if v>0 then return v else return 0 end
+function c9980223.matfilter(c)
+	return c:IsLinkType(TYPE_NORMAL) and c:IsLinkRace(RACE_CYBERSE)
 end
-function c9980223.atkval2(e,c)
-	local v=Duel.GetLP(1-c:GetControler())-Duel.GetLP(c:GetControler())
-	if v>0 then return v else return 0 end
+function c9980223.atkval(e,c)
+	local g=e:GetHandler():GetLinkedGroup():Filter(Card.IsFaceup,nil)
+	return g:GetSum(Card.GetAttack)
 end
 function c9980223.sfilter(c)
 	return c:IsType(TYPE_SPELL) and c:IsSetCard(0xbc8) and c:IsAbleToHand()
@@ -79,7 +75,7 @@ function c9980223.sop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e2,tp)
 end
 function c9980223.tdfilter(c,e,tp)
-	return c:IsRace(RACE_FAIRY) and c:IsAbleToDeckAsCost()
+	return c:IsRace(RACE_CYBERSE) and c:IsAbleToDeckAsCost()
 end
 function c9980223.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980223.tdfilter(chkc) end

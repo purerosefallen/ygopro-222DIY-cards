@@ -5,10 +5,8 @@ function c9980460.initial_effect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetCountLimit(1,9980460+EFFECT_COUNT_CODE_OATH)
-	e1:SetCountLimit(1,9980460)
 	e1:SetTarget(c9980460.target)
-	e1:SetOperation(c9980460.operation)
+	e1:SetOperation(c9980460.activate)
 	c:RegisterEffect(e1)
 	--to deck
 	local e1=Effect.CreateEffect(c)
@@ -22,96 +20,75 @@ function c9980460.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 c9980460.fit_monster={9980453,9980454}
-function c9980460.dfilter(c)
-	return c:IsSetCard(0x2bca) and c:IsLevelAbove(1) and c:IsAbleToGrave()
-end
-function c9980460.filter(c,e,tp,m,ft)
+function c9980460.filter(c,e,tp,m,m2,ft)
 	if not c:IsSetCard(0x2bca) or bit.band(c:GetType(),0x81)~=0x81
 		or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
 	local mg=m:Filter(Card.IsCanBeRitualMaterial,c,c)
-	local dg=Duel.GetMatchingGroup(c9980460.dfilter,tp,LOCATION_DECK,0,nil)
+	mg:Merge(m2)
 	if ft>0 then
-		return mg:CheckWithSumEqual(Card.GetRitualLevel,c:GetLevel(),1,99,c)
-			or dg:IsExists(c9980460.dlvfilter,1,nil,tp,mg,c)
+		return mg:CheckWithSumGreater(Card.GetRitualLevel,c:GetLevel(),c)
 	else
-		return ft>-1 and mg:IsExists(c9980460.mfilterf,1,nil,tp,mg,dg,c)
+		return mg:IsExists(c9980460.filterF,1,nil,tp,mg,c)
 	end
 end
-function c9980460.mfilterf(c,tp,mg,dg,rc)
+function c9980460.filterF(c,tp,mg,rc)
 	if c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:GetSequence()<5 then
 		Duel.SetSelectedCard(c)
-		return mg:CheckWithSumEqual(Card.GetRitualLevel,rc:GetLevel(),0,99,rc)
-			or dg:IsExists(c9980460.dlvfilter,1,nil,tp,mg,rc,c)
+		return mg:CheckWithSumGreater(Card.GetRitualLevel,rc:GetLevel(),rc)
 	else return false end
 end
-function c9980460.dlvfilter(c,tp,mg,rc,mc)
-	Duel.SetSelectedCard(Group.FromCards(c,mc))
-	return mg:CheckWithSumEqual(Card.GetRitualLevel,rc:GetLevel(),0,99,rc)
+function c9980460.mfilter(c)
+	return c:GetLevel()>0 and c:IsAbleToDeck()
+end
+function c9980460.cfilter(c)
+	return c:IsFaceup() and c:IsType(TYPE_LINK) 
 end
 function c9980460.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local mg=Duel.GetRitualMaterial(tp)
+		local mg2=Group.CreateGroup()
+		if Duel.IsExistingMatchingCard(c9980460.cfilter,tp,LOCATION_MZONE,0,1,nil) then
+			mg2=Duel.GetMatchingGroup(c9980460.mfilter,tp,LOCATION_GRAVE,0,nil)
+		end
 		local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-		return Duel.IsExistingMatchingCard(c9980460.filter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp,mg,ft)
+		return ft>-1 and Duel.IsExistingMatchingCard(c9980460.filter,tp,LOCATION_HAND+LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil,e,tp,mg,mg2,ft)
 	end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE+LOCATION_REMOVED)
 end
 function c9980460.activate(e,tp,eg,ep,ev,re,r,rp)
-	local m=Duel.GetRitualMaterial(tp)
+	local mg=Duel.GetRitualMaterial(tp)
+	local mg2=Group.CreateGroup()
+	if Duel.IsExistingMatchingCard(c9980460.cfilter,tp,LOCATION_MZONE,0,1,nil) then
+		mg2=Duel.GetMatchingGroup(c9980460.mfilter,tp,LOCATION_GRAVE,0,nil)
+	end
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local tg=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c9980460.filter),tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp,m,ft)
+	local tg=Duel.SelectMatchingCard(tp,c9980460.filter,tp,LOCATION_HAND+LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,nil,e,tp,mg,mg2,ft)
 	local tc=tg:GetFirst()
 	if tc then
-		local mat,dmat
-		local mg=m:Filter(Card.IsCanBeRitualMaterial,tc,tc)
-		local dg=Duel.GetMatchingGroup(c9980460.dfilter,tp,LOCATION_DECK,0,nil)
+		mg=mg:Filter(Card.IsCanBeRitualMaterial,tc,tc)
+		mg:Merge(mg2)
+		local mat=nil
 		if ft>0 then
-			local b1=dg:IsExists(c9980460.dlvfilter,1,nil,tp,mg,tc)
-			local b2=mg:CheckWithSumEqual(Card.GetRitualLevel,tc:GetLevel(),1,99,tc)
-			if b1 and (not b2 or Duel.SelectYesNo(tp,aux.Stringid(9980460,0))) then
-				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-				dmat=dg:FilterSelect(tp,c9980460.dlvfilter,1,1,nil,tp,mg,tc)
-				Duel.SetSelectedCard(dmat)
-				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
-				mat=mg:SelectWithSumEqual(tp,Card.GetRitualLevel,tc:GetLevel(),0,99,tc)
-				mat:Merge(dmat)
-			else
-				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
-				mat=mg:SelectWithSumEqual(tp,Card.GetRitualLevel,tc:GetLevel(),1,99,tc)
-			end
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
+			mat=mg:SelectWithSumGreater(tp,Card.GetRitualLevel,tc:GetLevel(),tc)
 		else
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
-			mat=mg:FilterSelect(tp,c9980460.mfilterf,1,1,nil,tp,mg,dg,tc)
-			local b1=dg:IsExists(c9980460.dlvfilter,1,nil,tp,mg,tc,mat:GetFirst())
+			mat=mg:FilterSelect(tp,c9980460.filterF,1,1,nil,tp,mg,tc)
 			Duel.SetSelectedCard(mat)
-			local b2=mg:CheckWithSumEqual(Card.GetRitualLevel,tc:GetLevel(),0,99,tc)
-			if b1 and (not b2 or Duel.SelectYesNo(tp,aux.Stringid(9980460,0))) then
-				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-				dmat=dg:FilterSelect(tp,c9980460.dlvfilter,1,1,nil,tp,mg,tc,mat:GetFirst())
-				mat:Merge(dmat)
-				Duel.SetSelectedCard(mat)
-				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
-				local mat2=mg:SelectWithSumEqual(tp,Card.GetRitualLevel,tc:GetLevel(),0,99,tc)
-				mat:Merge(mat2)
-			else
-				Duel.SetSelectedCard(mat)
-				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
-				local mat2=mg:SelectWithSumEqual(tp,Card.GetRitualLevel,tc:GetLevel(),0,99,tc)
-				mat:Merge(mat2)
-			end
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
+			local mat2=mg:SelectWithSumGreater(tp,Card.GetRitualLevel,tc:GetLevel(),tc)
+			mat:Merge(mat2)
 		end
 		tc:SetMaterial(mat)
-		if dmat then
-			mat:Sub(dmat)
-			Duel.SendtoGrave(dmat,REASON_EFFECT+REASON_MATERIAL+REASON_RITUAL)
-		end
+		local mat2=mat:Filter(Card.IsLocation,nil,LOCATION_GRAVE)
+		mat:Sub(mat2)
 		Duel.ReleaseRitualMaterial(mat)
+		Duel.SendtoDeck(mat2,nil,2,REASON_EFFECT+REASON_MATERIAL+REASON_RITUAL)
 		Duel.BreakEffect()
 		Duel.SpecialSummon(tc,SUMMON_TYPE_RITUAL,tp,tp,false,true,POS_FACEUP)
 		tc:CompleteProcedure()
 	end
-	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980460,1)) 
 end
 function c9980460.tdfilter(c)
 	return c:IsCode(9980453,9980454) and c:IsAbleToDeck()

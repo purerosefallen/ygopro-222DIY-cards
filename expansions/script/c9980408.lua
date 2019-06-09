@@ -39,17 +39,6 @@ function c9980408.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetValue(aux.indoval)
 	c:RegisterEffect(e3)
-	--atk/def
-	local e6=Effect.CreateEffect(c)
-	e6:SetType(EFFECT_TYPE_SINGLE)
-	e6:SetCode(EFFECT_UPDATE_ATTACK)
-	e6:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e6:SetRange(LOCATION_MZONE)
-	e6:SetValue(c9980408.adval)
-	c:RegisterEffect(e6)
-	local e7=e6:Clone()
-	e7:SetCode(EFFECT_UPDATE_DEFENSE)
-	c:RegisterEffect(e7)
 	--negate
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(9980408,1))
@@ -99,9 +88,6 @@ function c9980408.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Equip(tp,tc,c,true)
 	end
    Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980408,3))
-end
-function c9980408.adval(e,c)
-	return Duel.GetFieldGroupCount(c:GetControler(),LOCATION_HAND,LOCATION_HAND)*500
 end
 function c9980408.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and aux.disfilter1(chkc) end

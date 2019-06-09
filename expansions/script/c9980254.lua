@@ -1,5 +1,6 @@
 --不死姬·远野秋叶
 function c9980254.initial_effect(c)
+   c:EnableReviveLimit()
 	--to hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND)

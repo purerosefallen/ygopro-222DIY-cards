@@ -39,14 +39,6 @@ function c9980409.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetValue(aux.indoval)
 	c:RegisterEffect(e3)
-	--atk
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetValue(c9980409.atkval)
-	c:RegisterEffect(e1)
 	--negate
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980409,1))
@@ -97,9 +89,6 @@ function c9980409.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Equip(tp,tc,c,true)
 	end
    Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980409,2))
-end
-function c9980409.atkval(e,c)
-	return Duel.GetFieldGroupCount(c:GetControler(),LOCATION_ONFIELD,LOCATION_ONFIELD)*300
 end
 function c9980409.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)

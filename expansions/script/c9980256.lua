@@ -1,5 +1,6 @@
 --不死姬·莲
 function c9980256.initial_effect(c)
+	c:EnableReviveLimit()
 	--equip
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980256,2))

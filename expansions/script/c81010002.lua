@@ -1,13 +1,12 @@
 --A-chasing-Y
 function c81010002.initial_effect(c)
-	e1=aux.AddRitualProcGreater2(c,c81010002.filter,LOCATION_HAND,c81010002.mfilter)
-	e1:SetCountLimit(1,81010002+EFFECT_COUNT_CODE_OATH)
+	local e1=aux.AddRitualProcEqual2(c,c81010002.filter,nil,c81010002.mfilter)
 	--to hand
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)
-	e2:SetCountLimit(1,81010092)
+	e2:SetCountLimit(1,81010002)
 	e2:SetCondition(aux.exccon)
 	e2:SetCost(aux.bfgcost)
 	e2:SetOperation(c81010002.regop)

@@ -45,7 +45,7 @@ function cm.op(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function cm.valcon(e,re,r,rp)
-	return r&REASON_BATTLE ~=0
+	return r&REASON_EFFECT ~=0
 end
 function cm.indtg(e,c)
 	return c:IsFaceup() and c:IsType(TYPE_SPELL+TYPE_TRAP)
@@ -55,7 +55,7 @@ function cm.aclimit(e,re,tp)
 	local rc=re:GetHandler()
 	local ec=c:GetEquipTarget()
 	if not ec then return false end
-	local atk=ec:GetAttack()/2
+	local atk=ec:GetAttack()
 	return re:IsActiveType(TYPE_MONSTER) and not rc:IsImmuneToEffect(e) and rc:IsLocation(LOCATION_GRAVE+LOCATION_MZONE) and rc:IsAttackBelow(atk)
 end
 function cm.eqlimit(e,c)

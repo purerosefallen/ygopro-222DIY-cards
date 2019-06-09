@@ -2,7 +2,6 @@
 function c81012015.initial_effect(c)
 	--Activate
 	local e1=aux.AddRitualProcGreater2(c,c81012015.filter,LOCATION_HAND,c81012015.mfilter)
-	e1:SetCountLimit(1,81012015+EFFECT_COUNT_CODE_OATH)
 	--fusion summon
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON)

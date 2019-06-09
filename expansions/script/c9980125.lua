@@ -12,7 +12,7 @@ function c9980125.initial_effect(c)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
 	e2:SetTargetRange(LOCATION_MZONE,0)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x4bc8))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0xbc8))
 	e2:SetValue(c9980125.evalue)
 	c:RegisterEffect(e2)
 	--search

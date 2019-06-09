@@ -4,7 +4,7 @@ local m=65010013
 local cm=_G["c"..m]
 cm.card_code_list={65010001}
 function cm.initial_effect(c)
-	local e1=rsef.QO(c,EVENT_CHAINING,{m,0},{1,m},"neg","dsp,dcal",LOCATION_HAND,rscon.negcon(rscon.excard(rscf.FilterFaceUp(Card.IsCode,65010001)),true),rscost.costself(Card.IsDiscardable,"dish"),cm.tg,cm.op)
+	local e1=rsef.QO(c,EVENT_CHAINING,{m,0},{1,m},"neg","dsp,dcal",LOCATION_HAND,rscon.negcon(cm.filterfun,true),rscost.cost(Card.IsDiscardable,"dish"),cm.tg,cm.op)
 	--special summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -16,6 +16,9 @@ function cm.initial_effect(c)
 	e2:SetTarget(cm.sptg)
 	e2:SetOperation(cm.spop)
 	c:RegisterEffect(e2) 
+end
+function cm.filterfun(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsExistingMatchingCard(rscf.FilterFaceUp(Card.IsCode,65010001),tp,LOCATION_ONFIELD,0,1,nil) and Duel.IsChainNegatable(ev)
 end
 function cm.spfilter(c,e,tp)
 	return c:IsCode(65010001) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

@@ -1,5 +1,6 @@
 --不死姬·苏我屠自古
 function c9980263.initial_effect(c)
+	c:EnableReviveLimit()
 	--to hand
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(9980263,0))

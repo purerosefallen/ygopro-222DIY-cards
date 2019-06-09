@@ -1,0 +1,51 @@
+local m=77765021
+local cm=_G["c"..m]
+Duel.LoadScript("c77765000.lua")
+cm.Senya_name_with_treasure=true
+function cm.initial_effect(c)
+	Kaguya.EquipCommonEffect(c)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_EQUIP)
+	e4:SetCode(EFFECT_IMMUNE_EFFECT)
+	e4:SetValue(function(e,te,c)
+		local tc=te:GetOwner()
+		return e:GetOwner()~=tc and tc~=c and not Kaguya.IsTreasure(tc)
+	end)
+	c:RegisterEffect(e4)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_EQUIP)
+	e4:SetCode(EFFECT_UNRELEASABLE_SUM)
+	e4:SetValue(1)
+	c:RegisterEffect(e4)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_EQUIP)
+	e4:SetCode(EFFECT_UNRELEASABLE_NONSUM)
+	e4:SetValue(1)
+	c:RegisterEffect(e4)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_QUICK_O)
+	e4:SetCode(EVENT_FREE_CHAIN)
+	e4:SetCountLimit(1)
+	e4:SetRange(LOCATION_SZONE)
+	e4:SetCost(Senya.ForbiddenCost())
+	e4:SetTarget(function(e,tp,eg,ep,ev,re,r,rp,chk)
+		local l=e:GetLabel()
+		e:SetLabel(0)
+		local function f(c)
+			return c:IsAbleToRemoveAsCost() and Kaguya.IsDifficulty(c) and c:GetOriginalCode()~=m-1
+		end
+		if chk==0 then return l>0 and Duel.IsExistingMatchingCard(f,tp,LOCATION_GRAVE,0,1,nil) end
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+		local g=Duel.SelectMatchingCard(tp,f,tp,LOCATION_GRAVE,0,1,1,nil)
+		Duel.Remove(g,POS_FACEUP,REASON_COST)
+		e:SetLabelObject(g:GetFirst())
+	end)
+	e4:SetOperation(function(e,tp,eg,ep,ev,re,r,rp)
+		local code=e:GetLabelObject():GetOriginalCode()
+		local c=e:GetHandler()
+		if c:IsFaceup() and c:IsRelateToEffect(e) then
+			c:CopyEffect(code+1,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,1)
+		end
+	end)
+	c:RegisterEffect(e4)
+end

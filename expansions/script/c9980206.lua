@@ -9,7 +9,8 @@ function c9980206.initial_effect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_PZONE)
-	e1:SetCountLimit(1)
+	e1:SetCountLimit(1,99802060)
+	e1:SetCost(c9980206.spcost)
 	e1:SetTarget(c9980206.sptg)
 	e1:SetOperation(c9980206.spop)
 	c:RegisterEffect(e1)
@@ -64,6 +65,22 @@ function c9980206.initial_effect(c)
 	e1:SetOperation(c9980206.desop)
 	c:RegisterEffect(e1) 
 end
+function c9980206.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetCustomActivityCount(9980206,tp,ACTIVITY_SPSUMMON)==0
+		and aux.bfgcost(e,tp,eg,ep,ev,re,r,rp,0) end
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	e1:SetTargetRange(1,0)
+	e1:SetTarget(c9980206.splimit)
+	Duel.RegisterEffect(e1,tp)
+	aux.bfgcost(e,tp,eg,ep,ev,re,r,rp,1)
+end
+function c9980206.splimit(e,c)
+	return not c:IsType(TYPE_PENDULUM)
+end
 function c9980206.tgcon(e)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL)
 end
@@ -87,16 +104,16 @@ function c9980206.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local mg=Duel.GetRitualMaterial(tp)
 		local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
-		return ft>-1 and Duel.IsExistingMatchingCard(c9980206.filter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp,mg,ft) and Duel.IsPlayerCanDraw(tp,1)
+		return ft>-1 and Duel.IsExistingMatchingCard(c9980206.filter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp,mg,ft) and Duel.IsPlayerCanDraw(tp,1)
 	end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_DECK)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
 function c9980206.spop(e,tp,eg,ep,ev,re,r,rp)
 	local mg=Duel.GetRitualMaterial(tp)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local tg=Duel.SelectMatchingCard(tp,c9980206.filter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp,mg,ft)
+	local tg=Duel.SelectMatchingCard(tp,c9980206.filter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp,mg,ft)
 	local tc=tg:GetFirst()
 	if tc then
 		mg=mg:Filter(Card.IsCanBeRitualMaterial,tc,tc)

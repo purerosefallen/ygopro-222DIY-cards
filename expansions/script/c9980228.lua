@@ -1,7 +1,7 @@
 --异界女神·纯白之心
 function c9980228.initial_effect(c)
 	--synchro summon
-	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xbc8),aux.NonTuner(nil),1)
+	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xbc8),aux.NonTuner(Card.IsRace,RACE_CYBERSE),1)
 	c:EnableReviveLimit()
 	--cannot target
 	local e2=Effect.CreateEffect(c)
@@ -37,7 +37,7 @@ function c9980228.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_CHAINING)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1)
+	e2:SetCountLimit(1,9980228)
 	e2:SetCondition(c9980228.descon2)
 	e2:SetTarget(c9980228.destg2)
 	e2:SetOperation(c9980228.desop2)

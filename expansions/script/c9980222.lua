@@ -40,7 +40,7 @@ function c9980222.initial_effect(c)
 	Duel.AddCustomActivityCounter(9980222,ACTIVITY_SPSUMMON,c9980222.counterfilter)
 end
 function c9980222.counterfilter(c)
-	return c:IsRace(RACE_FAIRY)
+	return c:IsRace(RACE_CYBERSE)
 end
 function c9980222.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetCustomActivityCount(9980222,tp,ACTIVITY_SPSUMMON)==0 end
@@ -54,10 +54,10 @@ function c9980222.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.RegisterEffect(e1,tp)
 end
 function c9980222.splimit(e,c,sump,sumtype,sumpos,targetp,se)
-	return c:GetRace()~=RACE_FAIRY
+	return c:GetRace()~=RACE_CYBERSE
 end
 function c9980222.sfilter(c)
-	return c:IsType(TYPE_NORMAL) and c:IsAbleToHand()
+	return c:IsType(TYPE_NORMAL) and c:IsRace(RACE_CYBERSE) and c:IsAbleToHand()
 end
 function c9980222.stg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -88,7 +88,7 @@ function c9980222.damval1(e,re,val,r,rp,rc)
 	else return val end
 end
 function c9980222.filter(c,e,tp)
-	return c:IsRace(RACE_FAIRY) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsType(TYPE_NORMAL) and c:IsRace(RACE_CYBERSE) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980222.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

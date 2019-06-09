@@ -38,7 +38,7 @@ function c9980215.matcon(e)
 	return Duel.GetFlagEffect(e:GetHandlerPlayer(),9980215)==0
 end
 function c9980215.mfilter(c)
-	return c:IsLocation(LOCATION_MZONE) and c:IsRace(RACE_FAIRY)
+	return c:IsLocation(LOCATION_MZONE) and c:IsRace(RACE_CYBERSE)
 end
 function c9980215.exmfilter(c)
 	return c:IsLocation(LOCATION_HAND) and c:IsCode(9980215)

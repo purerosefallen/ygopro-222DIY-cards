@@ -64,7 +64,7 @@ function c9980220.drop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980220.lpfilter(c)
-	return c:IsRace(RACE_FAIRY)
+	return c:IsRace(RACE_CYBERSE)
 end
 function c9980220.lptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return eg:IsExists(c9980220.lpfilter,1,nil) end

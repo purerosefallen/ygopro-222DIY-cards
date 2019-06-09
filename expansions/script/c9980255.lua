@@ -1,5 +1,6 @@
 --不死姬·弓冢五月
 function c9980255.initial_effect(c)
+	c:EnableReviveLimit()
 	 --GY recycle, if special summoned
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(9980255,0))

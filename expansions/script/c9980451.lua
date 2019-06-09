@@ -22,6 +22,20 @@ function c9980451.initial_effect(c)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetValue(c9980451.atkval)
 	c:RegisterEffect(e2)
+	--destroy
+	local e5=Effect.CreateEffect(c)
+	e5:SetDescription(aux.Stringid(9980451,4))
+	e5:SetCategory(CATEGORY_DESTROY)
+	e5:SetType(EFFECT_TYPE_QUICK_O)
+	e5:SetCode(EVENT_FREE_CHAIN)
+	e5:SetRange(LOCATION_MZONE)
+	e5:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e5:SetCountLimit(1)
+	e5:SetHintTiming(0,TIMINGS_CHECK_MONSTER+TIMING_END_PHASE)
+	e5:SetCost(c9980451.descost)
+	e5:SetTarget(c9980451.destg)
+	e5:SetOperation(c9980451.desop)
+	c:RegisterEffect(e5)
    --search
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(9980451,1))
@@ -68,7 +82,7 @@ function c9980451.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_LINK)
 end
 function c9980451.thfilter(c)
-	return c:GetType()==TYPE_RITUAL+TYPE_SPELL and c:IsAbleToHand()
+	return c:IsSetCard(0x2bca) and c:IsAbleToHand()
 end
 function c9980451.tgfilter(c)
 	return c:IsSetCard(0x2bca) and c:IsAbleToGrave()
@@ -90,5 +104,32 @@ function c9980451.thop(e,tp,eg,ep,ev,re,r,rp)
 		if g:GetCount()>0 then
 			Duel.SendtoGrave(g,REASON_EFFECT)
 		end
+	end
+end
+function c9980451.descost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():GetAttackAnnouncedCount()==0
+		and Duel.CheckReleaseGroup(tp,Card.IsSetCard,1,nil,0x2bca) end
+	local g=Duel.SelectReleaseGroup(tp,Card.IsSetCard,1,1,nil,0x2bca)
+	Duel.Release(g,REASON_COST)
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_OATH)
+	e1:SetCode(EFFECT_CANNOT_ATTACK)
+	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+	e:GetHandler():RegisterEffect(e1)
+end
+function c9980451.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsOnField() end
+	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_ONFIELD,LOCATION_ONFIELD)>1
+		and Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	local g=Duel.SelectTarget(tp,aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+end
+function c9980451.desop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc and tc:IsRelateToEffect(e) then
+		Duel.Destroy(tc,REASON_EFFECT)
+		Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980451,5)) 
 	end
 end

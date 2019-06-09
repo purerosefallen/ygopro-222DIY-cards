@@ -1,5 +1,6 @@
 --乌金飞球
 function c13254060.initial_effect(c)
+	--[[
 	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -14,6 +15,12 @@ function c13254060.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetCondition(c13254060.accon)
+	e2:SetOperation(c13254060.actlimit)
+	c:RegisterEffect(e2)]]
+	
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e2:SetCode(EVENT_SUMMON_SUCCESS)
 	e2:SetOperation(c13254060.actlimit)
 	c:RegisterEffect(e2)
 	--code

@@ -28,13 +28,16 @@ function c81000004.initial_effect(c)
 	--atk/def
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
-	e3:SetCode(EFFECT_UPDATE_ATTACK)
+	e3:SetCode(EFFECT_SET_ATTACK_FINAL)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e3:SetTarget(aux.TargetBoolFunction(Card.IsAttackBelow,2000))
 	e3:SetCondition(c81000004.imcon)
-	e3:SetValue(1000)
+	e3:SetTarget(c81000004.atktg)
+	e3:SetValue(0)
 	c:RegisterEffect(e3)
+	local e4=e3:Clone()
+	e4:SetCode(EFFECT_SET_DEFENSE_FINAL)
+	c:RegisterEffect(e4)
 end
 function c81000004.matfilter(c)
 	return c:GetSummonLocation()==LOCATION_EXTRA
@@ -77,9 +80,9 @@ function c81000004.operation(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function c81000004.imfilter(c)
-	return c:IsType(TYPE_MONSTER)
-end
 function c81000004.imcon(e)
-	return e:GetHandler():GetLinkedGroup():IsExists(c81000004.imfilter,1,nil)
+	return e:GetHandler():GetLinkedGroupCount()>0
+end
+function c81000004.atktg(e,c)
+	return not c:IsLinkState()
 end

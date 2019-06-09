@@ -5,6 +5,7 @@ function c9980200.initial_effect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetCost(c9980200.cost)
 	e1:SetTarget(c9980200.target)
 	e1:SetOperation(c9980200.activate)
 	c:RegisterEffect(e1)
@@ -21,7 +22,22 @@ function c9980200.initial_effect(c)
 	e2:SetOperation(c9980200.spop)
 	c:RegisterEffect(e2)
 end
-c9980200.fit_monster={9980205,9980206,9980207,9980208}
+function c9980200.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetCustomActivityCount(9980200,tp,ACTIVITY_SPSUMMON)==0
+		and aux.bfgcost(e,tp,eg,ep,ev,re,r,rp,0) end
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	e1:SetTargetRange(1,0)
+	e1:SetTarget(c9980200.splimit)
+	Duel.RegisterEffect(e1,tp)
+	aux.bfgcost(e,tp,eg,ep,ev,re,r,rp,1)
+end
+function c9980200.splimit(e,c)
+	return not c:IsType(TYPE_PENDULUM)
+end
 function c9980200.filter(c,e,tp,m,ft)
 	if not c:IsSetCard(0xbc8) and (c:IsLocation(LOCATION_GRAVE+LOCATION_HAND) or (c:IsFaceup() and c:IsType(TYPE_PENDULUM) and c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCountFromEx(tp,tp,c)>0)) or bit.band(c:GetType(),0x81)~=0x81
 		or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
@@ -45,9 +61,6 @@ function c9980200.target(e,tp,eg,ep,ev,re,r,rp,chk)
 		return ft>-1 and Duel.IsExistingMatchingCard(c9980200.filter,tp,LOCATION_HAND+LOCATION_GRAVE+LOCATION_EXTRA,0,1,nil,e,tp,mg,ft)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND+LOCATION_GRAVE+LOCATION_EXTRA)
-end
-function c9980200.mfilter(c)
-	return c:IsCode(9980205,9980206,9980207,9980208)
 end
 function c9980200.activate(e,tp,eg,ep,ev,re,r,rp)
 	local mg=Duel.GetRitualMaterial(tp)
@@ -74,14 +87,6 @@ function c9980200.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.BreakEffect()
 		Duel.SpecialSummon(tc,SUMMON_TYPE_RITUAL,tp,tp,false,true,POS_FACEUP)
 		tc:CompleteProcedure()
-		local g=Duel.GetMatchingGroup(aux.TRUE,tp,0,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,e:GetHandler())
-		if mat:IsExists(c9980200.mfilter,1,nil) and #g>0 and Duel.SelectYesNo(tp,aux.Stringid(9980200,0)) then
-			Duel.BreakEffect()
-			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-			local sg=g:Select(tp,1,1,e:GetHandler())
-			Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
-			Duel.Remove(sg,POS_FACEUP,REASON_EFFECT)
-		end
 	end
 end
 function c9980200.spcost(e,tp,eg,ep,ev,re,r,rp,chk)

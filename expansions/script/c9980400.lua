@@ -17,13 +17,6 @@ function c9980400.initial_effect(c)
 	e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e1:SetValue(aux.tgoval)
 	c:RegisterEffect(e1)
-	--double
-	local e4=Effect.CreateEffect(c)
-	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-	e4:SetCode(EVENT_PRE_BATTLE_DAMAGE)
-	e4:SetCondition(c9980400.damcon)
-	e4:SetOperation(c9980400.damop)
-	c:RegisterEffect(e4)
 	--tohand
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980400,0))
@@ -41,27 +34,6 @@ function c9980400.initial_effect(c)
 	local e3=e1:Clone()
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e3)
-	--draw
-	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(9980400,0))
-	e2:SetCategory(CATEGORY_DRAW)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e2:SetCode(EVENT_BATTLE_DESTROYING)
-	e2:SetCondition(aux.bdocon)
-	e2:SetTarget(c9980400.drtg)
-	e2:SetOperation(c9980400.drop)
-	c:RegisterEffect(e2)
-	--draw
-	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(9980400,0))
-	e2:SetCategory(CATEGORY_DRAW)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e2:SetCode(EVENT_DESTROYED)
-	e2:SetTarget(c9980400.drtg)
-	e2:SetOperation(c9980400.drop)
-	c:RegisterEffect(e2)
 	--spsummon bgm
 	local e8=Effect.CreateEffect(c)
 	e8:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
@@ -78,12 +50,6 @@ function c9980400.spcon(e,c)
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.GetFieldGroupCount(tp,0,LOCATION_ONFIELD)>Duel.GetFieldGroupCount(tp,LOCATION_ONFIELD,0)
 end
-function c9980400.damcon(e,tp,eg,ep,ev,re,r,rp)
-	return ep~=tp and e:GetHandler():GetBattleTarget()~=nil
-end
-function c9980400.damop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.ChangeBattleDamage(ep,ev*2)
-end
 function c9980400.filter(c)
 	return aux.IsCodeListed(c,9980400) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
@@ -99,14 +65,4 @@ function c9980400.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980400,1))
-end
-function c9980400.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	Duel.SetTargetPlayer(tp)
-	Duel.SetTargetParam(1)
-	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
-end
-function c9980400.drop(e,tp,eg,ep,ev,re,r,rp)
-	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
-	Duel.Draw(p,d,REASON_EFFECT)
 end

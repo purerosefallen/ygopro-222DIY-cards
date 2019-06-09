@@ -46,24 +46,13 @@ function c9980406.initial_effect(c)
 	e3:SetTarget(c9980406.destg)
 	e3:SetOperation(c9980406.desop)
 	c:RegisterEffect(e3)
-	--Activate
-	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_NO_TURN_RESET)
-	e1:SetType(EFFECT_TYPE_IGNITION)
-	e1:SetRange(LOCATION_GRAVE)
-	e1:SetCountLimit(1,9980406)
-	e1:SetCost(c9980406.spcost)
-	e1:SetTarget(c9980406.sptg)
-	e1:SetOperation(c9980406.spop)
-	c:RegisterEffect(e1)
 end
 c9980406.card_code_list={9980400}
 function c9980406.eqlimit(e,c)
-	return c:IsRace(RACE_WARRIOR)
+	return (c:IsRace(RACE_WARRIOR) or aux.IsCodeListed(c,9980400))
 end
 function c9980406.eqfilter1(c)
-	return c:IsFaceup() and c:IsRace(RACE_WARRIOR)
+	return c:IsFaceup() and (c:IsRace(RACE_WARRIOR) or aux.IsCodeListed(c,9980400))
 end
 function c9980406.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c9980406.eqfilter1(chkc) end
@@ -90,31 +79,5 @@ function c9980406.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
-	end
-end
-function c9980406.cfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
-end
-function c9980406.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c9980406.cfilter,tp,LOCATION_HAND,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,c9980406.cfilter,tp,LOCATION_HAND,0,1,1,nil)
-	Duel.Remove(g,POS_FACEUP,REASON_COST)
-end
-function c9980406.filter(c,e,tp)
-	return  c:IsFaceup() and c:IsCode(9980400) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
-end
-function c9980406.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and c9980406.filter(chkc,e,tp) end
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingTarget(c9980406.filter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil,e,tp) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectTarget(tp,c9980406.filter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,nil,e,tp)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
-end
-function c9980406.spop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 	end
 end

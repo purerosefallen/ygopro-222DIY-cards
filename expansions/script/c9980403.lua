@@ -28,17 +28,6 @@ function c9980403.initial_effect(c)
 	e1:SetRange(LOCATION_MZONE+LOCATION_GRAVE)
 	e1:SetValue(9980400)
 	c:RegisterEffect(e1)
-	--atkup
-	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_SINGLE)
-	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetCode(EFFECT_UPDATE_ATTACK)
-	e3:SetValue(c9980403.atkup)
-	c:RegisterEffect(e3)
-	local e4=e3:Clone()
-	e4:SetCode(EFFECT_UPDATE_DEFENSE)
-	c:RegisterEffect(e4)
 	--equip
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980403,0))
@@ -88,12 +77,6 @@ function c9980403.spop(e,tp,eg,ep,ev,re,r,rp,c)
 		local tc=Duel.GetFirstMatchingCard(c9980403.spfilter,tp,LOCATION_DECK+LOCATION_HAND+LOCATION_GRAVE,0,nil)
 		Duel.Remove(tc,POS_FACEUP,REASON_COST)
 	end
-end
-function c9980403.atkfilter(c)
-	return c:IsRace(RACE_WARRIOR) 
-end
-function c9980403.atkup(e,c)
-	return Duel.GetMatchingGroupCount(c9980403.atkfilter,c:GetControler(),LOCATION_GRAVE,LOCATION_GRAVE,nil)*400
 end
 function c9980403.filter(c,ec)
 	return aux.IsCodeListed(c,9980400) and c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec)

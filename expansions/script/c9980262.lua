@@ -1,5 +1,6 @@
 --不死姬·物部布都
 function c9980262.initial_effect(c)
+	c:EnableReviveLimit()
    --indes
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)

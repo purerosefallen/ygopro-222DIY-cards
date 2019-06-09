@@ -39,14 +39,6 @@ function c9980410.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetValue(aux.indoval)
 	c:RegisterEffect(e3)
-	--atkup
-	local e5=Effect.CreateEffect(c)
-	e5:SetType(EFFECT_TYPE_SINGLE)
-	e5:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e5:SetCode(EFFECT_UPDATE_ATTACK)
-	e5:SetRange(LOCATION_MZONE)
-	e5:SetValue(c9980410.atkval)
-	c:RegisterEffect(e5)
    --position
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980410,1))
@@ -113,10 +105,4 @@ function c9980410.setop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ChangePosition(tc,POS_FACEDOWN_DEFENSE)
 		Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980410,2))
 	end
-end
-function c9980410.atkval(e,c)
-	local lps=Duel.GetLP(c:GetControler())
-	local lpo=Duel.GetLP(1-c:GetControler())
-	if lps>=lpo then return 0
-	else return lpo-lps end
 end

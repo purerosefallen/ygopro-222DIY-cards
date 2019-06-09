@@ -9,7 +9,8 @@ function c9980208.initial_effect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_PZONE)
-	e1:SetCountLimit(1)
+	e1:SetCountLimit(1,99802080)
+	e1:SetCost(c9980208.spcost)
 	e1:SetTarget(c9980208.sptg)
 	e1:SetOperation(c9980208.spop)
 	c:RegisterEffect(e1)
@@ -61,6 +62,22 @@ function c9980208.initial_effect(c)
 	e5:SetRange(LOCATION_MZONE)
 	c:RegisterEffect(e5)
 end
+function c9980208.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetCustomActivityCount(9980208,tp,ACTIVITY_SPSUMMON)==0
+		and aux.bfgcost(e,tp,eg,ep,ev,re,r,rp,0) end
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	e1:SetTargetRange(1,0)
+	e1:SetTarget(c9980208.splimit)
+	Duel.RegisterEffect(e1,tp)
+	aux.bfgcost(e,tp,eg,ep,ev,re,r,rp,1)
+end
+function c9980208.splimit(e,c)
+	return not c:IsType(TYPE_PENDULUM)
+end
 function c9980208.filter(c,e,tp,m1,m2,ft)
 	if not c:IsSetCard(0xbc8) or bit.band(c:GetType(),0x81)~=0x81
 		or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
@@ -79,7 +96,7 @@ function c9980208.mfilterf(c,tp,mg,rc)
 	else return false end
 end
 function c9980208.mfilter(c)
-	return c:GetLevel()>0 and c:IsAbleToGrave()
+	return c:IsSetCard(0xbc8) and c:GetLevel()>0 and c:IsAbleToGrave()
 end
 function c9980208.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

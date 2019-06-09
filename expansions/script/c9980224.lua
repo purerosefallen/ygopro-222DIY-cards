@@ -67,7 +67,7 @@ function c9980224.atkop1(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c9980224.thfilter(c)
-	return c:IsLevelBelow(3) and c:IsRace(RACE_FAIRY) and c:IsAbleToHand()
+	return c:IsLevelBelow(3) and c:IsRace(RACE_CYBERSE) and c:IsAbleToHand()
 end
 function c9980224.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980224.thfilter,tp,LOCATION_DECK,0,1,nil) end

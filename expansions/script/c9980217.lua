@@ -39,7 +39,7 @@ function c9980217.matcon(e)
 	return Duel.GetFlagEffect(e:GetHandlerPlayer(),9980217)==0
 end
 function c9980217.mfilter(c)
-	return c:IsLocation(LOCATION_MZONE) and c:IsRace(RACE_FAIRY)
+	return c:IsLocation(LOCATION_MZONE) and c:IsRace(RACE_CYBERSE)
 end
 function c9980217.exmfilter(c)
 	return c:IsLocation(LOCATION_HAND) and c:IsCode(9980217)
@@ -55,7 +55,7 @@ function c9980217.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoDeck(e:GetHandler(),nil,2,REASON_COST)
 end
 function c9980217.filter(c,e,tp)
-	return c:IsType(TYPE_NORMAL) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsType(TYPE_NORMAL) and c:IsLevelBelow(4) and c:IsRace(RACE_CYBERSE)and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980217.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

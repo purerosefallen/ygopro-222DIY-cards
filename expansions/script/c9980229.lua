@@ -1,7 +1,7 @@
 --异界女神·翠绿之心
 function c9980229.initial_effect(c)
 	 --synchro summon
-	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsSetCard,0xbc8),1)
+	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_CYBERSE),aux.NonTuner(Card.IsSetCard,0xbc8),1)
 	c:EnableReviveLimit()
 	--cannot target
 	local e2=Effect.CreateEffect(c)
