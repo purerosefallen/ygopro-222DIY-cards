@@ -16,7 +16,6 @@ function c1111501.initial_effect(c)
 --
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(1111501,0))
-	e2:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_FZONE)
