@@ -32,6 +32,7 @@ function c13254097.activate(e,tp,eg,ep,ev,re,r,rp,chk)
 
 		local i=0
 		while i<j and (i==0 or Duel.SelectYesNo(tp,aux.Stringid(13254097,1))) do
+			Duel.BreakEffect()
 			local t1=Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) and Duel.IsExistingMatchingCard(Card.IsAbleToGrave,tp,LOCATION_DECK,0,1,nil)
 			local t2=Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_HAND,1,nil) and Duel.IsPlayerCanDraw(1-tp,1)
 
@@ -69,8 +70,7 @@ function c13254097.activate(e,tp,eg,ep,ev,re,r,rp,chk)
 					end
 				end
 			end
-			if(j==0) then Duel.BreakEffect() end
-			i++
+			i=i+1
 		end
 	end
 end

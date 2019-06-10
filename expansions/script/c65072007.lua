@@ -26,17 +26,16 @@ function c65072007.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(g,tp,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
 		--actlimit
-	local e1=Effect.CreateEffect(e:GetHandler())
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_CANNOT_ACTIVATE)
-	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetTargetRange(1,0)
-	e1:SetReset(RESET_PHASE+PHASE_END)
-	e1:SetValue(c65072007.actlimit)
-	Duel.RegisterEffect(e1,tp)
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_FIELD)
+		e1:SetCode(EFFECT_CANNOT_ACTIVATE)
+		e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+		e1:SetTargetRange(1,0)
+		e1:SetReset(RESET_PHASE+PHASE_END)
+		e1:SetValue(c65072007.actlimit)
+		Duel.RegisterEffect(e1,tp)
 	end
 end
 function c65072007.actlimit(e,te,tp)
-	return Duel.GetCurrentPhase()==PHASE_MAIN1
-		and te:IsHasType(EFFECT_TYPE_ACTIVATE) and te:IsActiveType(TYPE_SPELL) and te:GetHandler():IsType(TYPE_FIELD)
+	return te:IsHasType(EFFECT_TYPE_ACTIVATE) and te:IsActiveType(TYPE_SPELL) and te:GetHandler():IsType(TYPE_FIELD)
 end

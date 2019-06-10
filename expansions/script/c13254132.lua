@@ -97,15 +97,14 @@ function c13254132.sprop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.SendtoGrave(sg,REASON_COST)
 end
 function c13254132.filter1(c)
-	return c:IsCode(13254034) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
+	return c:IsCode(13254035) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
 end
 function c13254132.filter2(c)
-	return c:IsCode(13254035) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
+	return c:IsCode(13254036) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
 end
 function c13254132.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c13254132.filter1(chkc) and c13254132.filter2(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c13254132.filter1,tp,LOCATION_GRAVE,0,1,nil) and Duel.IsExistingTarget(c13254132.filter2,tp,LOCATION_GRAVE,0,1,nil) and Duel.IsPlayerCanDraw(tp,1)
-		and Duel.IsExistingTarget(c13254132.filter,tp,LOCATION_GRAVE,LOCATION_GRAVE,7,nil) end
+	if chk==0 then return Duel.IsExistingTarget(c13254132.filter1,tp,LOCATION_GRAVE,0,1,nil) and Duel.IsExistingTarget(c13254132.filter2,tp,LOCATION_GRAVE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 	local g1=Duel.SelectTarget(tp,c13254132.filter1,tp,LOCATION_GRAVE,0,1,1,nil)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)

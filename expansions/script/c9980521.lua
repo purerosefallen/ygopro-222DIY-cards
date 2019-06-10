@@ -46,10 +46,6 @@ function c9980521.initial_effect(c)
 	e3:SetCondition(c9980521.atkcon)
 	e3:SetOperation(c9980521.atkop)
 	c:RegisterEffect(e3)
-	Duel.AddCustomActivityCounter(9980521,ACTIVITY_SPSUMMON,c9980521.counterfilter)
-end
-function c9980521.counterfilter(c)
-	return not c:IsSummonType(SUMMON_TYPE_PENDULUM)
 end
 function c9980521.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return not Duel.IsExistingMatchingCard(nil,tp,LOCATION_PZONE,0,1,e:GetHandler())
