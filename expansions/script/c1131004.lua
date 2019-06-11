@@ -85,6 +85,8 @@ function c1131004.op2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	if Duel.SendtoHand(c,nil,REASON_EFFECT)<1 then return end
+	if Duel.GetFlagEffect(tp,1131004)<1 then return end
+	Duel.RegisterEffect(tp,1131004,RESET_PHASE+PHASE_END,0,1)
 	local e2_1=Effect.CreateEffect(c)
 	e2_1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e2_1:SetCode(EVENT_CHAIN_SOLVING)
@@ -104,7 +106,6 @@ function c1131004.op2_1(e,tp,eg,ep,ev,re,r,rp)
 	local g=Group.CreateGroup()
 	Duel.ChangeTargetCard(ev,g)
 	Duel.ChangeChainOperation(ev,c1131004.op2_1_1)
-	e:Reset()
 end
 --
 function c1131004.op2_1_1(e,tp,eg,ep,ev,re,r,rp)
