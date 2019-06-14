@@ -1,7 +1,6 @@
 --斯忒诺
 local m=17050901
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
 function cm.initial_effect(c)
 	c:EnableReviveLimit()
 	local e0=Effect.CreateEffect(c)
@@ -9,8 +8,69 @@ function cm.initial_effect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
 	e0:SetRange(LOCATION_EXTRA)
-	e0:SetCondition(cm.xyzcon)
-	e0:SetOperation(cm.xyzop)
+	e0:SetCondition(function(e,c,og,min,max)
+				if c==nil then return true end
+				if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
+				local tp=c:GetControler()
+				local ft=Duel.GetLocationCountFromEx(tp)
+				local ct=-ft
+				local nmb=Duel.GetFieldGroup(tp,LOCATION_MZONE+LOCATION_HAND+LOCATION_GRAVE,0)
+				local minc=2
+				local maxc=99
+				if min then
+					if min>minc then minc=min end
+					if max<maxc then maxc=max end
+					if minc>maxc then return false end
+				end
+				return ct<minc and Duel.CheckXyzMaterial(c,cm.xyzfilter,7,minc,maxc,nmb)
+		end)
+	e0:SetTarget(function(e,tp,eg,ep,ev,re,r,rp,chk,c,og,min,max)
+				if og and not min then
+					return true
+				end
+				local nmb=Duel.GetFieldGroup(tp,LOCATION_MZONE+LOCATION_HAND+LOCATION_GRAVE,0)
+				local minc=2
+				local maxc=99
+				if min then
+					if min>minc then minc=min end
+					if max<maxc then maxc=max end
+				end
+				local g=Duel.SelectXyzMaterial(tp,c,cm.xyzfilter,7,minc,maxc,nmb)
+				if g then
+					g:KeepAlive()
+					e:SetLabelObject(g)
+					return true
+				else return false end
+			end)
+	e0:SetOperation(function(e,tp,eg,ep,ev,re,r,rp,c,og,min,max)
+				if og and not min then
+					local sg=Group.CreateGroup()
+					local tc=og:GetFirst()
+					while tc do
+						local sg1=tc:GetOverlayGroup()
+						sg:Merge(sg1)
+						tc=og:GetNext()
+					end
+					Duel.SendtoGrave(sg,REASON_RULE)
+					c:SetMaterial(og)
+					Duel.Overlay(c,og)
+					Duel.ShuffleHand(tp)
+				else
+					local mg=e:GetLabelObject()
+					local sg=Group.CreateGroup()
+					local tc=mg:GetFirst()
+					while tc do
+						local sg1=tc:GetOverlayGroup()
+						sg:Merge(sg1)
+						tc=mg:GetNext()
+					end
+					Duel.SendtoGrave(sg,REASON_RULE)
+					c:SetMaterial(mg)
+					Duel.Overlay(c,mg)
+					Duel.ShuffleHand(tp)
+					mg:DeleteGroup()
+				end	
+end)
 	e0:SetValue(SUMMON_TYPE_XYZ)
 	c:RegisterEffect(e0)
 	--spsummon proc
@@ -60,59 +120,9 @@ function cm.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 cm.pendulum_level=7
-function cm.xyzfilter(c,xyzcard)
-	if c:IsLocation(LOCATION_ONFIELD+LOCATION_REMOVED) and c:IsFacedown() then return false end
-	return c:IsCanBeXyzMaterial(xyzcard) and c:IsXyzLevel(xyzcard,7)
-end
-function cm.xyzfilter1(c,xyzcard)
-	return c:IsXyzLevel(xyzcard,7) and c:IsRace(RACE_REPTILE) and c:IsCanBeXyzMaterial(xyzcard)
-end
-function cm.xyzcon(e,c,og,min,max)
-		if c==nil then return true end
-		if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
-		local tp=c:GetControler()
-		local minc=2
-		local maxc=99
-		if min then
-			minc=math.max(minc,min)
-			maxc=math.min(maxc,max)
-		end
-		local mg=nil
-		local exg=nil
-		if og then
-			mg=og:Filter(cm.xyzfilter,nil,c)
-		else
-			mg=Duel.GetMatchingGroup(cm.xyzfilter,tp,LOCATION_MZONE,0,nil,c)
-			exg=Duel.GetMatchingGroup(cm.xyzfilter1,tp,LOCATION_HAND+LOCATION_GRAVE,0,nil,c)
-			mg:Merge(exg)
-		end
-		return Senya.CheckGroup(mg,Senya.CheckFieldFilter,nil,minc,maxc,tp,c)
-end
-function cm.xyzop(e,tp,eg,ep,ev,re,r,rp,c,og,min,max)
-		local g=nil
-		if og and not min then
-			g=og
-		else
-			local mg=nil
-			local exg=nil
-			if og then
-				mg=og:Filter(cm.xyzfilter,nil,c)
-			else
-				mg=Duel.GetMatchingGroup(cm.xyzfilter,tp,LOCATION_MZONE,0,nil,c)
-				exg=Duel.GetMatchingGroup(cm.xyzfilter1,tp,LOCATION_HAND+LOCATION_GRAVE,0,nil,c)
-				mg:Merge(exg)
-			end
-			local minc=2
-			local maxc=99
-			if min then
-				minc=math.max(minc,min)
-				maxc=math.min(maxc,max)
-			end
-			g=Senya.SelectGroup(tp,HINTMSG_XMATERIAL,mg,Senya.CheckFieldFilter,nil,minc,maxc,tp,c)
-		end
-		c:SetMaterial(g)
-		Senya.OverlayGroup(c,g,false,true)
-		Duel.ShuffleHand(tp)
+function cm.xyzfilter(c)
+	return (c:IsFaceup() or not c:IsLocation(LOCATION_MZONE))
+		and (c:IsRace(RACE_REPTILE) or not c:IsLocation(LOCATION_HAND+LOCATION_GRAVE))
 end
 function cm.spfilter(c,ft)
 	return c:IsFaceup() 

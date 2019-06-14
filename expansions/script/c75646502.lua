@@ -11,6 +11,7 @@ function c75646502.initial_effect(c)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCountLimit(1,75646502)
+	e1:SetCondition(c18940556.condition)
 	e1:SetTarget(c75646502.target)
 	e1:SetOperation(c75646502.operation)
 	c:RegisterEffect(e1)
@@ -20,13 +21,16 @@ function c75646502.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e2:SetCode(EFFECT_CANNOT_BE_BATTLE_TARGET)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCondition(c75646502.condition)
+	e2:SetCondition(c75646502.con)
 	e2:SetValue(aux.imval1)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e3:SetValue(aux.tgoval)
 	c:RegisterEffect(e3)
+end
+function c75646502.condition(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2
 end
 function c75646502.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -50,6 +54,6 @@ function c75646502.operation(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummonComplete()
 	end
 end
-function c75646502.condition(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsType(TYPE_LINK) and Duel.IsExistingMatchingCard(Card.IsType(),tp,LOCATION_MZONE,0,1,nil,TYPE_TOKEN)
+function c75646502.con(e)
+	return e:GetHandler():IsType(TYPE_LINK) and Duel.IsExistingMatchingCard(Card.IsType,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil,TYPE_TOKEN)
 end

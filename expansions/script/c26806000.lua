@@ -25,7 +25,7 @@ function c26806000.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c26806000.cfilter(c)
-	return c:IsFaceup() and c:IsRace(RACE_DRAGON+RACE_PLANT) and c:IsType(TYPE_TUNER)
+	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_WATER)
 end
 function c26806000.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c26806000.cfilter,tp,LOCATION_MZONE,0,1,nil)
