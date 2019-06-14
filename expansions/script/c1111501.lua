@@ -16,7 +16,6 @@ function c1111501.initial_effect(c)
 --
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(1111501,0))
-	e2:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_FZONE)
@@ -79,7 +78,7 @@ end
 --
 function c1111501.op2(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local sg=Duel.SelectMatchingCard(tp,c1111501.tfilter2,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
+	local sg=Duel.SelectMatchingCard(tp,c1111501.tfilter2,tp,LOCATION_DECK,0,1,1,nil)
 	if sg:GetCount()<1 then return end
 	Duel.SendtoHand(sg,nil,REASON_EFFECT)
 	Duel.ConfirmCards(1-tp,sg)

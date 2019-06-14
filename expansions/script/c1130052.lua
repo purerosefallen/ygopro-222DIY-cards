@@ -40,7 +40,8 @@ end
 c1130052.toss_coin=true
 --
 function c1130052.tfilter2(c,tp)
-	return c:IsReason(REASON_EFFECT+REASON_BATTLE) and c:IsControler(tp)
+	return c:IsReason(REASON_EFFECT+REASON_BATTLE)
+		and c:IsControler(tp) and c:IsType(TYPE_MONSTER)
 end
 function c1130052.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

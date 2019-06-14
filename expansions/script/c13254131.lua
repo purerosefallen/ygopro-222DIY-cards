@@ -1,5 +1,7 @@
 --元始·飞球之乱流
 function c13254131.initial_effect(c)
+	c:EnableCounterPermit(0x356)
+	c:SetCounterLimit(0x356,4)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
