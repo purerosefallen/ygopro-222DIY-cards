@@ -81,6 +81,35 @@ end
 function c21520183.spcheck2(c)
 	return c:IsRace(RACE_FIEND) and c:IsType(TYPE_MONSTER)
 end
+function c21520183.spgoal(sg,tp,loc)
+	if loc==LOCATION_EXTRA then 
+		return Duel.GetLocationCountFromEx(tp,tp,sg)>0 and sg:IsExists(c21520183.spcheck,1,nil,sg)
+	else 
+		return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and sg:IsExists(c21520183.spcheck,1,nil,sg)
+	end
+end
+function c21520183.spcon(e,c)
+	if c==nil then return true end
+	local tp=c:GetControler()
+	local mg=Duel.GetMatchingGroup(c21520183.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,e:GetHandler())
+	local sg=Group.CreateGroup()
+	return mg:CheckSubGroup(c21520183.spgoal,1,nil,tp)
+end
+function c21520183.spop(e,tp,eg,ep,ev,re,r,rp,c)
+	local mg=Duel.GetMatchingGroup(c21520183.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,e:GetHandler())
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
+	local cancel=Duel.GetCurrentChain()==0
+	local sg=mg:SelectSubGroup(tp,c21520183.spgoal,cancel,1,nil,tp,c:GetLocation())
+	c:SetMaterial(sg)
+	Duel.Remove(sg,POS_FACEUP,REASON_COST)
+end
+--[[nction c21520183.spcheck(c,sg)
+	return c:IsSetCard(0x490) and c:IsType(TYPE_MONSTER) and sg:FilterCount(c21520183.spcheck2,c)+1==sg:GetCount()
+	and sg:FilterCount(Card.IsSetCard,c,0x490)>=2
+end
+function c21520183.spcheck2(c)
+	return c:IsRace(RACE_FIEND) and c:IsType(TYPE_MONSTER)
+end
 function c21520183.spgoal(c,tp,sg)
 	return sg:GetCount()>1 and Duel.GetLocationCountFromEx(tp,tp,sg)>0 and sg:IsExists(c21520183.spcheck,1,nil,sg)
 end
@@ -110,7 +139,7 @@ function c21520183.spop(e,tp,eg,ep,ev,re,r,rp,c)
 	end
 	c:SetMaterial(sg)
 	Duel.Remove(sg,POS_FACEUP,REASON_COST)
-end
+end--]]
 function c21520183.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
