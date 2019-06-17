@@ -1,4 +1,4 @@
-﻿ygopro.exe	44e30d7dddeffa0acba31435632a7c80
+ygopro.exe	44e30d7dddeffa0acba31435632a7c80
 deck/2019.6.8_new_card1.ydk	6112722b7b9a6b4618c6923786fa7b49
 deck/2019.6.8_new_card2.ydk	b7b42b082ea473bb3934982ae9cf6a7d
 deck/2019.6.8_new_card3.ydk	042b34e4671b1e326082460f68a5590f
@@ -7,7 +7,7 @@ deck/2019.6.8_new_card5.ydk	3552c713927f7c4e38e0c883210d63bd
 deck/2019.6.8_new_card6.ydk	cb6d0fa9ffd37fa9be52ba48b41b0992
 deck/2019.6.8_new_card7.ydk	5511a5f23236c723140693cf3cd0cf01
 expansions/222DIY.cdb	7d5a270ea6aa44fe56866dc7ac9c5351
-expansions/lflist.conf	db8f62dadd719d43cb79cc136a15f980
+expansions/lflist.conf	a0e5c8c0aa96a7169324d5bf7eab2c5f
 expansions/strings.conf	ffdc5173327cd91803c7345f5d1c62fc
 expansions/pics/08209710.jpg	ed0e60085631bfa641ffeebd6abbd910
 expansions/pics/1000360.jpg	d1aa6f44fcd413402141a6bf4b886c2a
