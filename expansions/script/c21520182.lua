@@ -2,7 +2,7 @@
 function c21520182.initial_effect(c)
 	c:EnableReviveLimit()
 	--fusion material
-	aux.AddFusionProcMixRep(c,false,false,aux.FilterBoolFunction(Card.IsFusionSetCard,0x490),3,100)
+	aux.AddFusionProcMixRep(c,false,false,c21520182.sefilter,3,100)
 	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -235,4 +235,7 @@ function c21520182.drop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Draw(tp,1,REASON_EFFECT)
 		Duel.Draw(1-tp,1,REASON_EFFECT)
 	end
+end
+function c21520182.sefilter(c)
+	return c:IsFusionSetCard(0x490) and c:IsType(TYPE_MONSTER)
 end
