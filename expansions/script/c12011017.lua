@@ -65,6 +65,7 @@ function c12011017.activate(e,tp,eg,ep,ev,re,r,rp)
 		local tc=tg:GetFirst()
 		if sg1:IsContains(tc) and (sg2==nil or not sg2:IsContains(tc) or not Duel.SelectYesNo(tp,ce:GetDescription())) then
 			local mat1=Duel.SelectFusionMaterial(tp,tc,mg1,nil,chkf)
+			e:SetLabel(mat1:GetCount())
 			tc:SetMaterial(mat1)
 			Duel.SendtoGrave(mat1,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)
 			Duel.BreakEffect()
@@ -76,7 +77,7 @@ function c12011017.activate(e,tp,eg,ep,ev,re,r,rp)
 		end
 		tc:CompleteProcedure()
 		Duel.BreakEffect()
-		local cs=mat1:GetCount()
+		local cs=e:GetLabel()
 		local sg=Duel.GetMatchingGroup(c12011017.thfilter,tp,LOCATION_DECK,0,nil)
 		if ( not tc:IsType(TYPE_EFFECT) ) and sg:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(12011017,3)) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
