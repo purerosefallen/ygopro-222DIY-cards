@@ -8,12 +8,12 @@ function c47530012.initial_effect(c)
     --todeck
     local e1=Effect.CreateEffect(c)
     e1:SetDescription(aux.Stringid(47530012,0))
-    e1:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOGRAVE+CATEGORY_TOKEN)
+    e1:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOKEN)
     e1:SetType(EFFECT_TYPE_QUICK_O)
     e1:SetRange(LOCATION_MZONE)
     e1:SetCode(EVENT_FREE_CHAIN)
     e1:SetCountLimit(1)
-    e1:SetCost(c47530012.cost)
+    e1:SetCost(c47530012.tkcost)
     e1:SetTarget(c47530012.tktg)
     e1:SetOperation(c47530012.tkop)
     c:RegisterEffect(e1)   
@@ -29,20 +29,17 @@ function c47530012.initial_effect(c)
     c:RegisterEffect(e2)
 end
 function c47530012.cfilter(c)
-    return c:IsType(TYPE_MONSTER) and c:IsAbleToDeckAsCost() and c:IsRace(RACE_MACHINE)
+    return c:IsAbleToDeckAsCost() and c:IsRace(RACE_MACHINE)
 end
-function c47530012.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+function c47530012.tkcost(e,tp,eg,ep,ev,re,r,rp,chk)
     if chk==0 then return Duel.IsExistingMatchingCard(c47530012.cfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil) end
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
     local g=Duel.SelectMatchingCard(tp,c47530012.cfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,nil)
-    if g:GetFirst():IsLocation(LOCATION_REMOVED) and g:GetFirst():IsFacedown() then
-        Duel.ConfirmCards(1-tp,g)
-    end
     Duel.SendtoDeck(g,nil,2,REASON_COST)
 end
 function c47530012.tktg(e,tp,eg,ep,ev,re,r,rp,chk)
     if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-        and Duel.IsPlayerCanSpecialSummonMonster(tp,47531012,0,0x4011,0,0,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) end
+        and Duel.IsPlayerCanSpecialSummonMonster(tp,47531012,0,0x4011,0,0,1,RACE_MACHINE,ATTRIBUTE_LIGHT) end
     Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
     Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end

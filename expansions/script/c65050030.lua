@@ -65,8 +65,8 @@ function c65050030.tdcostfil(c)
 	return c:IsAbleToGraveAsCost() and c:IsType(TYPE_NORMAL) and c:IsType(TYPE_MONSTER) and c:IsFaceup()
 end
 function c65050030.tdcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c65050030.costfil,tp,LOCATION_EXTRA,0,1,nil) end
-	local g=Duel.SelectMatchingCard(tp,c65050030.costfil,tp,LOCATION_EXTRA,0,1,1,nil)
+	if chk==0 then return Duel.IsExistingMatchingCard(c65050030.tdcostfil,tp,LOCATION_EXTRA,0,1,nil) end
+	local g=Duel.SelectMatchingCard(tp,c65050030.tdcostfil,tp,LOCATION_EXTRA,0,1,1,nil)
 	Duel.SendtoGrave(g,REASON_COST)
 end
 function c65050030.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
