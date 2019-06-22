@@ -17,6 +17,7 @@ function c47530027.initial_effect(c)
     e2:SetType(EFFECT_TYPE_QUICK_O)
     e2:SetRange(LOCATION_PZONE)
     e2:SetCode(EVENT_FREE_CHAIN)
+    e2:SetCountLimit(1)
     e2:SetHintTiming(0,TIMINGS_CHECK_MONSTER+TIMING_MAIN_END)
     e2:SetTarget(c47530027.sumtg)
     e2:SetOperation(c47530027.sumop)
@@ -124,30 +125,23 @@ function c47530027.psplimit(e,c)
     return not c:IsRace(RACE_MACHINE)
 end
 function c47530027.setfilter(c)
-    return c47530027.IsZEON(c) and c:IsType(TYPE_TRAP) and c:IsType(TYPE_COUNTER)
+    return c47530027.IsZEON(c) and c:IsType(TYPE_TRAP) and c:IsType(TYPE_COUNTER) and c:IsSSetable()
 end
 function c47530027.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
     local c=e:GetHandler()
-    if chk==0 then return c:IsSummonable(true,nil,1) or c:IsMSetable(true,nil,1) end
+    if chk==0 then return c:IsSummonable(true,nil,1) and Duel.IsExistingMatchingCard(c47530027.setfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end
     Duel.SetOperationInfo(0,CATEGORY_SUMMON,c,1,0,0)
 end
 function c47530027.sumop(e,tp,eg,ep,ev,re,r,rp)
     local c=e:GetHandler()
     if not c:IsRelateToEffect(e) then return end
-    local pos=0
-    if c:IsSummonable(true,nil,1) then pos=pos+POS_FACEUP_ATTACK end
-    if c:IsMSetable(true,nil,1) then pos=pos+POS_FACEDOWN_DEFENSE end
-    if pos==0 then return end
-    if Duel.SelectPosition(tp,c,pos)==POS_FACEUP_ATTACK then
-        Duel.Summon(tp,c,true,nil,1)
-    else
-        Duel.MSet(tp,c,true,nil,1)
-    end
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
-    local g=Duel.SelectMatchingCard(tp,c47530027.setfilter,tp,LOCATION_DECK,0,1,1,nil,false)
-    if g:GetCount()>0 then
-       Duel.SSet(tp,g:GetFirst())
-       Duel.ConfirmCards(1-tp,g)
+    if Duel.Summon(tp,c,true,nil,1)~=0 then
+        Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
+        local g=Duel.SelectMatchingCard(tp,c47530027.setfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil,false)
+        if g:GetCount()>0 then
+            Duel.SSet(tp,g:GetFirst())
+            Duel.ConfirmCards(1-tp,g)
+        end
     end
 end
 function c47530027.otfilter(c)
