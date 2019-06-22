@@ -1,7 +1,7 @@
 --物语纪录·羽川翼
 function c9980177.initial_effect(c)
 	--pendulum summon
-	aux.EnablePendulumAttribute(c,false)
+	aux.EnablePendulumAttribute(c)
 	--to hand
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(9980177,7))
