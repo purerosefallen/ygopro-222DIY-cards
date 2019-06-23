@@ -49,7 +49,7 @@ function c65050029.tgfil(c)
 	return c:IsSetCard(0xada4) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
 end
 function c65050029.tg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c65050029.tgfil,tp,LOCATION_DECK,0,1,nil) and (Duel.CheckLocation(tp,LOCATION_PZONE,0) or Duel.CheckLocation(tp,LOCATION_PZONE,1)) and Duel.GetLocationCount(tp,LOCATION_SZONE)>1 end
+	if chk==0 then return Duel.IsExistingMatchingCard(c65050029.tgfil,tp,LOCATION_DECK,0,1,nil) and (Duel.CheckLocation(tp,LOCATION_PZONE,0) or Duel.CheckLocation(tp,LOCATION_PZONE,1)) and ((Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and e:GetHandler():IsLocation(LOCATION_SZONE)) or (e:GetHandler():IsLocation(LOCATION_HAND) and Duel.GetLocationCount(tp,LOCATION_SZONE)>1)) end
 end
 function c65050029.spfil(c,e,tp)
 	return c:IsType(TYPE_NORMAL) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
