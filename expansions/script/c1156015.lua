@@ -123,7 +123,7 @@ end
 --
 function c1156015.con2(e,tp,eg,ep,ev,re,r,rp)
 	return ep==1-tp and re:IsActiveType(TYPE_SPELL) and re:IsHasType(EFFECT_TYPE_ACTIVATE)
-		and not bit.band(re:GetHandler():GetOriginalType(),TYPE_PENDULUM)~=0
+		and not (bit.band(re:GetHandler():GetOriginalType(),TYPE_MONSTER)~=0)
 end
 --
 function c1156015.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
