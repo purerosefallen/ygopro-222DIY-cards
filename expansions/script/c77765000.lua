@@ -22,21 +22,25 @@ local function KaguyaTransformTarget(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,e:GetHandler(),1,0,0)
 end
 
-local function KaguyaTransformOperation(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	if not KaguyaTransformTarget(e,tp,eg,ep,ev,re,r,rp,0) or not c:IsRelateToEffect(e) or c:IsFacedown() or c:IsImmuneToEffect(e) then return end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local g=Duel.SelectMatchingCard(tp,KaguyaFilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil,e,tp)
-	local tc=g:GetFirst()
-	local p=tc:GetControler()
-	if p~=tp then
-		Duel.MoveToField(tc,p,p,LOCATION_SZONE,POS_FACEUP,true)
+local function KaguyaTransformOperation(extra_opreation)
+	return function (e,tp,eg,ep,ev,re,r,rp)
+		local c=e:GetHandler()
+		if not KaguyaTransformTarget(e,tp,eg,ep,ev,re,r,rp,0) or not c:IsRelateToEffect(e) or c:IsFacedown() or c:IsImmuneToEffect(e) then return end
+		if extra_opreation and not extra_opreation(e,tp,eg,ep,ev,re,r,rp) then return end
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
+		local g=Duel.SelectMatchingCard(tp,KaguyaFilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil,e,tp)
+		local tc=g:GetFirst()
+		local p=tc:GetControler()
+		if p~=tp then
+			Duel.MoveToField(c,p,p,LOCATION_SZONE,POS_FACEUP,true)
+		end
+		Senya.TransformDFCCard(c)
+		Duel.Equip(p,e:GetHandler(),tc)
+		Duel.RaiseEvent(c,EVENT_CUSTOM+77765000,re,r,rp,ep,ev)
 	end
-	Senya.TransformDFCCard(c)
-	Duel.Equip(p,e:GetHandler(),tc)
 end
 
-function Kaguya.ContinuousCommonEffect(c,effect_code,effect_codition,effect_cost,reserve)
+function Kaguya.ContinuousCommonEffect(c,effect_code,effect_codition,effect_cost,reserve,extra_opreation)
 	effect_codition=effect_codition or aux.TRUE
 	effect_cost=effect_cost or aux.TRUE
 	local cd=c:GetOriginalCode()
@@ -51,7 +55,7 @@ function Kaguya.ContinuousCommonEffect(c,effect_code,effect_codition,effect_cost
 	ex:SetProperty(0x14000)
 	ex:SetCondition(effect_codition)
 	ex:SetTarget(KaguyaTransformTarget)
-	ex:SetOperation(KaguyaTransformOperation)
+	ex:SetOperation(KaguyaTransformOperation(extra_opreation))
 	if not reserve then
 		c:RegisterEffect(ex)
 	end

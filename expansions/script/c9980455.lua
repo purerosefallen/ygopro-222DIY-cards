@@ -81,18 +81,18 @@ function c9980455.matfilter1(c)
 	return (c:IsFusionAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR)) or c:IsRace(RACE_FAIRY)
 end
 function c9980455.matfilter2(c)
-	return c:IsFusionSetCard(0x2bca)
+	return c:IsFusionSetCard(0x9bca)
 end
 function c9980455.spfilter(c,fc)
-	return (c:IsFusionSetCard(0x2bca) or ((c:IsFusionAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR)) or c:IsRace(RACE_FAIRY)))
+	return (c:IsFusionSetCard(0x9bca) or ((c:IsFusionAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR)) or c:IsRace(RACE_FAIRY)))
 		and c:IsCanBeFusionMaterial(fc) 
 end
 function c9980455.spfilter1(c,tp,g)
 	return g:IsExists(c9980455.spfilter2,1,c,tp,c)
 end
 function c9980455.spfilter2(c,tp,mc)
-	return (c:IsFusionSetCard(0x2bca) and ((mc:IsFusionAttribute(ATTRIBUTE_DARK) and mc:IsRace(RACE_WARRIOR)) or mc:IsRace(RACE_FAIRY)))
-		or (((c:IsFusionAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR)) or c:IsRace(RACE_FAIRY)) and mc:IsFusionSetCard(0x2bca))
+	return (c:IsFusionSetCard(0x9bca) and ((mc:IsFusionAttribute(ATTRIBUTE_DARK) and mc:IsRace(RACE_WARRIOR)) or mc:IsRace(RACE_FAIRY)))
+		or (((c:IsFusionAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR)) or c:IsRace(RACE_FAIRY)) and mc:IsFusionSetCard(0x9bca))
 		and Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c,mc))>0
 end
 function c9980455.sprcon(e,c)
@@ -116,7 +116,7 @@ function c9980455.sprop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.Release(g1,REASON_COST+REASON_FUSION+REASON_MATERIAL)
 end
 function c9980455.val(e,c)
-	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,LOCATION_MZONE,e:GetHandler())*555
+	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,LOCATION_MZONE,e:GetHandler())*300
 end
 function c9980455.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
@@ -130,7 +130,7 @@ function c9980455.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoDeck(c,nil,0,REASON_COST)
 end
 function c9980455.spfilter0(c,e,tp)
-	return c:IsSetCard(0x2bca) and c:IsType(TYPE_LINK) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
+	return c:IsSetCard(0x9bca) and c:IsType(TYPE_LINK) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function c9980455.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_EXTRA) and chkc:IsControler(tp) and c9980455.spfilter0(chkc,e,tp) end

@@ -9,7 +9,7 @@ function c81040009.initial_effect(c)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCountLimit(1,81040009)
-	e1:SetCost(c81040009.cpcost)
+	e1:SetCost(c81040009.cost)
 	e1:SetTarget(c81040009.cptg)
 	e1:SetOperation(c81040009.cpop)
 	c:RegisterEffect(e1)
@@ -24,6 +24,10 @@ function c81040009.initial_effect(c)
 	e2:SetTarget(c81040009.drtg)
 	e2:SetOperation(c81040009.drop)
 	c:RegisterEffect(e2)
+	Duel.AddCustomActivityCounter(81040009,ACTIVITY_SPSUMMON,c81040009.counterfilter)
+end
+function c81040009.counterfilter(c)
+	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_MONSTER)
 end
 function c81040009.drcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_GRAVE)
@@ -40,14 +44,19 @@ function c81040009.drop(e,tp,eg,ep,ev,re,r,rp,chk)
 		Duel.DiscardHand(tp,aux.TRUE,1,1,REASON_EFFECT+REASON_DISCARD)
 	end
 end
-function c81040009.cfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsType(TYPE_RITUAL) and c:IsAbleToRemoveAsCost()
+function c81040009.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetCustomActivityCount(81040009,tp,ACTIVITY_SPSUMMON)==0 end
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	e1:SetTargetRange(1,0)
+	e1:SetTarget(c81040009.splimit)
+	Duel.RegisterEffect(e1,tp)
 end
-function c81040009.cpcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c81040009.cfilter,tp,LOCATION_GRAVE,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,c81040009.cfilter,tp,LOCATION_GRAVE,0,1,1,nil)
-	Duel.Remove(g,POS_FACEUP,REASON_COST)
+function c81040009.splimit(e,c)
+	return c:GetType()&0x81~=0x81
 end
 function c81040009.cpfilter(c)
 	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_SPELL) and c:IsAbleToDeck() and c:CheckActivateEffect(false,true,false)~=nil
@@ -69,7 +78,6 @@ function c81040009.cptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	te:SetLabelObject(e:GetLabelObject())
 	e:SetLabelObject(te)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,nil,0,0,0)
 end
 function c81040009.cpop(e,tp,eg,ep,ev,re,r,rp)
 	local te=e:GetLabelObject()
@@ -80,4 +88,5 @@ function c81040009.cpop(e,tp,eg,ep,ev,re,r,rp)
 	if op then op(e,tp,eg,ep,ev,re,r,rp) end
 	Duel.BreakEffect()
 	Duel.SendtoDeck(te:GetHandler(),nil,2,REASON_EFFECT)
+
 end

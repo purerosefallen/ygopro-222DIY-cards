@@ -42,7 +42,7 @@ function c9980264.actcon(e)
 	return not Duel.IsExistingMatchingCard(Card.IsType,e:GetHandlerPlayer(),LOCATION_GRAVE,0,1,nil,TYPE_TRAP)
 end
 function c9980264.filter(c)
-	return c:IsSetCard(0x1bcc) and c:IsLevelBelow(4) and c:IsAbleToHand()
+	return c:IsSetCard(0x3bcc) and c:IsLevelBelow(4) and c:IsAbleToHand()
 end
 function c9980264.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980264.filter(chkc) end
@@ -62,13 +62,13 @@ function c9980264.spcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c9980264.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsStatus(STATUS_CHAINING) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,9980264,0x1bcc,0x21,1900,1000,3,RACE_ZOMBIE,ATTRIBUTE_DARK) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,9980264,0x3bcc,0x21,1900,1000,3,RACE_ZOMBIE,ATTRIBUTE_DARK) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
 function c9980264.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and Duel.IsPlayerCanSpecialSummonMonster(tp,9980264,0x1bcc,0x21,1900,1000,3,RACE_ZOMBIE,ATTRIBUTE_DARK) then
+	if c:IsRelateToEffect(e) and Duel.IsPlayerCanSpecialSummonMonster(tp,9980264,0x3bcc,0x21,1900,1000,3,RACE_ZOMBIE,ATTRIBUTE_DARK) then
 		c:AddMonsterAttribute(TYPE_EFFECT)
 		Duel.SpecialSummonStep(c,1,tp,tp,true,false,POS_FACEUP)
 		--redirect
@@ -93,7 +93,7 @@ function c9980264.atkcon(e)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+1
 end
 function c9980264.atkfilter(c)
-	return c:IsSetCard(0x1bcc) 
+	return c:IsSetCard(0x3bcc) 
 end
 function c9980264.atkval(e,c)
 	return Duel.GetMatchingGroupCount(c9980264.atkfilter,c:GetControler(),LOCATION_GRAVE,0,nil)*300

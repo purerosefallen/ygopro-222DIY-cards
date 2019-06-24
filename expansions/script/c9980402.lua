@@ -65,7 +65,7 @@ function c9980402.desop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(e:GetLabelObject(),REASON_EFFECT)
 end
 function c9980402.eqfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1bca)
+	return c:IsFaceup() and c:IsSetCard(0xbca)
 end
 function c9980402.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c9980402.eqfilter(chkc) end

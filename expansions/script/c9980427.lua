@@ -1,7 +1,7 @@
 --AgitΩ·燃烧形态
 function c9980427.initial_effect(c)
 	--xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x1bcb),8,3)
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x5bca),8,3)
 	c:EnableReviveLimit()
 	--destroy
 	local e1=Effect.CreateEffect(c)
@@ -87,13 +87,13 @@ function c9980427.negop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980427.cfilter(c)
-	return c:IsSetCard(0x1bcb) and c:GetCode()~=9980427
+	return c:IsSetCard(0x5bca) and c:GetCode()~=9980427
 end
 function c9980427.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980427.cfilter,tp,LOCATION_GRAVE,0,1,nil)
 end
 function c9980427.filter(c)
-	return c:IsSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+	return c:IsSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
 end
 function c9980427.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980427.filter,tp,LOCATION_DECK,0,1,nil) end

@@ -80,8 +80,8 @@ function c9980236.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
 function c9980236.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckReleaseGroup(tp,Card.IsSetCard,1,nil,0x1bc4) end
-	local g=Duel.SelectReleaseGroup(tp,Card.IsSetCard,1,1,nil,0x1bc4)
+	if chk==0 then return Duel.CheckReleaseGroup(tp,Card.IsSetCard,1,nil,0x5bc4) end
+	local g=Duel.SelectReleaseGroup(tp,Card.IsSetCard,1,1,nil,0x5bc4)
 	Duel.Release(g,REASON_COST)
 end
 function c9980236.operation(e,tp,eg,ep,ev,re,r,rp)
@@ -90,7 +90,7 @@ function c9980236.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980236.pcfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
+	return c:IsSetCard(0x5bc4) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
 end
 function c9980236.pctg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return (Duel.CheckLocation(tp,LOCATION_PZONE,0) or Duel.CheckLocation(tp,LOCATION_PZONE,1))

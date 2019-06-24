@@ -20,7 +20,7 @@ function c9980177.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_CHAINING)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1)
+	e2:SetCountLimit(1,99801771)
 	e2:SetCondition(c9980177.thcon2)
 	e2:SetTarget(c9980177.thtg2)
 	e2:SetOperation(c9980177.thop2)
@@ -54,6 +54,7 @@ function c9980177.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e4:SetCode(EVENT_LEAVE_FIELD)
+	e4:SetCountLimit(1,99801770)
 	e4:SetCondition(c9980177.descon)
 	e4:SetTarget(c9980177.destg)
 	e4:SetOperation(c9980177.desop)
@@ -77,7 +78,7 @@ function c9980177.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function c9980177.thfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x1bc4) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x5bc4) and c:IsAbleToHand()
 end
 function c9980177.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980177.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -96,7 +97,7 @@ function c9980177.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_ADVANCE) 
 end
 function c9980177.thfilter2(c,tp)
-	return c:IsSetCard(0x1bc4) and c:IsType(TYPE_SPELL+TYPE_TRAP)
+	return c:IsSetCard(0x5bc4) and c:IsType(TYPE_SPELL+TYPE_TRAP)
 		and (c:IsAbleToHand() or c:GetActivateEffect():IsActivatable(tp))
 end
 function c9980177.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -131,7 +132,7 @@ function c9980177.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return (ph==PHASE_MAIN1 or ph==PHASE_MAIN2)
 end
 function c9980177.sumfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0x5bc4) and c:IsSummonable(true,nil,1)
 end
 function c9980177.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980177.sumfilter,tp,LOCATION_HAND,0,1,nil) end

@@ -2,7 +2,7 @@
 function c21520175.initial_effect(c)
 	c:EnableReviveLimit()
 	--fusion material
-	aux.AddFusionProcMixRep(c,false,false,aux.FilterBoolFunction(Card.IsFusionSetCard,0x490),3,100)
+	aux.AddFusionProcMixRep(c,false,false,c21520175.sefilter,3,100)
 --[[	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -59,12 +59,12 @@ function c21520175.initial_effect(c)
 	--draw
 	local e7=Effect.CreateEffect(c)
 	e7:SetDescription(aux.Stringid(21520175,3))
-	e7:SetCategory(CATEGORY_DRAW)
+	e7:SetCategory(CATEGORY_DAMAGE+CATEGORY_DRAW)
 	e7:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e7:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
 	e7:SetCode(EVENT_TO_GRAVE)
 	e7:SetCondition(c21520175.drcon)
-	e7:SetCost(c21520175.drcost)
+--	e7:SetCost(c21520175.drcost)
 	e7:SetTarget(c21520175.drtg)
 	e7:SetOperation(c21520175.drop)
 	c:RegisterEffect(e7)
@@ -114,15 +114,6 @@ function c21520175.ccost(e,tp)
 		Duel.Destroy(e:GetHandler(),REASON_RULE)
 	end
 end
-function c21520175.fscondition(e,g,gc,chkf)
-	if g==nil then return true end
-	if gc then return false end
-	return g:IsExists(c21520175.sefilter,3,nil)
-end
-function c21520175.fsoperation(e,tp,eg,ep,ev,re,r,rp,gc)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
-	Duel.SetFusionMaterial(eg:FilterSelect(tp,c21520175.sefilter,3,100,nil))
-end
 function c21520175.matcheck(e,c)
 --	local g=c:GetMaterial()
 --	e:SetLabel(g:GetClassCount(Card.GetOriginalCode))
@@ -155,7 +146,7 @@ function c21520175.regop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c21520175.drcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsReason(REASON_BATTLE) and c:IsReason(REASON_DESTROY)
+	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsReason(REASON_DESTROY) --and c:IsReason(REASON_BATTLE)
 end
 function c21520175.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then 
@@ -179,22 +170,63 @@ function c21520175.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e3:SetCode(EFFECT_CANNOT_MSET)
 	Duel.RegisterEffect(e3,tp)
 end
+function c21520175.drfilter(c)
+	return c:IsSetCard(0x490) and c:IsFaceup()
+end
+function c21520175.fcfilter(c)
+	return c:IsCode(21520181) and c:IsFaceup()
+end
 function c21520175.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	local g=Duel.GetFieldGroup(tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE)
-	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,g:GetCount(),0,0)
-	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,0,5)
+	local gc=Duel.GetMatchingGroupCount(c21520175.drfilter,tp,LOCATION_ONFIELD+LOCATION_GRAVE,0,nil)
+	local h=Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
+	local fchk=Duel.IsExistingMatchingCard(c21520175.fcfilter,tp,LOCATION_ONFIELD,0,1,nil)
+	local d=gc*300
+	local ops=Duel.SelectOption(tp,aux.Stringid(21520175,3),aux.Stringid(21520175,4))
+	e:SetLabel(ops)
+	if ops==0 then
+		Duel.Hint(HINT_OPSELECTED,1-tp,aux.Stringid(21520175,3))
+		if fchk then d=d*2 end
+		Duel.SetTargetPlayer(1-tp)
+		Duel.SetTargetParam(d)
+		Duel.SetOperationInfo(0,CATEGORY_DAMAGE,0,0,1-tp,gc*300)
+	elseif ops==1 then
+		Duel.Hint(HINT_OPSELECTED,1-tp,aux.Stringid(21520175,4))
+		Duel.SetTargetPlayer(tp)
+		Duel.SetTargetParam(2-h)
+		Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,2-h)
+	end
 end
 function c21520175.drop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local g=Duel.GetFieldGroup(tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE)
-	Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
-	Duel.ShuffleDeck(tp)
-	Duel.ShuffleDeck(1-tp)
-	Duel.BreakEffect()
-	Duel.Draw(tp,5,REASON_EFFECT)
-	Duel.Draw(1-tp,5,REASON_EFFECT)
+	local ops=e:GetLabel()
+	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
+	local fchk=Duel.IsExistingMatchingCard(c21520175.fcfilter,p,LOCATION_ONFIELD,0,1,nil)
+	if ops==0 then 
+		local gc=Duel.GetMatchingGroupCount(c21520175.drfilter,tp,LOCATION_ONFIELD+LOCATION_GRAVE,0,nil)*300
+		if fchk then gc=gc*2 end
+		Duel.Damage(p,gc,REASON_EFFECT)
+	elseif ops==1 then 
+		local hc=Duel.GetFieldGroupCount(p,LOCATION_HAND,0)
+		if hc>=3 then return end
+		Duel.Draw(p,3-hc,REASON_EFFECT)
+		local hg=Duel.GetFieldGroup(1-p,LOCATION_HAND,0)
+		if hg:GetCount()>0 and not fchk and Duel.SelectYesNo(1-p,aux.Stringid(21520175,5)) then 
+			Duel.Hint(HINT_CARD,p,21520175)
+			Duel.SendtoGrave(hg,REASON_EFFECT+REASON_DISCARD)
+			Duel.Draw(1-p,3-hg:GetCount(),REASON_EFFECT)
+		end
+	end
 end
 function c21520175.sefilter(c)
 	return c:IsFusionSetCard(0x490) and c:IsType(TYPE_MONSTER)
+end
+function c21520175.fscondition(e,g,gc,chkf)
+	if g==nil then return true end
+	if gc then return false end
+	return g:IsExists(c21520175.sefilter,3,nil)
+end
+function c21520175.fsoperation(e,tp,eg,ep,ev,re,r,rp,gc)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
+	Duel.SetFusionMaterial(eg:FilterSelect(tp,c21520175.sefilter,3,100,nil))
 end

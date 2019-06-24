@@ -38,7 +38,7 @@ function cm.rmcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function cm.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local c1,c2,c3=Duel.TossCoin(tp,3)
-	if c1+c2+c3==3 or c1+c2+c3==0 then
+	if c1+c2+c3==1 or c1+c2+c3==2 then
 		local g=Duel.GetDecktopGroup(1-tp,1)
 		if g:GetCount()>0 then
 			Duel.Remove(g,POS_FACEDOWN,REASON_EFFECT)

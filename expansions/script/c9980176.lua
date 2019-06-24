@@ -25,7 +25,7 @@ function c9980176.initial_effect(c)
 	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e3:SetCode(EVENT_CHAINING)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCountLimit(1,99801760)
+	e3:SetCountLimit(1,9980176)
 	e3:SetCondition(c9980176.negcon)
 	e3:SetCost(c9980176.negcost)
 	e3:SetTarget(c9980176.negtg)
@@ -67,6 +67,7 @@ function c9980176.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e4:SetCode(EVENT_LEAVE_FIELD)
+	e4:SetCountLimit(1,99801760)
 	e4:SetCondition(c9980176.descon)
 	e4:SetTarget(c9980176.destg)
 	e4:SetOperation(c9980176.desop)
@@ -89,7 +90,7 @@ function c9980176.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.RegisterFlagEffect(tp,9980176,RESET_CHAIN,0,1)
 end
 function c9980176.tgfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1bc4)
+	return c:IsFaceup() and c:IsSetCard(0x5bc4)
 end
 function c9980176.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
@@ -140,7 +141,7 @@ function c9980176.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)
 end
 function c9980176.costfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1bc4) and c:IsType(TYPE_MONSTER) and (c:IsControler(tp) or c:IsFaceup())
+	return c:IsFaceup() and c:IsSetCard(0x5bc4) and c:IsType(TYPE_MONSTER) and (c:IsControler(tp) or c:IsFaceup())
 end
 function c9980176.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroup(tp,c9980176.costfilter,1,nil) end
@@ -176,7 +177,7 @@ function c9980176.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return (ph==PHASE_MAIN1 or ph==PHASE_MAIN2)
 end
 function c9980176.sumfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0x5bc4) and c:IsSummonable(true,nil,1)
 end
 function c9980176.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980176.sumfilter,tp,LOCATION_HAND,0,1,nil) end

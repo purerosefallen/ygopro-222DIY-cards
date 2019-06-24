@@ -11,7 +11,7 @@ function c9980237.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_LEVEL)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_HAND,LOCATION_HAND)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x1bc4))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x5bc4))
 	e2:SetValue(-1)
 	c:RegisterEffect(e2)
 	--atkup
@@ -54,7 +54,7 @@ function c9980237.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return ph==PHASE_MAIN1 or (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE) or ph==PHASE_MAIN2
 end
 function c9980237.thfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1bc4) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
+	return c:IsFaceup() and c:IsSetCard(0x5bc4) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
 end
 function c9980237.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_EXTRA) and chkc:IsControler(tp) and c9980237.thfilter(chkc) end
@@ -64,7 +64,7 @@ function c9980237.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
 function c9980237.sumfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsType(TYPE_PENDULUM) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0x5bc4) and c:IsType(TYPE_PENDULUM) and c:IsSummonable(true,nil,1)
 end
 function c9980237.thop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
@@ -83,14 +83,14 @@ function c9980237.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980237,1))
 end
 function c9980237.spcfilter(c,tp,rp)
-	return c:IsPreviousPosition(POS_FACEUP) and c:GetPreviousControler()==tp and c:IsPreviousSetCard(0x1bc4)
+	return c:IsPreviousPosition(POS_FACEUP) and c:GetPreviousControler()==tp and c:IsPreviousSetCard(0x5bc4)
 		and (c:IsReason(REASON_BATTLE) or (rp==1-tp and c:IsReason(REASON_EFFECT)))
 end
 function c9980237.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c9980237.spcfilter,1,nil,tp,rp)
 end
 function c9980237.filter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x1bc4) and c:IsType(TYPE_MONSTER) and (c:IsLocation(LOCATION_GRAVE) or (c:IsLocation(LOCATION_EXTRA)and Duel.GetLocationCountFromEx(tp,tp,c)>0))
+	return c:IsFaceup() and c:IsSetCard(0x5bc4) and c:IsType(TYPE_MONSTER) and (c:IsLocation(LOCATION_GRAVE) or (c:IsLocation(LOCATION_EXTRA)and Duel.GetLocationCountFromEx(tp,tp,c)>0))
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980237.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

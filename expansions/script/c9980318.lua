@@ -40,7 +40,7 @@ function c9980318.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c9980318.spfilter(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x2bcc) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x6bcc) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980318.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -75,7 +75,7 @@ function c9980318.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980318.thfilter(c)
-	return c:IsSetCard(0x2bcc) and c:IsAbleToHand()
+	return c:IsSetCard(0x6bcc) and c:IsAbleToHand()
 end
 function c9980318.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980318.thfilter,tp,LOCATION_DECK,0,1,nil) end

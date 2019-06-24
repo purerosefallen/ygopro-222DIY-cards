@@ -73,7 +73,7 @@ function c9980428.efilter(e,te)
 	return te:IsActiveType(TYPE_MONSTER) and te:GetOwner()~=e:GetOwner()
 end
 function c9980428.atkfilter(c)
-	return c:IsSetCard(0x1bcb) and c:GetAttack()>=0
+	return c:IsSetCard(0x5bca) and c:GetAttack()>=0
 end
 function c9980428.atkval(e,c)
 	local g=e:GetHandler():GetOverlayGroup():Filter(c9980428.atkfilter,nil)
@@ -86,7 +86,7 @@ function c9980428.rdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,ev/2)
 end
 function c9980428.deffilter(c)
-	return c:IsSetCard(0x1bcb) and c:GetDefense()>=0
+	return c:IsSetCard(0x5bca) and c:GetDefense()>=0
 end
 function c9980428.defval(e,c)
 	local g=e:GetHandler():GetOverlayGroup():Filter(c9980428.deffilter,nil)

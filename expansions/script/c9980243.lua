@@ -30,10 +30,10 @@ function c9980243.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c9980243.handcon(e)
-	return Duel.IsExistingMatchingCard(Card.IsSetCard,e:GetHandlerPlayer(),LOCATION_PZONE,0,2,nil,0x1bc4)
+	return Duel.IsExistingMatchingCard(Card.IsSetCard,e:GetHandlerPlayer(),LOCATION_PZONE,0,2,nil,0xbc4)
 end
 function c9980243.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1bc4) and c:IsAbleToRemoveAsCost()
+	return c:IsFaceup() and c:IsSetCard(0xbc4) and c:IsAbleToRemoveAsCost()
 end
 function c9980243.condition(e,tp,eg,ep,ev,re,r,rp)
 	return (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)) and Duel.IsChainNegatable(ev)

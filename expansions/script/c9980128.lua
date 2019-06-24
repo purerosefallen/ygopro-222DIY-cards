@@ -115,7 +115,7 @@ function c9980128.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and ((eg and eg:GetFirst() == cet) or (re and re:GetHandler() == cet))
 end
 function c9980128.spfilter2(c,e,tp)
-	return c:IsSetCard(0x4bc8) or (c:IsType(TYPE_NORMAL) and c:IsRace(RACE_CYBERSE)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xbc8) or (c:IsType(TYPE_NORMAL) and c:IsRace(RACE_CYBERSE)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980128.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

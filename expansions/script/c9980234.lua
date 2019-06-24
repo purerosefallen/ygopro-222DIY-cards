@@ -3,7 +3,7 @@ function c9980234.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
 	aux.EnablePendulumAttribute(c,false)
-	aux.AddFusionProcFun2(c,c9980234.matfilter1,aux.FilterBoolFunction(Card.IsFusionSetCard,0x1bc4),true)
+	aux.AddFusionProcFun2(c,c9980234.matfilter1,aux.FilterBoolFunction(Card.IsFusionSetCard,0x5bc4),true)
 	--special summon rule
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
@@ -65,18 +65,18 @@ function c9980234.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980234,0))
 end
 function c9980234.matfilter1(c)
-	return c:IsFusionType(TYPE_LINK) and c:IsFusionSetCard(0x1bc4)
+	return c:IsFusionType(TYPE_LINK) and c:IsFusionSetCard(0x5bc4)
 end
 function c9980234.rfilter(c,fc)
-	return (c:IsFusionType(TYPE_LINK) and c:IsFusionSetCard(0x1bc4)) or c:IsFusionSetCard(0x1bc4)
+	return (c:IsFusionType(TYPE_LINK) and c:IsFusionSetCard(0x5bc4)) or c:IsFusionSetCard(0x5bc4)
 		and c:IsCanBeFusionMaterial(fc)
 end
 function c9980234.spfilter1(c,tp,g)
 	return g:IsExists(c9980234.spfilter2,1,c,tp,c)
 end
 function c9980234.spfilter2(c,tp,mc)
-	return (c:IsFusionType(TYPE_LINK) and c:IsFusionSetCard(0x1bc4)and mc:IsFusionSetCard(0x1bc4)
-		or c:IsFusionSetCard(0x1bc4) and mc:IsFusionType(TYPE_LINK) and mc:IsFusionSetCard(0x1bc4)) and Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c,mc))>0
+	return (c:IsFusionType(TYPE_LINK) and c:IsFusionSetCard(0x5bc4)and mc:IsFusionSetCard(0x5bc4)
+		or c:IsFusionSetCard(0x5bc4) and mc:IsFusionType(TYPE_LINK) and mc:IsFusionSetCard(0x5bc4)) and Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c,mc))>0
 end
 function c9980234.spcon(e,c)
 	if c==nil then return true end
@@ -98,7 +98,7 @@ end
 function c9980234.damval(e,re,val,r,rp,rc)
 	local tp=e:GetHandlerPlayer()
 	if Duel.GetFlagEffect(tp,9980234)~=0 or bit.band(r,REASON_BATTLE)==0
-		or not rc:IsSetCard(0x1bc4) or not rc:IsControler(tp) then return val end
+		or not rc:IsSetCard(0x5bc4) or not rc:IsControler(tp) then return val end
 	Duel.RegisterFlagEffect(tp,9980234,RESET_PHASE+PHASE_END,0,1)
 	return val*2
 end
@@ -124,7 +124,7 @@ function c9980234.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c9980234.damcon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
-	return ep~=tp and tc:IsSetCard(0x1bc4) and tc:GetBattleTarget()~=nil
+	return ep~=tp and tc:IsSetCard(0x5bc4) and tc:GetBattleTarget()~=nil
 end
 function c9980234.damop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -137,7 +137,7 @@ function c9980234.damop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetCode(EFFECT_DISABLE)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x1bc4))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x5bc4))
 	e1:SetCondition(c9980234.discon2)
 	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
 	tc:RegisterEffect(e1)
@@ -146,7 +146,7 @@ function c9980234.damop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetCode(EFFECT_DISABLE_EFFECT)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetTargetRange(LOCATION_MZONE,0)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x1bc4))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x5bc4))
 	e2:SetCondition(c9980234.discon2)
 	e2:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_BATTLE)
 	tc:RegisterEffect(e2)

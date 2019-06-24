@@ -34,7 +34,7 @@ function c9980486.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980486,0))
 end
 function c9980486.cfilter(c,ft,tp)
-	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca)) 
+	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca)) 
 		and (ft>0 or (c:IsControler(tp) and c:GetSequence()<5)) and (c:IsControler(tp) or c:IsFaceup())
 		and Duel.IsExistingMatchingCard(c9980486.filter,tp,LOCATION_ONFIELD+LOCATION_DECK,0,1,c)
 end
@@ -45,7 +45,7 @@ function c9980486.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function c9980486.filter(c)
-	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca)) and c:IsAbleToGrave()
+	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca)) and c:IsAbleToGrave()
 		and (c:IsLocation(LOCATION_DECK) or c:IsFaceup())
 end
 function c9980486.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

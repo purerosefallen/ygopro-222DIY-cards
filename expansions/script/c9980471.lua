@@ -1,7 +1,7 @@
 --Board·Wild Chalice
 function c9980471.initial_effect(c)
 	--synchro summon
-	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x4bca),aux.NonTuner(nil),1)
+	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xabca),aux.NonTuner(nil),1)
 	c:EnableReviveLimit()
 	 --destroy
 	local e3=Effect.CreateEffect(c)
@@ -38,7 +38,7 @@ function c9980471.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980471,0))
 end
 function c9980471.desfilter(c)
-	return (c:IsFacedown() or not c:IsSetCard(0x4bca)) and c:IsType(TYPE_SPELL+TYPE_TRAP)
+	return (c:IsFacedown() or not c:IsSetCard(0xabca)) and c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
 function c9980471.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980471.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end

@@ -53,7 +53,7 @@ function c9980482.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsPublic() end
 end
 function c9980482.atkfilter(c)
-	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca)) 
+	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca)) 
 end
 function c9980482.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c9980482.atkfilter(chkc) end
@@ -95,7 +95,7 @@ function c9980482.condition(e,tp,eg,ep,ev,re,r,rp)
 	return ex and tg~=nil and tc+tg:FilterCount(Card.IsOnField,nil)-tg:GetCount()>0
 end
 function c9980482.cfilter(c)
-	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca)) and c:IsAbleToRemoveAsCost()
+	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca)) and c:IsAbleToRemoveAsCost()
 end
 function c9980482.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980482.cfilter,tp,LOCATION_GRAVE,0,1,nil) end

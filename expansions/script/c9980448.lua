@@ -40,7 +40,7 @@ function c9980448.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980448,1))
 end
 function c9980448.matfilter(c)
-	return c:IsLevelBelow(2) and c:IsLinkSetCard(0x2bcb)
+	return c:IsLevelBelow(2) and c:IsLinkSetCard(0x6bca)
 end
 function c9980448.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=e:GetHandler():GetBattleTarget()
@@ -68,7 +68,7 @@ function c9980448.operation(e,tp,eg,ep,ev,re,r,rp)
 	local ac=Duel.AnnounceNumber(tp,table.unpack(t))
 	Duel.ConfirmDecktop(tp,ac)
 	local g=Duel.GetDecktopGroup(tp,ac)
-	local sg=g:Filter(Card.IsType,nil,0x3bcb)
+	local sg=g:Filter(Card.IsType,nil,0x3bcb,0x6bca)
 	Duel.DisableShuffleCheck()
 	if Duel.SendtoGrave(sg,REASON_EFFECT+REASON_REVEAL)~=0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)

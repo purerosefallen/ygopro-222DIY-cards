@@ -30,7 +30,7 @@ function c9980320.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980320.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcc)
+	return c:IsFaceup() and c:IsSetCard(0x6bcc)
 end
 function c9980320.tgfilter(c,e,tp)
 	return c:IsFaceup() and c:IsControler(tp) and (not e or c:IsRelateToEffect(e))
@@ -57,20 +57,20 @@ function c9980320.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980320.exfilter0(c)
-	return c:IsSetCard(0x2bcc) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave()
+	return c:IsSetCard(0x6bcc) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave()
 end
 function c9980320.exfilter1(c,e)
-	return c:IsSetCard(0x2bcc) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave() and not c:IsImmuneToEffect(e)
+	return c:IsSetCard(0x6bcc) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave() and not c:IsImmuneToEffect(e)
 end
 function c9980320.filter1(c,e)
-	return c:IsOnField() and c:IsSetCard(0x2bcc) and (not e or not c:IsImmuneToEffect(e))
+	return c:IsOnField() and c:IsSetCard(0x6bcc) and (not e or not c:IsImmuneToEffect(e))
 end
 function c9980320.filter2(c,e,tp,m,f,chkf)
 	return c:IsType(TYPE_FUSION) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
 function c9980320.filter3(c)
-	return c:IsCanBeFusionMaterial() and c:IsSetCard(0x2bcc)
+	return c:IsCanBeFusionMaterial() and c:IsSetCard(0x6bcc)
 end
 function c9980320.fcheck(tp,sg,fc)
 	return sg:FilterCount(Card.IsLocation,nil,LOCATION_EXTRA)<=2

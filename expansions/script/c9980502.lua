@@ -86,7 +86,7 @@ function c9980502.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980502.thcfilter(c,tp)
-	return c:IsSetCard(0x5bcc,0x6bcc) and not c:IsCode(9980502) and c:IsReleasable()
+	return c:IsSetCard(0x5bcc,0x9bcc) and not c:IsCode(9980502) and c:IsReleasable()
 end
 function c9980502.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980502.thcfilter,tp,LOCATION_MZONE+LOCATION_HAND,0,1,nil,tp) end

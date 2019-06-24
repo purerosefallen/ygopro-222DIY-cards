@@ -51,7 +51,7 @@ function c9980421.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsPublic() end
 end
 function c9980421.spfilter(c)
-	return c:IsSetCard(0x1bcb) and c:IsFaceup() and c:IsAbleToHand() and not c:IsCode(9980421)
+	return c:IsSetCard(0x5bca) and c:IsFaceup() and c:IsAbleToHand() and not c:IsCode(9980421)
 end
 function c9980421.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c9980421.spfilter(chkc) end
@@ -107,7 +107,7 @@ function c9980421.spcost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function c9980421.spfilter1(c,e,tp,ec)
-	return c:IsSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980421) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980421) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980421.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_HAND+LOCATION_REMOVED) and chkc:IsControler(tp) and c9980421.spfilter1(chkc,e,tp) end

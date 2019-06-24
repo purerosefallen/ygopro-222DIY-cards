@@ -3,7 +3,7 @@ function c9980446.initial_effect(c)
 	c:SetSPSummonOnce(9980446)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcFun2(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0x2bcb),c9980446.matfilter1,true)
+	aux.AddFusionProcFun2(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0x6bca),c9980446.matfilter1,true)
 	--spsummon condition
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
@@ -58,13 +58,13 @@ function c9980446.matfilter1(c)
 	return c:IsLevelBelow(2) and c:IsRace(RACE_WARRIOR)
 end
 function c9980446.cfilter(c)
-	return ((c:IsLevelBelow(2) and c:IsRace(RACE_WARRIOR)) or c:IsFusionSetCard(0x2bcb))and c:IsAbleToRemoveAsCost() and c:IsCanBeFusionMaterial()
+	return ((c:IsLevelBelow(2) and c:IsRace(RACE_WARRIOR)) or c:IsFusionSetCard(0x6bca))and c:IsAbleToRemoveAsCost() and c:IsCanBeFusionMaterial()
 end
 function c9980446.fcheck(c,sg)
 	return c:IsLevelBelow(2) and c:IsRace(RACE_WARRIOR) and sg:IsExists(c9980446.fcheck2,1,c)
 end
 function c9980446.fcheck2(c)
-	return c:IsFusionSetCard(0x2bcb) and c:IsType(TYPE_MONSTER)
+	return c:IsFusionSetCard(0x6bca) and c:IsType(TYPE_MONSTER)
 end
 function c9980446.fselect(c,tp,mg,sg,...)
 	sg:AddCard(c)

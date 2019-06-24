@@ -26,11 +26,11 @@ function c9980432.filter(c,e,tp)
 	return Duel.IsExistingMatchingCard(c9980432.chkfilter,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetControler(),c:GetOriginalCodeRule())
 end
 function c9980432.chkfilter(c,e,tp,cc,code)
-	return c:IsSetCard(0x1bcb) and c:GetOriginalCodeRule()~=code and
+	return c:IsSetCard(0x5bca) and c:GetOriginalCodeRule()~=code and
 		not c:IsHasEffect(EFFECT_REVIVE_LIMIT) and Duel.IsPlayerCanSpecialSummon(tp,0,POS_FACEUP,cc,c)
 end
 function c9980432.spfilter(c,e,tp,cc,code)
-	return c:IsSetCard(0x1bcb) and c:GetOriginalCodeRule()~=code and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP,cc)
+	return c:IsSetCard(0x5bca) and c:GetOriginalCodeRule()~=code and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP,cc)
 end
 function c9980432.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c9980432.filter(chkc,e,tp) end
@@ -62,7 +62,7 @@ function c9980432.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980432.thfilter(c)
-	return c:IsSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980432.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980432.thfilter,tp,LOCATION_DECK,0,1,nil) end

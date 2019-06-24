@@ -42,7 +42,7 @@ function c9980444.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980444.handfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcb)
+	return c:IsFaceup() and c:IsSetCard(0x6bca)
 end
 function c9980444.handcon(e)
 	return Duel.IsExistingMatchingCard(c9980444.handfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -62,7 +62,7 @@ function c9980444.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,1000)
 end
 function c9980444.geffilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcb)
+	return c:IsFaceup() and c:IsSetCard(0x6bca)
 end
 function c9980444.filter(c,tp)
 	return (Duel.IsExistingMatchingCard(c9980444.geffilter,tp,LOCATION_ONFIELD,0,1,nil)
@@ -94,10 +94,10 @@ function c9980444.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e2,tp)
 end
 function c9980444.tg(e,c)
-	return c:IsSetCard(0x2bcb)
+	return c:IsSetCard(0x6bca)
 end
 function c9980444.rccfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcb)
+	return c:IsFaceup() and c:IsSetCard(0x6bca)
 end
 function c9980444.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp

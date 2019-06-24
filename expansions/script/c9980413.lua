@@ -99,7 +99,7 @@ function c9980413.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(c,REASON_COST+REASON_DISCARD)
 end
 function c9980413.cfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsSetCard(0x1bca) and not c:IsCode(9980413)
+	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsSetCard(0xbca) and not c:IsCode(9980413)
 end
 function c9980413.descon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980413.cfilter,tp,LOCATION_ONFIELD+LOCATION_GRAVE,0,1,nil)

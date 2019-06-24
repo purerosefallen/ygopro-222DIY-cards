@@ -45,7 +45,7 @@ function c9980114.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c9980114.matfilter(c)
-	return c:IsLinkSetCard(0x1bc8) and c:IsLevelBelow(4)
+	return c:IsLinkSetCard(0x3bc8) and c:IsLevelBelow(4)
 end
 function c9980114.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)

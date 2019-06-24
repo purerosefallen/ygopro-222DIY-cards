@@ -1,7 +1,7 @@
 --Board·Blade King Form
 function c9980472.initial_effect(c)
 	--synchro summon
-	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x4bca),aux.NonTuner(nil),2)
+	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0xabca),aux.NonTuner(nil),2)
 	c:EnableReviveLimit()
 	--salvage
 	local e1=Effect.CreateEffect(c)
@@ -53,7 +53,7 @@ function c9980472.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
 function c9980472.thfilter(c)
-	return (c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb)) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return (c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb)) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980472.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c9980472.thfilter(chkc) end
@@ -90,7 +90,7 @@ function c9980472.disop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980472.spfilter(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and (c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) 
+	return c:IsType(TYPE_MONSTER) and (c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) 
 end
 function c9980472.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980472.spfilter(chkc,e,tp) end

@@ -40,10 +40,10 @@ function c9980322.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980322.lcheck(g,lc)
-	return g:IsExists(Card.IsLinkSetCard,1,nil,0x2bcc)
+	return g:IsExists(Card.IsLinkSetCard,1,nil,0x6bcc)
 end
 function c9980322.lkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcc)
+	return c:IsFaceup() and c:IsSetCard(0x6bcc)
 end
 function c9980322.indcon(e)
 	return e:GetHandler():GetLinkedGroup():IsExists(c9980322.lkfilter,1,nil)
@@ -70,9 +70,9 @@ function c9980322.atkop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c9980322.setcfilter(c,tp,ec)
 	if c:IsLocation(LOCATION_MZONE) then
-		return c:IsSetCard(0x2bcc) and c:IsFaceup() and c:IsControler(tp) and ec:GetLinkedGroup():IsContains(c)
+		return c:IsSetCard(0x6bcc) and c:IsFaceup() and c:IsControler(tp) and ec:GetLinkedGroup():IsContains(c)
 	else
-		return c:IsPreviousSetCard(0x2bcc) and c:IsPreviousPosition(POS_FACEUP)
+		return c:IsPreviousSetCard(0x6bcc) and c:IsPreviousPosition(POS_FACEUP)
 			and c:GetPreviousControler()==tp and bit.extract(ec:GetLinkedZone(tp),c:GetPreviousSequence())~=0
 	end
 end
@@ -80,7 +80,7 @@ function c9980322.setcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c9980322.setcfilter,1,nil,tp,e:GetHandler())
 end
 function c9980322.setfilter(c)
-	return ((c:IsType(TYPE_SPELL) and c:IsSetCard(0x46)) or (c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0x2bcc))) and c:IsSSetable()
+	return ((c:IsType(TYPE_SPELL) and c:IsSetCard(0x46)) or (c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0x6bcc))) and c:IsSSetable()
 end
 function c9980322.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980322.setfilter(chkc) end

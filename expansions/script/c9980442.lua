@@ -32,7 +32,7 @@ function c9980442.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980442.filter0(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x2bcb) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x6bca) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave()
 end
 function c9980442.filter1(c,e)
 	return not c:IsImmuneToEffect(e)
@@ -145,7 +145,7 @@ function c9980442.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e2,tp)
 end
 function c9980442.tg(e,c)
-	return c:IsSetCard(0x2bcb)
+	return c:IsSetCard(0x6bca)
 end
 function c9980442.con(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -156,7 +156,7 @@ function c9980442.target(e,tp,eg,ep,ev,re,r,rp,chk)
 		and Duel.GetDecktopGroup(tp,3):FilterCount(Card.IsAbleToHand,nil)>0 end
 end
 function c9980442.filter(c)
-	return c:IsAbleToHand() and (c:IsSetCard(0x2bcb) or c:IsSetCard(0x3bcb))
+	return c:IsAbleToHand() and (c:IsSetCard(0x6bca) or c:IsSetCard(0x3bcb))
 end
 function c9980442.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -188,7 +188,7 @@ function c9980442.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980442.rccfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcb)
+	return c:IsFaceup() and c:IsSetCard(0x6bca)
 end
 function c9980442.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp

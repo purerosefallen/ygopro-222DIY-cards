@@ -88,7 +88,7 @@ function c9980505.matfilter(c)
 	return c:IsRace(RACE_ROCK) and c:IsType(TYPE_PENDULUM) 
 end
 function c9980505.spfilter(c)
-	return c:IsCode(9980503,9980504) and c:GetEquipGroup():IsExists(Card.IsCode,1,nil,9980508)
+	return c:IsSetCard(0xcbcc) and c:IsLevelBelow(8) and c:GetEquipGroup():IsExists(Card.IsCode,1,nil,9980508)
 end
 function c9980505.spcon(e,c)
 	if c==nil then return true end

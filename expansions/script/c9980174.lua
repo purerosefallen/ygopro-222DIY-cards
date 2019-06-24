@@ -55,10 +55,10 @@ function c9980174.lcheck(g,lc)
 	return g:IsExists(c9980174.mzfilter,1,nil)
 end
 function c9980174.mzfilter(c)
-	return c:IsSetCard(0x2bc4) 
+	return c:IsSetCard(0x3bc4) 
 end
 function c9980174.ctfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc4)
+	return c:IsFaceup() and c:IsSetCard(0xbc4)
 end
 function c9980174.ctop(e,tp,eg,ep,ev,re,r,rp)
 	if eg:IsExists(c9980174.ctfilter,1,nil) then

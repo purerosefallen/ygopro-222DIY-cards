@@ -32,7 +32,7 @@ function c9980116.initial_effect(c)
 	e1:SetCode(EFFECT_PIERCE)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x1bc8))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0xbc8))
 	c:RegisterEffect(e1)
 	--remove
 	local e4=Effect.CreateEffect(c)

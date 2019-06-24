@@ -65,7 +65,7 @@ function c9980426.splimit(e,se,sp,st)
 	return not e:GetHandler():IsLocation(LOCATION_EXTRA) or aux.fuslimit(e,se,sp,st)
 end
 function c9980426.ffilter(c,fc,sub,mg,sg)
-	return c:IsFusionSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and (not sg or not sg:IsExists(Card.IsFusionAttribute,1,c,c:GetFusionAttribute()))
+	return c:IsFusionSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and (not sg or not sg:IsExists(Card.IsFusionAttribute,1,c,c:GetFusionAttribute()))
 end
 function c9980426.sprcon(e,c)
 	if c==nil then return true end
@@ -73,16 +73,16 @@ function c9980426.sprcon(e,c)
 	return Duel.IsExistingMatchingCard(c9980426.sprfilter1,tp,LOCATION_MZONE+LOCATION_HAND,0,1,nil,tp,c)
 end
 function c9980426.sprfilter1(c,tp,fc)
-	return c:IsFusionSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost() and c:IsCanBeFusionMaterial(fc)
+	return c:IsFusionSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost() and c:IsCanBeFusionMaterial(fc)
 		and Duel.IsExistingMatchingCard(c9980426.sprfilter2,tp,LOCATION_MZONE+LOCATION_HAND,0,1,c,tp,fc,c)
 end
 function c9980426.sprfilter2(c,tp,fc,mc)
-	return c:IsFusionSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost() and c:IsCanBeFusionMaterial(fc) and not c:IsFusionAttribute(mc:GetFusionAttribute())
+	return c:IsFusionSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost() and c:IsCanBeFusionMaterial(fc) and not c:IsFusionAttribute(mc:GetFusionAttribute())
 		and Duel.IsExistingMatchingCard(c9980426.sprfilter3,tp,LOCATION_MZONE+LOCATION_HAND,0,1,c,tp,fc,mc,c)
 end
 function c9980426.sprfilter3(c,tp,fc,mc1,mc2)
 	local g=Group.FromCards(c,mc1,mc2)
-	return c:IsFusionSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost() and c:IsCanBeFusionMaterial(fc) and not c:IsFusionAttribute(mc1:GetFusionAttribute()) and not c:IsFusionAttribute(mc2:GetFusionAttribute())
+	return c:IsFusionSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost() and c:IsCanBeFusionMaterial(fc) and not c:IsFusionAttribute(mc1:GetFusionAttribute()) and not c:IsFusionAttribute(mc2:GetFusionAttribute())
 		and Duel.GetLocationCountFromEx(tp,tp,g)>0
 end
 function c9980426.sprop(e,tp,eg,ep,ev,re,r,rp,c)
@@ -97,7 +97,7 @@ function c9980426.sprop(e,tp,eg,ep,ev,re,r,rp,c)
 	Duel.SendtoGrave(g1,REASON_COST)
 end
 function c9980426.thfilter(c)
-	return c:IsSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980426.regop(e,tp,eg,ep,ev,re,r,rp)
 	local e1=Effect.CreateEffect(e:GetHandler())
@@ -126,7 +126,7 @@ function c9980426.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsPreviousLocation(LOCATION_ONFIELD)
 end
 function c9980426.spfilter0(c,e,tp)
-	return c:IsSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980426.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetFieldGroup(tp,LOCATION_ONFIELD,LOCATION_ONFIELD)

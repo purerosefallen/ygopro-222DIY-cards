@@ -51,13 +51,13 @@ function c9980316.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c9980316.tg(e,c)
-	return c:IsSetCard(0x2bcc) and c:IsAttackPos()
+	return c:IsSetCard(0x6bcc) and c:IsAttackPos()
 end
 function c9980316.lkcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2
 end
 function c9980316.matfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcc)
+	return c:IsFaceup() and c:IsSetCard(0x6bcc)
 end
 function c9980316.lkfilter(c)
 	return c:IsType(TYPE_LINK) and c:IsSpecialSummonable(SUMMON_TYPE_LINK)

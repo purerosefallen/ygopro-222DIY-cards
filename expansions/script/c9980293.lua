@@ -21,7 +21,7 @@ function c9980293.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)
 end
 function c9980293.filter(c)
-	return ((c:IsSetCard(0xbc4) and c:IsType(TYPE_MONSTER)) or c:IsSetCard(0x3bc4)) and not c:IsCode(9980293) and c:IsAbleToHand()
+	return ((c:IsSetCard(0xbc4) and c:IsType(TYPE_MONSTER)) or c:IsSetCard(0x6bc4)) and not c:IsCode(9980293) and c:IsAbleToHand()
 end
 function c9980293.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and c9980293.filter(chkc) end

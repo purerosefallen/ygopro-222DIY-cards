@@ -1,7 +1,7 @@
 --三位一体的女神 拉结尔
 function c12026030.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x1fbd),3,3)
+	aux.AddLinkProcedure(c,nil,3,3,c12026030.lcheck)
 	c:EnableReviveLimit()  
 	--up attack
 	local e1=Effect.CreateEffect(c)
@@ -26,6 +26,9 @@ function c12026030.initial_effect(c)
 	e3:SetTarget(c12026030.thtg)
 	e3:SetOperation(c12026030.thop)
 	c:RegisterEffect(e3)
+end
+function c12026030.lcheck(g,lc)
+	return g:IsExists(Card.IsSetCard,1,nil,0x1fbd)
 end
 function c12026030.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemoveAsCost,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,nil) end

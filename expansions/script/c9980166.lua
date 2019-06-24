@@ -51,7 +51,7 @@ function c9980166.initial_effect(c)
 end
 c9980166.counter_add_list={0x1}
 function c9980166.ctfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc4)
+	return c:IsFaceup() and c:IsSetCard(0xbc4)
 end
 function c9980166.ctop(e,tp,eg,ep,ev,re,r,rp)
 	if eg:IsExists(c9980166.ctfilter,1,nil) then
@@ -67,7 +67,7 @@ function c9980166.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.RemoveCounter(tp,1,0,0x1,2,REASON_COST)
 end
 function c9980166.filter2(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x2bc4) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0xbc4) and c:IsAbleToHand()
 end
 function c9980166.tg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980166.filter2,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end

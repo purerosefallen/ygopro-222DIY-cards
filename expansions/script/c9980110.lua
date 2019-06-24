@@ -57,7 +57,7 @@ function c9980110.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function c9980110.filter(c)
-	return c:IsSetCard(0x1bc8) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0x3bc8) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980110.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980110.filter,tp,LOCATION_DECK,0,1,nil) end

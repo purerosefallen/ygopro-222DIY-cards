@@ -24,9 +24,6 @@ function c81011005.initial_effect(c)
 	e2:SetTarget(c81011005.negtg)
 	e2:SetOperation(c81011005.negop)
 	c:RegisterEffect(e2)
-	local e4=e2:Clone()
-	e4:SetCondition(c81011005.nsgcon)
-	c:RegisterEffect(e4)
 	--spsummon
 	local e3=Effect.CreateEffect(c)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
@@ -42,19 +39,13 @@ end
 function c81011005.rev(e,re,r,rp,rc)
 	return bit.band(r,REASON_EFFECT)>0
 end
-function c81011005.negcon(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) or not Duel.IsChainNegatable(ev) then return false end
-	if re:IsHasCategory(CATEGORY_NEGATE)
-		and Duel.GetChainInfo(ev-1,CHAININFO_TRIGGERING_EFFECT):IsHasType(EFFECT_TYPE_ACTIVATE) then return false end
-	local ex,tg,tc=Duel.GetOperationInfo(ev,CATEGORY_DESTROY)
-	return ex and tg~=nil and tc+tg:FilterCount(Card.IsOnField,nil)-tg:GetCount()>0
+function c81011005.tsfilter(c,tp)
+	return c:IsFaceup() and c:IsLocation(LOCATION_MZONE) and c:IsControler(tp)
 end
-function c81011005.nsgcon(e,tp,eg,ep,ev,re,r,rp)
-	if e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) or not Duel.IsChainNegatable(ev) then return false end
-	if re:IsHasCategory(CATEGORY_NEGATE)
-		and Duel.GetChainInfo(ev-1,CHAININFO_TRIGGERING_EFFECT):IsHasType(EFFECT_TYPE_ACTIVATE) then return false end
-	local ex,tg,tc=Duel.GetOperationInfo(ev,CATEGORY_REMOVE)
-	return ex and tg~=nil and tc+tg:FilterCount(Card.IsOnField,nil)-tg:GetCount()>0
+function c81011005.negcon(e,tp,eg,ep,ev,re,r,rp)
+	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
+	local tg=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
+	return tg and tg:IsExists(c81011005.tsfilter,1,nil,tp) and Duel.IsChainDisablable(ev)
 end
 function c81011005.tgfilter(c)
 	return c:IsAbleToGrave()

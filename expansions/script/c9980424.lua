@@ -46,7 +46,7 @@ function c9980424.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980424,1))
 end 
 function c9980424.thfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x1bcb) and not c:IsCode(9980424) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x5bca) and not c:IsCode(9980424) and c:IsAbleToHand()
 end
 function c9980424.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980424.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -103,15 +103,15 @@ function c9980424.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function c9980424.thfilter2(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x1bcb) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x5bca) and c:IsAbleToHand()
 end
 function c9980424.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c9980424.thfilter2,tp,LOCATION_GRAVE,0,1,e:GetHandler()) end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_GRAVE)
+	if chk==0 then return Duel.IsExistingMatchingCard(c9980424.thfilter2,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,e:GetHandler()) end
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_GRAVE+LOCATION_REMOVED)
 end
 function c9980424.thop2(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c9980424.thfilter2,tp,LOCATION_GRAVE,0,1,1,e:GetHandler())
+	local g=Duel.SelectMatchingCard(tp,c9980424.thfilter2,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,e:GetHandler())
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)

@@ -49,23 +49,23 @@ function c9980465.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980465,1))
 end
 function c9980465.cfilter(c)
-	return c:IsFaceup() and (c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb)) and not c:IsCode(9980465)
+	return c:IsFaceup() and c:IsSetCard(0xabca,0x5bcb) and not c:IsCode(9980465)
 end
 function c9980465.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980465.cfilter,tp,LOCATION_ONFIELD,0,1,nil)
 end
-function c9980465.filter(c,e,tp)
-	return c:IsSetCard(0x4bca) and not c:IsCode(9980465) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+function c9980465.spfilter(c,e,tp)
+	return c:IsSetCard(0xabca) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980465) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980465.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(c9980465.filter,tp,LOCATION_DECK,0,1,nil,e,tp) end
+		and Duel.IsExistingMatchingCard(c9980465.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
 function c9980465.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,c9980465.filter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
+	local g=Duel.SelectMatchingCard(tp,c9980465.spfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 	if g:GetCount()>0 then
 		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
 	end
@@ -74,7 +74,7 @@ function c9980465.condition(e,tp,eg,ep,ev,re,r,rp)
 	return re:IsActiveType(TYPE_MONSTER) and rp==1-tp
 end
 function c9980465.cffilter(c)
-	return (c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb))  and not c:IsPublic()
+	return (c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb))  and not c:IsPublic()
 end
 function c9980465.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980465.cffilter,tp,LOCATION_HAND,0,1,e:GetHandler()) end
@@ -108,7 +108,7 @@ function c9980465.sccon(e,tp,eg,ep,ev,re,r,rp)
 	return ph==PHASE_MAIN1 or (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE) or ph==PHASE_MAIN2
 end
 function c9980465.mfilter(c)
-	return c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb)
+	return c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb)
 end
 function c9980465.sctg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

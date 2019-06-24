@@ -73,7 +73,7 @@ function c9980485.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980485,0))
 end
 function c9980485.matfilter(c)
-	return c:IsType(TYPE_EFFECT) and c:IsFusionSetCard(0x5bcb,0x4bca)
+	return c:IsType(TYPE_EFFECT) and c:IsFusionSetCard(0x5bcb,0xabca)
 end
 function c9980485.aclimit(e,re,tp)
 	return not re:GetHandler():IsImmuneToEffect(e)
@@ -82,7 +82,7 @@ function c9980485.actcon(e)
 	return Duel.GetAttacker()==e:GetHandler() or Duel.GetAttackTarget()==e:GetHandler()
 end
 function c9980485.cfilter(c,tp)
-	return c:IsFaceup() and c:IsSetCard(0x5bcb,0x4bca) and c:IsControler(tp)
+	return c:IsFaceup() and c:IsSetCard(0x5bcb,0xabca) and c:IsControler(tp)
 end
 function c9980485.atkcon(e)
 	local c=Duel.GetAttackTarget()

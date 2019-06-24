@@ -1,7 +1,7 @@
 --不死姬·西行寺幽幽子
 function c9980261.initial_effect(c)
 	 --link summon
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x1bcc),2,2)
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x3bcc),2,2)
 	c:EnableReviveLimit()
 	--to hand
 	local e1=Effect.CreateEffect(c)
@@ -44,7 +44,7 @@ function c9980261.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function c9980261.filter(c)
-	return c:IsSetCard(0x1bcc) and not c:IsCode(9980261) and c:IsAbleToHand()
+	return c:IsSetCard(0x3bcc) and not c:IsCode(9980261) and c:IsAbleToHand()
 end
 function c9980261.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980261.filter(chkc) end

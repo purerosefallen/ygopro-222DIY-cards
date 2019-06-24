@@ -2,7 +2,7 @@
 function c9980257.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcFunRep(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0x1bcc),2,false)
+	aux.AddFusionProcFunRep(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0x3bcc),2,false)
 	--tohand
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980257,0))
@@ -64,7 +64,7 @@ function c9980257.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980257.thfilter(c,tp)
-	return c:IsFaceup() and c:IsSetCard(0x1bcc) and not c:IsCode(9980257) and c:IsAbleToHand() and Duel.GetMZoneCount(tp,c)
+	return c:IsFaceup() and c:IsSetCard(0x3bcc) and not c:IsCode(9980257) and c:IsAbleToHand() and Duel.GetMZoneCount(tp,c)
 end
 function c9980257.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c9980257.thfilter(chkc,tp) end

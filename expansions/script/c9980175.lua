@@ -44,7 +44,7 @@ function c9980175.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_CHAINING)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1)
+	e2:SetCountLimit(1,9980175)
 	e2:SetCondition(c9980175.thcon)
 	e2:SetTarget(c9980175.thtg)
 	e2:SetOperation(c9980175.thop)
@@ -56,6 +56,7 @@ function c9980175.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e4:SetCode(EVENT_LEAVE_FIELD)
+	e4:SetCountLimit(1,99801750)
 	e4:SetCondition(c9980175.descon)
 	e4:SetTarget(c9980175.destg)
 	e4:SetOperation(c9980175.desop)
@@ -75,7 +76,7 @@ function c9980175.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.RegisterFlagEffect(tp,9980175,RESET_CHAIN,0,1)
 end
 function c9980175.spfilter(c,e,sp)
-	return c:IsFaceup() and c:IsSetCard(0x1bc4) and c:IsType(TYPE_MONSTER) and  (c:IsLocation(LOCATION_GRAVE) or (c:IsLocation(LOCATION_EXTRA) and c:IsSetCard(0x1bc4) and Duel.GetLocationCountFromEx(tp,tp,c)>0))
+	return c:IsFaceup() and c:IsSetCard(0x5bc4) and c:IsType(TYPE_MONSTER) and  (c:IsLocation(LOCATION_GRAVE) or (c:IsLocation(LOCATION_EXTRA) and c:IsSetCard(0x5bc4) and Duel.GetLocationCountFromEx(tp,tp,c)>0))
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function c9980175.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -108,7 +109,7 @@ function c9980175.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return (ph==PHASE_MAIN1 or ph==PHASE_MAIN2)
 end
 function c9980175.sumfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0x5bc4) and c:IsSummonable(true,nil,1)
 end
 function c9980175.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980175.sumfilter,tp,LOCATION_HAND,0,1,nil) end
@@ -127,7 +128,7 @@ function c9980175.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_ADVANCE) 
 end
 function c9980175.thfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980175.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980175.thfilter,tp,LOCATION_DECK,0,1,nil) end

@@ -135,8 +135,40 @@ end
 function muxu.check_set_Umbrella(c)   --伞符
 	return muxu.check_set(c,"Umbrella")
 end
---
 function muxu.check_set_Scenersh(c)   --景愿
 	return muxu.check_set(c,"Scenersh")
+end
+--
+--
+if not muxu.chk then
+	muxu.chk=true
+	--1111050 EVENT_TO_DECK
+	local e1=Effect.GlobalEffect()
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_TO_DECK)
+	e1:SetCondition(
+	function(e,tp,eg,ep,ev,re,r,rp)
+		return eg:IsExists((function(c)
+			return c:GetFlagEffect(1111050)~=0 end),1,nil)
+	end)
+	e1:SetOperation(
+	function(e,tp,eg,ep,ev,re,r,rp)
+		local p=Duel.GetTurnPlayer()
+		local tg=eg:Filter((function(c)
+			return c:GetFlagEffect(1111050)~=0 end),nil)
+		if tg:GetCount()<1 then return end
+		local b1=tg:IsExists(Card.IsControler,1,nil,p)
+		local b2=tg:IsExists(Card.IsControler,1,nil,1-p)
+		if b1 then Duel.ShuffleDeck(p) end
+		if b2 then Duel.ShuffleDeck(1-p) end
+		local tc=tg:GetFirst()
+		while tc do
+			tc:ReverseInDeck()
+			tc=tg:GetNext()
+		end 
+	end)
+	Duel.RegisterEffect(e1,0)
+	--1111056 EVENT_CHAINING
+
 end
 --

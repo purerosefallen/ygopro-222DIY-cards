@@ -34,7 +34,7 @@ function c9980266.handcon(e)
 	return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_ONFIELD,0)==0
 end
 function c9980266.cfilter(c)
-	return c:IsSetCard(0x1bcc) and c:IsType(TYPE_MONSTER) and not c:IsPublic()
+	return c:IsSetCard(0x3bcc) and c:IsType(TYPE_MONSTER) and not c:IsPublic()
 end
 function c9980266.tgfilter(c)
 	return c:IsFaceup() and c:IsAbleToHand()
@@ -64,7 +64,7 @@ function c9980266.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetAttacker():IsControler(1-tp) and Duel.GetAttackTarget()==nil
 end
 function c9980266.spfilter(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x1bcc) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x3bcc) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 		and Duel.IsPlayerCanSpecialSummonMonster(tp,9980266,0x10db,0x11,0,0,c:GetLevel(),RACE_ZOMBIE,ATTRIBUTE_DARK)
 end
 function c9980266.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

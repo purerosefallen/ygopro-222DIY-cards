@@ -50,7 +50,7 @@ function c9980117.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c9980117.reccon(e,tp,eg,ep,ev,re,r,rp)
-	return ep~=tp and eg:GetFirst():IsControler(tp) and eg:GetFirst():IsSetCard(0x1bc8)
+	return ep~=tp and eg:GetFirst():IsControler(tp) and eg:GetFirst():IsSetCard(0xbc8)
 end
 function c9980117.rectg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

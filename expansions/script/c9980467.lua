@@ -47,13 +47,13 @@ function c9980467.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980467,3))
 end
 function c9980467.cfilter(c)
-	return c:IsFaceup() and(c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb)) and not c:IsCode(9980467)
+	return c:IsFaceup() and(c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb)) and not c:IsCode(9980467)
 end
 function c9980467.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980467.cfilter,tp,LOCATION_ONFIELD,0,1,nil)
 end
 function c9980467.filter(c,e,tp)
-	return c:IsSetCard(0x4bca) and not c:IsCode(9980467) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xabca) and not c:IsCode(9980467) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980467.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -69,7 +69,7 @@ function c9980467.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980467.drfilter(c)
-	return (c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb)) and c:IsAbleToRemoveAsCost()
+	return (c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb)) and c:IsAbleToRemoveAsCost()
 end
 function c9980467.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980467.drfilter,tp,LOCATION_GRAVE,0,2,nil) end
@@ -90,7 +90,7 @@ function c9980467.drop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980467,3))
 end
 function c9980467.tdfilter(c)
-	return c:IsFaceup() and (c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb)) and c:IsAbleToDeck()
+	return c:IsFaceup() and (c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb)) and c:IsAbleToDeck()
 end
 function c9980467.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c9980467.tdfilter(chkc) end

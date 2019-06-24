@@ -43,7 +43,7 @@ function c9980481.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsPublic() end
 end
 function c9980481.atkfilter(c)
-	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca)) 
+	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca)) 
 end
 function c9980481.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c9980481.atkfilter(chkc) end
@@ -89,7 +89,7 @@ function c9980481.dop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,ev/2)
 end
 function c9980481.spfilter(c,e,tp)
-	return c:IsSetCard(0x5bcb,0x4bca) and not c:IsCode(9980481) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
+	return c:IsSetCard(0x5bcb,0xabca) and not c:IsCode(9980481) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function c9980481.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

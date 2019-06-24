@@ -41,7 +41,7 @@ function c81011006.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c81011006.ffilter(c,fc,sub,mg,sg)
-	return c:IsType(TYPE_MONSTER) and (not sg or sg:FilterCount(aux.TRUE,c)==0 or sg:IsExists(Card.IsFusionCode,1,c,c:GetOriginalCode()))
+	return (not c:IsType(TYPE_TOKEN)) and (not sg or sg:FilterCount(aux.TRUE,c)==0 or sg:IsExists(Card.IsFusionCode,1,c,c:GetFusionCode()))
 end
 function c81011006.rmcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) end

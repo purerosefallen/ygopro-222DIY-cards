@@ -39,10 +39,10 @@ function c9980277.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c9980277.ffilter(c)
-	return c:IsFusionSetCard(0x1bcc) or c:IsFusionSetCard(0x2bcc)
+	return c:IsFusionSetCard(0x3bcc) or c:IsFusionSetCard(0x6bcc)
 end
 function c9980277.cfilter(c,tp)
-	return c:IsFaceup() and (c:IsSetCard(0x1bcc) or c:IsSetCard(0x2bcc)) and c:IsControler(tp)
+	return c:IsFaceup() and (c:IsSetCard(0x3bcc) or c:IsSetCard(0x6bcc)) and c:IsControler(tp)
 end
 function c9980277.discon2(e,tp,eg,ep,ev,re,r,rp)
 	local c=Duel.GetAttackTarget()

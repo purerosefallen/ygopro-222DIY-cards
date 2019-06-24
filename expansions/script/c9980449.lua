@@ -1,7 +1,7 @@
 --镜骑士·奥丁
 function c9980449.initial_effect(c)
 	 --xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x2bcb),1,3)
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x6bca),1,3)
 	c:EnableReviveLimit()
 	--
 	local e1=Effect.CreateEffect(c)

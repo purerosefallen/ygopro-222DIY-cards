@@ -56,7 +56,7 @@ function c9980488.drop(e,tp,eg,ep,ev,re,r,rp)
 		local tc=g:GetFirst()
 		Duel.ConfirmCards(1-tp,tc)
 		Duel.BreakEffect()
-		if tc:IsSetCard(0x4bca,0x5bcb) then
+		if tc:IsSetCard(0xabca,0x5bcb) then
 			if c:IsRelateToEffect(e) then
 				if Duel.SpecialSummon(c,0,tp,tp,true,false,POS_FACEUP)~=0 then
 					c:CompleteProcedure()
@@ -72,7 +72,7 @@ function c9980488.drop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980488.thfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x4bca,0x5bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsFaceup() and c:IsSetCard(0xabca,0x5bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980488.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED+LOCATION_GRAVE) and c9980488.thfilter(chkc) end

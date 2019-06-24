@@ -33,7 +33,7 @@ function c9980431.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 function c9980431.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1bcb)
+	return c:IsFaceup() and c:IsSetCard(0x5bca)
 end
 function c9980431.handcon(e)
 	return Duel.IsExistingMatchingCard(c9980431.filter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -55,7 +55,7 @@ function c9980431.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980431.spfilter(c,e,tp)
-	return c:IsSetCard(0x1bcb) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x5bca) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980431.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and c9980431.spfilter(chkc,e,tp) end

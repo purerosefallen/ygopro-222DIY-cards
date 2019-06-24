@@ -8,7 +8,7 @@ function c9980451.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_QP_ACT_IN_NTPHAND)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x2bca))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x9bca))
 	e1:SetTargetRange(LOCATION_HAND,0)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
@@ -82,10 +82,10 @@ function c9980451.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_LINK)
 end
 function c9980451.thfilter(c)
-	return c:IsSetCard(0x2bca) and c:IsAbleToHand()
+	return c:IsSetCard(0x9bca) and c:IsAbleToHand()
 end
 function c9980451.tgfilter(c)
-	return c:IsSetCard(0x2bca) and c:IsAbleToGrave()
+	return c:IsSetCard(0x9bca) and c:IsAbleToGrave()
 end
 function c9980451.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980451.thfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil)
@@ -108,8 +108,8 @@ function c9980451.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c9980451.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetAttackAnnouncedCount()==0
-		and Duel.CheckReleaseGroup(tp,Card.IsSetCard,1,nil,0x2bca) end
-	local g=Duel.SelectReleaseGroup(tp,Card.IsSetCard,1,1,nil,0x2bca)
+		and Duel.CheckReleaseGroup(tp,Card.IsSetCard,1,nil,0x9bca) end
+	local g=Duel.SelectReleaseGroup(tp,Card.IsSetCard,1,1,nil,0x9bca)
 	Duel.Release(g,REASON_COST)
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_SINGLE)

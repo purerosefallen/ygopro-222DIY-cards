@@ -3,14 +3,6 @@ function c9980231.initial_effect(c)
 	--link summon
 	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkType,TYPE_EFFECT),2,2,c9980231.lcheck)
 	c:EnableReviveLimit()
-	--atkup
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetValue(c9980231.atkval)
-	c:RegisterEffect(e1)
 	--search
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980231,2))
@@ -41,18 +33,11 @@ function c9980231.initial_effect(c)
 	e8:SetOperation(c9980231.sumsuc)
 	c:RegisterEffect(e8)
 end
-function c9980231.lcheck(g,lc)
-	return g:IsExists(Card.IsLinkSetCard,1,nil,0x1bc4)
-end
-function c9980231.atkval(e,c)
-	local g=e:GetHandler():GetLinkedGroup():Filter(Card.IsFaceup,nil)
-	return g:GetSum(Card.GetBaseAttack)
-end
 function c9980231.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function c9980231.thfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bc4) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function c9980231.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980231.thfilter,tp,LOCATION_DECK,0,1,nil) end

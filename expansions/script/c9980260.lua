@@ -1,7 +1,7 @@
 --不死姬·西行寺幽幽子
 function c9980260.initial_effect(c)
 	 --synchro summon
-	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsSetCard,0x1bcc),1)
+	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsSetCard,0x3bcc),1)
 	c:EnableReviveLimit()
 	--search
 	local e1=Effect.CreateEffect(c)
@@ -42,7 +42,7 @@ function c9980260.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980260.thfilter(c)
-	return c:IsSetCard(0x1bcc) and c:IsAbleToHand()
+	return c:IsSetCard(0x3bcc) and c:IsAbleToHand()
 end
 function c9980260.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980260.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -70,7 +70,7 @@ function c9980260.thop2(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980260.cfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsSetCard(0x1bcc)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsSetCard(0x3bcc)
 end
 function c9980260.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c9980260.cfilter,1,nil,tp)

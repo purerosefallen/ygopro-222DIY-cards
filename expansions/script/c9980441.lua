@@ -66,10 +66,10 @@ function c9980441.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980441.eqlimit(e,c)
-	return c:IsSetCard(0x2bcb)
+	return c:IsSetCard(0x6bca)
 end
 function c9980441.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcb)
+	return c:IsFaceup() and c:IsSetCard(0x6bca)
 end
 function c9980441.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c9980441.filter(chkc) end
@@ -120,7 +120,7 @@ function c9980441.eqtarget(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,e:GetHandler(),1,0,0)
 end
 function c9980441.rccfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcb)
+	return c:IsFaceup() and c:IsSetCard(0x6bca)
 end
 function c9980441.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp

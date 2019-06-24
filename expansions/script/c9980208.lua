@@ -14,22 +14,6 @@ function c9980208.initial_effect(c)
 	e1:SetTarget(c9980208.sptg)
 	e1:SetOperation(c9980208.spop)
 	c:RegisterEffect(e1)
-	--atkup
-	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(9980208,0))
-	e1:SetType(EFFECT_TYPE_QUICK_O)
-	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetHintTiming(0,TIMINGS_CHECK_MONSTER)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetCountLimit(1,9980208)
-	e1:SetCost(c9980208.atkcost1)
-	e1:SetTarget(c9980208.atktg)
-	e1:SetOperation(c9980208.atkop)
-	c:RegisterEffect(e1)
-	local e2=e1:Clone()
-	e2:SetRange(LOCATION_HAND)
-	e2:SetCost(c9980208.atkcost2)
-	c:RegisterEffect(e2)
 	--destroy
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980208,0))
@@ -139,46 +123,6 @@ function c9980208.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(tc,SUMMON_TYPE_RITUAL,tp,tp,false,true,POS_FACEUP)
 		tc:CompleteProcedure()
 	end
-end
-function c9980208.atkcost1(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
-	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
-end
-function c9980208.atkcost2(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-	if chk==0 then return c:IsDiscardable() end
-	Duel.SendtoGrave(c,REASON_COST+REASON_DISCARD)
-end
-function c9980208.indfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0xbc8) 
-end
-function c9980208.atktg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c9980208.indfilter,tp,LOCATION_ONFIELD,0,1,nil) end
-end
-function c9980208.atkop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetTarget(c9980208.indtg)
-	e1:SetReset(RESET_EVENT+RESETS_STANDARD)
-	e1:SetValue(1000)
-	local e2=e1:Clone()
-	e2:SetCode(EFFECT_UPDATE_DEFENSE)
-	c:RegisterEffect(e2)
-	Duel.RegisterEffect(e1,tp)
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD)
-	e2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-	e2:SetTargetRange(LOCATION_ONFIELD,0)
-	e2:SetTarget(c9980208.indtg)
-	e2:SetReset(RESET_PHASE+PHASE_END)
-	e2:SetValue(1)
-	Duel.RegisterEffect(e2,tp)
-end
-function c9980208.indtg(e,c)
-	return c:IsFaceup() and c:IsSetCard(0xbc8) 
 end
 function c9980208.descon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL) and e:GetLabel()==1

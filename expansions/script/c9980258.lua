@@ -26,7 +26,7 @@ function c9980258.initial_effect(c)
 	e1:SetCode(EFFECT_PIERCE)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x1bcc))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x3bcc))
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -56,7 +56,7 @@ function c9980258.splimit(e,se,sp,st)
 	return true
 end
 function c9980258.ffilter(c)
-	return c:IsFusionType(TYPE_SYNCHRO) and c:IsSetCard(0x1bcc)
+	return c:IsFusionType(TYPE_SYNCHRO) and c:IsSetCard(0x3bcc)
 end
 function c9980258.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION)
@@ -77,13 +77,13 @@ function c9980258.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c9980258.damcon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
-	return ep~=tp and tc:IsSetCard(0x1bcc) and tc:GetBattleTarget()~=nil and tc:GetBattleTarget():IsDefensePos()
+	return ep~=tp and tc:IsSetCard(0x3bcc) and tc:GetBattleTarget()~=nil and tc:GetBattleTarget():IsDefensePos()
 end
 function c9980258.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ChangeBattleDamage(ep,ev*2)
 end
 function c9980258.thfilter(c)
-	return c:IsSetCard(0x1bcc) and c:IsAbleToHand()
+	return c:IsSetCard(0x3bcc) and c:IsAbleToHand()
 end
 function c9980258.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980258.thfilter(chkc) end

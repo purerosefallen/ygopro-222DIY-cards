@@ -46,7 +46,7 @@ function c9980490.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function c9980490.filter(c,e,tp)
-	return c:IsSetCard(0x4bca,0x5bcb) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xabca,0x5bcb) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980490.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c9980490.filter(chkc,e,tp) end
@@ -63,7 +63,7 @@ function c9980490.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980490.cfilter(c)
-	return c:IsFacedown() or not c:IsSetCard(0x4bca,0x5bcb)
+	return c:IsFacedown() or not c:IsSetCard(0xabca,0x5bcb)
 end
 function c9980490.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)

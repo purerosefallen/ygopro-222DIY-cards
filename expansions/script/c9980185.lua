@@ -21,7 +21,7 @@ function c9980185.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980185.filter(c)
-	return c:IsSetCard(0x2bc8) and c:IsType(TYPE_MONSTER) and not c:IsForbidden()
+	return c:IsSetCard(0x6bc8) and c:IsType(TYPE_MONSTER) and not c:IsForbidden()
 end
 function c9980185.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c9980185.filter(chkc) end

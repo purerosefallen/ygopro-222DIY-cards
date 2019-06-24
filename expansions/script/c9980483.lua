@@ -47,10 +47,10 @@ function c9980483.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980483,3))
 end
 function c9980483.lcheck(g,lc)
-	return g:IsExists(Card.IsLinkSetCard,1,nil,0x5bcb,0x4bca)
+	return g:IsExists(Card.IsLinkSetCard,1,nil,0x5bcb,0xabca)
 end
 function c9980483.thfilter(c)
-	return c:IsSetCard(0x5bcb,0x4bca) and c:IsAttackAbove(1500) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bcb,0xabca) and c:IsAttackAbove(1500) and c:IsAbleToHand()
 end
 function c9980483.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980483.thfilter(chkc) end

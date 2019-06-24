@@ -27,7 +27,7 @@ function c9980321.desfilter(c)
 	return  c:IsFaceup()
 end
 function c9980321.spfilter(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x2bcc) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x6bcc) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function c9980321.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_PZONE) and chkc:IsControler(tp) and c9980321.desfilter(chkc) end
@@ -63,7 +63,7 @@ function c9980321.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980321.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcc)
+	return c:IsFaceup() and c:IsSetCard(0x6bcc)
 end
 function c9980321.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c9980321.filter(chkc) end

@@ -39,7 +39,7 @@ function c9980262.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST+REASON_DISCARD)
 end
 function c9980262.thfilter(c)
-	return c:IsSetCard(0x1bcc) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(0x3bcc) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function c9980262.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980262.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -58,7 +58,7 @@ function c9980262.spcon(e,tp,eg,ep,ev,re,r,rp)
 		and e:GetHandler():IsPreviousLocation(LOCATION_DECK+LOCATION_GRAVE)
 end
 function c9980262.spfilter(c,e,tp)
-	return c:IsSetCard(0x1bcc) and c:GetCode()~=9980262 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x3bcc) and c:GetCode()~=9980262 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980262.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980262.spfilter(chkc,e,tp) end

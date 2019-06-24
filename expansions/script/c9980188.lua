@@ -1,7 +1,7 @@
 --刻刻帝女神 九之弹·Tet
 function c9980188.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x2bc8),2,2)
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x6bc8),2,2)
 	c:EnableReviveLimit()
 	--equip
 	local e1=Effect.CreateEffect(c)
@@ -88,7 +88,7 @@ function c9980188.equip_monster(c,tp,tc)
 	e2:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
 	e2:SetReset(RESET_EVENT+RESETS_STANDARD)
 	e2:SetValue(c9980188.repval)
-	tc:RegisterEffect(e2)	 
+	tc:RegisterEffect(e2)	
 end
 function c9980188.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

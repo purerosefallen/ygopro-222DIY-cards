@@ -4,18 +4,13 @@ Duel.LoadScript("c77765000.lua")
 cm.Senya_name_with_difficulty=true
 function cm.initial_effect(c)
 	c:EnableCounterPermit(0x1)
-	c:SetCounterLimit(0x1,6)
-	local ex=Kaguya.ContinuousCommonEffect(c,EVENT_FREE_CHAIN,function(e,tp,eg,ep,ev,re,r,rp)
-		return Duel.GetFieldGroupCount(tp,LOCATION_GRAVE,LOCATION_GRAVE)==16
-	end,Senya.DescriptionCost())
-	ex:SetProperty(0)
-	ex:SetType(EFFECT_TYPE_QUICK_O)
-	ex:SetDescription(m*16+1)
+	c:SetCounterLimit(0x1,7)
+	local ex=Kaguya.ContinuousCommonEffect(c,EVENT_CUSTOM+77765000)
 	local e1=Effect.CreateEffect(c)
-	e1:SetCategory(CATEGORY_TOGRAVE)
+	--e1:SetCategory(CATEGORY_TOGRAVE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetTarget(function(e,tp,eg,ep,ev,re,r,rp,chk)
+	--[[e1:SetTarget(function(e,tp,eg,ep,ev,re,r,rp,chk)
 		if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToGrave,tp,0,LOCATION_EXTRA,3,nil) end
 		Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,3,tp,LOCATION_EXTRA)
 	end)
@@ -29,7 +24,7 @@ function cm.initial_effect(c)
 			end,false,3,3)
 			Duel.SendtoGrave(sg,REASON_EFFECT)
 		end
-	end)
+	end)]]
 	c:RegisterEffect(e1)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
@@ -40,26 +35,33 @@ function cm.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(m*16)
 	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3:SetType(EFFECT_TYPE_IGNITION)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e3:SetCode(EVENT_ADD_COUNTER|0x1)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetCost(Senya.DescriptionCost())
 	e3:SetCondition(function(e,tp,eg,ep,ev,re,r,rp)
-		return e:GetHandler():GetCounter(0x1)>=6
+		return e:GetHandler():GetCounter(0x1)>=7
 	end)
 	local function f(c,e,tp)
 		return c:IsCode(37564303) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and Duel[c:IsLocation(LOCATION_EXTRA) and "GetLocationCountFromEx" or "GetMZoneCount"](tp)>0 and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
 	end
 	e3:SetTarget(function(e,tp,eg,ep,ev,re,r,rp,chk)
-		if chk==0 then return Duel.IsExistingMatchingCard(f,tp,LOCATION_EXTRA+LOCATION_GRAVE,0,1,nil,e,tp) end
-		Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,0,tp,LOCATION_EXTRA+LOCATION_GRAVE)
+		local c=e:GetHandler()
+		local ct=c:GetCounter(0x1)
+		if chk==0 then return ct>0 and c:IsCanRemoveCounter(tp,0x1,ct,REASON_EFFECT) end
+		Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,0,1-tp,LOCATION_EXTRA+LOCATION_GRAVE)
 	end)
 	e3:SetOperation(function(e,tp,eg,ep,ev,re,r,rp)
 		local c=e:GetHandler()
-		if Duel.IsExistingMatchingCard(f,tp,LOCATION_EXTRA+LOCATION_GRAVE,0,1,nil,e,tp) and c:IsRelateToEffect(e) and Duel.Destroy(c,REASON_EFFECT)>0 then
-			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-			local g=Duel.SelectMatchingCard(tp,f,tp,LOCATION_EXTRA+LOCATION_GRAVE,0,1,1,nil,e,tp)
-			Duel.BreakEffect()
-			Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+		local ct=c:GetCounter(0x1)
+		if c:IsRelateToEffect(e) and ct>0 and c:IsCanRemoveCounter(tp,0x1,ct,REASON_EFFECT) then
+			c:RemoveCounter(tp,0x1,ct,REASON_EFFECT)
+			if Duel.IsExistingMatchingCard(f,1-tp,LOCATION_EXTRA+LOCATION_GRAVE,0,1,nil,e,1-tp) then
+				Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_SPSUMMON)
+				local g=Duel.SelectMatchingCard(1-tp,f,1-tp,LOCATION_EXTRA+LOCATION_GRAVE,0,1,1,nil,e,1-tp)
+				Duel.BreakEffect()
+				Duel.SpecialSummon(g,0,1-tp,1-tp,false,false,POS_FACEUP)
+			end
 		end
 	end)
 	c:RegisterEffect(e3)

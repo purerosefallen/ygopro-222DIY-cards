@@ -23,7 +23,7 @@ function c9980463.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980463.filter(c)
-	return c:IsSetCard(0x2bca) and not c:IsCode(9980463) and c:IsAbleToDeck()
+	return c:IsSetCard(0x9bca) and not c:IsCode(9980463) and c:IsAbleToDeck()
 end
 function c9980463.condition(e,tp,eg,ep,ev,re,r,rp)
 	return re:IsHasType(EFFECT_TYPE_ACTIVATE) and Duel.IsChainNegatable(ev)
@@ -47,7 +47,7 @@ function c9980463.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980463.tdfilter(c,e,tp)
-	return c:IsSetCard(0x2bca) and c:IsAbleToDeck()
+	return c:IsSetCard(0x9bca) and c:IsAbleToDeck()
 end
 function c9980463.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980463.tdfilter(chkc) end

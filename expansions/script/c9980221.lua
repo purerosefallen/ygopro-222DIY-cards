@@ -55,7 +55,7 @@ function c9980221.ffilter(c)
 	return (c:IsLevelAbove(5) or c:IsAttackAbove(1500)) and c:IsFusionType(TYPE_MONSTER)
 end
 function c9980221.spfilter(c,e,tp)
-	return (c:IsSetCard(0x4bc8) or c:IsAttackAbove(1500))and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return (c:IsSetCard(0x9bc8) or c:IsAttackAbove(1500))and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980221.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end

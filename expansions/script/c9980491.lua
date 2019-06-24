@@ -48,7 +48,7 @@ function c9980491.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980491,2))
 end
 function c9980491.matfilter(c)
-	return c:IsLevelAbove(5) and c:IsFusionSetCard(0x5bcb,0x4bca)
+	return c:IsLevelAbove(5) and c:IsFusionSetCard(0x5bcb,0xabca)
 end
 function c9980491.hspfilter(c,tp,sc)
 	return c:IsSetCard(0x5bcb) and c:IsLevel(10) and c:IsControler(tp) and Duel.GetLocationCountFromEx(tp,tp,c,sc)>0

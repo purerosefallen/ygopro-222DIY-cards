@@ -13,7 +13,7 @@ function c9980453.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_QP_ACT_IN_NTPHAND)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x2bca))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x9bca))
 	e1:SetTargetRange(LOCATION_HAND,0)
 	c:RegisterEffect(e1)
 	local e2=e1:Clone()
@@ -57,7 +57,7 @@ function c9980453.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL)
 end
 function c9980453.thfilter(c)
-	return c:IsSetCard(0x2bca) and c:IsAbleToHand()
+	return c:IsSetCard(0x9bca) and c:IsAbleToHand()
 end
 function c9980453.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980453.thfilter,tp,LOCATION_DECK,0,1,nil) end

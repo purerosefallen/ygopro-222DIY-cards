@@ -1,7 +1,7 @@
 --强化装甲服·G4
 function c9980430.initial_effect(c)
-	--link summon
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x1bcb),2,99,c9980430.lcheck)
+   --link summon
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkType,TYPE_LINK),2,99,c9980430.lcheck)
 	c:EnableReviveLimit()
 	--spsummon
 	local e1=Effect.CreateEffect(c)
@@ -26,8 +26,8 @@ function c9980430.initial_effect(c)
 	e2:SetOperation(c9980430.eqop)
 	c:RegisterEffect(e2)
 end
-function c9980430.lcheck(g,lc)
-	return g:IsExists(Card.IsLinkType,1,nil,TYPE_LINK)
+function c9980430.lcheck(g)
+	return g:IsExists(Card.IsLinkSetCard,1,nil,0x5bca)
 end
 function c9980430.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
@@ -80,7 +80,7 @@ function c9980430.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_EQUIP)
 	e2:SetCode(EFFECT_SET_ATTACK)
-	e2:SetValue(3000)
+	e2:SetValue(3200)
 	e2:SetReset(RESET_EVENT+RESETS_STANDARD)
 	c:RegisterEffect(e2)
 	local e2=Effect.CreateEffect(c)

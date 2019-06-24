@@ -14,7 +14,7 @@ function c9980317.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x2bcc))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x6bcc))
 	e2:SetValue(c9980317.value)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -33,7 +33,7 @@ function c9980317.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c9980317.costfilter(c)
-	return c:IsSetCard(0x2bcc) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(0x6bcc) and c:IsAbleToRemoveAsCost()
 end
 function c9980317.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -54,7 +54,7 @@ function c9980317.activate(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c9980317.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcc)
+	return c:IsFaceup() and c:IsSetCard(0x6bcc)
 end
 function c9980317.value(e,c)
 	return Duel.GetMatchingGroupCount(c9980317.filter,0,LOCATION_ONFIELD+LOCATION_EXTRA+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_EXTRA+LOCATION_GRAVE,nil)*100
@@ -63,7 +63,7 @@ function c9980317.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp
 end
 function c9980317.thfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcc) and c:IsAbleToHand()
+	return c:IsFaceup() and c:IsSetCard(0x6bcc) and c:IsAbleToHand()
 end
 function c9980317.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE+LOCATION_EXTRA) and c9980317.thfilter(chkc) end

@@ -29,14 +29,10 @@ function c81007024.initial_effect(c)
 	e2:SetTarget(c81007024.tstg)
 	e2:SetOperation(c81007024.tsop)
 	c:RegisterEffect(e2)
-	Duel.AddCustomActivityCounter(81011865,ACTIVITY_SPSUMMON,c81007024.counterfilter)
-end
-function c81007024.counterfilter(c)
-	return c:IsRace(RACE_MACHINE)
 end
 function c81007024.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return Duel.GetCustomActivityCount(81011865,tp,ACTIVITY_SPSUMMON)==0 and c:CheckRemoveOverlayCard(tp,1,REASON_COST) end
+	if chk==0 then return c:CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	local rt=math.min(Duel.GetTargetCount(Card.IsAbleToHand,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil),c:GetOverlayCount())
 	c:RemoveOverlayCard(tp,1,rt,REASON_COST)
 	local ct=Duel.GetOperatedGroup():GetCount()
@@ -60,7 +56,7 @@ function c81007024.tscon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==1-tp
 end
 function c81007024.tscost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetCustomActivityCount(81011865,tp,ACTIVITY_SPSUMMON)==0 and e:GetHandler():IsReleasable() end
+	if chk==0 then return e:GetHandler():IsReleasable() end
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function c81007024.tsfilter(c,e)

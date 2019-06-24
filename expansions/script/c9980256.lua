@@ -71,7 +71,7 @@ function c9980256.eqlimit(e,c)
 	return e:GetOwner()==c
 end
 function c9980256.thfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x1bcc) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x3bcc) and c:IsAbleToHand()
 end
 function c9980256.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980256.thfilter(chkc) end

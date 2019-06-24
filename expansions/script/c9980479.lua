@@ -59,7 +59,7 @@ function c9980479.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsPublic() end
 end
 function c9980479.atkfilter(c)
-	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca)) 
+	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca)) 
 end
 function c9980479.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c9980479.atkfilter(chkc) end
@@ -109,7 +109,7 @@ function c9980479.indtg(e,c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
 function c9980479.cfilter(c)
-	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca))  and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
+	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca))  and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
 end
 function c9980479.adcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980479.cfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -150,7 +150,7 @@ function c9980479.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsPlayerAffectedByEffect(tp,90351981)
 end
 function c9980479.spfilter(c,e,tp)
-	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca))  and not c:IsCode(9980479) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca))  and not c:IsCode(9980479) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980479.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980479.spfilter(chkc,e,tp) end
@@ -175,5 +175,5 @@ function c9980479.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function c9980479.splimit(e,c)
-	return not (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca)) 
+	return not (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca)) 
 end

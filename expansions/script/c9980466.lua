@@ -33,13 +33,13 @@ function c9980466.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980466,2))
 end
 function c9980466.cfilter(c)
-	return c:IsFaceup() and (c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb)) and not c:IsCode(9980466)
+	return c:IsFaceup() and (c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb)) and not c:IsCode(9980466)
 end
 function c9980466.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980466.cfilter,tp,LOCATION_ONFIELD,0,1,nil)
 end
 function c9980466.filter(c,e,tp)
-	return c:IsSetCard(0x4bca) and not c:IsCode(9980466) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xabca) and not c:IsCode(9980466) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980466.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -70,10 +70,10 @@ function c9980466.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabelObject(g)
 end
 function c9980466.filter1(c)
-	return c:IsType(TYPE_MONSTER) and (c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb))
+	return c:IsType(TYPE_MONSTER) and (c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb))
 end
 function c9980466.filter2(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and (c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb))and c:IsLevelAbove(4)  and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsType(TYPE_MONSTER) and (c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb))and c:IsLevelAbove(4)  and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980466.operation(e,tp,eg,ep,ev,re,r,rp)
 	local ct=e:GetLabel()

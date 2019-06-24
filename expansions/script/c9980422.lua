@@ -57,7 +57,7 @@ function c9980422.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
 end
 function c9980422.filter(c,e,tp,atk)
-	return c:IsSetCard(0x1bcb) and c:IsAttackBelow(atk) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x5bca) and c:IsAttackBelow(atk) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980422.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -98,7 +98,7 @@ function c9980422.spcost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function c9980422.spfilter1(c,e,tp,ec)
-	return c:IsSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980422) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980422) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980422.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_HAND+LOCATION_REMOVED) and chkc:IsControler(tp) and c9980422.spfilter1(chkc,e,tp) end

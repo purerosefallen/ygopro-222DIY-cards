@@ -64,6 +64,7 @@ function c9980178.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e4:SetCode(EVENT_LEAVE_FIELD)
+	e4:SetCountLimit(1,9980178)
 	e4:SetCondition(c9980178.descon)
 	e4:SetTarget(c9980178.destg)
 	e4:SetOperation(c9980178.desop)
@@ -79,7 +80,7 @@ function c9980178.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980178,4))
 end 
 function c9980178.pcfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
+	return c:IsSetCard(0x5bc4) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
 end
 function c9980178.pctg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return (Duel.CheckLocation(tp,LOCATION_PZONE,0) or Duel.CheckLocation(tp,LOCATION_PZONE,1))
@@ -103,7 +104,7 @@ function c9980178.pcop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function c9980178.splimit(e,c,sump,sumtype,sumpos,targetp,se)
-	return not c:IsSetCard(0x1bc4)
+	return not c:IsSetCard(0x5bc4)
 end
 function c9980178.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_ADVANCE)
@@ -140,7 +141,7 @@ function c9980178.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 function c9980178.valcheck(e,c)
 	local g=c:GetMaterial()
-	if g:IsExists(Card.IsSetCard,1,nil,0x1bc4) then
+	if g:IsExists(Card.IsSetCard,1,nil,0x5bc4) then
 		e:GetLabelObject():SetLabel(1)
 	else
 		e:GetLabelObject():SetLabel(0)
@@ -155,7 +156,7 @@ function c9980178.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return (ph==PHASE_MAIN1 or ph==PHASE_MAIN2)
 end
 function c9980178.sumfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0x5bc4) and c:IsSummonable(true,nil,1)
 end
 function c9980178.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980178.sumfilter,tp,LOCATION_HAND,0,1,nil) end

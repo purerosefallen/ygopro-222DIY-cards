@@ -128,11 +128,11 @@ function c21520177.activate(e,tp,eg,ep,ev,re,r,rp)
 		e4:SetCode(EVENT_PRE_BATTLE_DAMAGE)
 		e4:SetCondition(c21520177.rdcon)
 		e4:SetOperation(c21520177.rdop)
-		e4:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		e4:SetReset(RESET_EVENT+0x1fe0000)
 		tc:RegisterEffect(e4)
 	end
-	local tdg=Duel.GetMatchingGroup(c21520177.tdfilter,tp,LOCATION_MZONE,0,nil)
-	Duel.SendtoDeck(tdg,nil,2,REASON_RULE)
+--	local tdg=Duel.GetMatchingGroup(c21520177.tdfilter,tp,LOCATION_MZONE,0,nil)
+--	Duel.SendtoDeck(tdg,nil,2,REASON_RULE)
 end
 function c21520177.rdcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp

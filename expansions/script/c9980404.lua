@@ -18,7 +18,7 @@ function c9980404.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980404.filter(c)
-	return c:IsSetCard(0x1bca) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0xbca) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980404.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980404.filter,tp,LOCATION_DECK,0,1,nil) end

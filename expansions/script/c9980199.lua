@@ -51,10 +51,10 @@ function c9980199.synlimit(e,c)
 	return not c:IsRace(RACE_FAIRY)
 end
 function c9980199.synlimit2(e,c)
-	return c:IsSetCard(0x2bc8)
+	return c:IsSetCard(0x6bc8)
 end
 function c9980199.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc8)
+	return c:IsFaceup() and c:IsSetCard(0x6bc8)
 end
 function c9980199.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980199.cfilter,tp,LOCATION_MZONE,0,1,e:GetHandler())
@@ -68,7 +68,7 @@ function c9980199.spop(e,tp,eg,ep,ev,re,r,rp)
 	if not c9980199.spcon(e,tp,eg,ep,ev,re,r,rp) then return end
 	if Duel.IsPlayerAffectedByEffect(tp,59822133) then return end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=1 then return end
-	if Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x2bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) then
+	if Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x6bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) then
 		local token=Duel.CreateToken(tp,9980195)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 		token=Duel.CreateToken(tp,9980195)
@@ -84,7 +84,7 @@ function c9980199.filter1(c,e,tp)
 		and aux.MustMaterialCheck(c,tp,EFFECT_MUST_BE_XMATERIAL)
 end
 function c9980199.filter2(c,e,tp,mc,rk)
-	return c:IsRank(rk) and c:IsSetCard(0x2bc8) and mc:IsCanBeXyzMaterial(c)
+	return c:IsRank(rk) and c:IsSetCard(0x6bc8) and mc:IsCanBeXyzMaterial(c)
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function c9980199.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

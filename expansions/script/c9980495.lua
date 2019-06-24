@@ -24,13 +24,13 @@ function c9980495.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980495.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x4bca,0x5bcb)
+	return c:IsFaceup() and c:IsSetCard(0xabca,0x5bcb)
 end
 function c9980495.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980495.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c9980495.tfilter(c,e,tp)
-	return c:IsSetCard(0x4bca,0x5bcb) and c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and c:IsAttackAbove(1000) and c:IsCanBeSpecialSummoned(e,0x8,tp,false,false)
+	return c:IsSetCard(0xabca,0x5bcb) and c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and c:IsAttackAbove(1000) and c:IsCanBeSpecialSummoned(e,0x8,tp,false,false)
 		and not Duel.IsExistingMatchingCard(c9980495.bfilter,tp,LOCATION_ONFIELD,0,1,nil,c)
 end
 function c9980495.bfilter(c,tc)
@@ -60,10 +60,10 @@ function c9980495.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function c9980495.splimit(e,c)
-	return not c:IsSetCard(0x4bca,0x5bcb) and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(0xabca,0x5bcb) and c:IsLocation(LOCATION_EXTRA)
 end
 function c9980495.thfilter(c)
-	return c:IsSetCard(0x4bca,0x5bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0xabca,0x5bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980495.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980495.thfilter(chkc) end

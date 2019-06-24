@@ -21,7 +21,7 @@ function c9980445.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x2bcb))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x6bca))
 	e2:SetValue(1000)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -61,10 +61,10 @@ function c9980445.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980445.atktg(e,c)
-	return not c:IsSetCard(0x2bcb)
+	return not c:IsSetCard(0x6bca)
 end
 function c9980445.thfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x2bcb) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x6bca) and c:IsAbleToHand()
 end
 function c9980445.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(nil,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,e:GetHandler())
@@ -93,7 +93,7 @@ function c9980445.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980445.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c9980445.spfilter(c,e,tp)
-	return c:IsSetCard(0x2bcb) and c:IsLevelBelow(2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x6bca) and c:IsLevelBelow(2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980445.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980445.spfilter(chkc,e,tp) end

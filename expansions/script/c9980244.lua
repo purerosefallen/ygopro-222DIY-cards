@@ -49,10 +49,10 @@ function c9980244.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c9980244.eqlimit(e,c)
-	return c:IsSetCard(0x1bc4)
+	return c:IsSetCard(0xbc4)
 end
 function c9980244.eqfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1bc4)
+	return c:IsFaceup() and c:IsSetCard(0xbc4)
 end
 function c9980244.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:GetLocation()==LOCATION_MZONE and c9980244.filter(chkc) end
@@ -68,7 +68,7 @@ function c9980244.eqop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980244.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1bc4) and c:IsAbleToHand()
+	return c:IsFaceup() and c:IsSetCard(0xbc4) and c:IsAbleToHand()
 end
 function c9980244.dttg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(tp) and c9980244.filter(chkc) and chkc~=e:GetHandler() end

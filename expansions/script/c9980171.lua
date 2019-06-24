@@ -67,7 +67,7 @@ function c9980171.lcheck(g,lc)
 	return g:IsExists(c9980171.mzfilter,1,nil)
 end
 function c9980171.mzfilter(c)
-	return c:IsSetCard(0x2bc4) and c:IsType(TYPE_TUNER)
+	return c:IsSetCard(0x3bc4) and c:IsType(TYPE_TUNER)
 end
 function c9980171.addcc(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)

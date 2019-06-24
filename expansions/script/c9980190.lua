@@ -1,7 +1,7 @@
 --刻刻帝女神 十一之弹·Yud·Aleph
 function c9980190.initial_effect(c)
 	--xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x2bc8),4,2,nil,nil,99)
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x6bc8),4,2,nil,nil,99)
 	c:EnableReviveLimit()
 	--atkup
 	local e2=Effect.CreateEffect(c)
@@ -60,7 +60,7 @@ function c9980190.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function c9980190.thfilter(c)
-	return c:IsSetCard(0x2bc8) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(0x6bc8) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function c9980190.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980190.thfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end
@@ -79,13 +79,13 @@ function c9980190.raval(e,c)
 end
 function c9980190.tktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x2bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x6bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
 function c9980190.tkop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	if not Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x2bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) then return end
+	if not Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x6bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) then return end
 	local token=Duel.CreateToken(tp,26326542)
 	Duel.SpecialSummon(token,0,tp,tp,false,false,POS_FACEUP)
 end

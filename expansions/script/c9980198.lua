@@ -1,7 +1,7 @@
 --第三领域·时崎狂三
 function c9980198.initial_effect(c)
 	--xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x2bc8),6,3)
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x6bc8),6,3)
 	c:EnableReviveLimit()
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -80,7 +80,7 @@ function c9980198.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function c9980198.thfilter(c)
-	return c:IsSetCard(0x2bc8) and c:IsType(TYPE_MONSTER) and not c:IsForbidden() 
+	return c:IsSetCard(0x6bc8) and c:IsType(TYPE_MONSTER) and not c:IsForbidden() 
 end
 function c9980198.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980198.thfilter,tp,LOCATION_DECK+LOCATION_GRAVE+LOCATION_HAND,0,1,nil)
@@ -110,7 +110,7 @@ end
 function c9980198.activate(e,tp,eg,ep,ev,re,r,rp)
 	local ft=math.min((Duel.GetLocationCount(tp,LOCATION_MZONE)),3)
 	if Duel.NegateAttack() and ft>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x2bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK)
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x6bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK)
 		and Duel.SelectYesNo(tp,aux.Stringid(9980198,0)) then
 		Duel.BreakEffect()
 		if Duel.IsPlayerAffectedByEffect(tp,59822133) then ft=1 end

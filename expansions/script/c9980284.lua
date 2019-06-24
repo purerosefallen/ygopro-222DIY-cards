@@ -64,13 +64,13 @@ function c9980284.spcon(e,c)
 		and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
 end
 function c9980284.tgcfilter(c,tp)
-	return c:IsFaceup() and c:IsSetCard(0x3bc4) and c:IsControler(tp)
+	return c:IsFaceup() and c:IsSetCard(0xbc4) and c:IsControler(tp)
 end
 function c9980284.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg and eg:IsExists(c9980284.tgcfilter,1,e:GetHandler(),tp)
 end
 function c9980284.tgfilter(c)
-	return c:IsSetCard(0x3bc4) and c:IsAbleToGrave()
+	return c:IsSetCard(0x6bc4) and c:IsAbleToGrave()
 end
 function c9980284.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980284.tgfilter,tp,LOCATION_DECK,0,1,nil) end

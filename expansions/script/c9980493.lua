@@ -25,7 +25,7 @@ function c9980493.handcon(e)
 		and Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_ONFIELD,3,nil)
 end
 function c9980493.cfilter(c)
-	return c:IsFaceup() and c:IsAttackAbove(3000) and c:IsSetCard(0x4bca)
+	return c:IsFaceup() and c:IsAttackAbove(3000) and c:IsSetCard(0xabca)
 end
 function c9980493.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980493.cfilter,tp,LOCATION_MZONE,0,1,nil)

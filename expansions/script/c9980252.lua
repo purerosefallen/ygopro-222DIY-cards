@@ -59,7 +59,7 @@ function c9980252.excost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.RegisterFlagEffect(tp,99802520,RESET_PHASE+PHASE_END,EFFECT_FLAG_OATH,1)
 end
 function c9980252.filter(c,e,tp)
-	return c:IsSetCard(0x1bcc) and not c:IsCode(9980252) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x3bcc) and not c:IsCode(9980252) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980252.extg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

@@ -1,7 +1,7 @@
 --刻刻帝女神 八之弹·Het
 function c9980187.initial_effect(c)
 	--xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x2bc8),4,2)
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x6bc8),4,2)
 	c:EnableReviveLimit()
 	--atkup
 	local e1=Effect.CreateEffect(c)
@@ -51,7 +51,7 @@ function c9980187.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c9980187.spop(e,tp,eg,ep,ev,re,r,rp)
 	local ft=math.min((Duel.GetLocationCount(tp,LOCATION_MZONE)),2)
-	if ft>0 and Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x2bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) then 
+	if ft>0 and Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x6bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) then 
 	Duel.BreakEffect()
 		if Duel.IsPlayerAffectedByEffect(tp,59822133) then ft=1 end
 		repeat

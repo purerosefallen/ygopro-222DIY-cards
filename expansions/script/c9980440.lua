@@ -87,10 +87,10 @@ function c9980440.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e2,tp)
 end
 function c9980440.tg(e,c)
-	return c:IsSetCard(0x2bcb)
+	return c:IsSetCard(0x6bca)
 end
 function c9980440.rccfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcb)
+	return c:IsFaceup() and c:IsSetCard(0x6bca)
 end
 function c9980440.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp

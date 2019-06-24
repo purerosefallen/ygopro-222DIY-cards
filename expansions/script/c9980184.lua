@@ -23,7 +23,7 @@ function c9980184.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c9980184.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc8) and c:IsAbleToGraveAsCost()
+	return c:IsFaceup() and c:IsSetCard(0x6bc8) and c:IsAbleToGraveAsCost()
 end
 function c9980184.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980184.filter,tp,LOCATION_SZONE,0,1,nil) end
@@ -43,7 +43,7 @@ function c9980184.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 function c9980184.filter1(c,e,tp)
 	local rk=c:GetRank()
-	return rk>1 and c:IsFaceup() and c:IsSetCard(0x2bc8)
+	return rk>1 and c:IsFaceup() and c:IsSetCard(0x6bc8)
 		and Duel.IsExistingMatchingCard(c9980184.filter2,tp,LOCATION_EXTRA,0,1,nil,e,tp,c,rk)
 		and Duel.GetLocationCountFromEx(tp,tp,c)>0
 		and aux.MustMaterialCheck(c,tp,EFFECT_MUST_BE_XMATERIAL)

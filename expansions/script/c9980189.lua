@@ -88,7 +88,7 @@ function c9980189.val(e,re,dam,r,rp,rc)
 	return val/2
 end
 function c9980189.filter0(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc8)
+	return c:IsFaceup() and c:IsSetCard(0x6bc8)
 end
 function c9980189.handcon(e)
 	return Duel.IsExistingMatchingCard(c9980189.filter0,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)

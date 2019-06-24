@@ -66,7 +66,7 @@ function c9980122.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980122.thfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1bc8) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
+	return c:IsFaceup() and c:IsSetCard(0xbc8) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
 end
 function c9980122.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980122.thfilter,tp,LOCATION_EXTRA,0,1,nil) end

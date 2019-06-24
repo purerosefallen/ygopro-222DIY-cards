@@ -48,7 +48,7 @@ function c9980191.cfilter(c)
 	return c:IsSetCard(0x95) and c:IsDiscardable()
 end
 function c9980191.ovfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc8) and c:IsRank(4)
+	return c:IsFaceup() and c:IsSetCard(0x6bc8) and c:IsRank(4)
 end
 function c9980191.xyzop(e,tp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980191.cfilter,tp,LOCATION_HAND,0,1,nil) end
@@ -115,14 +115,14 @@ function c9980191.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c9980191.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x2bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x6bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
 function c9980191.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	if not Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x2bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) then return end
+	if not Duel.IsPlayerCanSpecialSummonMonster(tp,9980195,0x6bc8,0x4011,1300,1300,4,RACE_FAIRY,ATTRIBUTE_DARK) then return end
 	local token=Duel.CreateToken(tp,9980195)
 	Duel.SpecialSummon(token,0,tp,tp,false,false,POS_FACEUP)
 	local e1=Effect.CreateEffect(c)

@@ -55,7 +55,7 @@ function c9980165.acop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980165.ctfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc4)
+	return c:IsFaceup() and c:IsSetCard(0x3bc4)
 end
 function c9980165.ctop(e,tp,eg,ep,ev,re,r,rp)
 	if eg:IsExists(c9980165.ctfilter,1,nil) then

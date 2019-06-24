@@ -36,10 +36,10 @@ function c9980194.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980194,0))
 end
 function c9980194.cfilter(c)
-	return (c:IsSetCard(0x95) or c:IsSetCard(0x2bc8))and c:IsDiscardable()
+	return (c:IsSetCard(0x95) or c:IsSetCard(0x6bc8))and c:IsDiscardable()
 end
 function c9980194.ovfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc8) and c:IsType(TYPE_LINK)
+	return c:IsFaceup() and c:IsSetCard(0x6bc8) and c:IsType(TYPE_LINK)
 end
 function c9980194.xyzop(e,tp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980194.cfilter,tp,LOCATION_HAND,0,2,nil) end

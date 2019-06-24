@@ -12,8 +12,11 @@ function c9980512.initial_effect(c)
 	e1:SetOperation(c9980512.activate)
 	c:RegisterEffect(e1)
 end
+function c9980513.cfilter(c)
+	return c:IsFaceup() and c:IsSetCard(0xcbcc)
+end
 function c9980512.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
+	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated() andDuel.IsExistingMatchingCard(c9980513.cfilter,tp,LOCATION_PZONE+LOCATION_MZONE,0,1,nil)
 end
 function c9980512.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x5bcc)
@@ -23,6 +26,7 @@ function c9980512.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingTarget(c9980512.filter,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	Duel.SelectTarget(tp,c9980512.filter,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SetChainLimit(c9980512.chainlm)
 end
 function c9980512.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
@@ -47,6 +51,9 @@ function c9980512.activate(e,tp,eg,ep,ev,re,r,rp)
 		e3:SetOperation(c9980512.rdop)
 		tc:RegisterEffect(e3)
 	end
+end
+function c9980512.chainlm(e,rp,tp)
+	return tp==rp
 end
 function c9980512.rdcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp

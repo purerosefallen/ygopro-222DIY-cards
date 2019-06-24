@@ -21,7 +21,7 @@ function c9980460.initial_effect(c)
 end
 c9980460.fit_monster={9980453,9980454}
 function c9980460.filter(c,e,tp,m,m2,ft)
-	if not c:IsSetCard(0x2bca) or bit.band(c:GetType(),0x81)~=0x81
+	if not c:IsSetCard(0x9bca) or bit.band(c:GetType(),0x81)~=0x81
 		or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
 	local mg=m:Filter(Card.IsCanBeRitualMaterial,c,c)
 	mg:Merge(m2)

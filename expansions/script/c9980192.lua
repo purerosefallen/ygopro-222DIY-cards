@@ -43,7 +43,7 @@ function c9980192.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c9980192.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc8)
+	return c:IsFaceup() and c:IsSetCard(0x6bc8)
 end
 function c9980192.cfilter2(c)
 	return c:IsFaceup() and c:IsType(TYPE_XYZ)
@@ -74,13 +74,13 @@ function c9980192.atkop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980192,0))
 end
 function c9980192.cfilter(c,tp)
-	return c:IsFaceup() and c:IsSetCard(0x2bc8) and c:IsControler(tp)
+	return c:IsFaceup() and c:IsSetCard(0x6bc8) and c:IsControler(tp)
 end
 function c9980192.tfcon(e,tp,eg,ep,ev,re,r,rp)
 	return not eg:IsContains(e:GetHandler()) and eg:IsExists(c9980192.cfilter,1,nil,tp)
 end
 function c9980192.tffilter(c)
-	return c:IsSetCard(0x2bc8) and c:IsType(TYPE_MONSTER) and not c:IsForbidden()
+	return c:IsSetCard(0x6bc8) and c:IsType(TYPE_MONSTER) and not c:IsForbidden()
 end
 function c9980192.tftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

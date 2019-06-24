@@ -25,12 +25,12 @@ function c9980120.spfilter(c,att,e,tp)
 	return c:IsSetCard(0x3bc8) and c:IsType(TYPE_FUSION) and c:IsAttribute(att) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function c9980120.filter(c,e,tp)
-	return c:IsSetCard(0x1bc8) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0x3bc8) and c:IsType(TYPE_MONSTER)
 		and Duel.IsExistingMatchingCard(c9980120.spfilter,tp,LOCATION_EXTRA+LOCATION_GRAVE,0,1,nil,c:GetAttribute(),e,tp)
 		and Duel.GetLocationCountFromEx(tp,tp,c)>0
 end
 function c9980120.chkfilter(c,att)
-	return c:IsFaceup() and c:IsSetCard(0x1bc8) and c:IsType(TYPE_MONSTER) and (c:GetAttribute()&att)==att
+	return c:IsFaceup() and c:IsSetCard(0x3bc8) and c:IsType(TYPE_MONSTER) and (c:GetAttribute()&att)==att
 end
 function c9980120.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE+LOCATION_HAND) and c9980120.chkfilter(chkc,e:GetLabel()) end
@@ -61,7 +61,7 @@ function c9980120.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoDeck(e:GetHandler(),nil,2,REASON_COST)
 end
 function c9980120.thfilter(c)
-	return c:IsSetCard(0x1bc8) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0x3bc8) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980120.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980120.thfilter,tp,LOCATION_DECK,0,1,nil) end

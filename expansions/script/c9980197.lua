@@ -43,14 +43,14 @@ function c9980197.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c9980197.cfilter2(c,tp)
-	return c:IsSetCard(0x2bc8) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
+	return c:IsSetCard(0x6bc8) and c:IsReason(REASON_BATTLE+REASON_EFFECT)
 		and c:IsPreviousPosition(POS_FACEUP) and c:IsPreviousLocation(LOCATION_MZONE) and c:GetPreviousControler()==tp
 end
 function c9980197.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c9980197.cfilter2,1,nil,tp)
 end
 function c9980197.filter3(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x2bc8) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsFaceup() and c:IsSetCard(0x6bc8) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980197.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_SZONE) and chkc:IsControler(tp) and c9980197.filter3(chkc,e,tp) end
@@ -76,7 +76,7 @@ function c9980197.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c9980197.cfilter,1,nil,tp)
 end
 function c9980197.thfilter(c)
-	return c:IsSetCard(0x2bc8) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(0x6bc8) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function c9980197.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980197.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -92,7 +92,7 @@ function c9980197.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980197,3))
 end
 function c9980197.costfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc8) and c:IsAbleToGraveAsCost()
+	return c:IsFaceup() and c:IsSetCard(0x6bc8) and c:IsAbleToGraveAsCost()
 end
 function c9980197.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(1)
@@ -102,7 +102,7 @@ function c9980197.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(g,REASON_COST)
 end
 function c9980197.filter(c,e,tp)
-	return c:IsSetCard(0x2bc8) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x6bc8) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980197.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

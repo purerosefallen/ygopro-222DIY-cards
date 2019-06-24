@@ -41,7 +41,7 @@ function c9980438.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>2 end
 end
 function c9980438.filter(c)
-	return (c:IsSetCard(0x3bcb) or c:IsSetCard(0x2bcb))and c:IsAbleToHand()
+	return (c:IsSetCard(0x3bcb) or c:IsSetCard(0x6bca))and c:IsAbleToHand()
 end
 function c9980438.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
@@ -63,7 +63,7 @@ function c9980438.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,0,tp,LOCATION_DECK)
 end
 function c9980438.spfilter(c,e,tp)
-	return c:IsSetCard(0x2bcb) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x6bca) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980438.gfilter(c)
 	return c:IsSetCard(0x3bcb) and c:IsLocation(LOCATION_GRAVE)

@@ -41,7 +41,7 @@ function c9980475.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsPublic() end
 end
 function c9980475.atkfilter(c)
-	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca)) 
+	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca)) 
 end
 function c9980475.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c9980475.atkfilter(chkc) end

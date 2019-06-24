@@ -46,7 +46,7 @@ function c9980469.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c9980469.lcheck(g)
-	return g:IsExists(Card.IsLinkSetCard,1,nil,0x4bca)
+	return g:IsExists(Card.IsLinkSetCard,1,nil,0xabca)
 end
 function c9980469.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980469,2))
@@ -97,7 +97,7 @@ function c9980469.mtcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsAbleToEnterBP()
 end
 function c9980469.mtfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsSetCard(0x4bca)
+	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsSetCard(0xabca)
 end
 function c9980469.mttg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and chkc:IsFaceup() end

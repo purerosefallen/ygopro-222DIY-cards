@@ -1,7 +1,7 @@
 --AgitΩ·Exceed Gills
 function c9980429.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddFusionProcCodeFun(c,9980423,aux.FilterBoolFunction(Card.IsFusionSetCard,0x1bcb),1,true,true)
+	aux.AddFusionProcCodeFun(c,9980423,aux.FilterBoolFunction(Card.IsFusionSetCard,0x5bca),1,true,true)
 	--special summon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -69,13 +69,13 @@ function c9980429.splimit(e,se,sp,st)
 	return not e:GetHandler():IsLocation(LOCATION_EXTRA) or aux.fuslimit(e,se,sp,st)
 end
 function c9980429.cfilter(c)
-	return (c:IsFusionCode(9980423) or c:IsFusionSetCard(0x1bcb))and c:IsAbleToRemoveAsCost() and c:IsCanBeFusionMaterial()
+	return (c:IsFusionCode(9980423) or c:IsFusionSetCard(0x5bca))and c:IsAbleToRemoveAsCost() and c:IsCanBeFusionMaterial()
 end
 function c9980429.fcheck(c,sg)
 	return c:IsFusionCode(9980423) and sg:IsExists(c9980429.fcheck2,1,c)
 end
 function c9980429.fcheck2(c)
-	return c:IsFusionSetCard(0x1bcb) and c:IsType(TYPE_MONSTER)
+	return c:IsFusionSetCard(0x5bca) and c:IsType(TYPE_MONSTER)
 end
 function c9980429.fselect(c,tp,mg,sg,...)
 	sg:AddCard(c)
@@ -136,13 +136,13 @@ function c9980429.damop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RDComplete()
 end
 function c9980429.thfilter(c)
-	return c:IsSetCard(0x1bcb) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bca) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function c9980429.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980429.thfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(c9980429.thfilter,tp,LOCATION_GRAVE,0,1,nil) end
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and chkc:IsControler(tp) and c9980429.thfilter(chkc) end
+	if chk==0 then return Duel.IsExistingTarget(c9980429.thfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectTarget(tp,c9980429.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
+	local g=Duel.SelectTarget(tp,c9980429.thfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
 function c9980429.thop(e,tp,eg,ep,ev,re,r,rp)

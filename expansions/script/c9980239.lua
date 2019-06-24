@@ -22,7 +22,7 @@ function c9980239.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980239.cfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
+	return c:IsSetCard(0x5bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
 end
 function c9980239.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980239.cfilter,tp,LOCATION_HAND,0,1,e:GetHandler()) end

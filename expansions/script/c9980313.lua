@@ -1,7 +1,7 @@
 --四季映姬·亚玛萨那度
 function c9980313.initial_effect(c)
 	 c:EnableReviveLimit()
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x2bcc),2,2)
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x6bcc),2,2)
 	--search
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980313,0))
@@ -42,7 +42,7 @@ function c9980313.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function c9980313.thfilter(c)
-	return c:IsSetCard(0x2bcc) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(0x6bcc) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function c9980313.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980313.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -60,7 +60,7 @@ function c9980313.spfilter1(c,e)
 	return not c:IsImmuneToEffect(e)
 end
 function c9980313.spfilter2(c,e,tp,m,f,chkf)
-	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x2bcc) and (not f or f(c))
+	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x6bcc) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,chkf)
 end
 function c9980313.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -119,7 +119,7 @@ function c9980313.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsReason(REASON_DESTROY) and c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsPreviousLocation(LOCATION_ONFIELD)
 end
 function c9980313.spfilter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x2bcc) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980313) and (c:IsLocation(LOCATION_GRAVE) or (c:IsLocation(LOCATION_EXTRA)and Duel.GetLocationCountFromEx(tp,tp,c)>0)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsFaceup() and c:IsSetCard(0x6bcc) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980313) and (c:IsLocation(LOCATION_GRAVE) or (c:IsLocation(LOCATION_EXTRA)and Duel.GetLocationCountFromEx(tp,tp,c)>0)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980313.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetFieldGroup(tp,LOCATION_ONFIELD,LOCATION_ONFIELD)

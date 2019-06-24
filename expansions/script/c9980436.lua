@@ -38,7 +38,7 @@ function c9980436.sdcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(c,REASON_COST+REASON_DISCARD)
 end
 function c9980436.filter(c)
-	return c:IsSetCard(0x3bcb)
+	return c:IsSetCard(0x3bcb,0x6bca)
 end
 function c9980436.sdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
@@ -86,7 +86,7 @@ function c9980436.efilter(e,re)
 	return e:GetOwnerPlayer()~=re:GetOwnerPlayer()
 end
 function c9980436.thfilter(c)
-	return (c:IsSetCard(0x2bcb) or c:IsSetCard(0x3bcb))and c:IsAbleToHand()
+	return (c:IsSetCard(0x6bca) or c:IsSetCard(0x3bcb))and c:IsAbleToHand()
 end
 function c9980436.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	 if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>0 end

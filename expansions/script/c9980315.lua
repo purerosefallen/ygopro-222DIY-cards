@@ -2,7 +2,7 @@
 function c9980315.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcFun2(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0x2bcc),aux.FilterBoolFunction(Card.IsFusionType,TYPE_LINK),true)
+	aux.AddFusionProcFun2(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0x6bcc),aux.FilterBoolFunction(Card.IsFusionType,TYPE_LINK),true)
 	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -67,8 +67,8 @@ function c9980315.spfilter1(c,tp,g)
 	return g:IsExists(c9980315.spfilter2,1,c,tp,c)
 end
 function c9980315.spfilter2(c,tp,mc)
-	return (c:IsSetCard(0x2bcc) and c:IsType(TYPE_MONSTER) and mc:IsType(TYPE_LINK)
-		or c:IsType(TYPE_LINK) and mc:IsSetCard(0x2bcc) and mc:IsType(TYPE_MONSTER))
+	return (c:IsSetCard(0x6bcc) and c:IsType(TYPE_MONSTER) and mc:IsType(TYPE_LINK)
+		or c:IsType(TYPE_LINK) and mc:IsSetCard(0x6bcc) and mc:IsType(TYPE_MONSTER))
 		and Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c,mc))>0
 end
 function c9980315.spcon(e,c)
@@ -110,7 +110,7 @@ function c9980315.atkop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980315.thfilter(c)
-	return c:IsSetCard(0x2bcc) and not c:IsCode(9980315) and c:IsAbleToHand()
+	return c:IsSetCard(0x6bcc) and not c:IsCode(9980315) and c:IsAbleToHand()
 end
 function c9980315.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980315.thfilter(chkc) end

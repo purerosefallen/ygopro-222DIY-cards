@@ -35,10 +35,10 @@ function c9980312.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980312.pccon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
+	return not Duel.IsExistingMatchingCard(nil,tp,LOCATION_PZONE,0,1,e:GetHandler())
 end
 function c9980312.pcfilter(c)
-	return c:IsSetCard(0x2bcc) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
+	return c:IsSetCard(0x6bcc) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
 end
 function c9980312.pctg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return (Duel.CheckLocation(tp,LOCATION_PZONE,0) or Duel.CheckLocation(tp,LOCATION_PZONE,1))
@@ -66,7 +66,7 @@ function c9980312.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not c:IsAttribute(ATTRIBUTE_DARK) and bit.band(sumtype,SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 function c9980312.costfilter(c)
-	return c:IsSetCard(0x2bcc) and not c:IsCode(9980312) and (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsAbleToGraveAsCost()
+	return c:IsSetCard(0x6bcc) and not c:IsCode(9980312) and (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsAbleToGraveAsCost()
 		and Duel.IsExistingMatchingCard(nil,0,LOCATION_ONFIELD,LOCATION_ONFIELD,1,c)
 end
 function c9980312.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -100,7 +100,7 @@ function c9980312.regcon(e,tp,eg,ep,ev,re,r,rp)
 	return bit.band(r,REASON_EFFECT+REASON_BATTLE)~=0 and e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function c9980312.spfilter(c)
-	return c:IsSetCard(0x2bcc) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980312)
+	return c:IsSetCard(0x6bcc) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980312)
 end
 function c9980312.regtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980312.spfilter,tp,LOCATION_DECK,0,1,nil) end

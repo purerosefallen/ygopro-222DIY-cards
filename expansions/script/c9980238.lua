@@ -11,7 +11,7 @@ function c9980238.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_LEVEL)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetTargetRange(LOCATION_HAND,0)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x1bc4))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x5bc4))
 	e2:SetValue(-1)
 	c:RegisterEffect(e2)
 	--atkup
@@ -47,7 +47,7 @@ function c9980238.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c9980238.retfilter1(c)
-	return c:IsSetCard(0x1bc4) and c:IsAbleToDeck()
+	return c:IsSetCard(0x5bc4) and c:IsAbleToDeck()
 end
 function c9980238.retfilter2(c)
 	return c:IsAbleToHand()
@@ -77,7 +77,7 @@ function c9980238.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function c9980238.thfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bc4) and c:IsAbleToHand()
 end
 function c9980238.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980238.thfilter,tp,LOCATION_DECK,0,1,nil) end

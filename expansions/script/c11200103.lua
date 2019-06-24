@@ -19,7 +19,6 @@ function c11200103.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
-	e2:SetCountLimit(1)
 	e2:SetCost(aux.bfgcost)
 	e2:SetOperation(c11200103.atkop)
 	c:RegisterEffect(e2)
@@ -38,36 +37,38 @@ function c11200103.con(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL)
 end
 function c11200103.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local rg=Duel.GetDecktopGroup(tp,3)
-	if chk==0 then return rg:FilterCount(Card.IsAbleToRemove,nil)==3 end
-	Duel.SetOperationInfo(0,CATEGORY_REMOVE,rg,3,0,0)
-end
-function c11200103.fit(c)
-	return c:IsType(TYPE_RITUAL) and c:IsLocation(LOCATION_REMOVED)
+	if chkc then return chkc:IsOnField() and chkc:IsAbleToRemove() end
+	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToRemove,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,2,nil)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,g:GetCount(),0,0)
 end
 function c11200103.op(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local g=Duel.GetDecktopGroup(tp,3)
-	if #g<=0 then return end
-	Duel.DisableShuffleCheck()
-	if Duel.Remove(g,POS_FACEUP,REASON_EFFECT)~=0
-		and c:IsFaceup() and c:IsRelateToEffect(e) then
-		local og=Duel.GetOperatedGroup()
-		local os=g:FilterCount(c11200103.fit,nil)
-		if os>0 then
-			Duel.BreakEffect()
-			Duel.Draw(tp,os,REASON_EFFECT)
+	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
+	local sg=tg:Filter(Card.IsRelateToEffect,nil,e)
+	Duel.Remove(sg,POS_FACEUP,REASON_EFFECT)
+	sg=Duel.GetOperatedGroup()
+	local d1=0
+	local d2=0
+	local tc=sg:GetFirst()
+	while tc do
+		if tc then
+			if tc:GetPreviousControler()==0 then d1=d1+1
+			else d2=d2+1 end
 		end
+		tc=sg:GetNext()
 	end
+	if d1>0 and Duel.SelectYesNo(0,aux.Stringid(11200103,1)) then Duel.Draw(0,d1,REASON_EFFECT) end
+	if d2>0 and Duel.SelectYesNo(1,aux.Stringid(11200103,1)) then Duel.Draw(1,d2,REASON_EFFECT) end
 end
 function c11200103.atkop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.NegateAttack()
 end
 function c11200103.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_REMOVED+LOCATION_GRAVE) and chkc:IsAbleToDeck() and chkc~=e:GetHandler() end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToDeck,tp,LOCATION_REMOVED+LOCATION_GRAVE,LOCATION_REMOVED+LOCATION_GRAVE,1,e:GetHandler()) end
+	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsAbleToDeck() and chkc~=e:GetHandler() end
+	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToDeck,tp,LOCATION_REMOVED,0,1,e:GetHandler()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectTarget(tp,Card.IsAbleToDeck,tp,LOCATION_REMOVED+LOCATION_GRAVE,LOCATION_REMOVED+LOCATION_GRAVE,1,3,e:GetHandler())
+	local g=Duel.SelectTarget(tp,Card.IsAbleToDeck,tp,LOCATION_REMOVED,0,1,3,e:GetHandler())
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
 function c11200103.tdop(e,tp,eg,ep,ev,re,r,rp)

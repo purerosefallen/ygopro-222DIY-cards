@@ -36,7 +36,7 @@ function c9980443.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_DECK) and c:IsReason(REASON_REVEAL) 
 end
 function c9980443.spfilter(c,e,tp)
-	return c:IsSetCard(0x2bcb) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
+	return c:IsSetCard(0x6bca) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
 end
 function c9980443.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
    if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -89,10 +89,10 @@ function c9980443.desop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Destroy(tc,REASON_EFFECT)
 end
 function c9980443.tg(e,c)
-	return c:IsSetCard(0x2bcb)
+	return c:IsSetCard(0x6bca)
 end
 function c9980443.rccfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcb)
+	return c:IsFaceup() and c:IsSetCard(0x6bca)
 end
 function c9980443.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp

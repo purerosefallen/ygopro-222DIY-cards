@@ -56,7 +56,7 @@ function c9980484.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
 function c9980484.thfilter(c)
-	return c:IsSetCard(0x5bcb,0x4bca) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bcb,0xabca) and c:IsAbleToHand()
 end
 function c9980484.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980484.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -71,7 +71,7 @@ function c9980484.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980484.spfilter(c,e,tp)
-	return c:IsSetCard(0x5bcb,0x4bca) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x5bcb,0xabca) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980484.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

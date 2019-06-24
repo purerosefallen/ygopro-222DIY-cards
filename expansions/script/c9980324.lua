@@ -12,7 +12,7 @@ function c9980324.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c9980324.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcc) 
+	return c:IsFaceup() and c:IsSetCard(0x6bcc) 
 end
 function c9980324.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(c9980324.filter,tp,LOCATION_MZONE,0,nil)

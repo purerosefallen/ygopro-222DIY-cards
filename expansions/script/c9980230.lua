@@ -58,6 +58,7 @@ function c9980230.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e4:SetCode(EVENT_LEAVE_FIELD)
+	e4:SetCountLimit(1,99802300)
 	e4:SetCondition(c9980230.descon2)
 	e4:SetTarget(c9980230.destg2)
 	e4:SetOperation(c9980230.desop2)
@@ -73,7 +74,7 @@ function c9980230.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980230,0))
 end 
 function c9980230.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1bc4) and c:IsType(TYPE_PENDULUM) and c:IsAbleToGraveAsCost()
+	return c:IsFaceup() and c:IsSetCard(0x5bc4) and c:IsType(TYPE_PENDULUM) and c:IsAbleToGraveAsCost()
 end
 function c9980230.drawtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
@@ -117,7 +118,7 @@ function c9980230.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return (ph==PHASE_MAIN1 or ph==PHASE_MAIN2)
 end
 function c9980230.sumfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0x5bc4) and c:IsSummonable(true,nil,1)
 end
 function c9980230.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980230.sumfilter,tp,LOCATION_HAND,0,1,nil) end

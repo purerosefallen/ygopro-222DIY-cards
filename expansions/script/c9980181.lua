@@ -41,7 +41,7 @@ function c9980181.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c9980181.thfilter(c)
-	return c:IsSetCard(0x2bc8) and c:IsType(TYPE_MONSTER) and not c:IsForbidden() and not c:IsCode(9980181)
+	return c:IsSetCard(0x6bc8) and c:IsType(TYPE_MONSTER) and not c:IsForbidden() and not c:IsCode(9980181)
 end
 function c9980181.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980181.thfilter,tp,LOCATION_DECK+LOCATION_GRAVE+LOCATION_HAND,0,1,nil)
@@ -109,7 +109,7 @@ function c9980181.eqcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(g,REASON_COST)
 end
 function c9980181.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc8)
+	return c:IsFaceup() and c:IsSetCard(0x6bc8)
 end
 function c9980181.eqtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end

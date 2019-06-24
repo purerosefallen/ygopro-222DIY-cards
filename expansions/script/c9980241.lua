@@ -24,7 +24,7 @@ function c9980241.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980241.filter(c)
-	return c:IsSetCard(0x1bc4) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bc4) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function c9980241.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980241.filter,tp,LOCATION_DECK,0,1,nil) end

@@ -54,7 +54,7 @@ function c9980457.tgop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980457.filter(c)
-	return c:IsSetCard(0x2bca) and c:IsFaceup()
+	return c:IsSetCard(0x9bca) and c:IsFaceup()
 end
 function c9980457.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c9980457.filter(chkc) end
@@ -106,7 +106,7 @@ function c9980457.operation(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980457,0)) 
 end
 function c9980457.eqlimit(e,c)
-	return c:IsSetCard(0x2bca)
+	return c:IsSetCard(0x9bca)
 end
 function c9980457.descon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetEquipTarget()

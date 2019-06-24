@@ -48,7 +48,7 @@ function c9980294.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980294.cfilter,tp,LOCATION_MZONE,0,2,nil)
 end
 function c9980294.filter(c)
-	return c:IsSetCard(0x3bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0x6bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980294.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980294.filter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end

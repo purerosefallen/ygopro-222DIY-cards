@@ -23,27 +23,15 @@ function c9980420.initial_effect(c)
 	e1:SetTarget(c9980420.sptg1)
 	e1:SetOperation(c9980420.spop1)
 	c:RegisterEffect(e1)
-	--Pos Change
-	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_QUICK_F)
-	e3:SetCode(EFFECT_SET_POSITION)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetTargetRange(0,LOCATION_MZONE)
-	e3:SetCondition(c9980420.poscon)
-	e3:SetTarget(c9980420.postg)
-	e3:SetOperation(c9980420.posop)
-	c:RegisterEffect(e3)
-	--must attack
-	local e4=Effect.CreateEffect(c)
-	e4:SetType(EFFECT_TYPE_FIELD)
-	e4:SetCode(EFFECT_MUST_ATTACK)
-	e4:SetRange(LOCATION_MZONE)
-	e4:SetTargetRange(0,LOCATION_MZONE)
-	c:RegisterEffect(e4)
-	local e5=e4:Clone()
-	e5:SetCode(EFFECT_MUST_ATTACK_MONSTER)
-	e5:SetValue(c9980420.atklimit)
-	c:RegisterEffect(e5)
+	--des
+	local e2=Effect.CreateEffect(c)
+	e2:SetCategory(CATEGORY_DESTROY)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e2:SetTarget(c9980420.destg)
+	e2:SetOperation(c9980420.desop)
+	c:RegisterEffect(e2)
 	--spsummon bgm
 	local e8=Effect.CreateEffect(c)
 	e8:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
@@ -55,7 +43,7 @@ function c9980420.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980420,1))
 end
 function c9980420.cfilter(c)
-	return c:IsSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
+	return c:IsSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
 end
 function c9980420.spcon(e,c)
 	if c==nil then return true end
@@ -80,7 +68,7 @@ function c9980420.spcost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function c9980420.spfilter1(c,e,tp,ec)
-	return c:IsSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980420) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980420) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980420.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_HAND+LOCATION_REMOVED) and chkc:IsControler(tp) and c9980420.spfilter1(chkc,e,tp) end
@@ -96,19 +84,16 @@ function c9980420.spop1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
-function c9980420.poscon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetCurrentPhase()>=PHASE_BATTLE_START and Duel.GetCurrentPhase()<=PHASE_BATTLE
-		and (Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated())
+function c9980420.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsOnField() end
+	if chk==0 then return true end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	local g=Duel.SelectTarget(tp,aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 end
-function c9980420.postg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDefensePos,tp,0,LOCATION_MZONE,1,nil) end
-	local g=Duel.GetMatchingGroup(Card.IsDefensePos,tp,0,LOCATION_MZONE,nil)
-	Duel.SetOperationInfo(0,CATEGORY_POSITION,g,g:GetCount(),0,0)
-end
-function c9980420.posop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(Card.IsDefensePos,tp,0,LOCATION_MZONE,nil)
-	Duel.ChangePosition(g,0,0,POS_FACEUP_ATTACK,POS_FACEUP_ATTACK,true)
-end
-function c9980420.atklimit(e,c)
-	return c==e:GetHandler()
+function c9980420.desop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if tc and tc:IsRelateToEffect(e) then
+		Duel.Destroy(tc,REASON_EFFECT)
+	end
 end

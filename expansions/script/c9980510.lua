@@ -52,7 +52,7 @@ function c9980510.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 function c9980510.tdfilter(c)
 	return c:IsFaceup() and not c:IsCode(9980510)
-		and (c:IsSetCard(0x5bcc) or c:IsSetCard(0x6bcc))and c:IsAbleToDeck()
+		and (c:IsSetCard(0x5bcc) or c:IsSetCard(0x9bcc))and c:IsAbleToDeck()
 end
 function c9980510.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c9980510.tdfilter(chkc) end

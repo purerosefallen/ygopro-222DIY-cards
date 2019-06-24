@@ -36,7 +36,8 @@ function c12009101.initial_effect(c)
 end
 function c12009101.disop(e,tp)
 	local c=e:GetHandler()
-	return c:GetColumnZone(LOCATION_SZONE)
+--  return 285217024
+	return 69600000
 end
 function c12009101.efilter(e,te)
 	return te:GetOwner()~=e:GetOwner()

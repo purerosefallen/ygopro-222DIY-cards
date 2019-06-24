@@ -33,10 +33,10 @@ function c12031011.initial_effect(c)
 	end
 end
 function c12031011.cfilter(c,tp)
-	return c:IsType(TYPE_MONSTER)
+	return c:IsType(TYPE_MONSTER) and c:IsReason(REASON_COST)
 end
 function c12031011.checkop(e,tp,eg,ep,ev,re,r,rp)
-	if not eg and re and re:IsHasType(0x7e0) and re:GetHandler():IsReason(REASON_COST) then return end
+	if not eg and re and re:IsHasType(0x7e0) then return end
 	local sg=eg:Filter(c12031011.cfilter,nil,tp)
 	local tc=sg:GetFirst()
 	while tc do
@@ -89,16 +89,18 @@ function c12031011.thop(e,tp,eg,ep,ev,re,r,rp)
 	if cc<3 then
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local ct=Duel.SelectMatchingCard(tp,c12031011.thfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,LOCATION_GRAVE+LOCATION_REMOVED,cc,cc,nil)
-	   if Duel.SendtoHand(ct,tp,REASON_EFFECT)>0 then
+	   local sss=Duel.SendtoHand(ct,tp,REASON_EFFECT)
+	   if sss>0 then
 	   Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DISCARD)
-	   Duel.DiscardHand(tp,nil,cc-1,cc-1,nil)
+	   Duel.DiscardHand(tp,nil,sss-1,sss-1,nil)
 	   end
 	else
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local ct=Duel.SelectMatchingCard(tp,c12031011.thfilter1,tp,LOCATION_GRAVE+LOCATION_REMOVED,LOCATION_GRAVE+LOCATION_REMOVED,cc,cc,nil)
-	   if Duel.SendtoHand(ct,tp,REASON_EFFECT)>0 then
+	   local sss=Duel.SendtoHand(ct,tp,REASON_EFFECT)
+	   if sss>0 then
 	   Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DISCARD)
-	   Duel.DiscardHand(tp,nil,cc-1,cc-1,nil)
+	   Duel.DiscardHand(tp,nil,sss-1,sss-1,nil)
 	   end
 	end
 end

@@ -48,7 +48,7 @@ function c9980433.spcost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function c9980433.spfilter1(c,e,tp,ec)
-	return c:IsType(TYPE_LINK) and c:IsSetCard(0x1bcb) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_LINK,tp,false,false)
+	return c:IsType(TYPE_LINK) and c:IsSetCard(0x5bca) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_LINK,tp,false,false)
 		and Duel.GetLocationCountFromEx(tp,tp,ec,c,0x60)>0
 end
 function c9980433.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -97,7 +97,7 @@ function c9980433.defcon(e)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+1
 end
 function c9980433.filter(c)
-	return c:IsSetCard(0x1bcb) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0x5bca) and c:IsType(TYPE_MONSTER)
 end
 function c9980433.defval(e,c)
 	return Duel.GetMatchingGroupCount(c9980433.filter,c:GetControler(),LOCATION_GRAVE,0,nil)*500

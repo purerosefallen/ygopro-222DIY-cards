@@ -102,7 +102,7 @@ function c9980501.actcon(e)
 	return Duel.GetAttacker()==e:GetHandler() or Duel.GetAttackTarget()==e:GetHandler()
 end
 function c9980501.sfilter(c)
-	return c:IsSetCard(0x6bcc) and c:IsAbleToHand()
+	return c:IsCode(9980513) and c:IsAbleToHand()
 end
 function c9980501.stg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

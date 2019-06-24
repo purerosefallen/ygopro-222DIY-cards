@@ -53,7 +53,7 @@ function c9980478.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsPublic() end
 end
 function c9980478.atkfilter(c)
-	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca)) 
+	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca)) 
 end
 function c9980478.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c9980478.atkfilter(chkc) end
@@ -98,7 +98,7 @@ function c9980478.aclimit(e,re,tp)
 end
 function c9980478.actcon(e)
 	local a=Duel.GetAttacker()
-	return a and a:IsControler(e:GetHandlerPlayer()) and (a:IsSetCard(0x5bcb)  or a:IsSetCard(0x4bca)) 
+	return a and a:IsControler(e:GetHandlerPlayer()) and (a:IsSetCard(0x5bcb)  or a:IsSetCard(0xabca)) 
 end
 function c9980478.distg(e,c)
 	if c:GetFlagEffect(9980478)>0 then return true end
@@ -109,14 +109,14 @@ function c9980478.distg(e,c)
 	return false
 end
 function c9980478.cfilter(c)
-	return c:IsPreviousSetCard(0x5bcb,0x4bca) and c:IsPreviousLocation(LOCATION_MZONE)
+	return c:IsPreviousSetCard(0x5bcb,0xabca) and c:IsPreviousLocation(LOCATION_MZONE)
 		and c:IsPreviousPosition(POS_FACEUP)
 end
 function c9980478.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c9980478.cfilter,1,nil)
 end
 function c9980478.spfilter(c,e,tp)
-	return c:IsSetCard(0x5bcb,0x4bca) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
+	return c:IsSetCard(0x5bcb,0xabca) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function c9980478.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

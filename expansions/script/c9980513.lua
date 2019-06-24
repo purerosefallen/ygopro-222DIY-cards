@@ -13,10 +13,10 @@ function c9980513.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function c9980513.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x5bcc)
+	return c:IsFaceup() and c:IsCode(9980501)
 end
 function c9980513.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(c9980513.cfilter,tp,LOCATION_ONFIELD,0,1,nil)
+	return Duel.IsExistingMatchingCard(c9980513.cfilter,tp,LOCATION_PZONE+LOCATION_MZONE,0,1,nil)
 end
 function c9980513.filter(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP)

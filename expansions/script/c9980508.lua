@@ -99,7 +99,7 @@ function c9980508.psop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980508.thfilter(c)
-	return c:IsSetCard(0x5bcc) and not c:IsCode(9980508) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bcc,0x9bcc) and not c:IsCode(9980508) and c:IsAbleToHand()
 end
 function c9980508.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980508.thfilter,tp,LOCATION_DECK,0,1,nil) end

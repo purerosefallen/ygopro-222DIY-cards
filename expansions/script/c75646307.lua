@@ -1,7 +1,7 @@
 --逐火之蛾 光之救世主
 function c75646307.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkType,TYPE_EFFECT),1,99,c75646307.lcheck)
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkType,TYPE_EFFECT),2,99,c75646307.lcheck)
 	c:EnableReviveLimit()
 	--code
 	local e1=Effect.CreateEffect(c)

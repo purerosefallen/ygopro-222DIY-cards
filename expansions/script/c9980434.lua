@@ -33,7 +33,7 @@ function c9980434.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,c9980434.costfilter,1,1,REASON_COST+REASON_DISCARD)
 end
 function c9980434.thfilter(c)
-	return c:IsSetCard(0x1bcb) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bca) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980434.fselect(g)
 	return g:GetClassCount(Card.GetAttribute)==g:GetCount()

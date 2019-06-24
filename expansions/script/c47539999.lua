@@ -1,0 +1,145 @@
+--钢之勇者 士郎
+function c47539999.initial_effect(c)
+    --link summon
+    aux.AddLinkProcedure(c,c47539999.lfilter,2,2)
+    c:EnableReviveLimit()   
+    --extra link
+    local e0=Effect.CreateEffect(c)
+    e0:SetType(EFFECT_TYPE_FIELD)
+    e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_IGNORE_IMMUNE)
+    e0:SetRange(LOCATION_EXTRA)
+    e0:SetTarget(c47539999.mattg)
+    e0:SetCode(EFFECT_EXTRA_LINK_MATERIAL)
+    e0:SetTargetRange(LOCATION_HAND,0)
+    e0:SetValue(c47539999.matval)
+    c:RegisterEffect(e0) 
+    --immune
+    local e1=Effect.CreateEffect(c)
+    e1:SetType(EFFECT_TYPE_SINGLE)
+    e1:SetCode(EFFECT_IMMUNE_EFFECT)
+    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e1:SetRange(LOCATION_MZONE)
+    e1:SetCondition(c47539999.imcon)
+    e1:SetValue(c47539999.efilter)
+    c:RegisterEffect(e1)
+    --
+    local e2=Effect.CreateEffect(c)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e2:SetCode(47539999)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetCondition(c47539999.imcon)
+    e2:SetTargetRange(1,0)
+    c:RegisterEffect(e2)
+    --attack all
+    local e3=Effect.CreateEffect(c)
+    e3:SetType(EFFECT_TYPE_SINGLE)
+    e3:SetCode(EFFECT_ATTACK_ALL)
+    e3:SetValue(1)
+    e3:SetCondition(c47539999.imcon)
+    c:RegisterEffect(e3)
+    --debuff
+    local e4=Effect.CreateEffect(c)
+    e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+    e4:SetProperty(EFFECT_FLAG_DELAY)
+    e4:SetCode(EVENT_SPSUMMON_SUCCESS)
+    e4:SetCondition(c47539999.dbcon)
+    e4:SetOperation(c47539999.dbop)
+    c:RegisterEffect(e4)
+    --atk up
+    local e5=Effect.CreateEffect(c)
+    e5:SetCategory(CATEGORY_ATKCHANGE)
+    e5:SetType(EFFECT_TYPE_QUICK_O)
+    e5:SetRange(LOCATION_MZONE)
+    e5:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
+    e5:SetCondition(c47539999.atkcon)
+    e5:SetCost(c47539999.atkcost)
+    e5:SetOperation(c47539999.atkop)
+    c:RegisterEffect(e5)
+end
+function c47539999.dbcon(e,tp,eg,ep,ev,re,r,rp)
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
+end
+function c47539999.dbop(e,tp,eg,ep,ev,re,r,rp)
+    local c=e:GetHandler()
+    local e6=Effect.CreateEffect(c)
+    e6:SetType(EFFECT_TYPE_FIELD)
+    e6:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e6:SetCode(EFFECT_CANNOT_SUMMON)
+    e6:SetReset(RESET_PHASE+PHASE_END)
+    e6:SetTargetRange(1,0)
+    Duel.RegisterEffect(e6,tp)
+    local e5=Effect.CreateEffect(c)
+    e5:SetType(EFFECT_TYPE_FIELD)
+    e5:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e5:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+    e5:SetReset(RESET_PHASE+PHASE_END)
+    e5:SetTargetRange(1,0)
+    Duel.RegisterEffect(e5,tp)
+    local e1=Effect.CreateEffect(e:GetHandler())
+    e1:SetType(EFFECT_TYPE_FIELD)
+    e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e1:SetCode(EFFECT_CANNOT_MSET)
+    e1:SetTargetRange(1,0)
+    e1:SetTarget(aux.TRUE)
+    e1:SetReset(RESET_PHASE+PHASE_END)
+    Duel.RegisterEffect(e1,tp)
+    local e2=e1:Clone()
+    e2:SetCode(EFFECT_CANNOT_SSET)
+    Duel.RegisterEffect(e2,tp)
+    local e3=e1:Clone()
+    e3:SetCode(EFFECT_CANNOT_TURN_SET)
+    Duel.RegisterEffect(e3,tp)
+    local e4=e1:Clone()
+    e4:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+    e4:SetTarget(c47539999.sumlimit)
+    Duel.RegisterEffect(e4,tp)
+end
+function c47539999.sumlimit(e,c,sump,sumtype,sumpos,targetp)
+    return bit.band(sumpos,POS_FACEDOWN)>0
+end
+function c47539999.aclimit(e,re,tp)
+    return re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsImmuneToEffect(e)
+end
+function c47539999.actcon(e)
+    return Duel.GetAttacker()==e:GetHandler()
+end
+function c47539999.matval(e,c,mg)
+    return c:IsCode(47539999)
+end
+function c47539999.mattg(e,c)
+    return c:IsType(TYPE_EFFECT) and c:IsAttackBelow(2000)
+end
+function c47539999.lfilter(c)
+    return c:IsType(TYPE_EFFECT) and c:IsAttackBelow(2000)
+end
+function c47539999.imcon(e)
+    return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_ONFIELD,0)==1
+end
+function c47539999.efilter(e,te)
+    return te:GetOwner()~=e:GetOwner()
+end
+function c47539999.atkcon(e,tp,eg,ep,ev,re,r,rp)
+    local c=e:GetHandler()
+    local bc=c:GetBattleTarget()
+    return bc and bc:GetAttack()>0 and Duel.IsPlayerAffectedByEffect(tp,47539999)
+end
+function c47539999.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
+    local c=e:GetHandler()
+    if chk==0 then return c:GetFlagEffect(47539999)==0 end
+    c:RegisterFlagEffect(47539999,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_DAMAGE_CAL,0,1)
+end
+function c47539999.atkop(e,tp,eg,ep,ev,re,r,rp)
+    local c=e:GetHandler()
+    local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,0,LOCATION_MZONE,c)
+    if g:GetCount()==0 then return end
+    local g1,atk=g:GetMaxGroup(Card.GetAttack)
+    if c:IsRelateToBattle() then
+        local e1=Effect.CreateEffect(c)
+        e1:SetType(EFFECT_TYPE_SINGLE)
+        e1:SetCode(EFFECT_UPDATE_ATTACK)
+        e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_DAMAGE_CAL)
+        e1:SetValue(atk)
+        c:RegisterEffect(e1)
+    end
+end

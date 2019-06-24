@@ -1,8 +1,8 @@
 --物语纪录·迷路之八九寺真宵
 function c9980232.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkRace,RACE_SPELLCASTER),2,2,c9980232.lcheck)
 	c:EnableReviveLimit()
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0xbc4),3,3)
 	 --summon proc
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980232,0))
@@ -53,9 +53,6 @@ end
 function c9980232.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980232,4))
 end
-function c9980232.lcheck(g,lc)
-	return g:IsExists(Card.IsLinkSetCard,1,nil,0x1bc4) 
-end
 function c9980232.rmfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
 end
@@ -79,7 +76,7 @@ function c9980232.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function c9980232.thfilter(c)
-	return c:IsSetCard(0x1bc4) and (c:IsAbleToHand() or c:IsAbleToGrave())
+	return c:IsSetCard(0x5bc4) and (c:IsAbleToHand() or c:IsAbleToGrave())
 end
 function c9980232.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980232.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -100,7 +97,7 @@ function c9980232.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980232.costfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1bc4) and c:IsAbleToRemoveAsCost()
+	return c:IsFaceup() and c:IsSetCard(0x5bc4) and c:IsAbleToRemoveAsCost()
 end
 function c9980232.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980232.costfilter,tp,LOCATION_GRAVE+LOCATION_EXTRA,0,1,nil) end

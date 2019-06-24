@@ -29,7 +29,7 @@ function c9980462.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980462.filter(c,e,tp)
-	return (c:IsSetCard(0x2bca) or c:IsRace(RACE_FAIRY))and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return (c:IsSetCard(0x9bca) or c:IsRace(RACE_FAIRY))and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980462.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980462.filter(chkc,e,tp) end
@@ -61,7 +61,7 @@ function c9980462.eqlimit(e,c)
 	return e:GetOwner()==c
 end
 function c9980462.thfilter(c)
-	return c:IsSetCard(0x2bca) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(0x9bca) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
 end
 function c9980462.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980462.thfilter,tp,LOCATION_GRAVE,0,1,nil) end

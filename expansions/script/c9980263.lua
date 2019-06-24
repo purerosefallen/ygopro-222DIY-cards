@@ -59,7 +59,7 @@ function c9980263.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980263.filter(c,e,tp)
-	return c:IsSetCard(0x1bcc) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(0x3bcc) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function c9980263.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -107,8 +107,8 @@ function c9980263.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not c:IsType(TYPE_SYNCHRO) and c:IsLocation(LOCATION_EXTRA)
 end
 function c9980263.atlimit(e,c)
-	return c:IsFaceup() and c:IsSetCard(0x1bcc) and not c:IsCode(9980263)
+	return c:IsFaceup() and c:IsSetCard(0x3bcc) and not c:IsCode(9980263)
 end
 function c9980263.tglimit(e,c)
-	return c:IsSetCard(0x1bcc) and not c:IsCode(9980263)
+	return c:IsSetCard(0x3bcc) and not c:IsCode(9980263)
 end

@@ -69,7 +69,7 @@ function c9980196.spcost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,1000)
 end
 function c9980196.spfilter1(c,e,tp)
-	return c:IsSetCard(0x2bc8) and not c:IsCode(9980196) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x6bc8) and not c:IsCode(9980196) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980196.sptg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c9980196.spfilter1(chkc,e,tp) end

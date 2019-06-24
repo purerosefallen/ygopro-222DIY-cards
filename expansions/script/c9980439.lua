@@ -43,13 +43,13 @@ function c9980439.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980439.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcb)
+	return c:IsFaceup() and c:IsSetCard(0x6bca)
 end
 function c9980439.handcon(e)
 	return Duel.IsExistingMatchingCard(c9980439.filter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 function c9980439.cfilter(c)
-	return (c:IsSetCard(0x3bcb) or c:IsSetCard(0x2bcb)) and c:IsAbleToRemoveAsCost()
+	return (c:IsSetCard(0x3bcb) or c:IsSetCard(0x6bca)) and c:IsAbleToRemoveAsCost()
 end
 function c9980439.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980439.cfilter,tp,LOCATION_GRAVE,0,1,nil) end
@@ -87,7 +87,7 @@ function c9980439.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_DECK) and c:IsReason(REASON_REVEAL) and Duel.IsExistingMatchingCard(c9980439.confilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c9980439.confilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcb) 
+	return c:IsFaceup() and c:IsSetCard(0x6bca) 
 end
 function c9980439.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,0,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,1,nil) end
@@ -129,10 +129,10 @@ function c9980439.rmop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(sg,POS_FACEUP,REASON_EFFECT)
 end
 function c9980439.filter1(e,c)
-	return c:IsSetCard(0x2bcb)
+	return c:IsSetCard(0x6bca)
 end
 function c9980439.rccfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bcb)
+	return c:IsFaceup() and c:IsSetCard(0x6bca)
 end
 function c9980439.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp

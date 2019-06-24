@@ -38,7 +38,7 @@ function c9980286.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980286.cfilter(c,tp)
-	return c:IsFaceup() and c:GetSummonPlayer()==tp and c:IsSetCard(0x3bc4)
+	return c:IsFaceup() and c:GetSummonPlayer()==tp and c:IsSetCard(0x6bc4)
 end
 function c9980286.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c9980286.cfilter,1,nil,tp)
@@ -58,7 +58,7 @@ function c9980286.filter(c,att)
 	return c:IsFaceup() and c:IsAttribute(att)
 end
 function c9980286.thfilter(c,tp)
-	return c:IsSetCard(0x3bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0x6bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 		and not Duel.IsExistingMatchingCard(c9980286.filter,tp,LOCATION_MZONE,0,1,nil,c:GetAttribute())
 end
 function c9980286.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -78,7 +78,7 @@ function c9980286.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return not c:IsReason(REASON_BATTLE) and rp==1-tp and c:GetPreviousControler()==tp
 end
 function c9980286.thfilter2(c)
-	return c:IsSetCard(0x3bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0x6bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980286.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c9980286.thfilter2(chkc) end

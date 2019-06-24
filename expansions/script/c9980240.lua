@@ -18,7 +18,7 @@ function c9980240.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c9980240.filter(c)
-	return c:IsSetCard(0x1bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0x5bc4) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980240.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980240.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -43,7 +43,7 @@ function c9980240.sumop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetTargetRange(LOCATION_HAND,0)
 	e1:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x1bc4))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x5bc4))
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
 	Duel.RegisterFlagEffect(tp,9980240,RESET_PHASE+PHASE_END,0,1)

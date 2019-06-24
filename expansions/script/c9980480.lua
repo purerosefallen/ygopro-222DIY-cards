@@ -41,7 +41,7 @@ function c9980480.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsPublic() end
 end
 function c9980480.atkfilter(c)
-	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca)) 
+	return c:IsFaceup() and (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca)) 
 end
 function c9980480.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and c9980480.atkfilter(chkc) end
@@ -80,7 +80,7 @@ function c9980480.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetAttacker():GetControler()~=tp and e:GetHandler():GetCounter(0x50)==1
 end
 function c9980480.spfilter(c,e,tp)
-	return c:IsLevelBelow(4) and c:IsSetCard(0x5bcb,0x4bca) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsLevelBelow(4) and c:IsSetCard(0x5bcb,0xabca) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980480.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not Duel.IsPlayerAffectedByEffect(tp,59822133)

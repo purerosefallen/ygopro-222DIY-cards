@@ -39,7 +39,7 @@ function c9980285.spcon(e,c)
 		and Duel.IsExistingMatchingCard(c9980285.spfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c9980285.costfilter(c,tp)
-	return c:IsSetCard(0x3bc4) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
+	return c:IsSetCard(0xbc4) and c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function c9980285.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980285.costfilter,tp,LOCATION_ONFIELD+LOCATION_HAND+LOCATION_GRAVE,0,1,nil,tp) end
@@ -64,7 +64,7 @@ function c9980285.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980285.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x3bc4) and c:GetCode()~=9980285
+	return c:IsFaceup() and c:IsSetCard(0xbc4) and c:GetCode()~=9980285
 end
 function c9980285.atkcon(e)
 	local c=e:GetHandler()

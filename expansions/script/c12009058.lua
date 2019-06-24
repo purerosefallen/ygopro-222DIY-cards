@@ -29,7 +29,7 @@ end
 function c12009058.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local cg=Duel.GetFieldGroupCount(tp,0,LOCATION_HAND+LOCATION_ONFIELD)
 	local sg=Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
-	local cc=cg-sg
+	local cc=(cg-sg)*2
 	if chk==0 then return cg>sg and Duel.IsPlayerCanDraw(tp,cc) end
 	Duel.SetTargetPlayer(tp)
 	Duel.SetTargetParam(cc)
@@ -39,7 +39,7 @@ end
 function c12009058.drop(e,tp,eg,ep,ev,re,r,rp)
 	local cg=Duel.GetFieldGroupCount(tp,0,LOCATION_HAND+LOCATION_ONFIELD)
 	local sg=Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
-	local cc=cg-sg
+	local cc=(cg-sg)*2
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	if Duel.Draw(p,d,REASON_EFFECT)==cc then
 		local g=Duel.GetMatchingGroup(Card.IsAbleToDeck,p,LOCATION_HAND,0,nil)

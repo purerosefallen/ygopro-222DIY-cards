@@ -36,13 +36,13 @@ function c9980468.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980468,3))
 end
 function c9980468.cfilter(c)
-	return c:IsFaceup() and (c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb)) and not c:IsCode(9980468)
+	return c:IsFaceup() and (c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb)) and not c:IsCode(9980468)
 end
 function c9980468.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980468.cfilter,tp,LOCATION_ONFIELD,0,1,nil)
 end
 function c9980468.filter(c,e,tp)
-	return c:IsSetCard(0x4bca) and not c:IsCode(9980468) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0xabca) and not c:IsCode(9980468) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980468.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -58,7 +58,7 @@ function c9980468.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c9980468.drfilter(c)
-	return (c:IsSetCard(0x4bca) or c:IsSetCard(0x5bcb)) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckAsCost()
+	return (c:IsSetCard(0xabca) or c:IsSetCard(0x5bcb)) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckAsCost()
 end
 function c9980468.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980468.drfilter,tp,LOCATION_GRAVE,0,2,nil) end

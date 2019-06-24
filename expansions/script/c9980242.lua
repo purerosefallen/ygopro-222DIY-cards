@@ -11,7 +11,7 @@ function c9980242.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_LEVEL)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetTargetRange(LOCATION_HAND,0)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x1bc4))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0xbc4))
 	e2:SetValue(-1)
 	c:RegisterEffect(e2)
 	--atkup
@@ -60,7 +60,7 @@ function c9980242.actcon(e)
 end
 function c9980242.filter(c,tp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousPosition(POS_FACEUP)
-		and c:IsControler(tp) and c:IsSetCard(0x1bc4)
+		and c:IsControler(tp) and c:IsSetCard(0xbc4)
 end
 function c9980242.descon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(c9980242.filter,1,nil,tp) and e:GetHandler():IsStatus(STATUS_EFFECT_ENABLED)

@@ -34,7 +34,7 @@ function c9980115.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function c9980115.thfilter(c)
-	return c:IsSetCard(0x1bc8) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(0x3bc8) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c9980115.thtg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980115.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -59,10 +59,10 @@ function c9980115.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoDeck(e:GetHandler(),nil,2,REASON_COST)
 end
 function c9980115.spfilter(c,att,e,tp)
-	return c:IsSetCard(0x2bc8) and c:IsType(TYPE_FUSION) and c:IsAttribute(att) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
+	return c:IsSetCard(0x3bc8) and c:IsType(TYPE_FUSION) and c:IsAttribute(att) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function c9980115.filter(c,e,tp)
-	return c:IsSetCard(0x1bc8) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0x3bc8) and c:IsType(TYPE_MONSTER)
 		and Duel.IsExistingMatchingCard(c9980115.spfilter,tp,LOCATION_EXTRA+LOCATION_GRAVE,0,1,nil,c:GetAttribute(),e,tp)
 		and Duel.GetLocationCountFromEx(tp,tp,c)>0
 end

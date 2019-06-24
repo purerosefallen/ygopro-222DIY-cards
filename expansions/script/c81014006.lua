@@ -1,4 +1,4 @@
---龙女仆 托尔
+--地表最强女仆？ 托尔
 function c81014006.initial_effect(c)
 	--summon with s/t
 	local e1=Effect.CreateEffect(c)

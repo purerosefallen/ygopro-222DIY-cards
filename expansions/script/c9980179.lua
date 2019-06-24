@@ -66,6 +66,7 @@ function c9980179.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e4:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e4:SetCode(EVENT_LEAVE_FIELD)
+	e4:SetCountLimit(1,99801790)
 	e4:SetCondition(c9980179.descon)
 	e4:SetTarget(c9980179.destg)
 	e4:SetOperation(c9980179.desop)
@@ -87,7 +88,7 @@ function c9980179.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoDeck(c,nil,2,REASON_COST)
 end
 function c9980179.thfilter(c,sc,cd)
-	return c:IsFaceup() and c:IsSetCard(0x1bc4) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
+	return c:IsFaceup() and c:IsSetCard(0x5bc4) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
 end
 function c9980179.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE+LOCATION_EXTRA) and c9980179.thfilter(chkc) end
@@ -145,7 +146,7 @@ function c9980179.tdop(e,tp,eg,ep,ev,re,r,rp)
 end
 function c9980179.valcheck(e,c)
 	local g=c:GetMaterial()
-	if g:IsExists(Card.IsSetCard,1,nil,0x1bc4) then
+	if g:IsExists(Card.IsSetCard,1,nil,0x5bc4) then
 		e:GetLabelObject():SetLabel(1)
 	else
 		e:GetLabelObject():SetLabel(0)
@@ -160,7 +161,7 @@ function c9980179.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return (ph==PHASE_MAIN1 or ph==PHASE_MAIN2)
 end
 function c9980179.sumfilter(c)
-	return c:IsSetCard(0x1bc4) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(0x5bc4) and c:IsSummonable(true,nil,1)
 end
 function c9980179.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980179.sumfilter,tp,LOCATION_HAND,0,1,nil) end

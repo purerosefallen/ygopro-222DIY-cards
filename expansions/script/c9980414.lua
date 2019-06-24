@@ -60,7 +60,7 @@ function c9980414.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c9980414.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c9980414.filter(c,e,tp)
-	return c:IsSetCard(0x1bca) and c:IsType(TYPE_FUSION) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
+	return c:IsSetCard(0xbca) and c:IsType(TYPE_FUSION) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function c9980414.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and c9980414.filter(chkc,e,tp) end

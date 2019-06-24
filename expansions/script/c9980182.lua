@@ -21,7 +21,7 @@ function c9980182.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c9980182.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2bc8)
+	return c:IsFaceup() and c:IsSetCard(0x6bc8)
 end
 function c9980182.spcon(e,c)
 	if c==nil then return true end
@@ -29,7 +29,7 @@ function c9980182.spcon(e,c)
 		and Duel.IsExistingMatchingCard(c9980182.filter,c:GetControler(),LOCATION_MZONE,0,1,nil)
 end
 function c9980182.tgfilter(c,e,tp)
-	if not (c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsSetCard(0x2bc8)
+	if not (c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsSetCard(0x6bc8)
 		and Duel.GetLocationCountFromEx(tp,tp,c)>0 and aux.MustMaterialCheck(c,tp,EFFECT_MUST_BE_XMATERIAL)) then return false end
 	return Duel.IsExistingMatchingCard(c9980182.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,c:GetRank()+2,c)
 end

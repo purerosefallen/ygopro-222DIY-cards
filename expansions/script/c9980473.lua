@@ -68,7 +68,7 @@ function c9980473.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.ShuffleHand(tp)
 end
 function c9980473.spfilter(c,e,tp)
-	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0x4bca)) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980473) and c:IsLevelAbove(1)
+	return (c:IsSetCard(0x5bcb)  or c:IsSetCard(0xabca)) and c:IsType(TYPE_MONSTER) and not c:IsCode(9980473) and c:IsLevelAbove(1)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980473.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

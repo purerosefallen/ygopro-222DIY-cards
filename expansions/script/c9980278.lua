@@ -30,7 +30,7 @@ function c9980278.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c9980278.filter(c)
-	return (c:IsSetCard(0x1bcc) or c:IsSetCard(0x2bcc))and c:IsType(TYPE_MONSTER) and not c:IsCode(9980278) and c:IsAbleToHand()
+	return (c:IsSetCard(0x3bcc) or c:IsSetCard(0x6bcc))and c:IsType(TYPE_MONSTER) and not c:IsCode(9980278) and c:IsAbleToHand()
 end
 function c9980278.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c9980278.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -48,7 +48,7 @@ function c9980278.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetAttacker()
 	if tc:IsControler(1-tp) then tc=Duel.GetAttackTarget() end
 	e:SetLabelObject(tc)
-	return tc and tc:IsControler(tp) and (tc:IsSetCard(0x1bcc) or tc:IsSetCard(0x2bcc)) and tc:IsRelateToBattle() and Duel.GetAttackTarget()~=nil
+	return tc and tc:IsControler(tp) and (tc:IsSetCard(0x3bcc) or tc:IsSetCard(0x6bcc)) and tc:IsRelateToBattle() and Duel.GetAttackTarget()~=nil
 end
 function c9980278.atkfilter(c)
 	return c:GetAttack()>0 and c:IsDiscardable()

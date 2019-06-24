@@ -51,7 +51,7 @@ function c9980470.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c9980470.lcheck(g)
-	return g:IsExists(Card.IsLinkSetCard,1,nil,0x4bca)
+	return g:IsExists(Card.IsLinkSetCard,1,nil,0xabca)
 end
 function c9980470.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980470,3))
