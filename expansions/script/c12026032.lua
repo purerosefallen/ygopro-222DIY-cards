@@ -63,7 +63,6 @@ function c12026032.thfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsAbleToHand()
 end
 function c12026032.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c12026032.thfilter(chkc) end
 	if chk==0 then return Duel.IsExistingMatchingCard(c12026032.thfilter,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
