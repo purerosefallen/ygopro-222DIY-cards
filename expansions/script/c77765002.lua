@@ -20,12 +20,13 @@ function c77765002.initial_effect(c)
 		if chk==0 then return Duel.GetLocationCount(1-tp,LOCATION_SZONE,tp)>0 and Duel.IsExistingMatchingCard(c77765002.filter1,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil) end
 	end)
 	e1:SetOperation(function(e,tp,eg,ep,ev,re,r,rp)
+		if Duel.GetLocationCount(1-tp,LOCATION_SZONE,tp)<=0 then return end
 		 Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 		 local g=Duel.SelectMatchingCard(tp,c77765002.filter1,tp,LOCATION_DECK+LOCATION_HAND,0,1,1,nil)
 		 Duel.SendtoGrave(g,REASON_EFFECT)
-		 if Duel.GetLocationCount(1-tp,LOCATION_SZONE,tp)<=0 then return end
+		local sc=g:GetFirst()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
-		local sg=Duel.SelectMatchingCard(tp,c77765002.filter2,tp,LOCATION_DECK,1,1,g:GetFirst(),g:GetFirst())
+		local sg=Duel.SelectMatchingCard(tp,c77765002.filter2,tp,LOCATION_DECK,0,1,1,sc,sc)
 		if #sg>0 then
 			local tc=sg:GetFirst()
 			local te=tc:GetActivateEffect()
@@ -47,42 +48,42 @@ function c77765002.initial_effect(c)
 	e2:SetLabelObject(g)
 	e2:SetOperation(c77765002.checkop)
 	c:RegisterEffect(e2)
-	local function KaguyaFilter(c,e,tp)
-		local ec=e:GetHandler()
-		local tc=Senya.GetDFCBackSideCard(ec)
+	local function KaguyaFilter(c,e,tp,cc)
 		local p=c:GetControler()
-		return c:IsFaceup() and c:IsCode(77765001) and tc:CheckEquipTarget(c) and Duel.GetLocationCount(p,LOCATION_SZONE,p)>0
+		local tc=Senya.GetDFCBackSideCard(cc)
+		return c:IsFaceup() and c:IsCode(77765001) and Duel.GetLocationCount(p,LOCATION_SZONE,tp)>0 and tc:CheckEquipTarget(c)
 	end
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_TRIGGER_F+EFFECT_TYPE_SINGLE)
 	e3:SetCode(EVENT_LEAVE_FIELD)
+	e3:SetProperty(0x14000)
 	e3:SetTarget(function(e,tp,eg,ep,ev,re,r,rp,chk)
 		local c=e:GetHandler()
-		local g=c:GetLabelObject():GetLabelObject()
+		local g=e:GetLabelObject():GetLabelObject()
 		local tg=g:Filter(function(c)
-			return Senya.IsDFCTransformable(c) and Duel.IsExistingMatchingCard(KaguyaFilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,e,tp)
+			return Senya.IsDFCTransformable(c) and Duel.IsExistingMatchingCard(KaguyaFilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,e,tp,c)
 		end,nil)
-		if chk==0 then return #g>0 end
+		if chk==0 then return #tg>0 end
 		Duel.SetOperationInfo(0,CATEGORY_EQUIP,tg,#tg,0,0)
 	end)
 	e3:SetOperation(function (e,tp,eg,ep,ev,re,r,rp)
 		local c=e:GetHandler()
-		local g=c:GetLabelObject():GetLabelObject()
+		local g=e:GetLabelObject():GetLabelObject()
 		local tg=g:Filter(function(c)
-			return Senya.IsDFCTransformable(c) and Duel.IsExistingMatchingCard(KaguyaFilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,e,tp)
+			return Senya.IsDFCTransformable(c) and Duel.IsExistingMatchingCard(KaguyaFilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,e,tp,c)
 		end,nil)
 		for cc in aux.Next(tg) do
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-			local g=Duel.SelectMatchingCard(tp,KaguyaFilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil,e,tp)
+			local g=Duel.SelectMatchingCard(tp,KaguyaFilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil,e,tp,cc)
 			local tc=g:GetFirst()
 			local p=tc:GetControler()
-			if p~=tp then
+			if p~=cc:GetControler() then
 				Duel.MoveToField(cc,p,p,LOCATION_SZONE,POS_FACEUP,true)
 			end
 			Senya.TransformDFCCard(cc)
 			Duel.Equip(p,cc,tc)
 		end
-		Duel.RaiseEvent(tg,EVENT_CUSTOM+m,re,r,rp,ep,ev)
+		Duel.RaiseEvent(tg,EVENT_CUSTOM+77765000,re,r,rp,ep,ev)
 	end)
 	e3:SetLabelObject(e2)
 	c:RegisterEffect(e3)
@@ -111,6 +112,7 @@ function c77765002.filter1(c)
 	return c:IsAbleToGrave() and Kaguya.IsDifficulty(c) and Duel.IsExistingMatchingCard(c77765002.filter2,tp,LOCATION_DECK,0,1,c,c)
 end
 function c77765002.filter2(c,mc)
+	Debug.Message(aux.GetValueType(mc))
 	return c:IsCode(mc:GetCode())
 end
 function c77765002.checkop(e,tp,eg,ep,ev,re,r,rp)
