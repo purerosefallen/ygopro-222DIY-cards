@@ -42,9 +42,8 @@ function c9980577.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
 function c9980577.activate(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and Duel.Destroy(tc,REASON_EFFECT)>0 then
-		Duel.Draw(tp,1,REASON_EFFECT)
-		Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980577,0))
-	end
+	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
+	local sg=g:Filter(Card.IsRelateToEffect,nil,e)
+	Duel.Destroy(sg,REASON_EFFECT)
+	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980577,0))
 end
