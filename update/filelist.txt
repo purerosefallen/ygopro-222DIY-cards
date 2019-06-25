@@ -12,9 +12,9 @@ deck/6.23_new_card6.ydk	dc1e6d892518c0f048b6925cacc77ab3
 deck/6.23_new_card7.ydk	406f9353356ff039da1da5170ba69863
 deck/6.23_new_card8.ydk	df5adeca06d7a083196b6870fc556f52
 deck/6.23_new_card9.ydk	48228013ac8eb02d028c92f97253efe5
-expansions/222DIY.cdb	2158a0543a44e7178d920180fa9bdecd
-expansions/lflist.conf	45fddb76b828955b8d2d4d81263ad5d6
-expansions/strings.conf	389c8b47eac8f813859758c1ec200c32
+expansions/222DIY.cdb	ea63bc8be62eb34e31c29ab9be895c34
+expansions/lflist.conf	1cf3f4b2ce9583d054a06835ebdc8632
+expansions/strings.conf	a1769336a95187ecb07e7398d11028d7
 expansions/pics/08209710.jpg	ed0e60085631bfa641ffeebd6abbd910
 expansions/pics/1000360.jpg	d1aa6f44fcd413402141a6bf4b886c2a
 expansions/pics/1000361.jpg	f957894610a5c40637825c4cb1c136d2
