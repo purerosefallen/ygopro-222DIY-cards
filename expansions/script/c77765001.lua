@@ -49,7 +49,7 @@ function cm.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetRange(LOCATION_SZONE)
+	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(1,0)
 	e1:SetTarget(function(e,c,tp,sumtp,sumpos,top,te)
 		if not te then return false end
