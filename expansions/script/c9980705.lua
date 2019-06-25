@@ -53,7 +53,7 @@ function c9980705.discon(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) then return false end
 	local atk=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_ATTACK)
 	local def=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_DEFENSE)
-	return re:IsActiveType(TYPE_MONSTER) and (atk==0 or def==0) and not c:IsRace(RACE_REPTILE)
+	return re:IsActiveType(TYPE_MONSTER) and (atk==0 or def==0) and not re:IsSetCard(0x3bc1)
 end
 function c9980705.disop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.NegateEffect(ev)
