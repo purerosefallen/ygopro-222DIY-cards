@@ -55,7 +55,7 @@ function cm.initial_effect(c)
 	end)
 	c:RegisterEffect(e2)
 	for _,code in ipairs({
-		EFFECT_PUBLIC,
+		--EFFECT_PUBLIC,
 		EFFECT_CANNOT_TRIGGER,
 		EFFECT_CANNOT_SSET,
 		EFFECT_CANNOT_MSET
@@ -68,7 +68,7 @@ function cm.initial_effect(c)
 		ex:SetTargetRange(LOCATION_HAND,LOCATION_HAND)
 		ex:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
 		ex:SetTarget(function(e,c)
-			return c:IsPublic()
+			return c:IsHasEffect(EFFECT_PUBLIC)
 		end)
 		c:RegisterEffect(ex)
 	end
