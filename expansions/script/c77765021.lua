@@ -44,7 +44,7 @@ function cm.initial_effect(c)
 		local code=e:GetLabelObject():GetOriginalCode()
 		local c=e:GetHandler()
 		if c:IsFaceup() and c:IsRelateToEffect(e) then
-			c:CopyEffect(code+1,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,1)
+			c:CopyEffect(code+1,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,2)
 		end
 	end)
 	c:RegisterEffect(e4)
