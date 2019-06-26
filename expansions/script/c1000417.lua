@@ -41,11 +41,9 @@ function c1000417.filter1(c)
 	return c:IsType(TYPE_CONTINUOUS) and c:IsFaceup() and c:IsAbleToGrave() and not c:IsCode(1000417)
 end
 function c1000417.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c1000417.filter1,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
-	local g=Duel.GetMatchingGroup(c1000417.filter1,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
-	local g=Duel.GetMatchingGroup(c1000417.filter1,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
-	Duel.SendtoGrave(g,REASON_EFFECT)
+	if chk==0 then return Duel.IsExistingMatchingCard(c1000417.filter1,tp,LOCATION_SZONE,LOCATION_SZONE,1,nil,e,tp) end
+	local g=Duel.GetMatchingGroup(c1000417.filter1,tp,LOCATION_SZONE,LOCATION_SZONE,nil)
+	Duel.SendtoGrave(g,REASON_COST)
 end
 function c1000417.activate(e,tp,eg,ep,ev,re,r,rp)
 	--destroy
