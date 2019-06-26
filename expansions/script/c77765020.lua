@@ -8,9 +8,9 @@ function cm.initial_effect(c)
 	ex:SetProperty(0)
 	ex:SetCost(function(e,tp,eg,ep,ev,re,r,rp,chk)
 		local ct=Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)-Duel.GetFieldGroupCount(tp,0,LOCATION_HAND)
-		if chk==0 then return ct>0 and Duel.IsExistingMatchingCard(Card.IsAbleToDeckAsCost,tp,LOCATION_HAND,0,1,nil) end
+		if chk==0 then return ct>0 and Duel.IsExistingMatchingCard(Card.IsAbleToDeckAsCost,tp,LOCATION_HAND,0,ct,nil) end
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-		local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeckAsCost,tp,LOCATION_HAND,0,1,1,nil)
+		local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeckAsCost,tp,LOCATION_HAND,0,ct,ct,nil)
 		Duel.SendtoDeck(g,nil,2,REASON_COST)
 	end)
 	local e1=Effect.CreateEffect(c)
