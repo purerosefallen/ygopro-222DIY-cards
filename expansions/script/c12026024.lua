@@ -65,31 +65,19 @@ function c12026024.copytg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SelectTarget(tp,c12026024.copyfilter,tp,LOCATION_GRAVE,LOCATION_GRAVE,1,1,c)
 end
 function c12026024.copyop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	local tc=Duel.GetFirstTarget()
-	if tc and c:IsRelateToEffect(e) and c:IsFaceup() and tc:IsRelateToEffect(e) and tc:IsLocation(LOCATION_GRAVE) then
-		local code=tc:GetOriginalCodeRule()
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e1:SetCode(EFFECT_CHANGE_CODE)
-		e1:SetValue(code)
-		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-		c:RegisterEffect(e1)
-		if not tc:IsType(TYPE_TRAPMONSTER) then
-			local cid=c:CopyEffect(code,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,1)
-			local e3=Effect.CreateEffect(c)
-			e3:SetDescription(aux.Stringid(12026024,1))
-			e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-			e3:SetCode(EVENT_PHASE+PHASE_END)
-			e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-			e3:SetCountLimit(1)
-			e3:SetRange(LOCATION_MZONE)
-			e3:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-			e3:SetLabelObject(e1)
-			e3:SetLabel(cid)
-			e3:SetOperation(c12026024.rstop)
-			c:RegisterEffect(e3)
-		end
-	end
+    local c=e:GetHandler()
+    local tc=Duel.GetFirstTarget()
+    if tc and c:IsRelateToEffect(e) and c:IsFaceup() and tc:IsRelateToEffect(e) and tc:IsFaceup() and not tc:IsType(TYPE_TOKEN) then
+        local code=tc:GetOriginalCodeRule()
+        local e1=Effect.CreateEffect(c)
+        e1:SetType(EFFECT_TYPE_SINGLE)
+        e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+        e1:SetCode(EFFECT_CHANGE_CODE)
+        e1:SetValue(code)
+        e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+        c:RegisterEffect(e1)
+        if not tc:IsType(TYPE_TRAPMONSTER) then
+            c:CopyEffect(code,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,1)
+        end
+    end
 end
