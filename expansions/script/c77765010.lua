@@ -60,15 +60,15 @@ end
 function cm.condition2(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
-	return d~=nil and d:IsFaceup() and ((a:GetControler()==tp and a:IsCode(77765001) and a:IsRelateToBattle())
-		or (d:GetControler()==tp and d:IsCode(77765001) and d:IsRelateToBattle()))
+	return d~=nil and d:IsFaceup() and ((a:IsCode(77765001) and a:IsRelateToBattle())
+		or (d:IsCode(77765001) and d:IsRelateToBattle()))
 end
 function cm.operation2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
 	if not a:IsRelateToBattle() or not d:IsRelateToBattle() then return end
 	local e1=Effect.CreateEffect(e:GetHandler())
-	e1:SetOwnerPlayer(tp)
+	--e1:SetOwnerPlayer(tp)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
