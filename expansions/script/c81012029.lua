@@ -51,11 +51,11 @@ function c81012029.drcon(e,tp,eg,ep,ev,re,r,rp)
 	local des=eg:GetFirst()
 	if des:IsReason(REASON_BATTLE) then
 		local rc=des:GetReasonCard()
-		return rc and rc:IsType(TYPE_RITUAL) and re:IsType(TYPE_PENDULUM) and rc:IsControler(tp) and rc:IsRelateToBattle()
+		return rc and rc:IsType(TYPE_RITUAL) and rc:IsType(TYPE_PENDULUM) and rc:IsControler(tp) and rc:IsRelateToBattle()
 	elseif re then
 		local rc=re:GetHandler()
 		return eg:IsExists(c81012029.cfilter,1,nil,tp)
-			and rc and rc:IsType(TYPE_RITUAL) and re:IsType(TYPE_PENDULUM) and rc:IsControler(tp) and re:IsActiveType(TYPE_MONSTER)
+			and rc and rc:IsType(TYPE_RITUAL) and rc:IsType(TYPE_PENDULUM) and rc:IsControler(tp) and re:IsActiveType(TYPE_MONSTER)
 	end
 	return false
 end

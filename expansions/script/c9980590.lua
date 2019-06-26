@@ -79,7 +79,7 @@ function c9980590.op(e,tp,eg,ep,ev,re,r,rp)
 	local e2=e1:Clone()
 	e2:SetCode(EFFECT_UPDATE_DEFENSE)
 	Duel.RegisterEffect(e2,tp)
-	Duel.Remove(sg,POS_FACEUP,REASON_EFFECT)
+	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 end
 function c9980590.filter1(e,c)
 	return c:IsSetCard(0x6bca)

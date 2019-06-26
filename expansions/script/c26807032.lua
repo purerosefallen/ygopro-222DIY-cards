@@ -153,7 +153,11 @@ function c26807032.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c26807032.cfilter,tp,LOCATION_ONFIELD,0,1,nil,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectMatchingCard(tp,c26807032.cfilter,tp,LOCATION_ONFIELD,0,1,1,nil,tp)
-	Duel.Remove(g,POS_FACEUP,REASON_COST)
+	if Duel.IsPlayerAffectedByEffect(tp,26807041) then
+		Duel.Remove(g,POS_FACEDOWN,REASON_COST)
+	else
+		Duel.Remove(g,POS_FACEUP,REASON_COST)
+	end
 end
 function c26807032.spfilter(c,e,tp)
 	return c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

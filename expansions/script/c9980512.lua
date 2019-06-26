@@ -16,7 +16,7 @@ function c9980513.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xcbcc)
 end
 function c9980512.condition(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated() andDuel.IsExistingMatchingCard(c9980513.cfilter,tp,LOCATION_PZONE+LOCATION_MZONE,0,1,nil)
+	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated() and Duel.IsExistingMatchingCard(c9980513.cfilter,tp,LOCATION_PZONE+LOCATION_MZONE,0,1,nil)
 end
 function c9980512.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x5bcc)
