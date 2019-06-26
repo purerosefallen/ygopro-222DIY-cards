@@ -44,7 +44,7 @@ function cm.filter1(c)
 	return c:IsCode(77765001)
 end
 function cm.con(e)
-	return not Duel.IsExistingMatchingCard(cm.filter1,e:GetHandlerPlayer(),LOCATION_GRAVE,0,1,nil)
+	return not Duel.IsExistingMatchingCard(cm.filter1,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 function cm.costfilter(c)
 	return Kaguya.IsDifficulty(c) and c:IsDiscardable()
