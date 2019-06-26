@@ -25,6 +25,7 @@ function c77765002.initial_effect(c)
 		if Duel.GetLocationCount(1-tp,LOCATION_SZONE,tp)<=0 then return end
 		 Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 		 local g=Duel.SelectMatchingCard(tp,c77765002.filter1,tp,LOCATION_DECK+LOCATION_HAND,0,1,1,nil)
+         if #g==0 then return end
 		 Duel.SendtoGrave(g,REASON_EFFECT)
 		local sc=g:GetFirst()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
