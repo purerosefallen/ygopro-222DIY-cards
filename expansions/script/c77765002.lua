@@ -19,7 +19,7 @@ function c77765002.initial_effect(c)
 	e1:SetCountLimit(1)
 	e1:SetTarget(function(e,tp,eg,ep,ev,re,r,rp,chk)
 		if chk==0 then return Duel.GetLocationCount(1-tp,LOCATION_SZONE,tp)>0 and Duel.IsExistingMatchingCard(c77765002.filter1,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil) end
-        Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,LOCATION_DECK+LOCATION_HAND)
+        Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,LOCATION_DECK+LOCATION_HAND,tp)
 	end)
 	e1:SetOperation(function(e,tp,eg,ep,ev,re,r,rp)
 		if Duel.GetLocationCount(1-tp,LOCATION_SZONE,tp)<=0 then return end
