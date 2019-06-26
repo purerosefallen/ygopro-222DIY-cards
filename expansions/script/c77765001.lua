@@ -52,9 +52,11 @@ function cm.initial_effect(c)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(1,0)
 	e1:SetTarget(function(e,c,tp,sumtp,sumpos,top,te)
+		--Debug.Message(aux.GetValueType(te))
 		if not te then return false end
 		local tc=te:GetHandler()
-		return tc and Kaguya.IsDifficulty(tc)
+		--Debug.Message(tc and tc:GetCode() or 0)
+		return not tc or not Kaguya.IsDifficulty(tc)
 	end)
 	c:RegisterEffect(e1)
 end
