@@ -18,13 +18,13 @@ function c77765002.initial_effect(c)
 	e1:SetRange(LOCATION_FZONE)
 	e1:SetCountLimit(1)
 	e1:SetTarget(function(e,tp,eg,ep,ev,re,r,rp,chk)
-		if chk==0 then return Duel.GetLocationCount(1-tp,LOCATION_SZONE,tp)>0 and Duel.IsExistingMatchingCard(c77765002.filter1,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil) end
+		if chk==0 then return Duel.GetLocationCount(1-tp,LOCATION_SZONE,tp)>0 and Duel.IsExistingMatchingCard(c77765002.filter1,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil,tp) end
         Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,LOCATION_DECK+LOCATION_HAND,tp)
 	end)
 	e1:SetOperation(function(e,tp,eg,ep,ev,re,r,rp)
 		if Duel.GetLocationCount(1-tp,LOCATION_SZONE,tp)<=0 then return end
 		 Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-		 local g=Duel.SelectMatchingCard(tp,c77765002.filter1,tp,LOCATION_DECK+LOCATION_HAND,0,1,1,nil)
+		 local g=Duel.SelectMatchingCard(tp,c77765002.filter1,tp,LOCATION_DECK+LOCATION_HAND,0,1,1,nil,tp)
          if #g==0 then return end
 		 Duel.SendtoGrave(g,REASON_EFFECT)
 		local sc=g:GetFirst()
@@ -111,7 +111,7 @@ function c77765002.activate(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
-function c77765002.filter1(c)
+function c77765002.filter1(c,tp)
 	return c:IsAbleToGrave() and Kaguya.IsDifficulty(c) and Duel.IsExistingMatchingCard(c77765002.filter2,tp,LOCATION_DECK,0,1,c,c)
 end
 function c77765002.filter2(c,mc)
