@@ -150,7 +150,7 @@ function c1156015.value3(e,c)
 end
 --
 function c1156015.tfilter4_1(c,e)
-	return c:GetEquipTarget(e:GetHandler()) and c:IsAbleToGrave()
+	return c:GetEquipTarget()==e:GetHandler() and c:IsAbleToGrave()
 end
 function c1156015.tfilter4_2(c)
 	return c:IsType(TYPE_EQUIP) and c:IsType(TYPE_SPELL) and c:IsAbleToRemove()
