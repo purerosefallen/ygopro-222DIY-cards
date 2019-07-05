@@ -1,7 +1,7 @@
 --Prim-加油热血啦啦队
 local m=37564607
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_prim=true
 function cm.initial_effect(c)
 	Senya.PrimLv4CommonEffect(c,m)

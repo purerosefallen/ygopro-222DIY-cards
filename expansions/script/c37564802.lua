@@ -1,7 +1,7 @@
 --3L·樱华月想
 local m=37564802
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.fusion_att_3L=ATTRIBUTE_DARK
 function cm.initial_effect(c)
 	Senya.Fusion_3L_Attribute(c,cm)

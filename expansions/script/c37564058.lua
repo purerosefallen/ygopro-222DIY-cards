@@ -1,7 +1,7 @@
 --元灵的彼岸·Senya
 local m=37564058
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_elem=true
 function cm.initial_effect(c)
 	Senya.AddSummonMusic(c,aux.Stringid(m,2),SUMMON_TYPE_LINK)

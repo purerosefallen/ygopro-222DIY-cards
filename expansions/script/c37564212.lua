@@ -1,7 +1,7 @@
 --Sawawa-上海红茶馆
 local m=37564212
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_sawawa=true
 function cm.initial_effect(c)
 	Senya.SawawaCommonEffect(c,1,true,false,false)

@@ -2,7 +2,7 @@
 local m=37564036
 local cm=_G["c"..m]
 
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_elem=true
 function cm.initial_effect(c)
 	c:EnableReviveLimit()

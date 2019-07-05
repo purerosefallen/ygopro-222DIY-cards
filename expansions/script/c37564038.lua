@@ -1,5 +1,5 @@
 --幽玄之乱
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 os=require('os')
 local m=37564038
 local cm=_G["c"..m]

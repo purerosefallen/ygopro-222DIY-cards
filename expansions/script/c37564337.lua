@@ -1,7 +1,7 @@
 --DON'T CUT
 local m=37564337
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 function cm.initial_effect(c)
 	Senya.AddXyzProcedureCustom(c,function(c) return c:IsType(TYPE_LINK) and c:GetLink()==3 end,nil,2,63)
 	Senya.AddSummonMusic(c,m*16,SUMMON_TYPE_XYZ)

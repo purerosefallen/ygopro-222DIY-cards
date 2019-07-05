@@ -1,7 +1,7 @@
 --传说的华光之二重·内克塔里娅
 local m=37564400
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_prism=true
 function cm.initial_effect(c)
 	Senya.AddXyzProcedureCustom(c,cm.mfilter,Senya.PrismXyzCheck(2,63),1,63)	

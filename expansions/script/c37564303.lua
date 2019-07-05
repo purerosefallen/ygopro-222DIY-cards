@@ -1,7 +1,7 @@
 --new utakat
 local m=37564303
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 function cm.initial_effect(c)
 	local ct=Senya.master_rule_3_flag and 3 or 2
 	Senya.AddXyzProcedureRank(c,nil,nil,ct,ct)

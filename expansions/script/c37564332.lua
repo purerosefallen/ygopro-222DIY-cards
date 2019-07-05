@@ -1,7 +1,7 @@
 --狂气之瞳·Senhane
 local m=37564332
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 function cm.initial_effect(c)
 	Senya.enable_kaguya_check_3L()
 	aux.AddXyzProcedure(c,nil,8,2)

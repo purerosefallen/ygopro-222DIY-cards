@@ -1,7 +1,7 @@
 --百慕 急速走红·爱尔普莉娜
 local m=37564458
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_prism=true
 function cm.initial_effect(c)
 	c:EnableReviveLimit()

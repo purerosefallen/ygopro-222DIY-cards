@@ -1,7 +1,7 @@
 --ADVANTURE WORLD
 local m=37564530
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_desc_with_nanahira=true
 function cm.initial_effect(c)
 	aux.AddXyzProcedure(c,nil,7,2,cm.ovfilter,aux.Stringid(m,0),63,cm.xyzop)

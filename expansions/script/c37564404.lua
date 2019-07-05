@@ -1,5 +1,5 @@
 --百慕 沉默的歌姬·伊丝卡
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 local m=37564404
 local cm=_G["c"..m]
 cm.Senya_name_with_prism=true

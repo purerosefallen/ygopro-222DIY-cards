@@ -1,7 +1,7 @@
 --邪符『不祥之兆』
 local m=37564836
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_3L=true
 function cm.initial_effect(c)
 	Senya.Fusion_3L(c,cm.mfilter,nil,2,63)

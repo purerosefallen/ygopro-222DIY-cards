@@ -1,7 +1,7 @@
 --百慕 最初的乐谱·灯里
 local m=37564424
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_prism=true
 function cm.initial_effect(c)
 	Senya.PrismXyzProcedure(c,2,2)

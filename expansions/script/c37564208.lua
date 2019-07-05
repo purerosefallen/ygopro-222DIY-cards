@@ -1,5 +1,5 @@
 --Sawawa-Cosmic Drive
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 local m=37564208
 local cm=_G["c"..m]
 cm.Senya_name_with_sawawa=true

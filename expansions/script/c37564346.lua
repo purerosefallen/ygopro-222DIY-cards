@@ -1,7 +1,7 @@
 --丽 -晴朗-
 local m=37564346
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 function cm.initial_effect(c)
 	Senya.AddXyzProcedureCustom(c,function(c,xyzc)
 		return c:IsXyzLevel(xyzc,3)

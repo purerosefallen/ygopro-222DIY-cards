@@ -1,7 +1,7 @@
 --Senya bt
 local m=37564331
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 function cm.initial_effect(c)
 	c:EnableReviveLimit()
 	aux.AddFusionProcCode2(c,37564813,37564043,true,true)

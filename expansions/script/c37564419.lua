@@ -1,5 +1,5 @@
 --Fantasia
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 local m=37564419
 local cm=_G["c"..m]
 function cm.initial_effect(c)

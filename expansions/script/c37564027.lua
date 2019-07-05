@@ -1,7 +1,7 @@
 --元素引导者·Scorpiour
 local m=37564027
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_elem=true
 function cm.initial_effect(c)
 	c:EnableReviveLimit()
@@ -81,5 +81,3 @@ end
 function cm.rval(e,re,tp,ct,r,c)
 	if r&REASON_COST~=0 and re:IsHasType(0x7e0) and re:IsActiveType(TYPE_XYZ) and Senya.check_set_elem(re:GetHandler()) and e:GetHandler():GetOverlayGroup():IsExists(cm.xmfilter,1,nil) and re:GetHandler()~=e:GetHandler() then return 0 else return ct end
 end
-
-

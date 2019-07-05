@@ -1,7 +1,7 @@
 --百慕 无穷之瞳·莉特
 local m=37564459
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_prism=true
 function cm.initial_effect(c)
 	Senya.AddXyzProcedureCustom(c,nil,cm.xyzcheck,1,2,nil,cm.ovop)

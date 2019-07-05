@@ -1,4 +1,4 @@
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 local m=37564407
 local cm=_G["c"..m]
 cm.Senya_name_with_prism=true

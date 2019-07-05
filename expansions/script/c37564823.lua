@@ -1,7 +1,7 @@
 --3L·幽灵乐团
 local m=37564823
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_3L=true
 function cm.initial_effect(c)
 	c:SetUniqueOnField(1,0,m)

@@ -1,7 +1,7 @@
 --恋色的幻象·Sherry
 local m=37564339
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 function cm.initial_effect(c)
 	Senya.AddXyzProcedureCustom(c,function(c,xyzc) return c:GetOwner()==1-xyzc:GetControler() end,nil,2,2)
 	local e4=Effect.CreateEffect(c)

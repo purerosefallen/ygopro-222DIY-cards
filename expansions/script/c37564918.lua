@@ -1,7 +1,7 @@
 --Sayuri-月光乱舞
 local m=37564918
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_sayuri=true
 cm.Senya_name_with_rose=true
 function cm.initial_effect(c)

@@ -1,7 +1,7 @@
 --3L·少女密室
 local m=37564830
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 function cm.initial_effect(c)
 	--Senya.CommonEffect_3L(c,m)
 	local e2=Effect.CreateEffect(c)

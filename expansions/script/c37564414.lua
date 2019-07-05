@@ -1,7 +1,7 @@
 --百慕 学院的绮罗星·奥莉维亚
 local m=37564414
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_prism=true
 function cm.initial_effect(c)
 	Senya.PrismXyzProcedure(c,2,63)

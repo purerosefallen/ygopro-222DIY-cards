@@ -1,7 +1,7 @@
 --3L·不可思议的国度
 local m=37564848
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_3L=true
 function cm.initial_effect(c)
 	local e1=Effect.CreateEffect(c)

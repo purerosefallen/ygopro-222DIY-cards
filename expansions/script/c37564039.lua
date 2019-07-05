@@ -1,7 +1,7 @@
 --Glitter -Starving Trancer Remix-
 local m=37564039
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_rose=true
 cm.Senya_name_with_remix=true
 function cm.initial_effect(c)
@@ -68,4 +68,3 @@ function cm.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Overlay(tc,Group.FromCards(c))
 	end
 end
-

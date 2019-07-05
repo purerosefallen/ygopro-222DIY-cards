@@ -1,7 +1,7 @@
 --元素爆发·冰雪
 local m=37564026
 local cm=_G["c"..m]
-xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
+Duel.LoadScript("c37564765.lua")
 cm.Senya_name_with_elem=true
 function cm.initial_effect(c)
 	aux.AddXyzProcedure(c,nil,5,4,cm.ovfilter,aux.Stringid(m,0))
