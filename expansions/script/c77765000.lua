@@ -32,7 +32,7 @@ local function KaguyaTransformOperation(extra_opreation)
 		local tc=g:GetFirst()
 		local p=tc:GetControler()
 		if p~=tp then
-			Duel.MoveToField(c,p,p,LOCATION_SZONE,POS_FACEUP,true)
+			Duel.MoveToField(c,p,p,LOCATION_SZONE,POS_FACEUP,false)
 		end
 		Senya.TransformDFCCard(c)
 		Duel.Equip(p,e:GetHandler(),tc)

@@ -81,7 +81,7 @@ function c77765002.initial_effect(c)
 			local tc=g:GetFirst()
 			local p=tc:GetControler()
 			if p~=cc:GetControler() then
-				Duel.MoveToField(cc,p,p,LOCATION_SZONE,POS_FACEUP,true)
+				Duel.MoveToField(cc,p,p,LOCATION_SZONE,POS_FACEUP,false)
 			end
 			Senya.TransformDFCCard(cc)
 			Duel.Equip(p,cc,tc)
