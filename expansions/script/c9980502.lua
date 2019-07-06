@@ -117,24 +117,24 @@ function c9980502.spop2(e,tp,eg,ep,ev,re,r,rp)
 end
 function c9980502.ctcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsReason(REASON_BATTLE) or (c:GetReasonPlayer()==1-tp and c:IsReason(REASON_EFFECT))
+	return (c:IsReason(REASON_BATTLE) or (c:GetReasonPlayer()==1-tp and c:IsReason(REASON_EFFECT)))
 end
 function c9980502.ctfilter(c)
 	return c:IsSummonType(SUMMON_TYPE_SPECIAL) and c:IsControlerCanBeChanged()
 end
 function c9980502.cttg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and c9980502.ctfilter(chkc) end
-	if chk==0 then return true end
+	if chk==0 then return Duel.IsExistingTarget(c9980502.ctfilter,tp,0,LOCATION_MZONE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONTROL)
 	local g=Duel.SelectTarget(tp,c9980502.ctfilter,tp,0,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_CONTROL,g,1,0,0)
 end
 function c9980502.ctop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsFaceup() and tc:IsRelateToEffect(e) and tc:IsRace(RACE_MACHINE) then
-		local tct=1
-		if Duel.GetTurnPlayer()~=tp then tct=2
-		elseif Duel.GetCurrentPhase()==PHASE_END then tct=3 end
+	local tct=1
+	if Duel.GetTurnPlayer()~=tp then tct=2
+	elseif Duel.GetCurrentPhase()==PHASE_END then tct=3 end
+	if tc:IsFacedown() and tc:IsRelateToEffect(e) then
 		Duel.GetControl(tc,tp,PHASE_END,tct)
 	end
 end

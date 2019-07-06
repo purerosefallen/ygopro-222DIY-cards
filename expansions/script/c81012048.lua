@@ -87,6 +87,7 @@ function c81012048.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,ct,0,0)
 end
 function c81012048.desop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local rg=tg:Filter(Card.IsRelateToEffect,nil,e)
 	if rg:GetCount()>0 then

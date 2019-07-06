@@ -30,7 +30,6 @@ function c9980710.initial_effect(c)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetCode(EFFECT_SELF_DESTROY)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetCondition(c9980710.effcon)
 	e2:SetTarget(c9980710.filter)
 	e2:SetValue(aux.TRUE)
 	c:RegisterEffect(e2)
@@ -61,9 +60,6 @@ function c9980710.counter(e,tp,eg,ep,ev,re,r,rp)
 	if ct>0 then
 		e:GetHandler():AddCounter(0x1009,ct)
 	end
-end
-function c9980710.effcon(e)
-	return e:GetHandler():GetOverlayCount()>0
 end
 function c9980710.filter(e,c)
 	return (c:IsAttackBelow(500) or c:IsDefenseBelow(500)) and c:IsFaceup() and not c:IsSetCard(0xbc8) and not c:IsImmuneToEffect(e) and c:IsDestructable()
