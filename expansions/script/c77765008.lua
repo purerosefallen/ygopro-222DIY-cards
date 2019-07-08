@@ -47,13 +47,13 @@ function cm.filter1(c,e,sp)
 	return c:IsCode(77765001) and c:IsCanBeSpecialSummoned(e,0,sp,false,false) and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
 end
 function cm.target1(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(cm.filter1,tp,LOCATION_DECK+LOCATION_HAND+LOCATON_GRAVE+LOCATION_HAND+LOCATON_GRAVE,0,1,nil,e,tp)
+	if chk==0 then return Duel.IsExistingMatchingCard(cm.filter1,tp,LOCATION_DECK+LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK+LOCATION_HAND+LOCATON_GRAVE)
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK+LOCATION_HAND+LOCATION_GRAVE)
 end
 function cm.operation1(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	local sc=Duel.GetFirstMatchingCard(cm.filter1,tp,LOCATION_DECK+LOCATION_HAND+LOCATON_GRAVE,0,nil,e,tp)
+	local sc=Duel.GetFirstMatchingCard(cm.filter1,tp,LOCATION_DECK+LOCATION_HAND+LOCATION_GRAVE,0,nil,e,tp)
 	if sc then
 		Duel.SpecialSummon(sc,0,tp,tp,false,false,POS_FACEUP)
 	end
