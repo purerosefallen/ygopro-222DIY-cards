@@ -1,0 +1,28 @@
+--恶梦启示 虚伪
+if not pcall(function() require("expansions/script/c33330400") end) then require("script/c33330400") end
+local m=33330402
+local cm=_G["c"..m]
+function cm.initial_effect(c)
+	local e1,e2,e3=rsnm.SummonFun(c,m)   
+	local e4=rsnm.FilpFun(c,m,"eq",nil,rsop.target(cm.eqfilter,"eq",0,LOCATION_MZONE),cm.op)
+end
+function cm.eqfilter(c,e,tp)
+	return c:IsFaceup() and c:IsAbleToChangeControler() and Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+end
+function cm.op(e,tp)
+	local c=rscf.GetRelationThisCard(e)
+	if not c then return end
+	rsof.SelectHint(tp,"eq")
+	local tg=Duel.SelectMatchingCard(tp,cm.eqfilter,tp,0,LOCATION_MZONE,1,1,nil,e,tp)
+	if #tg<=0 then return end
+	Duel.HintSelection(tg)
+	local tc=tg:GetFirst()
+	if not rsop.eqop(e,tc,c) then return end
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_EQUIP)
+	e1:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE+EFFECT_FLAG_OWNER_RELATE)
+	e1:SetCode(EFFECT_UPDATE_ATTACK)
+	e1:SetReset(RESET_EVENT+RESETS_STANDARD)
+	e1:SetValue(tc:GetTextAttack())
+	tc:RegisterEffect(e1)
+end

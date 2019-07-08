@@ -15,7 +15,7 @@ function cm.initial_effect(c)
 	c:RegisterEffect(e0)
 	--Paradise Lost！
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(m,0))
+	e1:SetDescription(aux.Stringid(17010301,0))
 	e1:SetCategory(CATEGORY_DESTROY+CATEGORY_REMOVE)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_PZONE)
@@ -41,7 +41,7 @@ function cm.initial_effect(c)
 	c:RegisterEffect(e3)
 	--Remove
 	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(m,1))
+	e4:SetDescription(aux.Stringid(17010301,1))
 	e4:SetCategory(CATEGORY_REMOVE)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e4:SetCode(EVENT_DESTROYED)
@@ -51,14 +51,15 @@ function cm.initial_effect(c)
 	e4:SetTarget(cm.rmtg)
 	e4:SetOperation(cm.rmop)
 	c:RegisterEffect(e4)
-	--Hand Remove
+	--Todeck
 	local e5=Effect.CreateEffect(c)
-	e5:SetDescription(aux.Stringid(m,2))
-	e5:SetCategory(CATEGORY_REMOVE)
-	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e5:SetDescription(aux.Stringid(17010301,2))
+	e5:SetCategory(CATEGORY_TODECK)
+	e5:SetType(EFFECT_TYPE_IGNITION)
+	e5:SetRange(LOCATION_MZONE)
 	e5:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e5:SetCode(EVENT_BATTLE_DESTROYING)
-	e5:SetCondition(aux.bdocon)
+	e5:SetCountLimit(1)
+	e5:SetCondition(cm.hdcon)
 	e5:SetTarget(cm.hdtg)
 	e5:SetOperation(cm.hdop)
 	c:RegisterEffect(e5)
@@ -73,13 +74,13 @@ function cm.initial_effect(c)
 	e7:SetType(EFFECT_TYPE_FIELD)
 	e7:SetCode(EFFECT_SPSUMMON_PROC)
 	e7:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	e7:SetRange(LOCATION_HAND+LOCATION_EXTRA)
+	e7:SetRange(LOCATION_EXTRA)
 	e7:SetCondition(cm.hspcon)
 	e7:SetOperation(cm.hspop)
 	c:RegisterEffect(e7)
 	--atk voice
 	local e8=Effect.CreateEffect(c)
-	e8:SetDescription(aux.Stringid(m,5))
+	e8:SetDescription(aux.Stringid(17010301,5))
 	e8:SetCategory(CATEGORY_ATKCHANGE)
 	e8:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e8:SetCode(EVENT_ATTACK_ANNOUNCE)
@@ -87,7 +88,7 @@ function cm.initial_effect(c)
 	c:RegisterEffect(e8)
 	--destroy voice
 	local e9=Effect.CreateEffect(c)
-	e9:SetDescription(aux.Stringid(m,6))
+	e9:SetDescription(aux.Stringid(17010301,6))
 	e9:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e9:SetCode(EVENT_DESTROYED)
 	e9:SetProperty(EFFECT_FLAG_DELAY)
@@ -108,7 +109,7 @@ function cm.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(cm.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler()) end
 	local sg=Duel.GetMatchingGroup(cm.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,e:GetHandler())
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,sg,sg:GetCount(),0,0)
-	if Duel.IsExistingMatchingCard(cm.rccfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) then
+	if Duel.IsExistingMatchingCard(cm.rccfilter,tp,LOCATION_GRAVE+LOCATION_EXTRA,LOCATION_GRAVE+LOCATION_EXTRA,1,nil) then
 		Duel.Hint(HINT_SOUND,0,aux.Stringid(m,6))
 	else
 		Duel.Hint(HINT_SOUND,0,aux.Stringid(m,7))
@@ -138,58 +139,66 @@ function cm.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(cm.cfilter,1,nil,tp)
 end
 function cm.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	local ct=eg:GetCount()
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,1,e:GetHandler()) end
 	local g=Duel.GetMatchingGroup(Card.IsAbleToRemove,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,e:GetHandler())
-	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
-	Duel.Hint(HINT_SOUND,0,aux.Stringid(m,4))
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,ct,0,0)
+	Duel.Hint(HINT_SOUND,0,aux.Stringid(17010301,4))
 end
 function cm.rmop(e,tp,eg,ep,ev,re,r,rp)
+	local ct=eg:GetCount()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToRemove,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,1,1,e:GetHandler())
+	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToRemove,tp,LOCATION_ONFIELD+LOCATION_GRAVE,LOCATION_ONFIELD+LOCATION_GRAVE,1,ct,e:GetHandler())
 	if g:GetCount()>0 then
 		Duel.Remove(g,POS_FACEDOWN,REASON_EFFECT)
 	end
 end
+function cm.hdcon(e,tp,eg,ep,ev,re,r,rp)
+	return not Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_GRAVE,1,nil)
+end
 function cm.hdtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,0,LOCATION_HAND,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,tp,LOCATION_HAND)
-	Duel.Hint(HINT_SOUND,0,aux.Stringid(m,5))
+	if chk==0 then return Duel.GetFieldGroupCount(1-tp,LOCATION_HAND,0)>0 end
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,nil,0,1-tp,2)
 end
 function cm.hdop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(Card.IsAbleToRemove,tp,0,LOCATION_HAND,nil)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	local g=Duel.SelectMatchingCard(1-tp,Card.IsAbleToDeck,1-tp,LOCATION_HAND,0,2,2,nil)
 	if g:GetCount()>0 then
-		local sg=g:RandomSelect(tp,1)
-		Duel.Remove(sg,POS_FACEDOWN,REASON_EFFECT)
+		Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
 	end
 end
-function cm.relfilter1(c)
-	return c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_FAIRY) and c:IsReleasable()
+function cm.spfilter1(c,tp,g)
+	return g:IsExists(cm.spfilter2,1,c,tp,c)
 end
-function cm.relfilter2(c)
-	return c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_FIEND) and c:IsReleasable()
+function cm.spfilter2(c,tp,mc)
+	return ((c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_FIEND) and c:IsFaceup()) and (mc:IsAttribute(ATTRIBUTE_LIGHT) and mc:IsRace(RACE_FAIRY) and mc:IsFaceup()))
+		or ((mc:IsAttribute(ATTRIBUTE_DARK) and mc:IsRace(RACE_FIEND) and mc:IsFaceup()) and (c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsRace(RACE_FAIRY) and c:IsFaceup()))
+		and Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c,mc))>0
 end
 function cm.hspcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
-	local g=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
-	local rg=Duel.GetReleaseGroup(tp)
-	return (g:GetCount()>0 or rg:GetCount()>0) and g:FilterCount(Card.IsReleasable,nil)==g:GetCount()
-		and g:FilterCount(cm.relfilter1,nil)>=1
-		and g:FilterCount(cm.relfilter2,nil)>=1
-		and Duel.GetLocationCountFromEx(tp,tp,g,c)>0
+	local g=Duel.GetMatchingGroup(cm.matfilter,tp,LOCATION_MZONE,0,nil)
+	return g:IsExists(cm.spfilter1,1,nil,tp,g) 
+	and not Duel.GetFieldCard(tp,LOCATION_PZONE,0) and not Duel.GetFieldCard(tp,LOCATION_PZONE,1)
 end
 function cm.hspop(e,tp,eg,ep,ev,re,r,rp,c)
-	local g=Duel.GetReleaseGroup(tp)
-	Duel.Release(g,REASON_COST)
-	Duel.Hint(HINT_SOUND,0,aux.Stringid(m,9))
+	local g=Duel.GetMatchingGroup(cm.matfilter,tp,LOCATION_MZONE,0,nil)
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(17010301,11))
+	local g1=g:FilterSelect(tp,cm.spfilter1,1,1,nil,tp,g)
+	local mc=g1:GetFirst()
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(17010301,11))
+	local g2=g:FilterSelect(tp,cm.spfilter2,1,1,mc,tp,mc)
+	Duel.MoveToField(g1:GetFirst(),tp,tp,LOCATION_SZONE,POS_FACEUP,true)
+	Duel.MoveToField(g2:GetFirst(),tp,tp,LOCATION_SZONE,POS_FACEUP,true)
 end
 function cm.atksuc(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SOUND,0,aux.Stringid(m,10))
+	Duel.Hint(HINT_SOUND,0,aux.Stringid(17010301,10))
 end
 function cm.descon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsPreviousLocation(LOCATION_MZONE+LOCATION_SZONE) and c:IsFaceup()
 end
 function cm.dessuc(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SOUND,0,aux.Stringid(m,8))
+	Duel.Hint(HINT_SOUND,0,aux.Stringid(17010301,8))
 end

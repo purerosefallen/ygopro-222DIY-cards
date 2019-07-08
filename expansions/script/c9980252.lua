@@ -1,5 +1,13 @@
 --不死姬·爱尔奎特
 function c9980252.initial_effect(c)
+	c:EnableReviveLimit()
+	--splimit
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
+	e1:SetValue(c9980252.splimit)
+	c:RegisterEffect(e1)
 	 --special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -30,6 +38,9 @@ function c9980252.initial_effect(c)
 	e5:SetTarget(c9980252.extg)
 	e5:SetOperation(c9980252.exop)
 	c:RegisterEffect(e5)
+end
+function c9980252.splimit(e,se,sp,st)
+	return se:IsHasType(EFFECT_TYPE_ACTIONS)
 end
 function c9980252.spcon(e,c)
 	if c==nil then return true end

@@ -1,6 +1,13 @@
 --不死姬·远野秋叶
 function c9980254.initial_effect(c)
-   c:EnableReviveLimit()
+	c:EnableReviveLimit()
+	--splimit
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
+	e1:SetValue(c9980254.splimit)
+	c:RegisterEffect(e1)
 	--to hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND)
@@ -26,6 +33,9 @@ function c9980254.initial_effect(c)
 	e1:SetTarget(c9980254.thtg)
 	e1:SetOperation(c9980254.thop)
 	c:RegisterEffect(e1)
+end
+function c9980254.splimit(e,se,sp,st)
+	return se:IsHasType(EFFECT_TYPE_ACTIONS)
 end
 function c9980254.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetAttacker():GetControler()~=tp

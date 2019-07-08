@@ -1,0 +1,37 @@
+--无法找回的昔日回忆
+function c26807043.initial_effect(c)
+	--Activate
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_ACTIVATE)
+	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetCountLimit(1,26807043+EFFECT_COUNT_CODE_OATH)
+	e1:SetOperation(c26807043.activate)
+	c:RegisterEffect(e1)
+end
+function c26807043.activate(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_UPDATE_ATTACK)
+	e1:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
+	e1:SetValue(500)
+	e1:SetTarget(c26807043.filter1)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(e1,tp)
+	local e2=e1:Clone()
+	e2:SetCode(EFFECT_UPDATE_DEFENSE)
+	Duel.RegisterEffect(e2,tp)
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_FIELD)
+	e3:SetCode(EFFECT_CANNOT_ATTACK)
+	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
+	e3:SetReset(RESET_PHASE+PHASE_END)
+	e3:SetTarget(c26807043.filter2)
+	Duel.RegisterEffect(e3,tp)
+end
+function c26807043.filter1(e,c)
+	return c:IsRace(RACE_WARRIOR)
+end
+function c26807043.filter2(e,c)
+	return c:IsRace(RACE_FAIRY)
+end

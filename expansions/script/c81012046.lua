@@ -36,7 +36,6 @@ function c81012046.initial_effect(c)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCountLimit(2,81012046)
 	e4:SetCondition(c81012046.atkcon)
-	e4:SetCost(c81012046.atkcost)
 	e4:SetOperation(c81012046.atkop)
 	c:RegisterEffect(e4)
 	--Immune
@@ -109,11 +108,6 @@ function c81012046.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	e:SetLabelObject(d)
 	local g=Group.FromCards(a,d)
 	return a and d and a:IsRelateToBattle() and d:IsRelateToBattle() and g:IsExists(c81012046.exfilter,1,nil)
-end
-function c81012046.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	local c=e:GetHandler()
-	if chk==0 then return c:GetFlagEffect(81012046)==0 end
-	c:RegisterFlagEffect(81012046,RESET_CHAIN,0,1)
 end
 function c81012046.atkop(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=e:GetLabelObject()

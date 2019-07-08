@@ -1,6 +1,13 @@
 --不死姬·希耶尔
 function c9980253.initial_effect(c)
 	c:EnableReviveLimit()
+	--splimit
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
+	e1:SetValue(c9980253.splimit)
+	c:RegisterEffect(e1)
 	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(9980253,0))
@@ -23,6 +30,9 @@ function c9980253.initial_effect(c)
 	e2:SetTarget(c9980253.target)
 	e2:SetOperation(c9980253.operation)
 	c:RegisterEffect(e2)
+end
+function c9980253.splimit(e,se,sp,st)
+	return se:IsHasType(EFFECT_TYPE_ACTIONS)
 end
 function c9980253.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsReason(REASON_DRAW)

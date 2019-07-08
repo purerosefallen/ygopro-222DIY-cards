@@ -117,7 +117,7 @@ function c9980402.eqop(e,tp,eg,ep,ev,re,r,rp)
 	c:RegisterEffect(e5)
 end
 function c9980402.eqlimit(e,c)
-	return c:IsSetCard(0xbca)
+	return c:IsSetCard(0x1bca)
 end
 function c9980402.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

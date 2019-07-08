@@ -1,6 +1,13 @@
 --不死姬·物部布都
 function c9980262.initial_effect(c)
 	c:EnableReviveLimit()
+	--splimit
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e1:SetCode(EFFECT_SPSUMMON_CONDITION)
+	e1:SetValue(c9980262.splimit)
+	c:RegisterEffect(e1)
    --indes
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
@@ -33,6 +40,9 @@ function c9980262.initial_effect(c)
 	e1:SetTarget(c9980262.sptg)
 	e1:SetOperation(c9980262.spop)
 	c:RegisterEffect(e1)
+end
+function c9980262.splimit(e,se,sp,st)
+	return se:IsHasType(EFFECT_TYPE_ACTIONS)
 end
 function c9980262.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsDiscardable() end
