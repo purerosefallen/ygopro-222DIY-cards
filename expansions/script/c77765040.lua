@@ -20,13 +20,13 @@ function cm.initial_effect(c)
 	e1:SetCategory(CATEGORY_REMOVE)
 	e1:SetCondition(function(e,tp,eg,ep,ev,re,r,rp)
 		return eg:IsExists(function(c)
-			return not c:IsReason(REASON_DRAW) and c:GetReasonPlayer()==tp
+            return not c:IsReason(REASON_DRAW) and c:GetReasonPlayer()==tp and c:IsControler(tp)
 		end,1,nil)
 	end)
 	e1:SetTarget(function(e,tp,eg,ep,ev,re,r,rp,chk)
 		if chk==0 then return true end
 		local g=eg:Filter(function(c)
-			return c:IsAbleToRemove() and not c:IsReason(REASON_DRAW) and c:GetReasonPlayer()==tp
+			return c:IsAbleToRemove() and not c:IsReason(REASON_DRAW) and c:GetReasonPlayer()==tp and c:IsControler(tp)
 		end,nil)
 		Duel.SetTargetCard(g)
 		Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,#g,0,0)
