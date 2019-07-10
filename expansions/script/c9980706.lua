@@ -1,6 +1,6 @@
 --戈尔贡三姐妹
 function c9980706.initial_effect(c)
-	c:EnableUnsummonable()
+	c:EnableReviveLimit()
 	--splimit
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)

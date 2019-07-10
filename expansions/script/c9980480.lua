@@ -80,7 +80,7 @@ function c9980480.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetAttacker():GetControler()~=tp and e:GetHandler():GetCounter(0x50)==1
 end
 function c9980480.spfilter(c,e,tp)
-	return c:IsLevelBelow(4) and c:IsSetCard(0x5bcb,0xabca) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsLevelBelow(4) and (c:IsSetCard(0x5bcb) or c:IsSetCard(0xabca))and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c9980480.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not Duel.IsPlayerAffectedByEffect(tp,59822133)
