@@ -34,7 +34,7 @@ function cm.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e2:SetCode(EVENT_PHASE+PHASE_STANDBY)
-	e2:SetCountLimit(1)
+	e2:SetCountLimit(1,m)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetCondition(function(e,tp)
 		return Duel.GetTurnPlayer()==tp
