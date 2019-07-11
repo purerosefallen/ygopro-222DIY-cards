@@ -59,11 +59,8 @@ function cm.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	local zone=e:GetHandler():GetLinkedZone(tp)
-	local lt=c:GetLinkedGroupCount()
-	local ft=2-lt
-	if c:GetSequence()>4 then ft=3-lt end
+	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE,tp,LOCATION_REASON_TOFIELD,zone)
 	local tg=Duel.GetMatchingGroup(cm.filter,tp,LOCATION_DECK,0,nil,e,tp,zone)
-	if tg:GetCount()==0 or ft<=0 then return end
 	if Duel.IsPlayerAffectedByEffect(tp,59822133) then ft=1 end
 	local g=Group.CreateGroup()
 	while tg:GetCount()>0 and ft>0 do

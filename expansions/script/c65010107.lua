@@ -2,7 +2,7 @@
 function c65010107.initial_effect(c)
 	--activate
 	local e0=Effect.CreateEffect(c)
-	e0:SetDescription(aux.Stringid(65010107,1))
+	e0:SetDescription(aux.Stringid(65010107,0))
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e0)

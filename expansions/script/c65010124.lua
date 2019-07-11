@@ -37,7 +37,7 @@ function c65010124.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c65010124.notgtg(e,c)
-	return c:IsFaceup() and c:IsSetCard(0x9da0) and not c==e:GetHandler()
+	return c:IsFaceup() and c:IsSetCard(0x9da0) and c~=e:GetHandler()
 end
 function c65010124.atkcon(e)
 	return Duel.GetCurrentPhase()==PHASE_DAMAGE_CAL 
