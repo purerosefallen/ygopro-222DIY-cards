@@ -78,10 +78,11 @@ function cm.rcon(e,tp,eg,ep,ev,re,r,rp)
 	return (r & REASON_COST)~=0 and re:GetHandler()==e:GetHandler() and re:IsHasType(0x7e0) and Duel.IsExistingMatchingCard(cm.retfilter,tp,LOCATION_REMOVED,0,ct,nil)
 end
 function cm.rop(e,tp,eg,ep,ev,re,r,rp)
-	local ct=(ev & 0xffff)
+	local min=ev&0xffff
+	local max=(ev>>16)&0xffff
 	Duel.Hint(HINT_CARD,0,e:GetOwner():GetOriginalCode())
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectMatchingCard(tp,cm.retfilter,tp,LOCATION_REMOVED,0,ct,ct,nil)
+	local g=Duel.SelectMatchingCard(tp,cm.retfilter,tp,LOCATION_REMOVED,0,min,max,nil)
 	local des=g:IsExists(Card.IsType,1,nil,TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and 0 or 2
-	Duel.SendtoDeck(g,nil,des,REASON_COST)
+	return Duel.SendtoDeck(g,nil,des,REASON_COST)
 end

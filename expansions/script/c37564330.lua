@@ -50,8 +50,11 @@ function cm.rcon(e,tp,eg,ep,ev,re,r,rp)
 		and (r & REASON_COST)~=0 and re:IsHasType(0x7e0) and re:IsActiveType(TYPE_XYZ)
 end
 function cm.rop(e,tp,eg,ep,ev,re,r,rp)
+	local min=ev&0xffff
+	local max=(ev>>16)&0xffff
 	Duel.Hint(HINT_CARD,0,e:GetHandler():GetOriginalCode())
 	e:GetHandler():RegisterFlagEffect(m,0x1fe1000+RESET_PHASE+PHASE_END,0,1)
+	return max
 end
 function cm.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsContains(e:GetHandler())
