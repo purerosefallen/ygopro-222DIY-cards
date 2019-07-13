@@ -25,7 +25,7 @@ function cm.initial_effect(c)
 		end)
 		e2:SetRange(LOCATION_SZONE)
 		e2:SetValue(function(e,c)
-			return c:IsControler(1-e:GetHandlerPlayer())
+			return c and c:IsControler(1-e:GetHandlerPlayer())
 		end)
 		c:RegisterEffect(e2)
 	end
