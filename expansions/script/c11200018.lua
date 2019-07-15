@@ -125,7 +125,6 @@ function c11200018.op2(e,tp,eg,ep,ev,re,r,rp)
 		local tc=sg:GetFirst()
 		tc:AddMonsterAttribute(TYPE_NORMAL,ATTRIBUTE_LIGHT,RACE_BEAST,4,1100,1100)
 		Duel.SpecialSummonStep(tc,0,tp,tp,true,false,POS_FACEUP)
-		tc:AddMonsterAttributeComplete()
 		Duel.SpecialSummonComplete()
 	end
 end
