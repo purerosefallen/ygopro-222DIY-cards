@@ -75,15 +75,15 @@ function c9980193.atkop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetValue(def/2)
 		e2:SetReset(RESET_EVENT+RESETS_STANDARD)
 		tc:RegisterEffect(e2)
-	end
-l	   local e3=Effect.CreateEffect(c)
+		local e3=Effect.CreateEffect(c)
 		e3:SetType(EFFECT_TYPE_FIELD)
 		e3:SetCode(EFFECT_CANNOT_ACTIVATE)
 		e3:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 		e3:SetTargetRange(0,1)
 		e3:SetValue(c9980193.aclimit)
 		e3:SetReset(RESET_PHASE+PHASE_END)
-		tc:RegisterEffect(e3)
+		tc:RegisterEffect(e3,tp)
+	end
 end
 function c9980193.aclimit(e,re,tp)
 	return re:GetHandler():IsOnField() or re:IsHasType(EFFECT_TYPE_ACTIVATE)
