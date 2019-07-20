@@ -184,15 +184,15 @@ function c11200004.tdop(e,tp,eg,ep,ev,re,r,rp)
 	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local sg=tg:Filter(Card.IsRelateToEffect,nil,e)
 	if sg:GetCount()==tg:GetCount() and  e:GetHandler():IsRelateToEffect(e) then
+		sg:AddCard(e:GetHandler())
 		Duel.SendtoDeck(sg,nil,2,REASON_EFFECT+REASON_RETURN)
 	end
 end
 function c11200004.retg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_REMOVED+LOCATION_GRAVE) end
-	if chk==0 then return Duel.IsExistingTarget(nil,tp,LOCATION_REMOVED+LOCATION_GRAVE ,LOCATION_REMOVED+LOCATION_GRAVE,1,e:GetHandler())
+	if chkc then return chkc:IsLocation(LOCATION_REMOVED) end
+	if chk==0 then return Duel.IsExistingTarget(nil,tp,LOCATION_REMOVED ,LOCATION_REMOVED,1,e:GetHandler())
    and e:GetHandler():IsAbleToRemove() end
-	local g=Duel.SelectTarget(tp,nil,tp,LOCATION_REMOVED+LOCATION_GRAVE ,LOCATION_REMOVED+LOCATION_GRAVE,1,3,e:GetHandler())
-	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,g:GetCount(),0,0)
+	local g=Duel.SelectTarget(tp,nil,tp,LOCATION_REMOVED,LOCATION_REMOVED,1,3,e:GetHandler())
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,e:GetHandler(),1,0,0)
 end
 function c11200004.reop(e,tp,eg,ep,ev,re,r,rp)

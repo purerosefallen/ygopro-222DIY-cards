@@ -57,8 +57,8 @@ function c81041006.costfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_RITUAL) and c:IsType(TYPE_PENDULUM) and c:GetLevel()>c:GetOriginalLevel()
 end
 function c81041006.discost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.CheckReleaseGroup(tp,c4931121.costfilter,1,nil) end
-	local g=Duel.SelectReleaseGroup(tp,c4931121.costfilter,1,1,nil)
+	if chk==0 then return Duel.CheckReleaseGroup(tp,c81041006.costfilter,1,nil) end
+	local g=Duel.SelectReleaseGroup(tp,c81041006.costfilter,1,1,nil)
 	Duel.Release(g,REASON_COST)
 end
 function c81041006.distg(e,tp,eg,ep,ev,re,r,rp,chk)

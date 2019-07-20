@@ -3,7 +3,7 @@ if not pcall(function() require("expansions/script/c33310023") end) then require
 local m=33310008
 local cm=_G["c"..m]
 function cm.initial_effect(c)
-	c:EnableUnsummonable()
+	--c:EnableUnsummonable()
 	--pendulum summon
 	aux.EnablePendulumAttribute(c,true)   
 	--to hand

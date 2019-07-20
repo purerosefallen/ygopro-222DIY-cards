@@ -79,7 +79,7 @@ function c9980573.operation(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 	if Duel.GetFlagEffect(tp,9980573)~=0 then return end
-   --extra summon
+	--extra summon
 	local e2=Effect.CreateEffect(e:GetHandler())
 	e2:SetDescription(aux.Stringid(9980573,0))
 	e2:SetType(EFFECT_TYPE_FIELD)
@@ -87,7 +87,7 @@ function c9980573.operation(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
 	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0xcbca))
 	e2:SetReset(RESET_PHASE+PHASE_END)
-	c:RegisterEffect(e2,tp)
+	tc:RegisterEffect(e2)
 	Duel.RegisterFlagEffect(tp,9980573,RESET_PHASE+PHASE_END,0,1)
 end
 function c9980573.filter1(c,e,tp)

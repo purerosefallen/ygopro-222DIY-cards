@@ -24,7 +24,7 @@ function c9980590.initial_effect(c)
 	e3:SetTarget(c9980590.tg)
 	e3:SetOperation(c9980590.op)
 	c:RegisterEffect(e3)
-   --to hand
+	--to hand
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(9980590,0))
 	e2:SetCategory(CATEGORY_TODECK)
@@ -79,7 +79,6 @@ function c9980590.op(e,tp,eg,ep,ev,re,r,rp)
 	local e2=e1:Clone()
 	e2:SetCode(EFFECT_UPDATE_DEFENSE)
 	Duel.RegisterEffect(e2,tp)
-	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 end
 function c9980590.filter1(e,c)
 	return c:IsSetCard(0x6bca)

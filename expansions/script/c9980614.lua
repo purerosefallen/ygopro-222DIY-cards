@@ -64,7 +64,7 @@ function c9980614.atkfilter(c)
 	return c:IsSetCard(0x6bcb) and c:IsType(TYPE_MONSTER)
 end
 function c9980614.atkup(e,c)
-	local g=Duel.GetMatchingGroup(c9980614.atkfilter,e:GetHandlerPlayer(),LOCATION_GRAVE+LOCATION_MZONE,0,nil)
+	local g=Duel.GetMatchingGroup(c9980614.atkfilter,tp,LOCATION_GRAVE+LOCATION_MZONE,0,nil)
 	return g:GetClassCount(Card.GetCode)*100
 end
 function c9980614.eqfilter(c)

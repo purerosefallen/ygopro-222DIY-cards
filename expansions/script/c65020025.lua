@@ -66,7 +66,7 @@ function c65020025.detg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function c65020025.delimit(e,ep,tp)
-	return ep==tp and not e:IsHasType(EFFECT_TYPE_ACTIVATE)
+	return ep==tp 
 end
 function c65020025.deop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,Card.IsFacedown,tp,0,LOCATION_SZONE,1,1,nil)
@@ -83,7 +83,7 @@ function c65020025.wintg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c65020025.winop(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsRelateToEffect(e) then
-		local num=e:GetHandler():GetCounter(0x11da)>0
+		local num=e:GetHandler():GetCounter(0x11da)
 		local lp=Duel.GetLP(1-tp)
 		e:GetHandler():RemoveCounter(tp,0x11da,num,REASON_EFFECT)
 		Duel.SetLP(1-tp,lp-num*1000)

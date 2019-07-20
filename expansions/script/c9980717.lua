@@ -1,11 +1,11 @@
 --丁玲丁玲
 function c9980717.initial_effect(c)
 	--Activate
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetOperation(c9980717.sumsuc)
-	c:RegisterEffect(e1)
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_ACTIVATE)
+	e3:SetCode(EVENT_FREE_CHAIN)
+	e3:SetOperation(c9980717.sumsuc)
+	c:RegisterEffect(e3)
 	--
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
@@ -14,6 +14,14 @@ function c9980717.initial_effect(c)
 	e3:SetTargetRange(LOCATION_MZONE,0)
 	e3:SetValue(500)
 	c:RegisterEffect(e3)
+	--chain
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e1:SetCode(EVENT_CHAINING)
+	e1:SetRange(LOCATION_FZONE)
+	e1:SetOperation(c9980717.chop)
+	c:RegisterEffect(e1)
 	--draw
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(9980717,0))
@@ -42,6 +50,16 @@ end
 function c9980717.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_MUSIC,0,aux.Stringid(9980717,1))
 end 
+function c9980717.chop(e,tp,eg,ep,ev,re,r,rp)
+	local ct=Duel.GetCurrentChain()
+	if ct==1 then
+		e:SetLabel(0)
+	elseif not Duel.CheckChainUniqueness() then
+		e:SetLabel(2)
+	elseif ct>=3 and e:GetLabel()~=2 then
+		e:SetLabel(1)
+	end
+end
 function c9980717.chop(e,tp,eg,ep,ev,re,r,rp)
 	local ct=Duel.GetCurrentChain()
 	if ct==1 then
