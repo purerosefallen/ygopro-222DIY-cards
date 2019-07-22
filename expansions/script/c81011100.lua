@@ -5,6 +5,13 @@ function c81011100.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
 	c:EnableReviveLimit()
+	--spsummon bgm
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e0:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e0:SetCondition(c81011100.sumcon)
+	e0:SetOperation(c81011100.sumsuc)
+	c:RegisterEffect(e0)
 	--draw
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DRAW)
@@ -49,6 +56,12 @@ function c81011100.initial_effect(c)
 	e6:SetTarget(c81011100.pentg)
 	e6:SetOperation(c81011100.penop)
 	c:RegisterEffect(e6)
+end
+function c81011100.sumcon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL) or e:GetHandler():IsSummonType(SUMMON_TYPE_PENDULUM)
+end
+function c81011100.sumsuc(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_MUSIC,0,aux.Stringid(81011100,0))
 end
 function c81011100.drcon(e,tp,eg,ep,ev,re,r,rp)
 	local a=Duel.GetAttacker()

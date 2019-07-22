@@ -13,7 +13,7 @@ function cm.initial_effect(c)
 	e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCondition(c33330410.indcon)
+	e3:SetCondition(cm.indcon)
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
 	local e4=e3:Clone()
@@ -28,6 +28,9 @@ function cm.lfilter(c)
 end
 function cm.tfilter(c,e,tp)
 	return Duel.GetLocationCount(tp,LOCATION_SZONE)>1 and c:IsRace(RACE_FIEND) and c:IsFaceup()
+end
+function cm.indcon(e)
+	return e:GetHandler():GetLinkedGroupCount()>0
 end
 function cm.op(e,tp)
 	local c=e:GetHandler()
@@ -47,16 +50,13 @@ function cm.op(e,tp)
 		end
 	end
 end
-function c33330410.indcon(e)
-	return e:GetHandler():GetLinkedGroupCount()>0
-end
 function cm.cfilter(c)
 	return (c:IsFacedown() and c:IsCanChangePosition()) or (c:IsFaceup() and c:IsCanTurnSet()) 
 end
 function cm.fun(g,e,tp)
 	local tc=g:GetFirst()
 	if tc:IsFaceup() then Duel.ChangePosition(tc,POS_FACEDOWN_DEFENSE)
-	else Duel.ChangePosition(tc,POS_FACEUP_DEFENSE)
+	else Duel.ChangePosition(tc,POS_FACEUP_ATTACK)
 	end
 end
 function cm.thfilter(c)

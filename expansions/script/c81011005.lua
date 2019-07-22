@@ -3,6 +3,13 @@ function c81011005.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
 	c:EnableReviveLimit()
+	--spsummon bgm
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e0:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e0:SetCondition(c81011005.sumcon)
+	e0:SetOperation(c81011005.sumsuc)
+	c:RegisterEffect(e0)
 	--damage conversion
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -35,6 +42,12 @@ function c81011005.initial_effect(c)
 	e3:SetTarget(c81011005.sptg)
 	e3:SetOperation(c81011005.spop)
 	c:RegisterEffect(e3)
+end
+function c81011005.sumcon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
+end
+function c81011005.sumsuc(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_MUSIC,0,aux.Stringid(81011005,0))
 end
 function c81011005.rev(e,re,r,rp,rc)
 	return bit.band(r,REASON_EFFECT)>0

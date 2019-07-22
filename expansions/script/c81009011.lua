@@ -3,6 +3,13 @@ function c81009011.initial_effect(c)
 	--link summon
 	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkType,TYPE_XYZ),1,1)
 	c:EnableReviveLimit()
+	--effect gain
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e0:SetCode(EVENT_BE_MATERIAL)
+	e0:SetCondition(c81009011.efcon)
+	e0:SetOperation(c81009011.efop)
+	c:RegisterEffect(e0)
 	--cannot link material
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -44,4 +51,24 @@ function c81009011.repop(e,tp,eg,ep,ev,re,r,rp)
 			Duel.SendtoGrave(og,REASON_RULE)
 		 end
 	Duel.Overlay(e:GetLabelObject(),Group.FromCards(c))
+end
+function c81009011.efcon(e,tp,eg,ep,ev,re,r,rp)
+	return r==REASON_XYZ
+end
+function c81009011.efop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local rc=c:GetReasonCard()
+	local e1=Effect.CreateEffect(rc)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e1:SetCondition(c81009011.sumcon)
+	e1:SetOperation(c81009011.sumsuc)
+	e1:SetReset(RESET_EVENT+RESETS_STANDARD)
+	rc:RegisterEffect(e1,true)
+end
+function c81009011.sumcon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ)
+end
+function c81009011.sumsuc(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_MUSIC,0,aux.Stringid(81009011,1))
 end

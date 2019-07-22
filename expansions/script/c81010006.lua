@@ -47,6 +47,7 @@ function c81010006.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c81010006.op(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
+	Duel.Hint(HINT_MUSIC,0,aux.Stringid(81010006,0))
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c81010006.filter),tp,LOCATION_GRAVE+LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then

@@ -19,7 +19,7 @@ function cm.op(e,tp)
 	ct=math.min(Duel.GetLocationCount(tp,LOCATION_MZONE),ct)
 	if ct<=0 then return end
 	rsof.SelectHint(tp,"sp")
-	local sg=Duel.SelectMatchingCard(tp,cm.spfilter,tp,LOCATION_HAND,0,1,ct,nil,e,tp)
+	local sg=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(cm.spfilter),tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,ct,nil,e,tp)
 	if #sg>0 then
 		Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEDOWN_DEFENSE)
 		Duel.ConfirmCards(1-tp,sg)

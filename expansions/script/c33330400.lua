@@ -5,7 +5,7 @@ local cm=_G["c"..m]
 if not rsv.Nightmare then
 	rsv.Nightmare={}
 	rsnm=rsv.Nightmare
-function rsnm.SummonFun(c,code,type2,isgrave)
+function rsnm.SummonFun(c,code,type2,isgrave,istograve)
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
@@ -14,7 +14,9 @@ function rsnm.SummonFun(c,code,type2,isgrave)
 	if type2 then
 		local e1=rscf.SetSpecialSummonProduce(c,LOCATION_HAND,rsnm.spcon2,rsnm.spop2)
 		local lab=not isgrave and LOCATION_ONFIELD or LOCATION_GRAVE 
+		local val=not istograve and 0 or 1 
 		e1:SetLabel(lab)
+		e1:SetValue(val)
 		return e1
 	end
 	local e1=rscf.SetSpecialSummonProduce(c,LOCATION_HAND,rsnm.spcon,rsnm.spop)
@@ -46,8 +48,9 @@ function rsnm.spop(e,tp)
 	local tg=Duel.SelectMatchingCard(tp,rsnm.spcfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil,tp)
 	Duel.SendtoDeck(tg,nil,2,REASON_COST)
 end
-function rsnm.spcfilter2(c,tp)
-	return c:IsSetCard(0x4552) and c:IsAbleToDeckAsCost() and Duel.GetMZoneCount(tp,c,tp)>0
+function rsnm.spcfilter2(c,e)
+	local val=e:GetValue()
+	return c:IsSetCard(0x4552) and ((val==0 and c:IsAbleToDeckAsCost()) or (val==1 and c:IsAbleToGraveAsCost()))
 end
 function rsnm.spcfilter3(c,tp)
 	return Duel.GetMZoneCount(tp,g,tp)>0
@@ -55,21 +58,25 @@ end
 function rsnm.spcon2(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
-	local g=Duel.GetMatchingGroup(rsnm.spcfilter2,tp,LOCATION_HAND+e:GetLabel(),0,nil)
+	local g=Duel.GetMatchingGroup(rsnm.spcfilter2,tp,LOCATION_HAND+e:GetLabel(),0,nil,e)
 	return g:CheckSubGroup(rsnm.spcfilter3,2,2,tp)
 end
 function rsnm.cffilter(c)
 	return c:IsFacedown() or c:IsLocation(LOCATION_HAND)
 end
 function rsnm.spop2(e,tp)
-	local g=Duel.GetMatchingGroup(rsnm.spcfilter2,tp,LOCATION_HAND+e:GetLabel(),0,nil)
+	local g=Duel.GetMatchingGroup(rsnm.spcfilter2,tp,LOCATION_HAND+e:GetLabel(),0,nil,e)
 	rsof.SelectHint(tp,"td")
 	local tg=g:SelectSubGroup(tp,rsnm.spcfilter3,false,2,2,tp)
 	local cg=tg:Filter(rsnm.cffilter,nil)
 	if #cg>0 then
 		Duel.ConfirmCards(1-tp,cg)
 	end
-	Duel.SendtoDeck(tg,nil,2,REASON_COST)
+	if e:GetValue()==0 then
+		Duel.SendtoDeck(tg,nil,2,REASON_COST)
+	else
+		Duel.SendtoGrave(tg,REASON_COST)
+	end
 end
 function rsnm.limcost(e,c,tp)
 	return Duel.GetCustomActivityCount(m,tp,ACTIVITY_SPSUMMON)==0
