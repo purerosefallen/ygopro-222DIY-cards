@@ -22,6 +22,9 @@ function c12033012.initial_effect(c)
 	e2:SetOperation(c12033012.thop)
 	c:RegisterEffect(e2)
 end
+function c12033012.rfilter(c)
+    return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0xfa2)
+end
 function c12033012.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
