@@ -3,7 +3,7 @@ function c26807041.initial_effect(c)
 	c:EnableReviveLimit()
 	c:SetSPSummonOnce(26807041)
 	--link summon
-	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsSummonType,SUMMON_TYPE_NORMAL),1,1)
+	aux.AddLinkProcedure(c,nil,1,1)
 	--splimit
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)

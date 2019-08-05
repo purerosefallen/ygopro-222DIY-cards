@@ -46,10 +46,23 @@ function c81040037.initial_effect(c)
 	e4:SetTarget(c81040037.sptg)
 	e4:SetOperation(c81040037.spop)
 	c:RegisterEffect(e4)
+	--spsummon limit
+	local e5=Effect.CreateEffect(c)
+	e5:SetType(EFFECT_TYPE_SINGLE)
+	e5:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e5:SetCode(EFFECT_SPSUMMON_CONDITION)
+	e5:SetValue(c81040037.sumlimit)
+	c:RegisterEffect(e5)
 	Duel.AddCustomActivityCounter(81040037,ACTIVITY_SPSUMMON,c81040037.counterfilter)
 end
 function c81040037.counterfilter(c)
 	return c:IsSetCard(0x81c)
+end
+function c81040037.exfilter(c)
+	return c:IsFaceup() and c:IsSetCard(0x81c) and bit.band(c:GetType(),0x81)==0x81
+end
+function c81040037.sumlimit(e,se,sp,st,pos,tp)
+	return Duel.IsExistingMatchingCard(c81040037.exfilter,tgp,LOCATION_MZONE,0,1,nil)
 end
 function c81040037.ffilter(c,fc,sub,mg,sg)
 	return c:IsFusionSetCard(0x81c) and c:IsFusionType(TYPE_RITUAL) and c:IsFusionType(TYPE_MONSTER) and (not sg or not sg:IsExists(Card.IsFusionCode,1,c,c:GetFusionCode()))
