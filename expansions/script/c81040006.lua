@@ -24,7 +24,7 @@ function c81040006.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c81040006.tdfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x81c) and c:IsAbleToDeck()
+	return c:IsSetCard(0x81c) and c:IsAbleToDeck()
 end
 function c81040006.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c81040006.tdfilter(chkc) end
@@ -34,18 +34,18 @@ function c81040006.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
 function c81040006.setfilter(c)
-	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_SPELL) and c:IsSSetable()
+	return c:GetType()==TYPE_SPELL+TYPE_RITUAL and c:IsSSetable()
 end
 function c81040006.tdop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)~=0 and tc:IsLocation(LOCATION_DECK+LOCATION_EXTRA) then
+	if tc:IsRelateToEffect(e) and Duel.SendtoDeck(tc,nil,2,REASON_EFFECT)~=0
+		and tc:IsLocation(LOCATION_DECK+LOCATION_EXTRA) then
 		local g=Duel.GetMatchingGroup(c81040006.setfilter,tp,LOCATION_DECK,0,nil)
-		if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(81040006,1)) then
-			Duel.BreakEffect()
-			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
-			local sg=g:Select(tp,1,1,nil)
-			Duel.SSet(tp,sg)
-			Duel.ConfirmCards(1-tp,sg)
+		if g:GetCount()>0 and Duel.SelectYesNo(tp,aux.Stringid(81040006,2)) then
+			local sc=g:Select(tp,1,1,nil):GetFirst()
+			Duel.SSet(tp,sc)
+			Duel.ConfirmCards(1-tp,sc)
 		end
 	end
 end

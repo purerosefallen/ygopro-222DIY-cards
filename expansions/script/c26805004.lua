@@ -78,5 +78,6 @@ function c26805004.acop(e,tp,eg,ep,ev,re,r,rp)
 		local cost=te:GetCost()
 		if cost then cost(te,tep,eg,ep,ev,re,r,rp,1) end
 		Duel.RaiseEvent(tc,4179255,te,0,tp,tp,Duel.GetCurrentChain())
+		Duel.Hint(HINT_MUSIC,0,aux.Stringid(81010004,2))
 	end
 end

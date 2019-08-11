@@ -98,7 +98,7 @@ function c81041003.rdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		and e:GetHandler():IsLevelAbove(4) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
 end
 function c81041003.rdop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

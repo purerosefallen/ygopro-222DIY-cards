@@ -21,7 +21,7 @@ function cm.cfilter(c)
 	return c:IsFacedown() or not c:IsType(TYPE_FUSION)
 end
 function cm.con(e,c)
-	return Duel.Get(tp,LOCATION_MZONE,0)>0 and not Duel.IsExistingMatchingCard(cm.cfilter,tp,LOCATION_MZONE,0,1,nil)
+	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and not Duel.IsExistingMatchingCard(cm.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function cm.filter(c,e,tp)
 	return c:IsType(TYPE_FUSION)

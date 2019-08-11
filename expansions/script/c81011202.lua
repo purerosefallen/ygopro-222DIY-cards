@@ -89,7 +89,7 @@ function c81011202.ctfilter(c,tp)
 	return c:IsFaceup() and (c:IsRace(RACE_DRAGON) or c:IsCode(81014005))
 end
 function c81011202.ctcon1(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c81011202.ctfilter,1,nil,tp)
+	return eg:IsExists(c81011202.ctfilter,1,nil,tp) and not eg:IsContains(e:GetHandler())
 end
 function c81011202.ctop1(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

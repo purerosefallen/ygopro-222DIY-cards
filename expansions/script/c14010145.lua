@@ -13,7 +13,7 @@ function cm.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function cm.thfilter(c,tp)
-	return c:IsAbleToHand() and Duel.IsExistingMatchingCard(cm.nmfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,2,c,c:GetCode())
+	return c:IsType(TYPE_NORMAL) and c:IsAbleToHand() and Duel.IsExistingMatchingCard(cm.nmfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,2,c,c:GetCode())
 end
 function cm.nmfilter(c,code)
 	return c:IsCode(code) and c:IsAbleToHand()
@@ -31,6 +31,7 @@ function cm.activate(e,tp,eg,ep,ev,re,r,rp)
 		g:Merge(g1)
 		if #g>2 then
 			Duel.SendtoHand(g,nil,REASON_EFFECT)
+			Duel.ConfirmCards(1-tp,g)
 		end
 	end
 end

@@ -71,6 +71,7 @@ function c81008007.op(e,tp,eg,ep,ev,re,r,rp)
 		local cost=te:GetCost()
 		if cost then cost(te,tep,eg,ep,ev,re,r,rp,1) end
 		Duel.RaiseEvent(tc,4179255,te,0,tp,tp,Duel.GetCurrentChain())
+		Duel.Hint(HINT_MUSIC,0,aux.Stringid(81010004,2))
 	end
 end
 function c81008007.synlimit(e,c)

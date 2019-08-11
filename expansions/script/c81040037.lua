@@ -1,14 +1,26 @@
 --冬日回忆·周子
+local m=81040037
+local c81040037=_G["c"..m]
+Duel.LoadScript("c37564765.lua")
 function c81040037.initial_effect(c)
 	c:EnableReviveLimit()
 	aux.AddFusionProcFunRep(c,c81040037.ffilter,3,true)
-	aux.AddContactFusionProcedure(c,Card.IsAbleToRemoveAsCost,LOCATION_GRAVE,0,Duel.Remove,POS_FACEUP,REASON_COST)
 	--spsummon condition
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
 	e0:SetCode(EFFECT_SPSUMMON_CONDITION)
 	c:RegisterEffect(e0)
+	--特招方法
+	local e5=Effect.CreateEffect(c)
+	e5:SetType(EFFECT_TYPE_FIELD)
+	e5:SetCode(EFFECT_SPSUMMON_PROC)
+	e5:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+	e5:SetRange(LOCATION_EXTRA)
+	e5:SetValue(1)
+	e5:SetCondition(c81040037.spscon)
+	e5:SetOperation(c81040037.spsop)
+	c:RegisterEffect(e5)
 	--immune effect
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -46,13 +58,6 @@ function c81040037.initial_effect(c)
 	e4:SetTarget(c81040037.sptg)
 	e4:SetOperation(c81040037.spop)
 	c:RegisterEffect(e4)
-	--spsummon limit
-	local e5=Effect.CreateEffect(c)
-	e5:SetType(EFFECT_TYPE_SINGLE)
-	e5:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-	e5:SetCode(EFFECT_SPSUMMON_CONDITION)
-	e5:SetValue(c81040037.sumlimit)
-	c:RegisterEffect(e5)
 	Duel.AddCustomActivityCounter(81040037,ACTIVITY_SPSUMMON,c81040037.counterfilter)
 end
 function c81040037.counterfilter(c)
@@ -61,8 +66,28 @@ end
 function c81040037.exfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x81c) and bit.band(c:GetType(),0x81)==0x81
 end
-function c81040037.sumlimit(e,se,sp,st,pos,tp)
-	return Duel.IsExistingMatchingCard(c81040037.exfilter,tgp,LOCATION_MZONE,0,1,nil)
+function c81040037.spsfilter(c)
+	return c:IsSetCard(0x81c) and bit.band(c:GetType(),0x81)==0x81 and c:IsAbleToRemoveAsCost() 
+end
+function c81040037.spscon(e,c)
+	if c==nil then return true end
+	local tp=c:GetControler()
+	local g=Duel.GetMatchingGroup(c81040037.spsfilter,tp,LOCATION_GRAVE,0,nil)
+	return Duel.GetLocationCountFromEx(tp)>0
+		and g:GetClassCount(Card.GetCode)>=3
+		and Duel.IsExistingMatchingCard(c81040037.exfilter,tp,LOCATION_MZONE,0,1,nil)
+end
+function c81040037.spsop(e,tp,eg,ep,ev,re,r,rp,c)
+	local tp=c:GetControler()
+	local g=Duel.GetMatchingGroup(c81040037.spsfilter,tp,LOCATION_GRAVE,0,nil)
+	local tg=Group.CreateGroup()
+	for i=1,3 do	 
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+		local sg=g:Select(tp,1,1,nil)
+		tg:Merge(sg)
+		g:Remove(Card.IsCode,nil,sg:GetFirst():GetCode())
+	end
+	Duel.Remove(tg,POS_FACEUP,REASON_COST)
 end
 function c81040037.ffilter(c,fc,sub,mg,sg)
 	return c:IsFusionSetCard(0x81c) and c:IsFusionType(TYPE_RITUAL) and c:IsFusionType(TYPE_MONSTER) and (not sg or not sg:IsExists(Card.IsFusionCode,1,c,c:GetFusionCode()))

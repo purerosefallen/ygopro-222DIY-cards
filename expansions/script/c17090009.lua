@@ -2,7 +2,6 @@
 local m=17090009
 local cm=_G["c"..m]
 function cm.initial_effect(c)
-	c:EnableReviveLimit()
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
 	--to deck

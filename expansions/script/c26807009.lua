@@ -1,7 +1,7 @@
 --Luna Express 2032
 function c26807009.initial_effect(c)
 	--xyz summon
-	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_RITUAL),9,2,nil,3)
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsType,TYPE_RITUAL),9,2,nil,nil,3)
 	c:EnableReviveLimit()
 	--remove
 	local e1=Effect.CreateEffect(c)

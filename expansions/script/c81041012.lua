@@ -60,7 +60,7 @@ end
 function c81041012.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local tc=e:GetLabelObject()
 	if chkc then return chkc==tc end
-	if chk==0 then return tc:IsOnField() and tc:IsCanBeEffectTarget(e) end
+	if chk==0 then return tc:IsOnField() and tc:IsCanBeEffectTarget(e) and tc:IsLevelAbove(1) end
 	Duel.SetTargetCard(tc)
 end
 function c81041012.atkop(e,tp,eg,ep,ev,re,r,rp)

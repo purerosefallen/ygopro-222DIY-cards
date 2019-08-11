@@ -110,8 +110,8 @@ function cm.bantg(e,c)
 	return c:IsCode(e:GetLabel())
 end
 function cm.callcon1(e,tp,eg,ep,ev,re,r,rp)
-	local ex,cg,ct,cp,cv=Duel.GetOperationInfo(ev,CATEGORY_ANNOUNCE)
-	return ex and bit.band(cv,ANNOUNCE_CARD+ANNOUNCE_CARD_FILTER)~=0 and not Duel.IsPlayerAffectedByEffect(tp,14011110)
+	local ex=Duel.GetOperationInfo(ev,CATEGORY_ANNOUNCE)
+	return ex and not Duel.IsPlayerAffectedByEffect(tp,14011110)
 end
 function cm.callchk1(e,tp,eg,ep,ev,re,r,rp)
 	local code=Duel.GetChainInfo(ev,CHAININFO_TARGET_PARAM)
