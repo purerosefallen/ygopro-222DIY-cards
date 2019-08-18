@@ -14,7 +14,6 @@ function c1141101.initial_effect(c)
 	c:RegisterEffect(e1)
 --
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(1141101,1))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON+CATEGORY_DECKDES)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)
@@ -66,25 +65,13 @@ function c1141101.decfilter2(c,e)
 	return c:IsAbleToGrave() and not c:IsImmuneToEffect(e)
 end
 --
-function c1141101.cfdfilter2(c,sg)
-	local checknum=0
-	local sc=sg:GetFirst()
-	local mg=Group.CreateGroup()
-	while sc do
-		mg=sc:GetColumnGroup()
-		if mg:IsContains(c) then checknum=1 end
-		sc=sg:GetNext()
-	end
-	return c:IsFacedown() and checknum==1
-end
---
 function c1141101.CheckRecursive2(c,mg,sg,exg,tp,fc,chkf)
---
-	if exg and exg:IsContains(c) and not Duel.IsExistingMatchingCard(c1141101.cfdfilter2,tp,0,LOCATION_MZONE,1,nil,sg) then return false end
---
+	local b1=Duel.IsExistingMatchingCard(Card.IsFacedown,tp,0,LOCATION_MZONE,1,nil)
+	local b2=sg:GetCount()>0 and sg:IsExists((function(c) return (c:IsFacedown() and c:IsLocation(LOCATION_MZONE)) end),1,nil)
+	if exg and exg:IsContains(c) and not (b1 and b2) then return false end
 	sg:AddCard(c)
 	local res=false
-	if sg:GetCount()>=#fc.muxu_fus_mat then
+	if sg:GetCount()>=fc.muxu_mat_count then
 		res=Duel.GetLocationCountFromEx(chkf,tp,sg,fc)>0 and fc:CheckFusionMaterial(sg,nil,chkf)
 	else
 		res=mg:IsExists(c1141101.CheckRecursive2,1,sg,mg,sg,exg,tp,fc,chkf)
@@ -157,8 +144,11 @@ function c1141101.op2(e,tp,eg,ep,ev,re,r,rp)
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
 				local g=mg:FilterSelect(tp,c1141101.CheckRecursive2,1,1,lg,mg,lg,exg,tp,tc,chkf)
 				lg:Merge(g)
-			until lg:GetCount()==#tc.muxu_fus_mat
+			until lg:GetCount()==tc.muxu_mat_count
 			tc:SetMaterial(lg)
+			local qg=lg:Filter(Card.IsLocation,nil,LOCATION_MZONE)
+			qg=qg:Filter(Card.IsFacedown,nil)
+			Duel.ConfirmCards(1-tp,qg)
 			Duel.SendtoGrave(lg,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)
 			Duel.BreakEffect()
 			Duel.SpecialSummon(tc,SUMMON_TYPE_FUSION,tp,tp,false,false,POS_FACEUP)

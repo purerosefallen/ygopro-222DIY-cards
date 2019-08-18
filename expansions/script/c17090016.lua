@@ -11,36 +11,35 @@ function cm.initial_effect(c)
 	e1:SetCode(EFFECT_SPSUMMON_COST)
 	e1:SetCost(cm.spcost)
 	c:RegisterEffect(e1)
-	--summon success
+	--
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e2:SetCategory(CATEGORY_REMOVE)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e2:SetOperation(cm.sumsuc)
+	e2:SetCondition(cm.rmcon)
+	e2:SetTarget(cm.rmtg)
+	e2:SetOperation(cm.rmop)
 	c:RegisterEffect(e2)
-	if not cm.global_flag then
-		cm.global_flag=true
-		local ge1=Effect.CreateEffect(c)
-		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge1:SetCode(EVENT_SPSUMMON_SUCCESS)
-		ge1:SetOperation(cm.regop)
-		Duel.RegisterEffect(ge1,0)
-	end
-end
-function cm.regop(e,tp,eg,ep,ev,re,r,rp)
-	for tc in aux.Next(eg) do
-		if tc:IsCode(17090009) then
-			Duel.RegisterFlagEffect(tc:GetSummonPlayer(),114514,0,0,0)
-		end
-	end
 end
 function cm.spcost(e,c,tp,st)
 	if bit.band(st,SUMMON_TYPE_LINK)~=SUMMON_TYPE_LINK then return true end
-	return Duel.GetFlagEffect(tp,114514)>0
+	return Duel.GetFlagEffect(tp,17090009)>0
 end
-function cm.sumsuc(e,tp,eg,ep,ev,re,r,rp)
+function cm.rmcon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
+end
+function cm.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,0,LOCATION_MZONE,1,nil) end
+	local g=Duel.GetMatchingGroup(Card.IsAbleToRemove,tp,0,LOCATION_MZONE,nil)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
+end
+function cm.rmop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToRemove,tp,0,LOCATION_ONFIELD,1,2,nil)
+	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToRemove,tp,0,LOCATION_MZONE,1,3,nil)
 	if g:GetCount()>0 then
 		Duel.Remove(g,POS_FACEDOWN,REASON_EFFECT)
 	end
+end
+function cm.cfilter(c,tp)
+	return c:GetSummonPlayer()~=tp
 end

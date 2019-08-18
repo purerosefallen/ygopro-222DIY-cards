@@ -7,7 +7,7 @@ cm.named_with_Tatara=true
 function c1141021.initial_effect(c)
 --
 	c:EnableReviveLimit()  
-	aux.AddFusionProcMix(c,false,true,c1141021.FusFilter1,c1141021.FusFilter2)
+	aux.AddFusionProcMix(c,true,true,c1141021.FusFilter1,c1141021.FusFilter2)
 --
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(1141021,0))
@@ -41,10 +41,7 @@ function c1141021.FusFilter2(c)
 		or (Duel.GetFlagEffect(p,1141002)>0 and c:IsFacedown())
 end
 --
-c1141021.muxu_fus_mat={
-c1141021.FusFilter1,
-c1141021.FusFilter2,}
---
+c1141021.muxu_mat_count=2
 c1141021.muxu_ih_KTatara=1
 --
 function c1141021.tg1(e,tp,eg,ep,ev,re,r,rp,chk)

@@ -10,10 +10,16 @@ function c1141002.initial_effect(c)
 	e1:SetDescription(aux.Stringid(1141002,0))
 	e1:SetCategory(CATEGORY_SEARCH+CATEGORY_TOHAND+CATEGORY_HANDES)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_FLIP+EFFECT_TYPE_TRIGGER_O)
-	e1:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e1:SetProperty(EFFECT_FLAG_DELAY)
 	e1:SetTarget(c1141002.tg1)
 	e1:SetOperation(c1141002.op1)
 	c:RegisterEffect(e1)
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e3:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
+	e3:SetOperation(c1141002.op3)
+	c:RegisterEffect(e3)
 --
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(1141002,1))
@@ -32,21 +38,35 @@ c1141002.muxu_ih_KTatara=1
 --
 function c1141002.tfilter1(c)
 	return c.muxu_ih_KTatara and c:IsAbleToHand()
+		and (c:IsType(TYPE_SPELL) or c:IsType(TYPE_TRAP))
 end
 function c1141002.tg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c1141002.tfilter1,tp,LOCATION_DECK,0,1,nil) end
+	if e:GetHandler():GetFlagEffect(1141002)~=0 then
+		e:SetLabel(1)
+		e:GetHandler():ResetFlagEffect(1141002)
+	else
+		e:SetLabel(0)
+	end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 --
 function c1141002.op1(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local sg=Duel.SelectMatchingCard(tp,c1141002.tfilter1,tp,LOCATION_DECK,0,1,3,nil)
-	if sg:GetCount()<1 then return end
-	Duel.SendtoHand(sg,nil,REASON_EFFECT)
-	local lg=Duel.GetOperatedGroup()
-	if lg:GetCount()<1 then return end
-	Duel.ConfirmCards(1-tp,lg)
-	Duel.SendtoGrave(lg,REASON_EFFECT+REASON_DISCARD)
+	local sg=Duel.SelectMatchingCard(tp,c1141002.tfilter1,tp,LOCATION_DECK,0,1,1,nil)
+	if sg:GetCount()>0 then
+		local tc=sg:GetFirst()
+		Duel.SendtoHand(tc,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,tc)
+		if not tc:IsLocation(LOCATION_HAND) then return end
+		if e:GetLabel()==1 and Duel.SelectYesNo(tp,aux.Stringid(1141002,2)) then return end
+		Duel.BreakEffect()
+		Duel.SendtoGrave(tc,REASON_EFFECT+REASON_DISCARD)
+	end
+end
+--
+function c1141002.op3(e,tp,eg,ep,ev,re,r,rp)
+	e:GetHandler():RegisterFlagEffect(1141002,0,0,0)
 end
 --
 function c1141002.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -68,7 +88,7 @@ end
 function c1141002.CheckRecursive2(c,mg,sg,exg,tp,fc,chkf)
 	sg:AddCard(c)
 	local res=false
-	if sg:GetCount()>=#fc.muxu_fus_mat then
+	if sg:GetCount()>=fc.muxu_mat_count then
 		res=Duel.GetLocationCountFromEx(chkf,tp,sg,fc)>0 and fc:CheckFusionMaterial(sg,nil,chkf)
 	else
 		res=mg:IsExists(c1141002.CheckRecursive2,1,sg,mg,sg,exg,tp,fc,chkf)
@@ -146,7 +166,7 @@ function c1141002.op2(e,tp,eg,ep,ev,re,r,rp)
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FMATERIAL)
 				local g=mg:FilterSelect(tp,c1141002.CheckRecursive2,1,1,lg,mg,lg,exg,tp,tc,chkf)
 				lg:Merge(g)
-			until lg:GetCount()>=#fc.muxu_fus_mat
+			until lg:GetCount()>=tc.muxu_mat_count
 			tc:SetMaterial(lg)
 			Duel.ResetFlagEffect(1-tp,1141002)
 			Duel.SendtoGrave(lg,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)

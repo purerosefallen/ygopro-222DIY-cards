@@ -4,12 +4,12 @@ function c60150613.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcFun2(c,c60150613.ffilter,aux.FilterBoolFunction(c60150613.ffilter2),false)
-    --splimit
-    local e2=Effect.CreateEffect(c)
-    e2:SetType(EFFECT_TYPE_SINGLE)
-    e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-    e2:SetCode(EFFECT_SPSUMMON_CONDITION)
-    e2:SetRange(LOCATION_EXTRA)
+	--splimit
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_SINGLE)
+	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e2:SetCode(EFFECT_SPSUMMON_CONDITION)
+	e2:SetRange(LOCATION_EXTRA)
 	e2:SetValue(c60150613.splimit)
 	c:RegisterEffect(e2)
 	--special summon rule
@@ -64,12 +64,12 @@ function c60150613.spfilter2(c,fc)
 		and c:IsAbleToDeckOrExtraAsCost() 
 end
 function c60150613.filter(c)
-    return c:IsFaceup() and c:IsSetCard(0x3b21) and (c:GetSequence()==6 or c:GetSequence()==7)
+	return c:IsFaceup() and c:IsSetCard(0x3b21) and (c:GetSequence()==6 or c:GetSequence()==7)
 end
 function c60150613.sprcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
-    local g=Duel.GetMatchingGroup(c60150613.filter,tp,LOCATION_ONFIELD,0,nil)
+	local g=Duel.GetMatchingGroup(c60150613.filter,tp,LOCATION_ONFIELD,0,nil)
 	if g:GetCount()>0 then
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
 			and Duel.IsExistingMatchingCard(c60150613.spfilter1,tp,LOCATION_ONFIELD,0,1,nil,tp,c)
@@ -111,7 +111,7 @@ function c60150613.actcon(e)
 	return Duel.GetAttacker()==e:GetHandler() or Duel.GetAttackTarget()==e:GetHandler()
 end
 function c60150613.condition(e,tp,eg,ep,ev,re,r,rp)
-	return (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)) and rp==1-tp
+	return re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)
 end
 function c60150613.cfilter(c)
 	return c:IsSetCard(0x3b21) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckOrExtraAsCost()
@@ -119,7 +119,7 @@ end
 function c60150613.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) 
 		and Duel.IsExistingMatchingCard(c60150613.cfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,nil) end
-    Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
+	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 	local g=Duel.GetMatchingGroup(c60150613.cfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,nil)
 	if g:GetCount()>0 then
 		local g2=g:Filter(c60150613.gfilter,nil)
