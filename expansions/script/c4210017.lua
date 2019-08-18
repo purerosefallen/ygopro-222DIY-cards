@@ -59,7 +59,7 @@ function c4210017.tgop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,c4210017.tgfilter,tp,LOCATION_DECK,0,1,1,nil)
 	if g:GetCount()>0 then
-		Duel.SendtoGrave(g,tp,REASON_EFFECT)
+		Duel.SendtoGrave(g,REASON_EFFECT)
 	end
 end
 function c4210017.spcost(e,tp,eg,ep,ev,re,r,rp,chk)

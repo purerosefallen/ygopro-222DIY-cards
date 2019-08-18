@@ -23,6 +23,15 @@ function cm.initial_effect(c)
 	local e3=e2:Clone()
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e3)
+	--
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e4:SetCode(EVENT_SUMMON_SUCCESS)
+	e4:SetOperation(cm.flag)
+	c:RegisterEffect(e4)
+	local e5=e4:Clone()
+	e5:SetCode(EVENT_SPSUMMON_SUCCESS)
+	c:RegisterEffect(e5)
 end
 function cm.tdfilter(c)
 	return c:IsAbleToDeck()
@@ -42,12 +51,15 @@ function cm.tdop(e,tp,eg,ep,ev,re,r,rp)
     end
 end
 function cm.rmfilter(c)
-	return not c:IsSetCard(0x701)
+	return not c:IsSetCard(0x3701)
 end
 function cm.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(cm.rmfilter,tp,LOCATION_DECK,0,1,nil) end
 end
-function cm.sumsuc(e,tp,eg,ep,ev,re,r,rp)
+function cm.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(cm.rmfilter,tp,LOCATION_DECK,0,nil)
 	Duel.Remove(g,POS_FACEDOWN,REASON_EFFECT)
 end
+function cm.flag(e,tp,eg,ep,ev,re,r,rp)
+	Duel.RegisterFlagEffect(tp,17090009,0,0,0)
+end	
