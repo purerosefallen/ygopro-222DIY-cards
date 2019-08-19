@@ -45,7 +45,7 @@ end
 function c81040030.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local mg1=Duel.GetRitualMaterial(tp)
-		local mg2=Duel.GetMatchingGroup(c81040030.mfilter,tp,LOCATION_GRAVE,0,nil)
+		local mg2=Duel.GetMatchingGroup(c81040030.mfilter,tp,LOCATION_REMOVED,0,nil)
 		local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 		return Duel.IsExistingMatchingCard(c81040030.filter,tp,LOCATION_HAND,0,1,nil,e,tp,mg1,mg2,ft)
 	end
@@ -53,7 +53,7 @@ function c81040030.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c81040030.activate(e,tp,eg,ep,ev,re,r,rp)
 	local mg1=Duel.GetRitualMaterial(tp)
-	local mg2=Duel.GetMatchingGroup(c81040030.mfilter,tp,LOCATION_GRAVE,0,nil)
+	local mg2=Duel.GetMatchingGroup(c81040030.mfilter,tp,LOCATION_REMOVED,0,nil)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,c81040030.filter,tp,LOCATION_HAND,0,1,1,nil,e,tp,mg1,mg2,ft)
@@ -74,7 +74,7 @@ function c81040030.activate(e,tp,eg,ep,ev,re,r,rp)
 			mat:Merge(mat2)
 		end
 		tc:SetMaterial(mat)
-		local mat2=mat:Filter(Card.IsLocation,nil,LOCATION_GRAVE):Filter(Card.IsSetCard,nil,0x81c)
+		local mat2=mat:Filter(Card.IsLocation,nil,LOCATION_REMOVED):Filter(Card.IsSetCard,nil,0x81c)
 		mat:Sub(mat2)
 		Duel.ReleaseRitualMaterial(mat)
 		Duel.SendtoDeck(mat2,nil,2,REASON_EFFECT+REASON_MATERIAL+REASON_RITUAL)
