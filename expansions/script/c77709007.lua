@@ -30,14 +30,26 @@ function cm.initial_effect(c)
 	e1:SetTarget(cm.target)
 	e1:SetOperation(cm.operation)
 	c:RegisterEffect(e1)
-	local e1=Effect.CreateEffect(c)
+	--[[local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_TOHAND)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_DISCARD)
 	e1:SetProperty(0x14000)
 	e1:SetTarget(cm.target2)
 	e1:SetOperation(cm.activate2)
-	c:RegisterEffect(e1)
+	c:RegisterEffect(e1)]]
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_QUICK_O)
+	e2:SetDescription(aux.Stringid(m,1))
+	e2:SetCategory(CATEGORY_ATKCHANGE)
+	e2:SetCode(EVENT_FREE_CHAIN)
+	e2:SetHintTiming(TIMING_DAMAGE_STEP)
+	e2:SetRange(LOCATION_HAND)
+	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
+	e2:SetCondition(cm.condition2)
+	e2:SetCost(cm.cost2)
+	e2:SetOperation(cm.operation2)
+	c:RegisterEffect(e2)
 end
 function cm.hfilter(c)
 	return c:IsType(TYPE_MONSTER) and Sekka.IsLap(c) and c:IsAbleToHand()
@@ -80,7 +92,7 @@ end
 function cm.retop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ReturnToField(e:GetHandler())
 end
-function cm.filter2(c)
+--[[function cm.filter2(c)
 	return c:IsLevelBelow(4) and c:IsRace(RACE_WARRIOR) and c:IsAbleToHand()
 end
 function cm.target2(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -92,5 +104,34 @@ function cm.activate2(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,cm.filter2,tp,LOCATION_REMOVED,0,1,1,nil)
 	if g:GetCount()>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
+	end
+end]]
+function cm.condition2(e,tp,eg,ep,ev,re,r,rp)
+	local phase=Duel.GetCurrentPhase()
+	if phase~=PHASE_DAMAGE or Duel.IsDamageCalculated() then return false end
+	local a=Duel.GetAttacker()
+	local d=Duel.GetAttackTarget()
+	return d~=nil and d:IsFaceup() and ((a:GetControler()==tp and Sekka.IsLap(a) and a:IsRelateToBattle())
+		or (d:GetControler()==tp and Sekka.IsLap(d) and d:IsRelateToBattle()))
+end
+function cm.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end
+	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
+end
+function cm.operation2(e,tp,eg,ep,ev,re,r,rp,chk)
+	local a=Duel.GetAttacker()
+	local d=Duel.GetAttackTarget()
+	if not a:IsRelateToBattle() or not d:IsRelateToBattle() then return end
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetOwnerPlayer(tp)
+	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetCode(EFFECT_UPDATE_ATTACK)
+	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+	if a:GetControler()==tp then
+		e1:SetValue(d:GetAttack())
+		a:RegisterEffect(e1)
+	else
+		e1:SetValue(a:GetAttack())
+		d:RegisterEffect(e1)
 	end
 end
