@@ -25,7 +25,7 @@ function cm.initial_effect(c)
 			e:SetCategory(0)
 		end,
 		function(e,tp,eg,ep,ev,re,r,rp,chk)
-			local function generate(p)
+			--[[local function generate(p)
 				local afilter={}
 				local first=true
 				for code,effect_list in pairs(cm[p]) do
@@ -39,12 +39,13 @@ function cm.initial_effect(c)
 				end
 				return afilter
 			end
-			if chk==0 then return #generate(1-tp)>0 end
+			if chk==0 then return #generate(1-tp)>0 end]]
+			if chk==0 then return true end
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CODE)
-			cm.announce_filter=generate(1-tp)
-			local ac=Duel.AnnounceCardFilter(tp,table.unpack(cm.announce_filter))
+			--cm.announce_filter=generate(1-tp)
+			local ac=Duel.AnnounceCard(tp)
 			Duel.SetTargetParam(ac)
-			Duel.SetOperationInfo(0,CATEGORY_ANNOUNCE,nil,0,tp,ANNOUNCE_CARD_FILTER)
+			Duel.SetOperationInfo(0,CATEGORY_ANNOUNCE,nil,0,tp,0)
 		end,
 	}
 	local operation_list={
