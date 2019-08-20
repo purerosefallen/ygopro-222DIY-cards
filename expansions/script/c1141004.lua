@@ -75,7 +75,7 @@ function c1141004.ofilter2(c,e,tp,num)
 end
 function c1141004.op2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and Duel.SelectYesNo(tp,aux.Stringid(1141004,0)) then Duel.SendtoHand(c,nil,REASON_EFFECT) end
+	if c:IsRelateToEffect(e) and (not c:IsStatus(STATUS_BATTLE_DESTROYED) and Duel.SelectYesNo(tp,aux.Stringid(1141004,0)) then Duel.SendtoHand(c,nil,REASON_EFFECT) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RESOLVECARD)
 	local sg=Duel.SelectMatchingCard(tp,c1141004.ofilter2,tp,LOCATION_GRAVE,0,1,1,nil,e,tp,e:GetLabel())
 	if sg:GetCount()>0 then
