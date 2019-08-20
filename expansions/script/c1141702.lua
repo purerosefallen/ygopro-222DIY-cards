@@ -11,10 +11,11 @@ function c1141702.initial_effect(c)
 	c:RegisterEffect(e1)
 --
 	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_QUICK_O)
+	e2:SetProperty(EFFECT_FLAG_DELAY)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_GRAVE)
-	e2:SetCost(c1141702.cost2)
+	e2:SetCost(aux.bfgcost)
 	e2:SetCondition(c1141702.con2)
 	e2:SetOperation(c1141702.op2)
 	c:RegisterEffect(e2)
@@ -58,11 +59,6 @@ function c1141702.op1(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 --
-function c1141702.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost() end
-	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
-end
---
 function c1141702.tfilter2(c,tp)
 	return c:GetSummonPlayer()==tp and muxu.check_set_Tatara(c) and c:GetPreviousLocation()==LOCATION_EXTRA 
 end
@@ -71,6 +67,8 @@ function c1141702.con2(e,tp,eg,ep,ev,re,r,rp)
 end
 --
 function c1141702.op2(e,tp,eg,ep,ev,re,r,rp)
-	Duel.SkipPhase(1-tp,PHASE_MAIN1,RESET_PHASE+PHASE_MAIN1,1)
+	if Duel.GetTurnPlayer()~=tp and Duel.GetCurrentPhase()==PHASE_MAIN1 then
+		Duel.SkipPhase(1-tp,PHASE_MAIN1,RESET_PHASE+PHASE_MAIN1,1)
+	end
 end
 --
