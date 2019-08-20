@@ -57,7 +57,7 @@ function c1141702.op1(e,tp,eg,ep,ev,re,r,rp)
 	if not tc:IsRelateToEffect(e) then return end
 	local Pos1=tc:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK) and POS_FACEUP_ATTACK or 0
 	local Pos2=tc:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENSE) and POS_FACEDOWN_DEFENSE or 0
-	if Duel.SpecialSummon(c,0,tp,tp,false,false,Pos1+Pos2)>0 then
+	if Duel.SpecialSummon(tc,0,tp,tp,false,false,Pos1+Pos2)>0 then
 		Duel.NegateActivation(ev)
 		if not re:GetHandler():IsRelateToEffect(re) then return end
 		Duel.Destroy(eg,REASON_EFFECT)
