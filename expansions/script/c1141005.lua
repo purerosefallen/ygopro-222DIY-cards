@@ -1,4 +1,8 @@
 --夜间游荡的唐伞妖怪
+local m=1141005
+local cm=_G["c"..m]
+xpcall(function() require("expansions/script/c1110198") end,function() require("script/c1110198") end)
+--
 function c1141005.initial_effect(c)
 --
 	local e1=Effect.CreateEffect(c)
