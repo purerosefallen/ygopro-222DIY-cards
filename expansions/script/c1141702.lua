@@ -1,4 +1,8 @@
 --光晕『唐伞惊吓闪光』
+local m=1141702
+local cm=_G["c"..m]
+xpcall(function() require("expansions/script/c1110198") end,function() require("script/c1110198") end)
+--
 function c1141702.initial_effect(c)
 --
 	local e1=Effect.CreateEffect(c)
