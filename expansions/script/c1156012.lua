@@ -18,7 +18,7 @@ function c1156012.initial_effect(c)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCode(EFFECT_CANNOT_ACTIVATE)
 	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
-	e2:SetTargetRange(1,1)
+	e2:SetTargetRange(LOCATION_GRAVE,LOCATION_GRAVE)
 	e2:SetCondition(c1156012.con2)
 	e2:SetValue(c1156012.limit2)
 	c:RegisterEffect(e2)
@@ -56,12 +56,17 @@ function c1156012.op1(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 --
+--
+function c1156012.cfilter2(c)
+	return c:IsFacedown() or (not c:IsAttribute(ATTRIBUTE_WATER))
+end
 function c1156012.con2(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSequence()>=5 and e:GetHandler():IsFaceup()
+	local c=e:GetHandler()
+	return c:GetSequence()>=5 and not Duel.IsExistingMatchingCard(c1156012.cfilter2,tp,LOCATION_MZONE,0,1,nil)
 end
 --
 function c1156012.limit2(e,re,tp)
-	return re:IsActiveType(TYPE_MONSTER) and not (re:GetHandler():IsAttribute(ATTRIBUTE_WATER) and re:GetHandler():IsImmuneToEffect(e))
+	return re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsAttribute(ATTRIBUTE_WATER)
 end
 --
 
