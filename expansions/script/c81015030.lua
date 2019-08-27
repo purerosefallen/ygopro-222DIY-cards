@@ -31,15 +31,10 @@ function c81015030.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c81015030.ovfilter(c)
-	if Duel.GetFieldCard(tp,LOCATION_SZONE,0)
-		or Duel.GetFieldCard(tp,LOCATION_SZONE,1)
-		or Duel.GetFieldCard(tp,LOCATION_SZONE,2)
-		or Duel.GetFieldCard(tp,LOCATION_SZONE,3)
-		or Duel.GetFieldCard(tp,LOCATION_SZONE,4) then return false end
 	return c:IsFaceup() and c:IsSetCard(0x81a) and c:IsRank(6)
 end
 function c81015030.xyzop(e,tp,chk)
-	if chk==0 then return Duel.GetFlagEffect(tp,81015030)==0 end
+	if chk==0 then return Duel.GetFlagEffect(tp,81015030)==0 and Tenka.ReikaCon(e) end
 	Duel.RegisterFlagEffect(tp,81015030,RESET_PHASE+PHASE_END,0,1)
 end
 function c81015030.discon(e,tp,eg,ep,ev,re,r,rp)
