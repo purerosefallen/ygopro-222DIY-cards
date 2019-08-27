@@ -17,6 +17,7 @@ function c21520082.initial_effect(c)
 	e00:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e00:SetRange(LOCATION_EXTRA)
 	e00:SetCondition(c21520082.sprcon)
+	e00:SetTarget(c21520082.sprtg)
 	e00:SetOperation(c21520082.sprop)
 	e00:SetValue(SUMMON_TYPE_FUSION)
 	c:RegisterEffect(e00)
@@ -69,33 +70,27 @@ end
 function c21520082.fcheck2(c)
 	return c:IsRace(RACE_SPELLCASTER) and c:IsType(TYPE_MONSTER)
 end
-function c21520082.fgoal(c,tp,sg)
+function c21520082.fgoal(sg,tp)
 	return sg:GetCount()>1 and Duel.GetLocationCountFromEx(tp,tp,sg)>0 and sg:IsExists(c21520082.fcheck,1,nil,sg)
-end
-function c21520082.fselect(c,tp,mg,sg)
-	sg:AddCard(c)
-	local res=c21520082.fgoal(c,tp,sg) or mg:IsExists(c21520082.fselect,1,sg,tp,mg,sg)
-	sg:RemoveCard(c)
-	return res
 end
 function c21520082.sprcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	local mg=Duel.GetMatchingGroup(c21520082.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil,tp)
-	local sg=Group.CreateGroup()
-	return mg:IsExists(c21520082.fselect,1,nil,tp,mg,sg)
+	return mg:CheckSubGroup(c21520082.fgoal,1,nil,tp)
+end
+function c21520082.sprtg(e,tp,eg,ep,ev,re,r,rp,chk,c)
+	local mg=Duel.GetMatchingGroup(c21520082.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil,tp)
+	local cancel=Duel.GetCurrentChain()==0
+	local sg=mg:SelectSubGroup(tp,c21520082.fgoal,cancel,1,nil,tp)
+	if sg then
+		sg:KeepAlive()
+		e:SetLabelObject(sg)
+		return true
+	else return false end
 end
 function c21520082.sprop(e,tp,eg,ep,ev,re,r,rp,c)
-	local mg=Duel.GetMatchingGroup(c21520082.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil,tp)
-	local sg=Group.CreateGroup()
-	while true do
-		local cg=mg:Filter(c21520082.fselect,sg,tp,mg,sg)
-		if cg:GetCount()==0
-			or (c21520082.fgoal(c,tp,sg) and not Duel.SelectYesNo(tp,210)) then break end
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RELEASE)
-		local g=cg:Select(tp,1,1,nil)
-		sg:Merge(g)
-	end
+	local sg=e:GetLabelObject()
 	c:SetMaterial(sg)
 	Duel.Release(sg,REASON_COST+REASON_MATERIAL+REASON_FUSION)
 

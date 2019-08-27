@@ -13,9 +13,10 @@ function c21520183.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_SPSUMMON_PROC)
-	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE)
+	e2:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_IMMUNE)
 	e2:SetRange(LOCATION_GRAVE+LOCATION_EXTRA)
 	e2:SetCondition(c21520183.spcon)
+	e2:SetTarget(c21520183.sptg)
 	e2:SetOperation(c21520183.spop)
 	c:RegisterEffect(e2)
 	--draw
@@ -92,14 +93,21 @@ function c21520183.spcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	local mg=Duel.GetMatchingGroup(c21520183.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,e:GetHandler())
-	local sg=Group.CreateGroup()
 	return mg:CheckSubGroup(c21520183.spgoal,1,nil,tp)
 end
-function c21520183.spop(e,tp,eg,ep,ev,re,r,rp,c)
+function c21520183.sptg(e,tp,eg,ep,ev,re,r,rp,chk,c)
 	local mg=Duel.GetMatchingGroup(c21520183.spfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,e:GetHandler())
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local cancel=Duel.GetCurrentChain()==0
 	local sg=mg:SelectSubGroup(tp,c21520183.spgoal,cancel,1,nil,tp,c:GetLocation())
+	if sg then
+		sg:KeepAlive()
+		e:SetLabelObject(sg)
+		return true
+	else return false end
+end
+function c21520183.spop(e,tp,eg,ep,ev,re,r,rp,c)
+	local sg=e:GetLabelObject()
 	c:SetMaterial(sg)
 	Duel.Remove(sg,POS_FACEUP,REASON_COST)
 end

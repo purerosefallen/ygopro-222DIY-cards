@@ -34,7 +34,7 @@ function c21520085.initial_effect(c)
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(21520085,2))
 	e4:SetCategory(CATEGORY_DAMAGE)
-	e4:SetProperty(+EFFECT_FLAG_DAMAGE_STEP)
+	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
 	e4:SetType(EFFECT_TYPE_QUICK_O)
 	e4:SetHintTiming(TIMING_BATTLE_STEP_END)
 	e4:SetCode(EVENT_FREE_CHAIN)
@@ -113,15 +113,17 @@ end
 function c21520085.exatkcon(e,tp,eg,ep,ev,re,r,rp)
 	local ph=Duel.GetCurrentPhase()
 	local tp=Duel.GetTurnPlayer()
-	return e:GetHandler():GetAttackedCount()>0 and tp==e:GetHandler():GetControler() and ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE --and e:GetHandler():GetFlagEffect(21520085)~=0
+	return e:GetHandler():GetAttackedCount()>0 and tp==e:GetHandler():GetControler() and ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE 
 end
 function c21520085.exatkcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c21520085.adfilter,tp,LOCATION_GRAVE,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c21520085.adfilter,tp,LOCATION_GRAVE,0,1,nil)	
+		and e:GetHandler():GetFlagEffect(21520085)==0 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectMatchingCard(tp,c21520085.adfilter,tp,LOCATION_GRAVE,0,1,1,nil)
 	g:KeepAlive()
 	e:SetLabelObject(g)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
+	e:GetHandler():RegisterFlagEffect(21520085,RESET_CHAIN,0,1)
 end
 function c21520085.exatkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

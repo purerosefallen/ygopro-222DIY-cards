@@ -10,6 +10,7 @@ function c21520087.initial_effect(c)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
 	e0:SetRange(LOCATION_EXTRA)
 	e0:SetCondition(c21520087.sprcon)
+	e0:SetTarget(c21520087.sprtg)
 	e0:SetOperation(c21520087.sprop)
 	c:RegisterEffect(e0)
 	local e01=Effect.CreateEffect(c)
@@ -93,32 +94,27 @@ end
 function c21520087.spfilter(c)
 	return c21520087.fsfilter(c) and c:IsAbleToDeckOrExtraAsCost()
 end
-function c21520087.fselect(c,tp,mg,sg)
-	sg:AddCard(c)
-	local res=false
-	if sg:GetCount()<2 then
-		res=mg:IsExists(c21520087.fselect,1,sg,tp,mg,sg)
-	else
-		res=Duel.GetLocationCountFromEx(tp,tp,sg)>0
-	end
-	sg:RemoveCard(c)
-	return res
+function c21520087.fgoal(sg,tp)
+	return Duel.GetLocationCountFromEx(tp,tp,sg)>0 and sg:IsExists(aux.TRUE,2,nil)
 end
 function c21520087.sprcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
 	local mg=Duel.GetMatchingGroup(c21520087.spfilter,tp,LOCATION_MZONE,0,nil)
-	local sg=Group.CreateGroup()
-	return mg:IsExists(c21520087.fselect,1,nil,tp,mg,sg)
+	return mg:CheckSubGroup(c21520087.fgoal,1,nil,tp)
+end
+function c21520087.sprtg(e,tp,eg,ep,ev,re,r,rp,chk,c)
+	local mg=Duel.GetMatchingGroup(c21520087.spfilter,tp,LOCATION_MZONE,0,nil)
+	local cancel=Duel.GetCurrentChain()==0
+	local sg=mg:SelectSubGroup(tp,c21520087.fgoal,cancel,1,2,tp)
+	if sg then
+		sg:KeepAlive()
+		e:SetLabelObject(sg)
+		return true
+	else return false end
 end
 function c21520087.sprop(e,tp,eg,ep,ev,re,r,rp,c)
-	local mg=Duel.GetMatchingGroup(c21520087.spfilter,tp,LOCATION_MZONE,0,nil)
-	local sg=Group.CreateGroup()
-	while sg:GetCount()<2 do
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-		local g=mg:FilterSelect(tp,c21520087.fselect,1,1,sg,tp,mg,sg)
-		sg:Merge(g)
-	end
+	local sg=e:GetLabelObject()
 	local cg=sg:Filter(Card.IsFacedown,nil)
 	if cg:GetCount()>0 then
 		Duel.ConfirmCards(1-tp,cg)
