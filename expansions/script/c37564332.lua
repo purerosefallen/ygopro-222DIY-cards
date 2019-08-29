@@ -4,7 +4,7 @@ local cm=_G["c"..m]
 Duel.LoadScript("c37564765.lua")
 function cm.initial_effect(c)
 	Senya.enable_kaguya_check_3L()
-	aux.AddXyzProcedure(c,nil,8,2)
+	aux.AddXyzProcedure(c,nil,9,2)
 	c:EnableReviveLimit()
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(m,0))
