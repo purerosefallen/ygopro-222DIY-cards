@@ -55,8 +55,8 @@ function c65071061.eqop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Equip(tp,c,tc)
 	end
 end
-function c65071061.efilter(e,tp,eg,ep,ev,re,r,rp)
-	return rp~=tp
+function c65071061.efilter(e,re)
+	return e:GetHandlerPlayer()~=re:GetOwnerPlayer()
 end
 
 function c65071061.recon(e,tp,eg,ep,ev,re,r,rp)

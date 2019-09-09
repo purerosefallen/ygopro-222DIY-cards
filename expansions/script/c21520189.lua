@@ -185,7 +185,7 @@ function c21520189.tgop(e,tp,eg,ep,ev,re,r,rp)
 	end
 	local ct=Duel.SendtoGrave(tgg,REASON_EFFECT)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local otg=Duel.SelectMatchingCard(tp,Card.IsAbleToGrave,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,ct,nil)
+	local otg=Duel.SelectMatchingCard(tp,Card.IsAbleToGrave,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,ct,ct,nil)
 	Duel.SendtoGrave(otg,REASON_EFFECT)
 	Duel.ShuffleDeck(tp)
 end

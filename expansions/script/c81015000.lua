@@ -8,7 +8,7 @@ function c81015000.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e1:SetRange(LOCATION_HAND)
 	e1:SetCountLimit(1,81015000)
-	e1:SetCondition(Tenka.ReikaCon)
+	e1:SetCondition(c81015000.spcon)
 	c:RegisterEffect(e1)
 	--destroy
 	local e2=Effect.CreateEffect(c)
@@ -24,12 +24,9 @@ function c81015000.initial_effect(c)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e3)
 end
-function c81015000.cfilter(c)
-	return c:GetSequence()<5
-end
 function c81015000.spcon(e,c)
 	if c==nil then return true end
-	return not Duel.IsExistingMatchingCard(c81015000.cfilter,tp,LOCATION_SZONE,0,1,nil)
+	return Tenka.ReikaCon(e)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 end
 function c81015000.desfilter(c)

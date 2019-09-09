@@ -15,7 +15,7 @@ function cm.op(e,tp)
 	local e1=rsef.FV_CANNOT_BE_TARGET({c,tp},"effect",aux.tgoval,aux.TargetBoolFunction(Card.IsFacedown),{LOCATION_MZONE,0},nil,rsreset.pend)
 end
 function cm.spfilter(c,e,tp)
-	return c:IsSetCard(0x4552) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENSE) and not c:IsCode(m)
+	return c:IsSetCard(0x6552) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENSE) and not c:IsCode(m)
 end
 function cm.spop(e,tp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end

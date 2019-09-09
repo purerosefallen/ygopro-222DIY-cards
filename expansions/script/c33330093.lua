@@ -12,6 +12,7 @@ function cm.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e1:SetProperty(EFFECT_FLAG_DELAY)
+e1:SetCountLimit()
 	e1:SetCondition(cm.spcon)
 	e1:SetTarget(cm.sptg)
 	e1:SetOperation(cm.spop)
@@ -22,7 +23,7 @@ function cm.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_CHAINING)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1)
+	e2:SetCountLimit(1,33330093)
 	e2:SetTarget(cm.chtg)
 	e2:SetOperation(cm.chop)
 	c:RegisterEffect(e2)
@@ -72,7 +73,7 @@ function cm.spop(e,tp,eg,ep,ev,re,r,rp)
 			sump=1-tp
 			sel_zone=sel_zone>>16
 		end
-		local dam=false
+		local dam=0
 		if Duel.SpecialSummonStep(sc,0,tp,sump,false,false,POS_FACEUP,sel_zone) then
 			local e1=Effect.CreateEffect(c)
 			e1:SetDescription(aux.Stringid(m,2))
@@ -89,14 +90,12 @@ function cm.spop(e,tp,eg,ep,ev,re,r,rp)
 			e2:SetValue(LOCATION_HAND)
 			e2:SetReset(RESET_EVENT+RESETS_REDIRECT)
 			sc:RegisterEffect(e2,true)
-			dam=true
+			dam=sc:GetBaseAttack()
 		end
 		Duel.SpecialSummonComplete()
-		if dam then
-			Duel.BreakEffect()
-			Duel.Damage(tp,sc:GetBaseAttack(),REASON_EFFECT,true)
-			Duel.Damage(1-tp,sc:GetBaseAttack(),REASON_EFFECT,true)
-			Duel.RDComplete()
+		if dam>0 then
+			Duel.SetLP(tp,Duel.GetLP(tp)-dam)
+			Duel.SetLP(1-tp,Duel.GetLP(1-tp)-dam)
 		end
 	end
 end

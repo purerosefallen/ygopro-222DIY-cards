@@ -60,7 +60,7 @@ function cm.fun(g,e,tp)
 	end
 end
 function cm.thfilter(c)
-	return c:IsAbleToHand() and c:IsSetCard(0x4552)
+	return c:IsAbleToHand() and c:IsSetCard(0x6552)
 end
 function cm.thop(e,tp)
 	rsof.SelectHint(tp,"th")

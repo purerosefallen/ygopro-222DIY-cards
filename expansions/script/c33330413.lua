@@ -15,7 +15,7 @@ function cm.con(e,c)
 	return Duel.IsExistingMatchingCard(cm.resfilter,tp,LOCATION_SZONE,0,1,nil)
 end
 function cm.resfilter(c)
-	return c:GetOriginalType()&TYPE_MONSTER ~=0 and c:IsType(TYPE_TRAP) and c:IsReleasable()
+	return c:GetOriginalType()&TYPE_MONSTER ~=0 and c:IsReleasable()
 end
 function cm.op(e,tp)
 	rsof.SelectHint(tp,"res")

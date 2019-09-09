@@ -17,6 +17,7 @@ function c21520083.initial_effect(c)
 	e00:SetProperty(EFFECT_FLAG_UNCOPYABLE)
 	e00:SetRange(LOCATION_EXTRA)
 	e00:SetCondition(c21520083.sprcon)
+	e00:SetTarget(c21520083.sprtg)
 	e00:SetOperation(c21520083.sprop)
 	e00:SetValue(SUMMON_TYPE_FUSION)
 	c:RegisterEffect(e00)
@@ -68,6 +69,31 @@ end
 function c21520083.fcheck2(c)
 	return c:IsRace(RACE_SPELLCASTER) and c:IsType(TYPE_MONSTER)
 end
+function c21520083.fgoal(sg,tp)
+	return sg:GetCount()>1 and Duel.GetLocationCountFromEx(tp,tp,sg)>0 and sg:IsExists(c21520083.fcheck,1,nil,sg)
+end
+function c21520083.sprcon(e,c)
+	if c==nil then return true end
+	local tp=c:GetControler()
+	local mg=Duel.GetMatchingGroup(c21520083.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil,tp)
+	return mg:CheckSubGroup(c21520083.fgoal,1,nil,tp)
+end
+function c21520083.sprtg(e,tp,eg,ep,ev,re,r,rp,chk,c)
+	local mg=Duel.GetMatchingGroup(c21520083.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil,tp)
+	local cancel=Duel.GetCurrentChain()==0
+	local sg=mg:SelectSubGroup(tp,c21520083.fgoal,cancel,1,nil,tp)
+	if sg then
+		sg:KeepAlive()
+		e:SetLabelObject(sg)
+		return true
+	else return false end
+end
+function c21520083.sprop(e,tp,eg,ep,ev,re,r,rp,c)
+	local sg=e:GetLabelObject()
+	c:SetMaterial(sg)
+	Duel.Release(sg,REASON_COST+REASON_MATERIAL+REASON_FUSION)
+end
+--[[
 function c21520083.fgoal(c,tp,sg)
 	return sg:GetCount()>1 and Duel.GetLocationCountFromEx(tp,tp,sg)>0 and sg:IsExists(c21520083.fcheck,1,nil,sg)
 end
@@ -95,9 +121,10 @@ function c21520083.sprop(e,tp,eg,ep,ev,re,r,rp,c)
 		local g=cg:Select(tp,1,1,nil)
 		sg:Merge(g)
 	end
+	local sg=e:GetLabelObject()
 	c:SetMaterial(sg)
 	Duel.Release(sg,REASON_COST+REASON_MATERIAL+REASON_FUSION)
-end
+end--]]
 function c21520083.matcheck(e,c)
 	local ct=c:GetMaterialCount()
 	local ae=Effect.CreateEffect(c)

@@ -1,7 +1,7 @@
 --时崎狂三-祈福
 function c33400007.initial_effect(c)
 	 --link summon
-	aux.AddLinkProcedure(c,c33400007.mfilter,2)
+	aux.AddLinkProcedure(c,nil,2,2,c33400007.lcheck)
 	c:EnableReviveLimit()
 	 --activate from hand
 	local e1=Effect.CreateEffect(c)
@@ -33,8 +33,8 @@ function c33400007.initial_effect(c)
 	e3:SetOperation(c33400007.thop)
 	c:RegisterEffect(e3)
 end
-function c33400007.mfilter(c)
-	return c:IsLinkSetCard(0x3341)
+function c33400007.lcheck(g)
+	return g:IsExists(Card.IsLinkSetCard,1,nil,0x3341)
 end
 function c33400007.afilter(c)
 	return c:IsSetCard(0x3340) and c:IsType(TYPE_QUICKPLAY)
@@ -45,10 +45,10 @@ function c33400007.sumval(e,c)
 		return 0,sumzone,relzone
 end
 function c33400007.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	local ct=e:GetLabel()
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) 
 	and Duel.IsCanRemoveCounter(tp,1,0,0x34f,ct,REASON_COST)
-	end
-	local ct=e:GetLabel()
+	end   
 	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
 	Duel.RemoveCounter(tp,1,0,0x34f,ct,REASON_COST)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)

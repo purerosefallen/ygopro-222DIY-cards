@@ -10,6 +10,7 @@ function c21520088.initial_effect(c)
 	e0:SetCode(EFFECT_SPSUMMON_PROC)
 	e0:SetRange(LOCATION_EXTRA)
 	e0:SetCondition(c21520088.sprcon)
+	e0:SetTarget(c21520088.sprtg)
 	e0:SetOperation(c21520088.sprop)
 	c:RegisterEffect(e0)
 	local e01=Effect.CreateEffect(c)
@@ -48,9 +49,36 @@ function c21520088.fsfilter(c)
 	return (c:GetBaseAttack()>=2400 and c:GetBaseDefense()>=1000) and c:IsCanBeFusionMaterial()
 end
 function c21520088.spfilter(c)
-	return c21520088.fsfilter and c:IsAbleToDeckOrExtraAsCost()
+	return c21520088.fsfilter(c) and c:IsAbleToDeckOrExtraAsCost()
 end
-function c21520088.fselect(c,tp,mg,sg)
+function c21520088.fgoal(sg,tp)
+	return Duel.GetLocationCountFromEx(tp,tp,sg)>0 and sg:IsExists(aux.TRUE,2,nil)
+end
+function c21520088.sprcon(e,c)
+	if c==nil then return true end
+	local tp=c:GetControler()
+	local mg=Duel.GetMatchingGroup(c21520088.spfilter,tp,LOCATION_MZONE,0,nil)
+	return mg:CheckSubGroup(c21520088.fgoal,1,nil,tp)
+end
+function c21520088.sprtg(e,tp,eg,ep,ev,re,r,rp,chk,c)
+	local mg=Duel.GetMatchingGroup(c21520088.spfilter,tp,LOCATION_MZONE,0,nil)
+	local cancel=Duel.GetCurrentChain()==0
+	local sg=mg:SelectSubGroup(tp,c21520088.fgoal,cancel,1,2,tp)
+	if sg then
+		sg:KeepAlive()
+		e:SetLabelObject(sg)
+		return true
+	else return false end
+end
+function c21520088.sprop(e,tp,eg,ep,ev,re,r,rp,c)
+	local sg=e:GetLabelObject()
+	local cg=sg:Filter(Card.IsFacedown,nil)
+	if cg:GetCount()>0 then
+		Duel.ConfirmCards(1-tp,cg)
+	end
+	Duel.SendtoDeck(sg,nil,2,REASON_COST)
+end
+--[[nction c21520088.fselect(c,tp,mg,sg)
 	sg:AddCard(c)
 	local res=false
 	if sg:GetCount()<2 then
@@ -81,7 +109,7 @@ function c21520088.sprop(e,tp,eg,ep,ev,re,r,rp,c)
 		Duel.ConfirmCards(1-tp,cg)
 	end
 	Duel.SendtoDeck(sg,nil,2,REASON_COST)
-end
+end--]]
 function c21520088.indescon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsStatus(STATUS_SPSUMMON_TURN)
 end
