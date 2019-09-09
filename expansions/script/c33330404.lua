@@ -7,7 +7,7 @@ function cm.initial_effect(c)
 	local e4=rsnm.FilpFun(c,m,"th,sp",nil,rsop.target({Card.IsAbleToHand,"th",LOCATION_MZONE },{cm.spfilter,"sp",LOCATION_HAND }),cm.op,true)
 end
 function cm.spfilter(c,e,tp)
-	return c:IsSetCard(0x4552) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENSE)
+	return c:IsSetCard(0x6552) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENSE)
 end
 function cm.op(e,tp)
 	rsof.SelectHint(tp,"th")

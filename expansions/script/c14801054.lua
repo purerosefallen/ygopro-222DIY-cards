@@ -1,0 +1,56 @@
+--灾厄融合兽 斯卡鲁哥莫拉
+function c14801054.initial_effect(c)
+    c:EnableReviveLimit()
+    --spsummon condition
+    local e1=Effect.CreateEffect(c)
+    e1:SetType(EFFECT_TYPE_SINGLE)
+    e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+    e1:SetCode(EFFECT_SPSUMMON_CONDITION)
+    c:RegisterEffect(e1)
+    --actlimit
+    local e2=Effect.CreateEffect(c)
+    e2:SetType(EFFECT_TYPE_FIELD)
+    e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+    e2:SetCode(EFFECT_CANNOT_ACTIVATE)
+    e2:SetRange(LOCATION_MZONE)
+    e2:SetTargetRange(0,1)
+    e2:SetValue(c14801054.aclimit)
+    e2:SetCondition(c14801054.actcon)
+    c:RegisterEffect(e2)
+    --indes
+    local e4=Effect.CreateEffect(c)
+    e4:SetType(EFFECT_TYPE_SINGLE)
+    e4:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
+    e4:SetRange(LOCATION_MZONE)
+    e4:SetValue(1)
+    c:RegisterEffect(e4)
+    local e3=e4:Clone()
+    e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
+    e3:SetProperty(EFFECT_FLAG_IGNORE_IMMUNE)
+    e3:SetValue(aux.tgoval)
+    c:RegisterEffect(e3)
+    --
+    local e5=Effect.CreateEffect(c)
+    e5:SetType(EFFECT_TYPE_SINGLE)
+    e5:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e5:SetRange(LOCATION_MZONE)
+    e5:SetCode(EFFECT_UPDATE_ATTACK)
+    e5:SetValue(c14801054.value)
+    c:RegisterEffect(e5)
+    local e6=Effect.CreateEffect(c)
+    e6:SetType(EFFECT_TYPE_SINGLE)
+    e6:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    e6:SetRange(LOCATION_MZONE)
+    e6:SetCode(EFFECT_UPDATE_DEFENSE)
+    e6:SetValue(c14801054.value)
+    c:RegisterEffect(e6)
+end
+function c14801054.aclimit(e,re,tp)
+    return re:IsHasType(EFFECT_TYPE_ACTIVATE)
+end
+function c14801054.actcon(e)
+    return Duel.GetAttacker()==e:GetHandler()
+end
+function c14801054.value(e,c)
+    return Duel.GetMatchingGroupCount(nil,c:GetControler(),LOCATION_REMOVED,LOCATION_REMOVED,nil)*500
+end

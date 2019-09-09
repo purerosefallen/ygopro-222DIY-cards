@@ -35,6 +35,7 @@ function c11200026.initial_effect(c)
 		local e5=Effect.GlobalEffect()
 		e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		e5:SetCode(EVENT_CHAINING)
+		e5:SetCondition(c11200026.con5)
 		e5:SetOperation(c11200026.op5)
 		Duel.RegisterEffect(e5,0)
 	end
@@ -60,6 +61,8 @@ function c11200026.initial_effect(c)
 --
 end
 --
+c11200026.xig_ihs_0x132=1
+--
 function c11200026.tg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil) end
@@ -83,10 +86,14 @@ function c11200026.val4(e,c)
 	return e:GetHandlerPlayer()
 end
 --
-function c11200026.op5(e,tp,eg,ep,ev,re,r,rp)
+function c11200026.con5(e,tp,eg,ep,ev,re,r,rp)
 	local rc=re:GetHandler()
-	if not re:IsActiveType(TYPE_MONSTER) then return end
-	Duel.RegisterFlagEffect(rc:GetControler(),11200026,RESET_PHASE+PHASE_END,0,1)
+	return re:IsActiveType(TYPE_MONSTER)
+		and not (rc.xig_ihs_0x132 or rc:IsCode(11200019))
+end
+--
+function c11200026.op5(e,tp,eg,ep,ev,re,r,rp)
+	Duel.RegisterFlagEffect(rp,11200026,RESET_PHASE+PHASE_END,0,1)
 end
 --
 function c11200026.op6(e,tp,eg,ep,ev,re,r,rp)

@@ -56,20 +56,11 @@ function c1156012.op1(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 --
---
-function c1156012.cfilter2(c)
-	return c:IsFacedown() or (not c:IsAttribute(ATTRIBUTE_WATER))
-end
 function c1156012.con2(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	return c:GetSequence()>=5 and not Duel.IsExistingMatchingCard(c1156012.cfilter2,tp,LOCATION_MZONE,0,1,nil)
+	return e:GetHandler():GetSequence()>=5
 end
 --
 function c1156012.limit2(e,re,tp)
 	return re:IsActiveType(TYPE_MONSTER) and not re:GetHandler():IsAttribute(ATTRIBUTE_WATER)
 end
 --
-
-
-
-

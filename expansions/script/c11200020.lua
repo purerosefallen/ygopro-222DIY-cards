@@ -25,13 +25,16 @@ function c11200020.initial_effect(c)
 --
 end
 --
+c11200020.xig_ihs_0x132=1
+--
 function c11200020.cost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsPublic() end
 	Duel.ConfirmCards(1-tp,e:GetHandler())
 end
 --
 function c11200020.tfilter1(c,e,tp)
-	return c:IsSetCard(0x132) and c:IsType(TYPE_SPELL) and Duel.IsPlayerCanSpecialSummonMonster(tp,c:GetCode(),0x132,0x21,1100,1100,4,RACE_BEAST,ATTRIBUTE_LIGHT)
+	return c.xig_ihs_0x132 and c:IsType(TYPE_SPELL)
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,c:GetCode(),0x132,0x21,1100,1100,4,RACE_BEAST,ATTRIBUTE_LIGHT)
 end
 function c11200020.tg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -56,7 +59,6 @@ function c11200020.op1(e,tp,eg,ep,ev,re,r,rp)
 		local tc=sg:GetFirst()
 		tc:AddMonsterAttribute(TYPE_NORMAL,ATTRIBUTE_LIGHT,RACE_BEAST,4,1100,1100)
 		Duel.SpecialSummonStep(tc,0,tp,tp,true,false,POS_FACEUP)
-		tc:AddMonsterAttributeComplete()
 		Duel.SpecialSummonComplete()
 	end
 end
@@ -67,7 +69,7 @@ end
 --
 function c11200020.cfilter2(c)
 	return c:IsAbleToRemoveAsCost()
-		and c:IsType(TYPE_SPELL) and c:IsSetCard(0x132)
+		and c:IsType(TYPE_SPELL) and c.xig_ihs_0x132
 end
 function c11200020.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

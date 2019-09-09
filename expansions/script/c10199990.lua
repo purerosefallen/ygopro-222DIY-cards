@@ -935,29 +935,16 @@ end
 rsef.QO_OPPONENT_TURN=rsef.RegisterOPTurn
 --Effect: Register Condition, Cost, Target and Operation 
 function rsef.RegisterSolve(e,con,cost,tg,op)
-	local code=e:GetOwner():GetCode()
 	if con then
-		if type(con)~="function" then
-			Debug.Message(code .. " RegisterSolve con must be function")
-		end
 		e:SetCondition(con)
 	end
 	if cost then
-		if type(cost)~="function" then
-			Debug.Message(code .. " RegisterSolve cost must be function")
-		end
 		e:SetCost(cost)
 	end
 	if tg then
-		if type(tg)~="function" then
-			Debug.Message(code .. " RegisterSolve tg must be function")
-		end
 		e:SetTarget(tg)
 	end
 	if op then
-		if type(op)~="function" then
-			Debug.Message(code .. " RegisterSolve op must be function")
-		end
 		e:SetOperation(op)
 	end
 end
@@ -1988,7 +1975,7 @@ function rscost.lpcost2(lp,max,islabel)
 		if chk==0 then return Duel.CheckLPCost(tp,lp) end
 		local costmaxlp=math.floor(maxlp/lp)
 		local t={}
-		for i=1,costmaxlp do
+		for i=1,m do
 			t[i]=i*lp
 		end
 		local cost=Duel.AnnounceNumber(tp,table.unpack(t))
@@ -2463,17 +2450,10 @@ function rscf.SetSpecialSummonProduce(cardtbl,range,con,op,desctbl,ctlimittbl,re
 	local tc1,tc2,ignore=rsef.GetRegisterCard(cardtbl)
 	if not desctbl then desctbl=rshint.spproc end
 	local flag=not tc2:IsSummonableCard() and "uc,cd" or "uc" 
-	local e1=rsef.Register(cardtbl,EFFECT_TYPE_FIELD,EFFECT_SPSUMMON_PROC,desctbl,ctlimittbl,nil,flag,range,rscf.SetSpecialSummonProduce_con(con),nil,nil,op,nil,nil,nil,resettbl)
+	local e1=rsef.Register(cardtbl,EFFECT_TYPE_FIELD,EFFECT_SPSUMMON_PROC,desctbl,ctlimittbl,nil,flag,range,con,nil,nil,op,nil,nil,nil,resettbl)
 	return e1
 end
 rssf.SetSpecialSummonProduce=rscf.SetSpecialSummonProduce
-function rscf.SetSpecialSummonProduce_con(con)
-	return function(e,c)
-		if c==nil then return true end
-		local tp=c:GetControler()
-		return con(e,c,tp)
-	end
-end
 --Card/Summon effect: Is monster can normal or special summon
 function rscf.SetSummonCondition(cardtbl,isnsable,sumvalue,iseffectspsum,resettbl)
 	local tc1,tc2,ignore=rsef.GetRegisterCard(cardtbl)
@@ -2829,7 +2809,6 @@ function rsef.ChangeFunction_Synchro()
 end
 function rscf.SynMixCheckGoal2(tp,sg,minc,ct,syncard,sg1,smat,gc)
 	local g=rsgf.Mix2(sg,sg1)
-	if syncard.rssyncheckfun and not syncard.rssyncheckfun(g,syncard,tp) then return false end
 	local f=Card.GetLevel
 	local f2=Card.GetSynchroLevel
 	local darktunerg=g:Filter(Card.IsType,nil,TYPE_TUNER)
@@ -2904,15 +2883,6 @@ function rscf.AddSynchroMixProcedure_ChangeTunerLevel(c,f1,lv,f2,f3,f4,minc,maxc
 	return e1
 end
 rssf.AddSynchroMixProcedure_ChangeTunerLevel=rscf.AddSynchroMixProcedure_ChangeTunerLevel
-function rscf.AddSynchroMixProcedure_CheckMaterial(c,f1,f2,f3,f4,minc,maxc,extrafilter)
-	if c:IsStatus(STATUS_COPYING_EFFECT) then return end
-	local mt=getmetatable(c)
-	mt.rssyncheckfun=extrafilter
-	rsef.ChangeFunction_Synchro()
-	local e1=rscf.AddSynchroMixProcedure(c,f1,f2,f3,f4,minc,maxc)
-	return e1
-end
-rssf.AddSynchroMixProcedure_CheckMaterial=rscf.AddSynchroMixProcedure_CheckMaterial
 --Card effect: Set field info
 function rscf.SetFieldInfo(c)
 	local seq=c:IsOnField() and c:GetSequence() or c:GetPreviousSequence()
@@ -3223,8 +3193,6 @@ function cm.initial_effect(c)
 		"rsan"  =   "Arknights"
 		"rsnm"  =   "Nightmare"
 		"rsdt"  =   "DarkTale"
-		"rseee" =   "EEE"
-		"rshr"  =   "HarmonicRhythm"
 				}--]]   
 end
 end
