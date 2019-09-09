@@ -11,6 +11,7 @@ function c65072014.initial_effect(c)
 	e2:SetOperation(c65072014.desop)
 	c:RegisterEffect(e2)
 end
+c65072014.card_code_list={65072000}
 function c65072014.desfilter(c)
 	return c:IsFaceup() and ((c:IsCode(65071999) and c:IsType(TYPE_EFFECT)) or aux.IsCodeListed(c,65072000))
 end
