@@ -1,72 +1,54 @@
 --白笛 歼灭之莱莎
-local m=33330016
-local cm=_G["c"..m]
-cm.atk=500  --攻 击 上 升
-function cm.initial_effect(c)
-	c:EnableReviveLimit()
-	--Link Summon
+function c33330016.initial_effect(c)
+	--link summon
 	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x556),2)
-	--Destroy & Search
+	c:EnableReviveLimit()   
+	--seq
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(m,0))
-	e1:SetCategory(CATEGORY_DESTROY)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
-	e1:SetCountLimit(1,m)
-	e1:SetTarget(cm.destg)
-	e1:SetOperation(cm.desop)
-	c:RegisterEffect(e1)  
-	--Move
+	e1:SetDescription(aux.Stringid(33330016,1))
+	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetCountLimit(1)
+	e1:SetTarget(c33330016.target)
+	e1:SetOperation(c33330016.activate)
+	c:RegisterEffect(e1)
+	--d r
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(m,1))
-	e2:SetType(EFFECT_TYPE_IGNITION)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1)
-	e2:SetTarget(cm.mvtg)
-	e2:SetOperation(cm.mvop)
+	e2:SetDescription(aux.Stringid(33330016,0))
+	e2:SetCategory(CATEGORY_DESTROY+CATEGORY_SEARCH+CATEGORY_TOHAND)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e2:SetCountLimit(1,33330016)
+	e2:SetTarget(c33330016.destg)
+	e2:SetOperation(c33330016.desop)
 	c:RegisterEffect(e2)
-	--Atk Up
+	--atk
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_UPDATE_ATTACK)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e3:SetTarget(cm.bufftg)
-	e3:SetValue(cm.atk)
+	e3:SetTarget(c33330016.indtg)
+	e3:SetValue(500)
 	c:RegisterEffect(e3)
-	--Indes
-	local e4=e3:Clone()
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_FIELD)
 	e4:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
 	e4:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
+	e4:SetRange(LOCATION_MZONE)
+	e4:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
+	e4:SetTarget(c33330016.indtg)
 	e4:SetValue(1)
 	c:RegisterEffect(e4)
 end
---Destroy & Search
-function cm.thfilter(c)
-	return c:IsAbleToHand() and c:IsCode(cm.search[1])
+function c33330016.indtg(e,c)
+	return e:GetHandler():GetLinkedGroup():IsContains(c)
 end
-function cm.destg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
-	if chk==0 then return tc and Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,tc,1,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,nil,1,1-tp,LOCATION_ONFIELD)
-end
-function cm.desop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
-	if tc and Duel.Destroy(tc,REASON_EFFECT)~=0 and Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil) then
-		Duel.BreakEffect()
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-		local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,0,LOCATION_ONFIELD,1,1,nil)
-		Duel.HintSelection(g)
-		Duel.Destroy(g,REASON_EFFECT)
-	end
-end
---Move
-function cm.mvtg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c33330016.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE,tp,LOCATION_REASON_CONTROL)>0 end
 end
-function cm.mvop(e,tp,eg,ep,ev,re,r,rp)
+function c33330016.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) or Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOZONE)
@@ -74,7 +56,20 @@ function cm.mvop(e,tp,eg,ep,ev,re,r,rp)
 	local nseq=math.log(s,2)
 	Duel.MoveSequence(c,nseq)
 end
---Atk Up
-function cm.bufftg(e,c)
-	return e:GetHandler():GetLinkedGroup():IsContains(c)
+function c33330016.destg(e,tp,eg,ep,ev,re,r,rp,chk)
+	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
+	if chk==0 then return tc and Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,tc,2,0,LOCATION_ONFIELD)
 end
+function c33330016.desop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
+	if tc and Duel.Destroy(tc,REASON_EFFECT)~=0 and Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil) then
+	   Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	   local tg=Duel.SelectMatchingCard(tp,aux.TRUE,tp,0,LOCATION_ONFIELD,1,1,nil)
+	   Duel.HintSelection(tg)
+	   Duel.Destroy(tg,REASON_EFFECT)
+	end
+end
+
+
+

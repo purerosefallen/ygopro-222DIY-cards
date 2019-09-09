@@ -34,7 +34,7 @@ function cm.resfilter(c,e,tp)
 	return c:IsReleasable() and c:IsFaceup() and Duel.GetMZoneCount(tp,c,tp)>0
 end
 function cm.spfilter(c,e,tp)
-	return c:IsSetCard(0x6552) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENSE)
+	return c:IsSetCard(0x4552) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEDOWN_DEFENSE)
 end
 function cm.spop(e,tp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end

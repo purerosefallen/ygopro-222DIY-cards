@@ -33,7 +33,7 @@ function rsnm.SummonFun(c,code,type2,isgrave,istograve)
 end
 function rsnm.counterfilter(c)
 	if c:GetSummonLocation()&LOCATION_HAND+LOCATION_DECK ==0 then return true end
-	return c:IsSetCard(0x6552) 
+	return c:IsSetCard(0x4552) 
 end
 function rsnm.spcfilter(c,tp)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToDeckAsCost() and Duel.GetMZoneCount(tp,c,tp)>0
@@ -50,7 +50,7 @@ function rsnm.spop(e,tp)
 end
 function rsnm.spcfilter2(c,e)
 	local val=e:GetValue()
-	return c:IsSetCard(0x6552) and ((val==0 and c:IsAbleToDeckAsCost()) or (val==1 and c:IsAbleToGraveAsCost()))
+	return c:IsSetCard(0x4552) and ((val==0 and c:IsAbleToDeckAsCost()) or (val==1 and c:IsAbleToGraveAsCost()))
 end
 function rsnm.spcfilter3(c,tp)
 	return Duel.GetMZoneCount(tp,g,tp)>0
@@ -92,7 +92,7 @@ function rsnm.limop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function rsnm.splimit(e,c)
-	if c:IsLocation(LOCATION_HAND+LOCATION_DECK) then return not c:IsSetCard(0x6552)
+	if c:IsLocation(LOCATION_HAND+LOCATION_DECK) then return not c:IsSetCard(0x4552)
 	else return false
 	end
 end
@@ -100,7 +100,7 @@ function rsnm.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp==1-tp and e:GetHandler():GetPreviousControler()==tp
 end
 function rsnm.thfilter(c)
-	return c:IsAbleToHand() and c:IsSetCard(0x6552)
+	return c:IsAbleToHand() and c:IsSetCard(0x4552)
 end
 function rsnm.thop(e,tp)
 	rsof.SelectHint(tp,"th")
@@ -157,7 +157,7 @@ function cm.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=aux.ExceptThisCard(e)
 	if not c then return end
 	local tc=e:GetLabelObject()
-	if not tc:IsSetCard(0x6552) then return end
+	if not tc:IsSetCard(0x4552) then return end
 	local e1=rsef.SV_IMMUNE_EFFECT(c,cm.val,nil,rsreset.est_pend)
 	e1:SetOwnerPlayer(tp)
 	local te=tc.flip_effect
@@ -175,7 +175,7 @@ function cm.poscon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetAttacker():IsControler(1-tp)
 end
 function cm.posfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x6552)
+	return c:IsFaceup() and c:IsSetCard(0x4552)
 end
 function cm.posop(e,tp)
 	local g=Duel.GetMatchingGroup(cm.posfilter,tp,LOCATION_MZONE,0,nil)

@@ -1,113 +1,133 @@
 --深界二层-诱惑之森
-local m=33330020
-local cm=_G["c"..m]
-cm.search={33330004,33330038,33330021}  --检 索 对 象
-cm.counter=0x1556   --指 示 物
-cm.damage=200   --伤 害 倍 数
-function cm.initial_effect(c)
-	c:EnableCounterPermit(cm.counter)
+function c33330020.initial_effect(c)
 	--Activate
+	local e0=Effect.CreateEffect(c)
+	e0:SetDescription(aux.Stringid(33330020,0))
+	e0:SetType(EFFECT_TYPE_ACTIVATE)
+	e0:SetCode(EVENT_FREE_CHAIN)
+	c:RegisterEffect(e0)
+	--search
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetCode(EVENT_FREE_CHAIN)
-	c:RegisterEffect(e1)
-	--Search
-	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(m,0))
-	e2:SetCategory(CATEGORY_COUNTER+CATEGORY_TOHAND+CATEGORY_SEARCH)
-	e2:SetType(EFFECT_TYPE_IGNITION)
-	e2:SetRange(LOCATION_FZONE)
-	e2:SetCountLimit(1)
-	e2:SetTarget(cm.thtg)
-	e2:SetOperation(cm.thop)
-	c:RegisterEffect(e2)
-	--Change Field
+	e1:SetDescription(aux.Stringid(33330020,1))
+	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
+	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetRange(LOCATION_HAND)
+	e1:SetCost(c33330020.tcost)
+	e1:SetTarget(c33330020.ttg)
+	e1:SetOperation(c33330020.top)
+	c:RegisterEffect(e1)	
+	--search
+	local e5=Effect.CreateEffect(c)
+	e5:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH+CATEGORY_COUNTER)
+	e5:SetDescription(aux.Stringid(33330020,3))
+	e5:SetType(EFFECT_TYPE_IGNITION)
+	e5:SetRange(LOCATION_FZONE)
+	e5:SetCountLimit(1)
+	e5:SetTarget(c33330020.tg)
+	e5:SetOperation(c33330020.op)
+	c:RegisterEffect(e5)
+	--xxxx
 	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-	e3:SetCode(EVENT_LEAVE_FIELD_P)
-	e3:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	e3:SetOperation(cm.ctop)
+	e3:SetDescription(aux.Stringid(33330020,4))
+	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH+CATEGORY_DAMAGE)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e3:SetCode(EVENT_LEAVE_FIELD)
+	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
+	e3:SetCondition(c33330020.con2)
+	e3:SetTarget(c33330020.tg2)
+	e3:SetOperation(c33330020.op2)
 	c:RegisterEffect(e3)
-	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(m,1))
-	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e4:SetCode(EVENT_LEAVE_FIELD)
-	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP)
-	e4:SetLabelObject(e3)
-	e4:SetCondition(cm.fdcon)
-	e4:SetTarget(cm.fdtg)
-	e4:SetOperation(cm.fdop)
-	c:RegisterEffect(e4)
+	--count
+	local e7=Effect.CreateEffect(c)
+	e7:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e7:SetCode(EVENT_LEAVE_FIELD_P)
+	e7:SetOperation(c33330020.contop)
+	c:RegisterEffect(e7)
+	e3:SetLabelObject(e7)
+	--atk change
+	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(33330020,2))
+	e2:SetCategory(CATEGORY_COUNTER)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_ATTACK_ANNOUNCE)
+	e2:SetRange(LOCATION_FZONE)
+	e2:SetCondition(c33330020.atkcon)
+	e2:SetTarget(c33330020.atktg2)
+	e2:SetOperation(c33330020.atkop)
+	c:RegisterEffect(e2)
 end
-cm.card_code_list=cm.search
---Search
-function cm.thfilter(c)
-	return c:IsCode(cm.search[1]) and c:IsAbleToHand()
+function c33330020.atkcon(e,tp,eg,ep,ev,re,r,rp)
+	return tp==Duel.GetTurnPlayer() and Duel.GetAttacker():IsSetCard(0x556)
 end
-function cm.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsCanAddCounter(cm.counter,1)
-		and Duel.IsExistingMatchingCard(cm.thfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_COUNTER,e:GetHandler(),1,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK+LOCATION_GRAVE)
+function c33330020.atktg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chk==0 then return e:GetHandler():IsCanRemoveCounter(tp,0x1019,1,REASON_EFFECT) end
+	Duel.SetOperationInfo(0,CATEGORY_COUNTER,nil,0,tp,1)
 end
-function cm.thop(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
-	if e:GetHandler():AddCounter(cm.counter,1) then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-		local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(cm.thfilter),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
-		if g:GetCount()>0 and Duel.SendtoHand(g,nil,REASON_EFFECT)~=0 then
-			Duel.ConfirmCards(1-tp,g)
-		end
-	end
+function c33330020.atkop(e,tp,eg,ep,ev,re,r,rp)
+	if not e:GetHandler():IsRelateToEffect(e) or e:GetHandler():IsFacedown() or not e:GetHandler():IsCanRemoveCounter(tp,0x1019,1,REASON_EFFECT) then return end
+	e:GetHandler():RemoveCounter(tp,0x1019,1,REASON_EFFECT)
 end
---Change Field
-function cm.ctop(e,tp,eg,ep,ev,re,r,rp)
-	e:SetLabel(e:GetHandler():GetCounter(cm.counter))
+function c33330020.contop(e,tp,eg,ep,ev,re,r,rp)
+	e:SetLabel(e:GetHandler():GetCounter(0x1019))
 end
-function cm.fdfilter1(c)
-	return c:IsCode(cm.search[2]) and c:IsAbleToHand()
+function c33330020.con2(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	return c:IsReason(REASON_EFFECT) and c:IsPreviousPosition(POS_FACEUP)
 end
-function cm.fdfilter2(c,tp)
-	return c:IsCode(cm.search[3]) and c:GetActivateEffect():IsActivatable(tp)
-end
-function cm.fdcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsPreviousPosition(POS_FACEUP)
-end
-function cm.fdtg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c33330020.tg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return true end
 	local ct=e:GetLabelObject():GetLabel()
-	local sel=0
-	if Duel.IsExistingMatchingCard(cm.fdfilter2,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil,tp) then
-		sel=Duel.SelectOption(tp,aux.Stringid(m,2),aux.Stringid(m,3))+1
-	else
-		Duel.SelectOption(tp,aux.Stringid(m,2))
-		sel=1
-		e:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH+CATEGORY_DAMAGE)
-		Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK+LOCATION_GRAVE)
-		Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,1,tp,ct*cm.damage)
-	end
-	e:SetLabel(sel)
+	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,tp,ct*500)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK+LOCATION_GRAVE)
 end
-function cm.fdop(e,tp,eg,ep,ev,re,r,rp)
-	local sel=e:GetLabel()
+function c33330020.op2(e,tp,eg,ep,ev,re,r,rp)
 	local ct=e:GetLabelObject():GetLabel()
-	e:GetLabelObject():SetLabel(0)
-	if sel==1 then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-		local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(cm.fdfilter1),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
-		if g:GetCount()>0 and Duel.SendtoHand(g,nil,REASON_EFFECT)~=0 then
-			Duel.ConfirmCards(1-tp,g)
-		end
-		Duel.Damage(tp,ct*cm.damage,REASON_EFFECT)
-	else
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
-		local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(cm.fdfilter2),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil,tp)
-		local tc=g:GetFirst()
-		Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,POS_FACEUP,true)
-		local te=tc:GetActivateEffect()
-		local tep=tc:GetControler()
-		local cost=te:GetCost()
-		if cost then cost(te,tep,eg,ep,ev,re,r,rp,1) end
-		tc:AddCounter(cm.counter,ct)
+	if Duel.Damage(tp,ct*500,REASON_EFFECT)<=0 then return end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c33330020.filter3),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
+	if g:GetCount()>0 then
+		Duel.SendtoHand(g,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,g)
+	end
+end
+function c33330020.filter3(c)
+	return c:IsCode(33330021) and c:IsAbleToHand()
+end
+function c33330020.filter2(c)
+	return c:IsCode(33330004) and c:IsAbleToHand()
+end
+function c33330020.tg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsCanAddCounter(0x1019,1) and Duel.IsExistingMatchingCard(c33330020.filter2,tp,LOCATION_GRAVE+LOCATION_DECK,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_COUNTER,nil,1,tp,0)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_GRAVE+LOCATION_DECK)
+end
+function c33330020.op(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if not c:IsRelateToEffect(e) or c:IsFacedown() then return end
+	c:AddCounter(0x1019,1)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c33330020.filter2),tp,LOCATION_GRAVE+LOCATION_DECK,0,1,1,nil)
+	if g:GetCount()>0 then
+		Duel.SendtoHand(g,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,g)
+	end
+end
+function c33330020.tcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end
+	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
+end
+function c33330020.filter(c)
+	return c:IsCode(33330019) and c:IsAbleToHand()
+end
+function c33330020.ttg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c33330020.filter,tp,LOCATION_GRAVE+LOCATION_DECK,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_GRAVE+LOCATION_DECK)
+end
+function c33330020.top(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c33330020.filter),tp,LOCATION_GRAVE+LOCATION_DECK,0,1,1,nil)
+	if g:GetCount()>0 then
+		Duel.SendtoHand(g,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,g)
 	end
 end

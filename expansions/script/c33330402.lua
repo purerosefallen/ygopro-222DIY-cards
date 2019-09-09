@@ -7,7 +7,7 @@ function cm.initial_effect(c)
 	local e4=rsnm.FilpFun(c,m,"eq",nil,rsop.target({cm.eqfilter,"eq",0,LOCATION_MZONE },{cm.cfilter,nil,LOCATION_MZONE }),cm.op)
 end
 function cm.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x6552) and not c:IsStatus(STATUS_BATTLE_DESTROYED)
+	return c:IsFaceup() and c:IsSetCard(0x4552) and not c:IsStatus(STATUS_BATTLE_DESTROYED)
 end
 function cm.eqfilter(c,e,tp)
 	return c:IsFaceup() and c:IsAbleToChangeControler() and Duel.GetLocationCount(tp,LOCATION_SZONE)>0

@@ -1,68 +1,45 @@
 --破晓之花 プルシュカ
-local m=33330013
-local cm=_G["c"..m]
-cm.atk=500  --攻 击 上 升
-cm.search={33330034}   --检 索 的 卡
-function cm.initial_effect(c)
-	c:EnableReviveLimit()
-	--Link Summon
+function c33330013.initial_effect(c)
+	--link summon
 	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkSetCard,0x556),2,2)
-	--Destroy & Search
+	c:EnableReviveLimit()
+	--seq
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(m,0))
-	e1:SetCategory(CATEGORY_DESTROY+CATEGORY_TOHAND+CATEGORY_SEARCH)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP)
-	e1:SetCountLimit(1,m)
-	e1:SetTarget(cm.destg)
-	e1:SetOperation(cm.desop)
-	c:RegisterEffect(e1)  
-	--Move
+	e1:SetDescription(aux.Stringid(33330013,1))
+	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetCountLimit(1)
+	e1:SetTarget(c33330013.target)
+	e1:SetOperation(c33330013.activate)
+	c:RegisterEffect(e1)
+	--d r
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(m,1))
-	e2:SetType(EFFECT_TYPE_IGNITION)
-	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1)
-	e2:SetTarget(cm.mvtg)
-	e2:SetOperation(cm.mvop)
-	c:RegisterEffect(e2)
-	--Atk Up
+	e2:SetDescription(aux.Stringid(33330013,0))
+	e2:SetCategory(CATEGORY_DESTROY+CATEGORY_SEARCH+CATEGORY_TOHAND)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e2:SetCountLimit(1,33330013)
+	e2:SetTarget(c33330013.destg)
+	e2:SetOperation(c33330013.desop)
+	c:RegisterEffect(e2)  
+	--atk/def
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_UPDATE_ATTACK)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetTargetRange(LOCATION_MZONE,0)
-	e3:SetTarget(cm.atktg)
-	e3:SetValue(cm.atk)
+	e3:SetTarget(c33330013.atktg)
+	e3:SetValue(500)
 	c:RegisterEffect(e3)   
 end
-cm.card_code_list=cm.search
---Destroy & Search
-function cm.thfilter(c)
-	return c:IsAbleToHand() and c:IsCode(cm.search[1])
+function c33330013.atktg(e,c)
+	return c:GetMutualLinkedGroupCount()>0 and c:IsSetCard(0x556)
 end
-function cm.destg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
-	if chk==0 then return tc and Duel.IsExistingMatchingCard(cm.thfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_DESTROY,tc,1,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,tc,1,tp,LOCATION_DECK+LOCATION_GRAVE)
-end
-function cm.desop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
-	if tc and Duel.Destroy(tc,REASON_EFFECT)~=0
-		and Duel.IsExistingMatchingCard(aux.NecroValleyFilter(cm.thfilter),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-		local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(cm.thfilter),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
-		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
-	end
-end
---Move
-function cm.mvtg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c33330013.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE,tp,LOCATION_REASON_CONTROL)>0 end
 end
-function cm.mvop(e,tp,eg,ep,ev,re,r,rp)
+function c33330013.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) or Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOZONE)
@@ -70,7 +47,24 @@ function cm.mvop(e,tp,eg,ep,ev,re,r,rp)
 	local nseq=math.log(s,2)
 	Duel.MoveSequence(c,nseq)
 end
---Atk Up
-function cm.atktg(e,c)
-	return c:GetMutualLinkedGroupCount()>0 and c:IsSetCard(0x556)
+function c33330013.destg(e,tp,eg,ep,ev,re,r,rp,chk)
+	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
+	if chk==0 then return tc and Duel.IsExistingMatchingCard(c33330013.thfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_DESTROY,tc,1,tp,LOCATION_FZONE)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,tc,1,tp,LOCATION_DECK+LOCATION_GRAVE)
 end
+function c33330013.thfilter(c)
+	return c:IsAbleToHand() and c:IsCode(33330034)
+end
+function c33330013.desop(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
+	if tc and Duel.Destroy(tc,REASON_EFFECT)~=0 and Duel.IsExistingMatchingCard(aux.NecroValleyFilter(c33330013.thfilter),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) then
+	   Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	   local tg=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c33330013.thfilter),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil)
+	   Duel.SendtoHand(tg,nil,REASON_EFFECT)
+	   Duel.ConfirmCards(1-tp,tg)
+	end
+end
+
+
+

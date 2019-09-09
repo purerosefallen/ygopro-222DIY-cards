@@ -1,62 +1,73 @@
---灾厄融合兽 加拉德隆王
+--灾厄疾兽 百慕达
 function c14801057.initial_effect(c)
-    c:EnableReviveLimit()
-    --spsummon condition
-    local e0=Effect.CreateEffect(c)
-    e0:SetType(EFFECT_TYPE_SINGLE)
-    e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
-    e0:SetCode(EFFECT_SPSUMMON_CONDITION)
-    c:RegisterEffect(e0)
-    --atk/def
-    local e1=Effect.CreateEffect(c)
-    e1:SetType(EFFECT_TYPE_SINGLE)
-    e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-    e1:SetRange(LOCATION_MZONE)
-    e1:SetCode(EFFECT_UPDATE_ATTACK)
-    e1:SetValue(c14801057.val)
-    c:RegisterEffect(e1)
-    local e2=e1:Clone()
-    e2:SetCode(EFFECT_UPDATE_DEFENSE)
-    c:RegisterEffect(e2)
-    --indes
-    local e3=Effect.CreateEffect(c)
-    e3:SetType(EFFECT_TYPE_SINGLE)
-    e3:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-    e3:SetRange(LOCATION_MZONE)
-    e3:SetValue(1)
-    c:RegisterEffect(e3)
-    --destroy
-    local e4=Effect.CreateEffect(c)
-    e4:SetCategory(CATEGORY_DESTROY)
-    e4:SetType(EFFECT_TYPE_QUICK_O)
-    e4:SetCode(EVENT_BE_BATTLE_TARGET)
-    e4:SetRange(LOCATION_MZONE)
-    e4:SetCountLimit(1,14801057)
-    e4:SetCondition(c14801057.descon1)
-    e4:SetTarget(c14801057.destg)
-    e4:SetOperation(c14801057.desop)
-    c:RegisterEffect(e4)
-    local e5=e4:Clone()
-    e5:SetCode(EVENT_BECOME_TARGET)
-    e5:SetCondition(c14801057.descon2)
-    c:RegisterEffect(e5)
+	--special summon
+	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(14801057,0))
+	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetRange(LOCATION_HAND)
+	e1:SetCountLimit(1,14801057)
+	e1:SetCondition(c14801057.spcon)
+	e1:SetTarget(c14801057.sptg)
+	e1:SetOperation(c14801057.spop)
+	c:RegisterEffect(e1)
+	--atk/def
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_FIELD)
+	e2:SetCode(EFFECT_UPDATE_ATTACK)
+	e2:SetRange(LOCATION_MZONE)
+	e2:SetTargetRange(LOCATION_MZONE,0)
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x4800))
+	e2:SetValue(500)
+	c:RegisterEffect(e2)
+	local e4=e2:Clone()
+	e4:SetCode(EFFECT_UPDATE_DEFENSE)
+	c:RegisterEffect(e4)
+	--tohand
+	local e3=Effect.CreateEffect(c)
+	e3:SetDescription(aux.Stringid(14801057,1))
+	e3:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e3:SetProperty(EFFECT_FLAG_DELAY)
+	e3:SetCode(EVENT_TO_GRAVE)
+	e3:SetCountLimit(1,148010571)
+	e3:SetCondition(c14801057.thcon)
+	e3:SetTarget(c14801057.thtg)
+	e3:SetOperation(c14801057.thop)
+	c:RegisterEffect(e3)
 end
-function c14801057.val(e,c)
-    return Duel.GetMatchingGroupCount(Card.IsSetCard,c:GetControler(),LOCATION_GRAVE,0,nil,0x4800)*300
+function c14801057.cfilter(c)
+	return c:IsFacedown() or not c:IsSetCard(0x4800)
 end
-function c14801057.descon1(e,tp,eg,ep,ev,re,r,rp)
-    return eg:IsContains(e:GetHandler())
+function c14801057.spcon(e,tp,eg,ep,ev,re,r,rp)
+	return not Duel.IsExistingMatchingCard(c14801057.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
-function c14801057.descon2(e,tp,eg,ep,ev,re,r,rp)
-    return rp==1-tp and eg:IsContains(e:GetHandler())
+function c14801057.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
-function c14801057.destg(e,tp,eg,ep,ev,re,r,rp,chk)
-    if chk==0 then return Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil)
-         and not e:GetHandler():IsStatus(STATUS_CHAINING) end
-    local g=Duel.GetMatchingGroup(aux.TRUE,tp,0,LOCATION_ONFIELD,nil)
-    Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
+function c14801057.spop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if c:IsRelateToEffect(e) then
+		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
+	end
 end
-function c14801057.desop(e,tp,eg,ep,ev,re,r,rp)
-    local g=Duel.GetMatchingGroup(aux.TRUE,tp,0,LOCATION_ONFIELD,nil)
-    Duel.Destroy(g,REASON_EFFECT)
+function c14801057.thcon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
+end
+function c14801057.thfilter(c)
+	return (c:IsSetCard(0x4800) and c:IsType(TYPE_MONSTER)) and not c:IsCode(14801057) and c:IsAbleToHand()
+end
+function c14801057.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(c14801057.thfilter,tp,LOCATION_DECK,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
+end
+function c14801057.thop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local g=Duel.SelectMatchingCard(tp,c14801057.thfilter,tp,LOCATION_DECK,0,1,1,nil)
+	if g:GetCount()>0 then
+		Duel.SendtoHand(g,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,g)
+	end
 end
