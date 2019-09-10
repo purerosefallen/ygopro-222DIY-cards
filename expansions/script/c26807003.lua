@@ -3,7 +3,6 @@ c26807003.dfc_front_side=26807002
 c26807003.dfc_back_side=26807003
 require("expansions/script/c81000000")
 function c26807003.initial_effect(c)
-	Tenka.Reverse(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_WIND),aux.NonTuner(Card.IsAttribute,ATTRIBUTE_WIND),1)
 	c:EnableReviveLimit()
@@ -37,6 +36,15 @@ function c26807003.initial_effect(c)
 	e2:SetTarget(c26807003.target)
 	e2:SetOperation(c26807003.operation)
 	c:RegisterEffect(e2)
+	--back
+	local e8=Effect.CreateEffect(c)
+	e8:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e8:SetCode(EVENT_ADJUST)
+	e8:SetRange(LOCATION_DECK+LOCATION_GRAVE+LOCATION_REMOVED+LOCATION_HAND+LOCATION_EXTRA)
+	e8:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_SET_AVAILABLE)
+	e8:SetCondition(c26807003.backon)
+	e8:SetOperation(c26807003.backop)
+	c:RegisterEffect(e8)
 end
 function c26807003.repfilter(c,tp)
 	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and not c:IsType(TYPE_TOKEN)
@@ -121,4 +129,14 @@ function c26807003.operation(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToEffect(e) then
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 	end
+end
+function c26807003.backon(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	return c.dfc_front_side and c:GetOriginalCode()==c.dfc_back_side
+end
+function c26807003.backop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local tcode=c.dfc_front_side
+	c:SetEntityCode(tcode)
+	c:ReplaceEffect(tcode,0,0)
 end
