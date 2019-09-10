@@ -181,29 +181,29 @@ function c21520175.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local gc=Duel.GetMatchingGroupCount(c21520175.drfilter,tp,LOCATION_ONFIELD+LOCATION_GRAVE,0,nil)
 	local h=Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)
 	local fchk=Duel.IsExistingMatchingCard(c21520175.fcfilter,tp,LOCATION_ONFIELD,0,1,nil)
-	local d=gc*300
+	local d=gc*100
+	if fchk then d=d*2 end
 	local ops=Duel.SelectOption(tp,aux.Stringid(21520175,3),aux.Stringid(21520175,4))
 	e:SetLabel(ops)
 	if ops==0 then
 		Duel.Hint(HINT_OPSELECTED,1-tp,aux.Stringid(21520175,3))
-		if fchk then d=d*2 end
 		Duel.SetTargetPlayer(1-tp)
 		Duel.SetTargetParam(d)
-		Duel.SetOperationInfo(0,CATEGORY_DAMAGE,0,0,1-tp,gc*300)
+		Duel.SetOperationInfo(0,CATEGORY_DAMAGE,0,0,1-tp,d)
 	elseif ops==1 then
 		Duel.Hint(HINT_OPSELECTED,1-tp,aux.Stringid(21520175,4))
 		Duel.SetTargetPlayer(tp)
-		Duel.SetTargetParam(2-h)
-		Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,2-h)
+		Duel.SetTargetParam(3-h)
+		Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,3-h)
 	end
 end
 function c21520175.drop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local ops=e:GetLabel()
 	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
-	local fchk=Duel.IsExistingMatchingCard(c21520175.fcfilter,p,LOCATION_ONFIELD,0,1,nil)
+	local fchk=Duel.IsExistingMatchingCard(c21520175.fcfilter,tp,LOCATION_ONFIELD,0,1,nil)
 	if ops==0 then 
-		local gc=Duel.GetMatchingGroupCount(c21520175.drfilter,tp,LOCATION_ONFIELD+LOCATION_GRAVE,0,nil)*300
+		local gc=Duel.GetMatchingGroupCount(c21520175.drfilter,tp,LOCATION_ONFIELD+LOCATION_GRAVE,0,nil)*100
 		if fchk then gc=gc*2 end
 		Duel.Damage(p,gc,REASON_EFFECT)
 	elseif ops==1 then 
@@ -211,9 +211,9 @@ function c21520175.drop(e,tp,eg,ep,ev,re,r,rp)
 		if hc>=3 then return end
 		Duel.Draw(p,3-hc,REASON_EFFECT)
 		local hg=Duel.GetFieldGroup(1-p,LOCATION_HAND,0)
-		if hg:GetCount()>0 and not fchk and Duel.SelectYesNo(1-p,aux.Stringid(21520175,5)) then 
+		if not fchk and Duel.SelectYesNo(1-p,aux.Stringid(21520175,5)) then 
 			Duel.Hint(HINT_CARD,p,21520175)
-			Duel.SendtoGrave(hg,REASON_EFFECT+REASON_DISCARD)
+			if hg:GetCount()>0 then Duel.SendtoGrave(hg,REASON_EFFECT+REASON_DISCARD) end
 			Duel.Draw(1-p,3-hg:GetCount(),REASON_EFFECT)
 		end
 	end
