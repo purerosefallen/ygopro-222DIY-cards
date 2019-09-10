@@ -62,7 +62,7 @@ function cm.limit(e,c)
 	return Duel.GetFlagEffect(e:GetHandler():GetControler(),17090009)>0
 end
 function cm.slfilter(c)
-	return c:IsSetCard(0x3701) or c:IsCode(17090009)
+	return c:IsSetCard(0x47f2) or c:IsCode(17090009)
 end
 function cm.slcon(e)
 	return not Duel.IsExistingMatchingCard(cm.slfilter,e:GetHandlerPlayer(),LOCATION_PZONE,0,1,e:GetHandler())

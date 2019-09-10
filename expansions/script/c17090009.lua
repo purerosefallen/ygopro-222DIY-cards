@@ -51,7 +51,7 @@ function cm.tdop(e,tp,eg,ep,ev,re,r,rp)
     end
 end
 function cm.rmfilter(c)
-	return not c:IsSetCard(0x3701)
+	return not c:IsSetCard(0x47f2)
 end
 function cm.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(cm.rmfilter,tp,LOCATION_DECK,0,1,nil) end

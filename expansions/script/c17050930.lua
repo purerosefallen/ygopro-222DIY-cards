@@ -28,10 +28,10 @@ function cm.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function cm.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return re and re:GetHandler():IsSetCard(0x2701)
+	return re and re:GetHandler():IsSetCard(0x27f2)
 end
 function cm.thfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2701) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
+	return c:IsFaceup() and c:IsSetCard(0x27f2) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
 end
 function cm.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(cm.thfilter,tp,LOCATION_EXTRA,0,1,nil) end
@@ -47,7 +47,7 @@ function cm.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function cm.cfilter1(c)
-	return c:IsFaceup() and c:IsSetCard(0x2701)
+	return c:IsFaceup() and c:IsSetCard(0x27f2)
 end
 function cm.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(cm.cfilter1,tp,LOCATION_MZONE,0,1,nil)

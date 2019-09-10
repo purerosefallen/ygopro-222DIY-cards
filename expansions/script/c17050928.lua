@@ -10,7 +10,7 @@ function cm.initial_effect(c)
 	e1:SetRange(LOCATION_PZONE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x2701))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x27f2))
 	e1:SetValue(600)
 	c:RegisterEffect(e1)
 	--special summon
@@ -38,16 +38,16 @@ function cm.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function cm.ndcfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2701)
+	return c:IsFaceup() and c:IsSetCard(0x27f2)
 end
 function cm.indcon(e)
 	return Duel.IsExistingMatchingCard(cm.ndcfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,e:GetHandler())
 end
 function cm.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return re and re:GetHandler():IsSetCard(0x2701)
+	return re and re:GetHandler():IsSetCard(0x27f2)
 end
 function cm.filter(c,e,tp)
-	return c:IsLevelBelow(4) and c:IsSetCard(0x2701) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsLevelBelow(4) and c:IsSetCard(0x27f2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function cm.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and cm.filter(chkc,e,tp) end
