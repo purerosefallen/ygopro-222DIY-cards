@@ -9,6 +9,7 @@ function c81040009.initial_effect(c)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCountLimit(1,81040009)
+	e1:SetCondition(c81040009.cpcon)
 	e1:SetCost(c81040009.cost)
 	e1:SetTarget(c81040009.cptg)
 	e1:SetOperation(c81040009.cpop)
@@ -43,6 +44,9 @@ function c81040009.drop(e,tp,eg,ep,ev,re,r,rp,chk)
 		Duel.ShuffleHand(tp)
 		Duel.DiscardHand(tp,aux.TRUE,1,1,REASON_EFFECT+REASON_DISCARD)
 	end
+end
+function c81040009.cpcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2
 end
 function c81040009.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetCustomActivityCount(81040009,tp,ACTIVITY_SPSUMMON)==0 end
@@ -88,5 +92,4 @@ function c81040009.cpop(e,tp,eg,ep,ev,re,r,rp)
 	if op then op(e,tp,eg,ep,ev,re,r,rp) end
 	Duel.BreakEffect()
 	Duel.SendtoDeck(te:GetHandler(),nil,2,REASON_EFFECT)
-
 end
