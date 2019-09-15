@@ -46,7 +46,7 @@ function cm.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function cm.filter(c,e,sp,zone)
-	return c:IsSetCard(0x2701) and c:IsCanBeSpecialSummoned(e,0,sp,false,false,zone)
+	return c:IsSetCard(0x27f2) and c:IsCanBeSpecialSummoned(e,0,sp,false,false,zone)
 		and not Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_MZONE,0,1,nil,c:GetCode())
 end
 function cm.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -73,7 +73,7 @@ function cm.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP,zone)
 end
 function cm.cfilter(c)
-	return c:IsSetCard(0x2701)
+	return c:IsSetCard(0x27f2)
 end
 function cm.atkval(e,c)
 	local g=e:GetHandler():GetLinkedGroup():Filter(cm.cfilter,nil)

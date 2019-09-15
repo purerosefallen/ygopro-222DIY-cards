@@ -42,7 +42,7 @@ function cm.initial_effect(c)
 	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCountLimit(1)
-	e4:SetCondition(cm.MaterialCheck(0x2700,cm.discon))
+	e4:SetCondition(cm.MaterialCheck(0x27f0,cm.discon))
 	e4:SetTarget(cm.distg)
 	e4:SetOperation(cm.disop)
 	c:RegisterEffect(e4)
@@ -51,7 +51,7 @@ function cm.initial_effect(c)
 	e5:SetDescription(aux.Stringid(17060876,3))
 	e5:SetType(EFFECT_TYPE_SINGLE)
 	e5:SetCode(EFFECT_EXTRA_ATTACK)
-	e5:SetCondition(cm.MaterialCheck(0x1700))
+	e5:SetCondition(cm.MaterialCheck(0x17f0))
 	e5:SetValue(cm.raval)
 	c:RegisterEffect(e5)
 end
@@ -125,10 +125,10 @@ end
 function cm.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=c:GetMaterial()
-	if g:IsExists(Card.IsSetCard,1,nil,0x1700) then
+	if g:IsExists(Card.IsSetCard,1,nil,0x17f0) then
 		c:RegisterFlagEffect(0,RESET_EVENT+RESETS_STANDARD,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(17060876,1))
 	end
-	if g:IsExists(Card.IsSetCard,1,nil,0x2700) then
+	if g:IsExists(Card.IsSetCard,1,nil,0x27f0) then
 		c:RegisterFlagEffect(0,RESET_EVENT+RESETS_STANDARD,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(17060876,2))
 	end
 end

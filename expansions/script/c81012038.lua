@@ -81,7 +81,7 @@ function c81012038.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c81012038.condition(e,tp,eg,ep,ev,re,r,rp)
-	local attr=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_ATTRIBUTE)
+	local race=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_RACE)
 	return ep~=tp and re:IsActiveType(TYPE_MONSTER) and race&RACE_PYRO>0 and Duel.IsChainNegatable(ev)
 end
 function c81012038.cost(e,tp,eg,ep,ev,re,r,rp,chk)

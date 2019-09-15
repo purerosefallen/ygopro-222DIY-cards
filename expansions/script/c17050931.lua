@@ -23,7 +23,7 @@ function cm.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function cm.desfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x2701)
+	return c:IsFaceup() and c:IsSetCard(0x27f2)
 end
 function cm.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) end
@@ -42,7 +42,7 @@ function cm.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function cm.spfilter(c,e,tp)
-	return c:IsSetCard(0x2701) and (c:IsFaceup() or not c:IsLocation(LOCATION_EXTRA)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x27f2) and (c:IsFaceup() or not c:IsLocation(LOCATION_EXTRA)) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function cm.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

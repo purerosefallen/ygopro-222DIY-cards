@@ -26,7 +26,7 @@ function cm.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function cm.mfilter(c)
-	return c:IsSetCard(0x2701)
+	return c:IsSetCard(0x27f2)
 end
 function cm.exacon(e)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
