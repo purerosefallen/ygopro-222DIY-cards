@@ -20,7 +20,7 @@ function c65071055.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c65071055.defil(c,e)
-	return c:GetCounter(0x10da)~=0 and c:IsFaceup()
+	return c:GetCounter(0x1da0)~=0 and c:IsFaceup()
 end
 
 function c65071055.detg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -67,11 +67,11 @@ end
 function c65071055.acop(e,tp,eg,ep,ev,re,r,rp)
 	local c=re:GetHandler()
 	if re:IsActiveType(TYPE_MONSTER) then
-		c:AddCounter(0x10da,1)
+		c:AddCounter(0x1da0,1)
 	end
 end
 
 function c65071055.acop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=Duel.GetAttacker()
-	c:AddCounter(0x10da,1)
+	c:AddCounter(0x1da0,1)
 end

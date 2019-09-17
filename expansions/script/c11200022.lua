@@ -31,7 +31,7 @@ end
 --
 function c11200022.con1(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:GetSummonType()==SUMMON_TYPE_FUSION 
+	return c:IsSummonType(SUMMON_TYPE_FUSION)
 		and c:GetMaterialCount()>0
 end
 --
@@ -41,6 +41,9 @@ function c11200022.tg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DICE,nil,0,tp,1)
 end
 --
+function c11200022.ofilter1(c)
+	return c:IsRace(RACE_BEAST) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsType(TYPE_MONSTER)
+end
 function c11200022.op1(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local dc=Duel.TossDice(tp,1)
@@ -78,18 +81,20 @@ function c11200022.op1(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 		local sg=Duel.SelectMatchingCard(tp,Card.IsDestructable,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
 		if sg:GetCount()<1 then return end
-		Duel.Destroy(sg,REASON_EFFECT)
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-		local tg=Duel.SelectMatchingCard(tp,c11200022.ofilter2,tp,LOCATION_DECK,0,1,1,nil)
-		if tg:GetCount()<1 then return end
-		Duel.SendtoHand(tg,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,tg)
+		if Duel.Destroy(sg,REASON_EFFECT)>0 then
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+			local tg=Duel.SelectMatchingCard(tp,c11200022.ofilter1,tp,LOCATION_DECK,0,1,1,nil)
+			if tg:GetCount()<1 then return end
+			Duel.BreakEffect()
+			Duel.SendtoHand(tg,nil,REASON_EFFECT)
+			Duel.ConfirmCards(1-tp,tg)
+		end
 	end
 end
 --
 function c11200022.con2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:GetSummonType()==SUMMON_TYPE_FUSION
+	return c:IsSummonType(SUMMON_TYPE_FUSION)
 		and c:GetFlagEffect(11200022)==0
 end
 function c11200022.op2(e,tp,eg,ep,ev,re,r,rp)

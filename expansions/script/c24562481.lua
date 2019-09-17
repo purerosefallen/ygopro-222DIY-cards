@@ -54,18 +54,17 @@ function c24562481.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if dmg>0 then return true end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) end
-	Duel.SetTargetPlayer(1-tp)
-	Duel.SetTargetParam(dmg*100)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,dmg*100)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
 end
 function c24562481.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) then return end
-	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
-	if Duel.Damage(p,d,REASON_EFFECT)~=0 then
+	local dmg=Duel.GetMatchingGroupCount(c24562481.e3damfil,tp,LOCATION_REMOVED,LOCATION_REMOVED,nil)
+	if c:IsRelateToEffect(e) then
+	if dmg~=0 and Duel.Damage(1-tp,dmg*100,REASON_EFFECT)~=0 then
 		Duel.BreakEffect()
 		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
+	end
 	end
 end
 --

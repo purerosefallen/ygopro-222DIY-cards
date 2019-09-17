@@ -20,7 +20,7 @@ function c65071005.initial_effect(c)
 end
 
 function c65071005.tgfil(c,e)
-	return c:GetCounter(0x10da)~=0
+	return c:GetCounter(0x1da0)~=0
 end
 
 function c65071005.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -58,11 +58,11 @@ end
 function c65071005.acop(e,tp,eg,ep,ev,re,r,rp)
 	local c=re:GetHandler()
 	if re:IsActiveType(TYPE_MONSTER) then
-		c:AddCounter(0x10da,1)
+		c:AddCounter(0x1da0,1)
 	end
 end
 
 function c65071005.acop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=Duel.GetAttacker()
-	c:AddCounter(0x10da,1)
+	c:AddCounter(0x1da0,1)
 end

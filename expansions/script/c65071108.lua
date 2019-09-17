@@ -63,15 +63,15 @@ function c65071108.drop(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Draw(p,d,REASON_EFFECT)
-	e:GetHandler():AddCounter(0x10da,1)
+	e:GetHandler():AddCounter(0x1da0,1)
 end
 
 function c65071108.discon(e,c)
-	return e:GetHandler():GetCounter(0x10da)>0
+	return e:GetHandler():GetCounter(0x1da0)>0
 end
 
 function c65071108.imcon(e,c)
-	return e:GetHandler():GetCounter(0x10da)>=2 
+	return e:GetHandler():GetCounter(0x1da0)>=2 
 end
 
 function c65071108.efilter(e,te)
@@ -79,7 +79,7 @@ function c65071108.efilter(e,te)
 end
 
 function c65071108.recon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetCounter(0x10da)>=5 and Duel.GetTurnPlayer()~=tp 
+	return e:GetHandler():GetCounter(0x1da0)>=5 and Duel.GetTurnPlayer()~=tp 
 end
 function c65071108.retg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -99,6 +99,6 @@ function c65071108.reop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 	Duel.BreakEffect()
-	local num=c:GetCounter(0x10da)
-	c:RemoveCounter(tp,0x10da,num,REASON_EFFECT)
+	local num=c:GetCounter(0x1da0)
+	c:RemoveCounter(tp,0x1da0,num,REASON_EFFECT)
 end

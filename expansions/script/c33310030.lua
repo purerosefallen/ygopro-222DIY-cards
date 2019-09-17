@@ -76,7 +76,7 @@ function cm.drop(e,tp,eg,ep,ev,re,r,rp)
 	if tg:GetCount()<=0 or not Duel.IsPlayerCanDraw(tp,1) or not Duel.SelectYesNo(1-tp,aux.Stringid(m,1)) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	Duel.BreakEffect()
-	local dg2=dg:Select(1-tp,1,1,nil) 
+	local dg2=tg:Select(1-tp,1,1,nil) 
 	if Duel.SendtoHand(dg2,1-tp,REASON_EFFECT)~=0 then
 	   Duel.ConfirmCards(tp,dg2)
 	   Duel.Draw(tp,1,REASON_EFFECT)

@@ -28,7 +28,7 @@ function c65071067.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function c65071067.recon2(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetAttacker():GetCounter(0x10da)~=0
+	return Duel.GetAttacker():GetCounter(0x1da0)~=0
 end
 
 function c65071067.retg2(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -47,7 +47,7 @@ function c65071067.reop2(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c65071067.recon(e,tp,eg,ep,ev,re,r,rp)
-	return re:GetHandler():IsOnField() and re:IsActiveType(TYPE_MONSTER) and re:GetHandler():GetCounter(0x10da)~=0
+	return re:GetHandler():IsOnField() and re:IsActiveType(TYPE_MONSTER) and re:GetHandler():GetCounter(0x1da0)~=0
 end
 
 function c65071067.retg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -88,11 +88,11 @@ end
 function c65071067.acop(e,tp,eg,ep,ev,re,r,rp)
 	local c=re:GetHandler()
 	if re:IsActiveType(TYPE_MONSTER) then
-		c:AddCounter(0x10da,1)
+		c:AddCounter(0x1da0,1)
 	end
 end
 
 function c65071067.acop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=Duel.GetAttacker()
-	c:AddCounter(0x10da,1)
+	c:AddCounter(0x1da0,1)
 end

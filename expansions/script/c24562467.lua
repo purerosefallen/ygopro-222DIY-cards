@@ -1,6 +1,7 @@
 --+++++猛毒性 刺针
 function c24562467.initial_effect(c)
 	c:EnableReviveLimit()
+	c:EnableCounterPermit(0x1391)
 	aux.AddFusionProcMix(c,true,true,24562466,c24562467.f2fil,c24562467.f3fil)
 	--counter
 	local e1=Effect.CreateEffect(c)
@@ -14,7 +15,7 @@ function c24562467.initial_effect(c)
 	e4:SetDescription(aux.Stringid(24562466,0))
 	e4:SetCategory(CATEGORY_DAMAGE)
 	e4:SetType(EFFECT_TYPE_IGNITION)
-	e4:SetRange(LOCATION_SZONE)
+	e4:SetRange(LOCATION_MZONE)
 	e4:SetCountLimit(1,24562466)
 	e4:SetCondition(c24562467.e4con)
 	e4:SetCost(c24562467.e4cost)
@@ -79,7 +80,7 @@ function c24562467.e4cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
 end
 function c24562467.e4con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetCounter(0x9390)>=3
+	return e:GetHandler():GetCounter(0x1391)>=3
 end
 --
 function c24562467.e2cfil(c)
@@ -88,7 +89,7 @@ end
 function c24562467.counter(e,tp,eg,ep,ev,re,r,rp)
 	local ct=eg:FilterCount(c24562467.e2cfil,nil)
 	if ct>0 then
-		e:GetHandler():AddCounter(0x9390,ct)
+		e:GetHandler():AddCounter(0x1391,ct)
 	end
 end
 function c24562467.f2fil(c)
