@@ -43,7 +43,7 @@ function c11200010.mfilterf(c,tp,mg,rc)
 	else return false end
 end
 function c11200010.mfilter(c)
-	return c:GetLevel()>0 and c:IsSetCard(0x134) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemove() 
+	return c:GetLevel()>0 and c:IsSetCard(0x62f) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemove() 
 end
 function c11200010.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

@@ -26,7 +26,7 @@ function c11200003.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsReason(REASON_EFFECT)
 end
 function c11200003.tgfilter(c)
-	return c:IsSetCard(0x134) and c:IsAbleToGrave()
+	return c:IsSetCard(0x62f) and c:IsAbleToGrave()
 end
 function c11200003.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c11200003.tgfilter,tp,LOCATION_DECK+LOCATION_EXTRA,0,1,nil) end
@@ -47,7 +47,7 @@ function c11200003.lrcon(e,tp,eg,ep,ev,re,r,rp)
 	if lp<=ev then return false end
 	if not re then return false end
 	local rc=re:GetHandler()
-	return rc:IsLocation(LOCATION_MZONE) and rc:IsSetCard(0x134) and e:GetHandler():IsAbleToRemoveAsCost()
+	return rc:IsLocation(LOCATION_MZONE) and rc:IsSetCard(0x62f) and e:GetHandler():IsAbleToRemoveAsCost()
 end
 function c11200003.lrop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)

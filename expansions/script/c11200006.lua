@@ -53,10 +53,10 @@ function c11200006.ffilter(c,fc)
 	return c11200006.ffilter1(c,fc) or c11200006.ffilter2(c,fc) 
 end
 function c11200006.ffilter1(c,fc)
-	return c:IsFusionSetCard(0x134) and c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial(fc) 
+	return c:IsFusionSetCard(0x62f) and c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial(fc) 
 end
 function c11200006.ffilter2(c,fc)
-	return c:IsFusionSetCard(0x134) and c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial(fc)  
+	return c:IsFusionSetCard(0x62f) and c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial(fc)  
 end
 function c11200006.spfilter1(c,tp,mg,fc)
 	  return mg:IsExists(c11200006.spfilter2,1,c,tp,c,fc) 
@@ -145,14 +145,14 @@ end
 	Duel.SetFusionMaterial(g)
 end
 function c11200006.rfilter(c,fc)
-	return (c:IsFusionSetCard(0x134) or c:IsRace(RACE_SPELLCASTER)) and c:IsCanBeFusionMaterial(fc) 
+	return (c:IsFusionSetCard(0x62f) or c:IsRace(RACE_SPELLCASTER)) and c:IsCanBeFusionMaterial(fc) 
 end
 function c11200006.rfilter1(c,tp,g)
 	return g:IsExists(c11200006.spfilter2,1,c,tp,c)
 end
 function c11200006.rfilter2(c,tp,mc)
-	return ((c:IsFusionSetCard(0x134) and mc:IsRace(RACE_SPELLCASTER)) or
-	(mc:IsFusionSetCard(0x134) and c:IsRace(RACE_SPELLCASTER))) and  Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c,mc))>0
+	return ((c:IsFusionSetCard(0x62f) and mc:IsRace(RACE_SPELLCASTER)) or
+	(mc:IsFusionSetCard(0x62f) and c:IsRace(RACE_SPELLCASTER))) and  Duel.GetLocationCountFromEx(tp,tp,Group.FromCards(c,mc))>0
 end
 function c11200006.spcon(e,c)
 	if c==nil then return true end
