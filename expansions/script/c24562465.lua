@@ -21,9 +21,10 @@ function c24562465.initial_effect(c)
 	e1:SetOperation(c24562465.operation)
 	c:RegisterEffect(e1)
 end
-function c24562465.fil2(c,e,lv1,slv)
+function c24562465.fil2(c,e,slv)
 	local lv2=c:GetLevel()
-	return c:IsFaceup() and lv2>0 and lv1+lv2>=slv and c:IsAbleToRemove() and c:IsSetCard(0x9390)
+	local lvl=e:GetHandler():GetLevel()
+	return c:IsFaceup() and lv2>0 and lvl+lv2>=slv and c:IsAbleToRemove() and c:IsSetCard(0x9390)
 end
 function c24562465.spfil(c,e,tp,lv)
 	return c:IsSetCard(0x9390) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and (not lv or c:IsLevelBelow(lv)) and c:IsFaceup()
@@ -37,12 +38,12 @@ function c24562465.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		if sg:GetCount()==0 then return false end
 		local mg,mlv=sg:GetMinGroup(Card.GetLevel)
 		return Duel.GetLocationCount(tp,LOCATION_MZONE)>-1
-			and Duel.IsExistingTarget(c24562465.fil2,tp,LOCATION_MZONE,0,1,nil,e,tp,mlv,lv1,slv)
+			and Duel.IsExistingTarget(c24562465.fil2,tp,LOCATION_MZONE,0,1,nil,e,tp,slv)
 			and lv1>0 and c:IsAbleToRemove()
 	end
 	local mg,mlv=sg:GetMinGroup(Card.GetLevel)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g2=Duel.SelectTarget(tp,c24562465.fil2,tp,LOCATION_MZONE,0,1,1,nil,e,c:GetLevel(),mlv,lv1,slv)
+	local g2=Duel.SelectTarget(tp,c24562465.fil2,tp,LOCATION_MZONE,0,1,1,nil,e,c:GetLevel(),slv)
 	g2:AddCard(c)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g2,2,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_REMOVED)
@@ -52,17 +53,13 @@ function c24562465.operation(e,tp,eg,ep,ev,re,r,rp)
 	local lv1=c:GetLevel()
 	if not c:IsRelateToEffect(e) then return end
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
-	g:AddCard(c)
+	local tc=g:GetFirst()
+	local lv=0+tc:GetLevel()+c:GetLevel()
 	local tg=g:Filter(Card.IsRelateToEffect,nil,e)
+	tg:AddCard(c)
 	if tg:GetCount()==0 then return end
 	Duel.Remove(tg,POS_FACEUP,REASON_EFFECT)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	local tc=tg:GetFirst()
-	local lv=0
-	if tc:IsLocation(LOCATION_REMOVED) then lv=lv+tc:GetLevel() end
-	tc=tg:GetNext()
-	if tc and tc:IsLocation(LOCATION_REMOVED) then lv=lv+tc:GetLevel() end
-	if lv==0 then return end
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 and lv==0 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g2=Duel.SelectMatchingCard(tp,c24562465.spfil,tp,LOCATION_REMOVED,0,1,1,nil,e,tp,lv)
 	local tc=g2:GetFirst()

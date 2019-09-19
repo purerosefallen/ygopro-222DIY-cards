@@ -48,15 +48,15 @@ end
 function c65020025.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		c:AddCounter(0x11da,1)
+		c:AddCounter(0x1da1,1)
 	end
 end
 function c65020025.eftg(e,c)
 	return ((c:IsType(TYPE_EFFECT) and not c:IsStatus(STATUS_BATTLE_DESTROYED)) or (c:IsType(TYPE_SPELL+TYPE_TRAP))) and c:IsFaceup() 
 end
 function c65020025.decost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetCounter(tp,LOCATION_ONFIELD,LOCATION_ONFIELD,0x11da)>0 end
-	Duel.RemoveCounter(tp,LOCATION_ONFIELD,LOCATION_ONFIELD,0x11da,1,REASON_COST)
+	if chk==0 then return Duel.GetCounter(tp,LOCATION_ONFIELD,LOCATION_ONFIELD,0x1da1)>0 end
+	Duel.RemoveCounter(tp,LOCATION_ONFIELD,LOCATION_ONFIELD,0x1da1,1,REASON_COST)
 end
 function c65020025.detg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsFacedown,tp,0,LOCATION_SZONE,1,nil) end
@@ -76,16 +76,16 @@ function c65020025.deop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c65020025.wintg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():GetCounter(0x11da)>0 end
+	if chk==0 then return e:GetHandler():GetCounter(0x1da1)>0 end
 	if e:IsHasType(EFFECT_TYPE_IGNITION) then
 		Duel.SetChainLimit(aux.FALSE)
 	end
 end
 function c65020025.winop(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsRelateToEffect(e) then
-		local num=e:GetHandler():GetCounter(0x11da)
+		local num=e:GetHandler():GetCounter(0x1da1)
 		local lp=Duel.GetLP(1-tp)
-		e:GetHandler():RemoveCounter(tp,0x11da,num,REASON_EFFECT)
+		e:GetHandler():RemoveCounter(tp,0x1da1,num,REASON_EFFECT)
 		Duel.SetLP(1-tp,lp-num*1000)
 	end
 end

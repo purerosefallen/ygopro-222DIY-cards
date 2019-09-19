@@ -1,7 +1,7 @@
 --白夜失乐园
 function c65071046.initial_effect(c)
-	 c:EnableCounterPermit(0x10da)
-	c:SetCounterLimit(0x10da,3)
+	 c:EnableCounterPermit(0x1da0)
+	c:SetCounterLimit(0x1da0,3)
 	--activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_COUNTER)
@@ -78,13 +78,13 @@ function c65071046.initial_effect(c)
 end
 function c65071046.addct(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	Duel.SetOperationInfo(0,CATEGORY_COUNTER,nil,3,0,0x10da)
+	Duel.SetOperationInfo(0,CATEGORY_COUNTER,nil,3,0,0x1da0)
 end
 function c65071046.addc(e,tp,eg,ep,ev,re,r,rp)
 	local lp=Duel.GetLP(1-tp)
 	Duel.SetLP(1-tp,lp+8000)
 	if e:GetHandler():IsRelateToEffect(e) then
-		e:GetHandler():AddCounter(0x10da,3)
+		e:GetHandler():AddCounter(0x1da0,3)
 	end
 end
 function c65071046.ctfilter(c,tp)
@@ -92,29 +92,29 @@ function c65071046.ctfilter(c,tp)
 end
 function c65071046.ctop(e,tp,eg,ep,ev,re,r,rp)
 	if eg:IsExists(c65071046.ctfilter,1,nil,tp) then
-		e:GetHandler():AddCounter(0x10da,1)
+		e:GetHandler():AddCounter(0x1da0,1)
 	end
 end
 
 function c65071046.imcon(e,c)
-	return e:GetHandler():GetCounter(0x10da)~=0
+	return e:GetHandler():GetCounter(0x1da0)~=0
 end
 function c65071046.efilter(e,te)
 	return te:GetOwner()~=e:GetOwner()
 end
 
 function c65071046.rccon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()~=tp and e:GetHandler():GetCounter(0x10da)~=0
+	return Duel.GetTurnPlayer()~=tp and e:GetHandler():GetCounter(0x1da0)~=0
 end
 function c65071046.rcop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		c:RemoveCounter(tp,0x10da,1,REASON_EFFECT)
+		c:RemoveCounter(tp,0x1da0,1,REASON_EFFECT)
 	end
 end
 
 function c65071046.costcon(e,c)
-	return e:GetHandler():GetCounter(0x10da)==0
+	return e:GetHandler():GetCounter(0x1da0)==0
 end
 function c65071046.actarget(e,te,tp)
 	return te:GetHandler():IsLocation(LOCATION_HAND)

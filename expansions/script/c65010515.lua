@@ -1,48 +1,47 @@
 --URBEX HINDER-暴食者
-function c65010515.initial_effect(c)
-	--link summon
-	aux.AddLinkProcedure(c,nil,2,99,c65010514.lcheck)
+if not pcall(function() require("expansions/script/c10199990") end) then require("script/c10199990") end
+local m=65010515
+local cm=_G["c"..m]
+function cm.initial_effect(c)
 	c:EnableReviveLimit()
-	--link summon
-	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(65741786,0))
-	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e1:SetType(EFFECT_TYPE_QUICK_O)
-	e1:SetCode(EVENT_FREE_CHAIN)
-	e1:SetHintTiming(0,TIMINGS_CHECK_MONSTER+TIMING_MAIN_END)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetCountLimit(1,65741786)
-	e1:SetCondition(c65741786.lkcon)
-	e1:SetTarget(c65741786.lktg)
-	e1:SetOperation(c65741786.lkop)
-	c:RegisterEffect(e1)
+	c:AddLinkProcedure(nil,2,3,cm.gf)
+	local e1=rsef.QO(c,nil,{m,1},{1,m},"sp",nil,LOCATION_MZONE,rscon.phmp,nil,rsop.target2(cm.fun,cm.lfilter,"sp",LOCATION_EXTRA),cm.spop)
 end
-c65010514.setname="URBEX"
-function c65010514.lcfil(c)
-	return c.setname=="URBEX"
+cm.rssetcode=="URBEX"
+function cm.gf(g)
+	return g:IsExists(rscf.CheckSetCard,1,nil,"URBEX")
 end
-function c65741786.lkcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetTurnPlayer()~=tp
-		and (Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2)
+function cm.lfilter(c,e,tp)
+	local rc=e:GetHandler()
+	local ct=rc:GetMutualLinkedGroupCount()
+	local g=Duel.GetMatchingGroup(cm.mfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil,tp)
+	return g:CheckSubGroup(cm.gfilter,1,99,c,rc,tp,ct)
 end
-function c65010515.lkfil(c,mc)
-	return c:IsLinkSummonable(nil,mc) and c.setname=="URBEX"
+function cm.gfilter(g,lc,mc,tp,ct)
+	return g:IsContains(mc) and g:FilterCount(Card.IsControler,nil,1-tp)<=ct and lc:IsLinkSummonable(g,nil,#g,#g) and lc:CheckSetCard("URBEX")
 end
-function c65741786.lktg(e,tp,eg,ep,ev,re,r,rp,chk)
-	local m=0
+function cm.mfilter(c,tp)
+	return c:IsControler(tp) or (c:IsSummonType(SUMMON_TYPE_SPECIAL) and c:GetSummonLocation()==LOCATION_EXTRA)
+end
+function cm.fun(g,e,tp)
 	if e:GetHandler():GetMutualLinkedGroupCount()>0 then
-		
+		e:SetLabel(1)
+	else
+		e:SetLabel(0)
 	end
-	if chk==0 then return Duel.IsExistingMatchingCard(c65010515.lkfil,tp,LOCATION_EXTRA,0,1,nil,e:GetHandler()) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function c65741786.lkop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	if c:IsControler(1-tp) or not c:IsRelateToEffect(e) then return end
-	local g=Duel.GetMatchingGroup(c65010515.lkfil,tp,LOCATION_EXTRA,0,nil,c)
-	if g:GetCount()>0 then
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local sg=g:Select(tp,1,1,nil)
-		Duel.LinkSummon(tp,sg:GetFirst(),nil,c)
-	end
+function cm.lfilter2(c,g,rc,tp,ct)
+	return g:CheckSubGroup(cm.gfilter,1,99,c,rc,tp,ct)
+end
+function cm.spop(e,tp)
+	local c=rscf.GetRelationThisCard(e)
+	if not c then return end
+	local ct=e:GetLabel()==1 and c:GetMutualLinkedGroupCount() or 0
+	local g=Duel.GetMatchingGroup(cm.mfilter,tp,LOCATION_MZONE,LOCATION_MZONE,nil,tp)
+	rsof.SelectHint(tp,"sp")
+	local lc=Duel.SelectMatchingCard(tp,cm.lfilter2,tp,LOCATION_EXTRA,0,1,1,nil,g,c,tp,ct):GetFirst()
+	if not lc then return end
+	rsof.SelectHint(tp,HINTMSG_LMATERIAL)
+	local mg=g:SelectSubGroup(tp,cm.gfilter,false,1,99,lc,c,tp,ct)
+	Duel.LinkSummon(tp,lc,mg)
 end

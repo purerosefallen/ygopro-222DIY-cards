@@ -64,7 +64,7 @@ function c65071106.eqop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function c65071106.confil(c,e)
-	return c:GetCounter(0x10da)==0
+	return c:GetCounter(0x1da0)==0
 end
 
 function c65071106.contg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -79,8 +79,8 @@ function c65071106.conop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.HintSelection(g2)
 	local tc1=g1:GetFirst()
 	local tc2=g1:GetFirst()
-	tc1:AddCounter(0x10da,1)
-	tc2:AddCounter(0x10da,1)
+	tc1:AddCounter(0x1da0,1)
+	tc2:AddCounter(0x1da0,1)
 end
 
 function c65071106.tgcon(e,tp,eg,ep,ev,re,r,rp)
@@ -94,7 +94,7 @@ function c65071106.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,PLAYER_ALL,0)
 end
 function c65071106.tgfil(c,e)
-	return c:GetCounter(0x10da)>0 
+	return c:GetCounter(0x1da0)>0 
 end
 function c65071106.tgop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c65071106.tgfil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil,e)

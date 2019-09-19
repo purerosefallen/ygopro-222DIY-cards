@@ -20,7 +20,7 @@ function c65071066.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c65071066.ctfil(c,e)
-	return c:GetCounter(0x10da)~=0 and c:IsFaceup() and c:IsControlerCanBeChanged()
+	return c:GetCounter(0x1da0)~=0 and c:IsFaceup() and c:IsControlerCanBeChanged()
 end
 
 function c65071066.cttg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -63,11 +63,11 @@ end
 function c65071066.acop(e,tp,eg,ep,ev,re,r,rp)
 	local c=re:GetHandler()
 	if re:IsActiveType(TYPE_MONSTER) then
-		c:AddCounter(0x10da,1)
+		c:AddCounter(0x1da0,1)
 	end
 end
 
 function c65071066.acop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=Duel.GetAttacker()
-	c:AddCounter(0x10da,1)
+	c:AddCounter(0x1da0,1)
 end

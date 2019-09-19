@@ -191,12 +191,12 @@ function c65071073.addct(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local mc=e:GetHandler()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	local g=Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,0,1,1,mc)
-	Duel.SetOperationInfo(0,CATEGORY_COUNTER,nil,1,0,0x10da)
+	Duel.SetOperationInfo(0,CATEGORY_COUNTER,nil,1,0,0x1da0)
 end
 function c65071073.addc(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsFaceup() and tc:IsRelateToEffect(e) then
-		tc:AddCounter(0x10da,1)
+		tc:AddCounter(0x1da0,1)
 		--indes
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
@@ -213,11 +213,11 @@ function c65071073.addc(e,tp,eg,ep,ev,re,r,rp)
 	e:GetHandler():RegisterFlagEffect(65071073,RESET_EVENT+0x1ec0000,0,0)
 end
 function c65071073.indcon(e)
-	return e:GetHandler():GetCounter(0x10da)>0
+	return e:GetHandler():GetCounter(0x1da0)>0
 end
 
 function c65071073.indcon2(e)
-	return e:GetHandler():GetFlagEffect(65071073)~=0 and Duel.GetCounter(tp,LOCATION_MZONE,0,0x10da)==0 
+	return e:GetHandler():GetFlagEffect(65071073)~=0 and Duel.GetCounter(tp,LOCATION_MZONE,0,0x1da0)==0 
 end
 
 function c65071073.eftg(e,c)

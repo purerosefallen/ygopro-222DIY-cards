@@ -199,7 +199,7 @@ function cm.tktg2(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function cm.tkop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)>=4 and Duel.IsPlayerCanSpecialSummonMonster(tp,43330026,0,0x4011,1000,2000,4,RACE_MACHINE,ATTRIBUTE_DARK) and not Duel.IsPlayerAffectedByEffect(tp,59822133) then
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)>=4 and Duel.IsPlayerCanSpecialSummonMonster(tp,33310026,0,0x4011,1000,2000,4,RACE_MACHINE,ATTRIBUTE_DARK) and not Duel.IsPlayerAffectedByEffect(tp,59822133) then
 		for i=1,4 do
 			local token=Duel.CreateToken(tp,33310026)
 			Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
@@ -258,7 +258,7 @@ function cm.atkop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_UPDATE_ATTACK)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
-		e1:SetValue(500)
+		e1:SetValue(300)
 		tc:RegisterEffect(e1) 
 	end
 end

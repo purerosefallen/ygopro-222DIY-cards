@@ -37,7 +37,7 @@ function c65071037.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) then
-		tc:AddCounter(0x10da,1)
+		tc:AddCounter(0x1da0,1)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CANNOT_ATTACK)
@@ -53,10 +53,10 @@ function c65071037.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c65071037.imcon(e)
-	return e:GetHandler():GetCounter(0x10da)>0
+	return e:GetHandler():GetCounter(0x1da0)>0
 end
 function c65071037.defil(c,e)
-	return c:GetCounter(0x10da)~=0 
+	return c:GetCounter(0x1da0)~=0 
 end
 
 function c65071037.detg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -78,8 +78,8 @@ function c65071037.deop(e,tp,eg,ep,ev,re,r,rp)
 	local count=0
 	local tc=g:GetFirst()
 	while tc do
-		count=tc:GetCounter(0x10da)
-		tc:RemoveCounter(tp,0x10da,count,REASON_EFFECT)
+		count=tc:GetCounter(0x1da0)
+		tc:RemoveCounter(tp,0x1da0,count,REASON_EFFECT)
 		atk=atk+tc:GetAttack()
 		def=def+tc:GetDefense()
 		tc=g:GetNext()

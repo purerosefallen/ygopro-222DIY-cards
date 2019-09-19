@@ -17,13 +17,15 @@ function c11200018.initial_effect(c)
 	e2:SetCategory(CATEGORY_DICE+CATEGORY_SPECIAL_SUMMON+CATEGORY_ATKCHANGE+CATEGORY_DAMAGE)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetLabelObject(e1)
 	e2:SetCountLimit(1,11200118)
+	e2:SetLabelObject(e1)
 	e2:SetTarget(c11200018.tg2)
 	e2:SetOperation(c11200018.op2)
 	c:RegisterEffect(e2)
 --
 end
+--
+c11200018.xig_ihs_0x132=1
 --
 function c11200018.tfilter1(c,tp,mg,rc)
 	if c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:GetSequence()<5 then
@@ -75,7 +77,7 @@ function c11200018.op1(e,tp,eg,ep,ev,re,r,rp)
 end
 --
 function c11200018.tfilter2(c,e,tp)
-	return c:IsSetCard(0x132) and c:IsType(TYPE_SPELL)
+	return c.xig_ihs_0x132 and c:IsType(TYPE_SPELL)
 		and Duel.IsPlayerCanSpecialSummonMonster(tp,c:GetCode(),0x132,0x21,1100,1100,4,RACE_BEAST,ATTRIBUTE_LIGHT)
 end
 function c11200018.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -93,31 +95,38 @@ end
 function c11200018.op2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rcount=e:GetLabelObject():GetLabel()
-	local dc1,dc2,dc3,dc4,dc5,dc6=Duel.TossDice(tp,rcount)
-	local dc=0
-	if dc1 and dc1>0 then dc=dc+dc1 end
-	if dc2 and dc2>0 then dc=dc+dc2 end
-	if dc3 and dc3>0 then dc=dc+dc3 end
-	if dc4 and dc4>0 then dc=dc+dc4 end
-	if dc5 and dc5>0 then dc=dc+dc5 end
-	if dc6 and dc6>0 then dc=dc+dc6 end
-	if dc%2==1 then
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_UPDATE_ATTACK)
-		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
-		e1:SetValue(dc*450)
-		c:RegisterEffect(e1)
-		local e2_2=Effect.CreateEffect(c)
-		e2_2:SetType(EFFECT_TYPE_SINGLE)
-		e2_2:SetCode(EFFECT_IMMUNE_EFFECT)
-		e2_2:SetValue(c11200018.efilter2_2)
-		e2_2:SetOwnerPlayer(tp)
-		e2_2:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END+RESET_OPPO_TURN)
+	local dc1,dc2,dc3,dc4,dc5,dc6,dc7,dc8=0
+	dc1,dc2,dc3,dc4,dc5,dc6=Duel.TossDice(tp,rcount)
+	if rcount>6 then dc7,dc8=Duel.TossDice(tp,rcount-6) end
+	local aldc=0
+	if dc1 then aldc=aldc+dc1 end
+	if dc2 then aldc=aldc+dc2 end
+	if dc3 then aldc=aldc+dc3 end
+	if dc4 then aldc=aldc+dc4 end
+	if dc5 then aldc=aldc+dc5 end
+	if dc6 then aldc=aldc+dc6 end
+	if dc7 then aldc=aldc+dc7 end
+	if dc8 then aldc=aldc+dc8 end
+	if aldc%2==1 then
+		local e2_1=Effect.CreateEffect(c)
+		e2_1:SetType(EFFECT_TYPE_SINGLE)
+		e2_1:SetCode(EFFECT_UPDATE_ATTACK)
+		e2_1:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e2_1:SetValue(aldc*450)
+		c:RegisterEffect(e2_1)
+		local e2_2=e2_1:Clone()
+		e2_2:SetCode(EFFECT_UPDATE_DEFENSE)
 		c:RegisterEffect(e2_2)
+		local e2_3=Effect.CreateEffect(c)
+		e2_3:SetType(EFFECT_TYPE_SINGLE)
+		e2_3:SetCode(EFFECT_IMMUNE_EFFECT)
+		e2_3:SetValue(c11200018.efilter2_3)
+		e2_3:SetOwnerPlayer(tp)
+		e2_3:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END+RESET_OPPO_TURN,1)
+		c:RegisterEffect(e2_3)
 	end
-	if dc==4 then Duel.Damage(tp,1100,REASON_EFFECT) end
-	if dc%2==0 then
+	if aldc==4 then Duel.Damage(tp,1100,REASON_EFFECT) end
+	if aldc%2==0 then
 		if Duel.GetMZoneCount(tp)<1 then return end
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local sg=Duel.SelectMatchingCard(tp,c11200018.tfilter2,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil,e,tp)
@@ -129,6 +138,6 @@ function c11200018.op2(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 --
-function c11200018.efilter2_2(e,re)
+function c11200018.efilter2_3(e,re)
 	return e:GetOwnerPlayer()~=re:GetOwnerPlayer()
 end

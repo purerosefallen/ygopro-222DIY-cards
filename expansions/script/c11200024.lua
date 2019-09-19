@@ -23,9 +23,11 @@ function c11200024.initial_effect(c)
 --
 end
 --
+c11200024.xig_ihs_0x132=1
+--
 function c11200024.tfilter1(c)
 	return c:IsCode(11200019)
-		or (c:IsSetCard(0x132) and c:IsAbleToHand())
+		or (c.xig_ihs_0x132 and c:IsAbleToHand())
 end
 function c11200024.tg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c11200024.tfilter1,tp,LOCATION_DECK,0,1,nil) end
@@ -43,21 +45,27 @@ end
 function c11200024.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return c:IsAbleToDeckAsCost() end
+	local g=Group.CreateGroup()
+	g:AddCard(c)
+	Duel.HintSelection(g)
 	Duel.SendtoDeck(c,nil,2,REASON_COST)
 end
 --
 function c11200024.tfilter2(c,e,tp)
-	return c:IsSetCard(0x132) and c:IsType(TYPE_SPELL) and Duel.IsPlayerCanSpecialSummonMonster(tp,c:GetCode(),0x132,0x21,1100,1100,4,RACE_BEAST,ATTRIBUTE_LIGHT)
+	return c.xig_ihs_0x132 and c:IsType(TYPE_SPELL)
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,c:GetCode(),0x132,0x21,1100,1100,4,RACE_BEAST,ATTRIBUTE_LIGHT)
 end
 function c11200024.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(c11200024.tfilter2,tp,LOCATION_HAND,0,1,nil,e,tp) and Duel.IsPlayerCanDraw(tp,1) end
+	if chk==0 then return Duel.GetMZoneCount(tp)>0
+		and Duel.IsExistingMatchingCard(c11200024.tfilter2,tp,LOCATION_HAND,0,1,nil,e,tp)
+		and Duel.IsPlayerCanDraw(tp,1) end
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,0,tp,LOCATION_HAND)
 end
 --
 function c11200024.op2(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
+	if Duel.GetMZoneCount(tp)<1 then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local sg=Duel.SelectMatchingCard(tp,c11200024.tfilter2,tp,LOCATION_HAND,0,1,1,nil,e,tp)
 	if sg:GetCount()<1 then return end

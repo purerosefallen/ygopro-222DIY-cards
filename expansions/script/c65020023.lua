@@ -72,7 +72,7 @@ function c65020023.activate(e,tp,eg,ep,ev,re,r,rp)
 		local g=Duel.SelectMatchingCard(tp,Card.IsFaceup,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,e:GetHandler())
 		Duel.HintSelection(g)
 		local gc=g:GetFirst()
-		gc:AddCounter(0x11da,1)
+		gc:AddCounter(0x1da1,1)
 	end
 	if c:IsRelateToEffect(e) and c:IsCanTurnSet() then
 		Duel.BreakEffect()

@@ -52,7 +52,7 @@ function c1156015.lkfilter(c,lc,tp)
 	if c:IsType(TYPE_MONSTER) then
 		return flag and c:IsRace(RACE_SPELLCASTER)
 	else
-		return c:IsFaceup() and c:IsType(TYPE_SPELL)
+		return c:IsFaceup() and c:IsType(TYPE_SPELL) and not c:IsHasEffect(EFFECT_CANNOT_BE_LINK_MATERIAL)
 	end
 end
 function c1156015.lvfilter(c)
