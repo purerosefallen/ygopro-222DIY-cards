@@ -43,7 +43,7 @@ function cm.initial_effect(c)
 	end)
 	e2:SetOperation(function(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_CARD,0,m)
-		local g=eg:IsExists(f,nil)
+		local g=eg:Filter(f,nil)
 		for p=0,1 do
 			if g:IsExists(Card.IsControler,1,nil,p) then
 				Duel.DiscardHand(p,Card.IsDiscardable,1,1,REASON_EFFECT+REASON_DISCARD)
