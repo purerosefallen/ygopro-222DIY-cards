@@ -32,7 +32,7 @@ function c11200009.ffilter(c,fc)
 	return c11200009.ffilter1(c,fc) or c11200009.ffilter2(c,fc)
 end
 function c11200009.ffilter1(c,fc)
-	return c:IsFusionSetCard(0x134) and c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial(fc) 
+	return c:IsFusionSetCard(0x62f) and c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial(fc) 
 end
 function c11200009.ffilter2(c,fc)
 	return c:IsType(TYPE_RITUAL) and c:IsCanBeFusionMaterial(fc) 
@@ -151,7 +151,7 @@ function c11200009.filter1(c,e)
 	return c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial() and c:IsAbleToRemove() and not c:IsImmuneToEffect(e)
 end
 function c11200009.filter2(c,e,tp,m,f,gc,chkf)
-	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x134) and (not f or f(c))
+	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x62f) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,gc,chkf)
 end
 function c11200009.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

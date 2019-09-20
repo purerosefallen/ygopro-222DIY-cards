@@ -36,7 +36,7 @@ function c11200002.lrcon(e,tp,eg,ep,ev,re,r,rp)
 	if lp<=ev then return false end
 	if not re then return false end
 	local rc=re:GetHandler()
-	return rc:IsLocation(LOCATION_MZONE) and rc:IsSetCard(0x134) and e:GetHandler():IsAbleToRemoveAsCost()
+	return rc:IsLocation(LOCATION_MZONE) and rc:IsSetCard(0x62f) and e:GetHandler():IsAbleToRemoveAsCost()
 end
 function c11200002.lrop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)

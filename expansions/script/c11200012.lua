@@ -25,13 +25,13 @@ function c11200012.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c11200012.filter(c)
-	return c:IsSetCard(0x134) and c:IsAbleToGrave()
+	return c:IsSetCard(0x62f) and c:IsAbleToGrave()
 end
 function c11200012.filter2(c)
-	return c:IsSetCard(0x134) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+	return c:IsSetCard(0x62f) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
 end
 function c11200012.filter3(c)
-	return  c:IsSetCard(0x134) and c:IsType(TYPE_MONSTER) and c:IsFaceup()
+	return  c:IsSetCard(0x62f) and c:IsType(TYPE_MONSTER) and c:IsFaceup()
 end
 function c11200012.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local b1=Duel.GetMatchingGroup(c11200012.filter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,e:GetHandler())
@@ -66,7 +66,7 @@ function c11200012.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function c11200012.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x134) and c:GetAttack()>0
+	return c:IsFaceup() and c:IsSetCard(0x62f) and c:GetAttack()>0
 end
 function c11200012.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c11200012.atkfilter(chkc) end

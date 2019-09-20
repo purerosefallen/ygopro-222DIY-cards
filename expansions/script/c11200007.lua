@@ -31,7 +31,7 @@ function c11200007.initial_effect(c)
 	c:RegisterEffect(e3)	
 end
 function c11200007.splimit(e,se,sp,st)
-	return se:GetHandler():IsSetCard(0x134)
+	return se:GetHandler():IsSetCard(0x62f)
 end
 function c11200007.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -88,7 +88,7 @@ function c11200007.operation(e,tp,eg,ep,ev,re,r,rp)
   end
 end
 function c11200007.spfilter(c,e,tp)
-	return c:IsSetCard(0x134) and not c:IsType(TYPE_RITUAL)
+	return c:IsSetCard(0x62f) and not c:IsType(TYPE_RITUAL)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsHasEffect(EFFECT_NECRO_VALLEY)
 end
 function c11200007.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)

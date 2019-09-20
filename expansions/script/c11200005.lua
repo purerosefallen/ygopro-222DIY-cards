@@ -56,7 +56,7 @@ function c11200005.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function c11200005.ovfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x134) and c:IsType(TYPE_FUSION)
+	return c:IsFaceup() and c:IsSetCard(0x62f) and c:IsType(TYPE_FUSION)
 end
 function c11200005.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
@@ -133,7 +133,7 @@ function c11200005.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c11200005.desfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x134) and c:IsLocation(LOCATION_MZONE)
+	return c:IsFaceup() and c:IsSetCard(0x62f) and c:IsLocation(LOCATION_MZONE)
 end
 function c11200005.flcon(e,tp,eg,ep,ev,re,r,rp)
    if  not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
@@ -146,5 +146,5 @@ end
 function c11200005.descon2(e,tp,eg,ep,ev,re,r,rp)
 	if tp==Duel.GetTurnPlayer() then return false end
 	local tc=Duel.GetAttackTarget()
-	return tc and tc:IsFaceup() and tc:IsSetCard(0x134)
+	return tc and tc:IsFaceup() and tc:IsSetCard(0x62f)
 end

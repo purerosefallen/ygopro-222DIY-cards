@@ -24,7 +24,7 @@ function c11200011.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c11200011.merfilter(c)
-	return c:IsSetCard(0x134) and c:IsFaceup() 
+	return c:IsSetCard(0x62f) and c:IsFaceup() 
 end
 function c11200011.mertg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c11200011.merfilter(chkc) end

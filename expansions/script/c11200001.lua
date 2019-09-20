@@ -29,7 +29,7 @@ function c11200001.filter(c)
 	return c11200001.mfilter(c) and c:IsAbleToHand()
 end
 function c11200001.mfilter(c)
-	return c:IsSetCard(0x134) and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_RITUAL)
+	return c:IsSetCard(0x62f) and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_RITUAL)
 end
 function c11200001.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c11200001.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -50,7 +50,7 @@ function c11200001.lrcon(e,tp,eg,ep,ev,re,r,rp)
 	if lp<=ev then return false end
 	if not re then return false end
 	local rc=re:GetHandler()
-	return rc:IsLocation(LOCATION_MZONE) and rc:IsSetCard(0x134) and e:GetHandler():IsAbleToRemoveAsCost()
+	return rc:IsLocation(LOCATION_MZONE) and rc:IsSetCard(0x62f) and e:GetHandler():IsAbleToRemoveAsCost()
 end
 function c11200001.lrop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)

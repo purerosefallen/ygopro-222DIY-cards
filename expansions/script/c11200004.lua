@@ -47,7 +47,7 @@ function c11200004.ffilter(c,fc)
 	return c11200004.ffilter1(c,fc) or c11200004.ffilter2(c,fc)
 end
 function c11200004.ffilter1(c,fc)
-	return c:IsFusionSetCard(0x134) and c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial(fc) 
+	return c:IsFusionSetCard(0x62f) and c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial(fc) 
 end
 function c11200004.ffilter2(c,fc)
 	return c:IsRace(RACE_SPELLCASTER) and c:IsCanBeFusionMaterial(fc) 

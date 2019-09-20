@@ -47,12 +47,15 @@ function c1156015.initial_effect(c)
 --
 end
 --
+function c1156015.chnfilter(c)
+    return c:GetOriginalCode()==77765004 and not c:IsDisabled()
+end
 function c1156015.lkfilter(c,lc,tp)
 	local flag=c:IsFaceup() and c:IsCanBeLinkMaterial(lc)
 	if c:IsType(TYPE_MONSTER) then
 		return flag and c:IsRace(RACE_SPELLCASTER)
 	else
-		return c:IsFaceup() and c:IsType(TYPE_SPELL) and not c:IsHasEffect(EFFECT_CANNOT_BE_LINK_MATERIAL)
+		return c:IsFaceup() and c:IsType(TYPE_SPELL) and not Duel.IsExistingMatchingCard(c1156015.cknfilter,tp,0,LOCATION_SZONE,1,nil)
 	end
 end
 function c1156015.lvfilter(c)
