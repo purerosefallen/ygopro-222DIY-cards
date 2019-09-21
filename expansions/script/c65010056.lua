@@ -48,7 +48,7 @@ function c65010056.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function c65010056.desop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetMatchingGroup(c65010056.desfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
-	if Duel.Destroy(g,REASON_EFFECT)>=2 and Duel.SelectYesNo(tp,aux.Stringid(65010056,0)) then
+	if Duel.Destroy(g,REASON_EFFECT,LOCATION_REMOVED)>=2 and Duel.SelectYesNo(tp,aux.Stringid(65010056,0)) then
 		local mg=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 		if mg:GetCount()>0 then
 			Duel.HintSelection(mg)
