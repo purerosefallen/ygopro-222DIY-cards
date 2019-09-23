@@ -9,16 +9,16 @@ function c81040033.initial_effect(c)
 	e1:SetCost(c81040033.cost)
 	e1:SetOperation(c81040033.operation)
 	c:RegisterEffect(e1)
-	--tohand
+	--draw
 	local e2=Effect.CreateEffect(c)
-	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
+	e2:SetCategory(CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_REMOVE)
 	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e2:SetCountLimit(1,81040933)
-	e2:SetCondition(c81040033.thcon)
-	e2:SetTarget(c81040033.thtg)
-	e2:SetOperation(c81040033.thop)
+	e2:SetCondition(c81040033.tdcon)
+	e2:SetTarget(c81040033.tdtg)
+	e2:SetOperation(c81040033.tdop)
 	c:RegisterEffect(e2)
 end
 function c81040033.cfilter(c)
@@ -44,21 +44,19 @@ end
 function c81040033.efftg(e,c)
 	return c:IsSetCard(0x81c)
 end
-function c81040033.thcon(e,tp,eg,ep,ev,re,r,rp)
+function c81040033.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_GRAVE)
 end
-function c81040033.thfilter(c)
-	return c:IsRace(RACE_WARRIOR) and c:IsAbleToHand()
+function c81040033.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToHand,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
+	local g=Duel.GetMatchingGroup(Card.IsAbleToHand,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
-function c81040033.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c81040033.thfilter,tp,LOCATION_DECK,0,1,nil) end
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
-end
-function c81040033.thop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectMatchingCard(tp,c81040033.thfilter,tp,LOCATION_DECK,0,1,1,nil)
+function c81040033.tdop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
+	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToHand,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
 	if g:GetCount()>0 then
+		Duel.HintSelection(g)
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g)
 	end
 end

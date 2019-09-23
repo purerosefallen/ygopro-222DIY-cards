@@ -27,12 +27,8 @@ function c81016006.initial_effect(c)
 	e4:SetOperation(c81016006.lvop)
 	c:RegisterEffect(e4)
 end
-function c81016006.cfilter(c)
-	return c:IsSetCard(0x81d) and c:IsType(TYPE_MONSTER)
-end
 function c81016006.actcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_EXTRA,0)==0
-		and Duel.IsExistingMatchingCard(c81016006.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c81016006.rfilter(c,tp)
 	return c:GetSummonLocation()==LOCATION_EXTRA

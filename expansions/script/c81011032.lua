@@ -39,10 +39,10 @@ function c81011032.mfilterf(c,tp,mg,rc)
 	else return false end
 end
 function c81011032.mfilter(c)
-	return c:GetLevel()>0 and c:IsAttack(1550) and c:IsDefense(1050) and c:IsAbleToDeck()
+	return c:GetLevel()>0 and c:IsAttack(1550) and c:IsAbleToDeck()
 end
 function c81011032.sfilter(c)
-	return c:IsAttack(1550) and c:IsDefense(1050)
+	return c:IsAttack(1550)
 end
 function c81011032.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
@@ -86,7 +86,7 @@ function c81011032.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c81011032.thfilter(c)
-	return c:IsAttack(1550) and c:IsDefense(1050) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsAttack(1550) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function c81011032.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c81011032.thfilter(chkc) end

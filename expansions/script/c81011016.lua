@@ -19,7 +19,6 @@ function c81011016.initial_effect(c)
 	e2:SetCode(EVENT_REMOVE)
 	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
 	e2:SetCountLimit(1,81011916)
-	e2:SetCondition(c81011016.rtgcon)
 	e2:SetTarget(c81011016.rtgtg)
 	e2:SetOperation(c81011016.rtgop)
 	c:RegisterEffect(e2)
@@ -36,9 +35,6 @@ function c81011016.desop(e,tp,eg,ep,ev,re,r,rp)
 	if tc:IsRelateToEffect(e) then
 		Duel.Destroy(tc,REASON_EFFECT)
 	end
-end
-function c81011016.rtgcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsPreviousLocation(LOCATION_GRAVE)
 end
 function c81011016.rtgfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_RITUAL) and not c:IsCode(81011016)

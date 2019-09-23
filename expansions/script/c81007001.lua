@@ -1,6 +1,6 @@
 function c81007001.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,nil,2,99,c81007001.lcheck)
+	aux.AddLinkProcedure(c,nil,2,2,c81007001.lcheck)
 	c:EnableReviveLimit()
 	--double damage
 	local e1=Effect.CreateEffect(c)
@@ -31,44 +31,23 @@ function c81007001.dbcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsAbleToEnterBP()
 end
 function c81007001.dbfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_DUAL) and c:IsType(TYPE_MONSTER)and c:GetFlagEffect(81007001)==0
+	return c:IsFaceup() and c:IsType(TYPE_DUAL) and c:IsType(TYPE_MONSTER)
 end
 function c81007001.dbtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and c81007001.dbfilter(chkc) end
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c81007001.dbfilter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(c81007001.dbfilter,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 	Duel.SelectTarget(tp,c81007001.dbfilter,tp,LOCATION_MZONE,0,1,1,nil)
 end
 function c81007001.dbop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_CANNOT_ATTACK)
-	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetTarget(c81007001.ftarget)
-	e1:SetLabel(tc:GetFieldID())
-	e1:SetReset(RESET_PHASE+PHASE_END)
-	Duel.RegisterEffect(e1,tp)
-	if tc:IsRelateToEffect(e) then
-		tc:RegisterFlagEffect(81007001,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,0,0)
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_PRE_BATTLE_DAMAGE)
-		e1:SetCondition(c81007001.damcon)
-		e1:SetOperation(c81007001.damop)
+	if tc:IsRelateToEffect(e) and tc:IsFaceup() then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_DIRECT_ATTACK)
 		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
 	end
-end
-function c81007001.ftarget(e,c)
-	return e:GetLabel()~=c:GetFieldID()
-end
-function c81007001.damcon(e,tp,eg,ep,ev,re,r,rp)
-	return ep~=tp and e:GetHandler():GetBattleTarget()~=nil
-end
-function c81007001.damop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.ChangeBattleDamage(ep,ev*3)
 end
 function c81007001.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_MZONE)

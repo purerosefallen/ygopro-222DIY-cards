@@ -49,7 +49,7 @@ function c81012020.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	local lv=e:GetHandler():GetLevel()
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(81012020,1))
-	e:SetLabel(Duel.AnnounceLevel(tp,2,8,lv))
+	e:SetLabel(Duel.AnnounceLevel(tp,2,12,lv))
 end
 function c81012020.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

@@ -1,11 +1,13 @@
 --周子·重游古道
 function c81040004.initial_effect(c)
-	aux.AddRitualProcEqual2(c,c81040004.afilter,nil,c81040004.bfilter)
+	local e1=aux.AddRitualProcEqual2(c,c81040004.afilter,nil,c81040004.bfilter)
+	e1:SetCountLimit(1,81040004)
 	--salvage
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TOHAND)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_GRAVE)
+	e2:SetCountLimit(1,81040904)
 	e2:SetCondition(aux.exccon)
 	e2:SetCost(c81040004.thcost)
 	e2:SetTarget(c81040004.thtg)
