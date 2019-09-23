@@ -2,7 +2,7 @@
 function c11200082.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcFunRep(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0x131),2,true)
+	aux.AddFusionProcFunRep(c,aux.FilterBoolFunction(Card.IsFusionSetCard,0x62e),2,true)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DAMAGE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
@@ -29,7 +29,7 @@ function c11200082.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c11200082.rfilter(c)
-	return c:IsSetCard(0x131) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemove()
+	return c:IsSetCard(0x62e) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemove()
 end
 function c11200082.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(c11200082.rfilter,tp,LOCATION_HAND+LOCATION_MZONE+LOCATION_GRAVE,0,e:GetHandler())

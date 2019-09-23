@@ -29,11 +29,11 @@ function c65050125.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsDiscardable() end
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST+REASON_DISCARD)
 end
-function c65050125.thfilter2(c)
-	return c:IsSetCard(0x5da8) and c:IsType(TYPE_SPELL) and c:IsAbleToHand() and not c:IsType(TYPE_RITUAL)
+function c65050125.tgfilter(c)
+	return c:IsSetCard(0x5da8) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
 end
 function c65050125.tg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToGrave,tp,LOCATION_HAND,0,1,e:GetHandler()) and Duel.IsPlayerCanDraw(tp,2) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c65050125.tgfilter,tp,LOCATION_HAND,0,1,e:GetHandler()) and Duel.IsPlayerCanDraw(tp,2) end
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_HAND)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,0,0,tp,2)
 end

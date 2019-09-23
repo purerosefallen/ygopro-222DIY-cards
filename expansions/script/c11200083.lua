@@ -35,7 +35,7 @@ function c11200083.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,e:GetHandler()) end
 end
 function c11200083.rfilter(c)
-	return c:IsSetCard(0x131) and c:IsAbleToRemove()
+	return c:IsSetCard(0x62e) and c:IsAbleToRemove()
 end
 function c11200083.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -53,7 +53,7 @@ function c11200083.activate(e,tp,eg,ep,ev,re,r,rp)
 		e3:SetValue(1)
 		e3:SetReset(RESET_PHASE+PHASE_END)
 		Duel.RegisterEffect(e3,tp)
-		if g:IsExists(Card.IsSetCard,1,nil,0x131) and Duel.SelectYesNo(tp,aux.Stringid(11200083,0)) then
+		if g:IsExists(Card.IsSetCard,1,nil,0x62e) and Duel.SelectYesNo(tp,aux.Stringid(11200083,0)) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 			local g1=Duel.SelectMatchingCard(tp,c11200083.rfilter,tp,LOCATION_GRAVE+LOCATION_DECK,0,1,1,nil)
 			Duel.Remove(g1,POS_FACEUP,REASON_EFFECT)
@@ -61,7 +61,7 @@ function c11200083.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c11200083.filter(c)
-	return c:IsSetCard(0x131) and c:IsFaceup()
+	return c:IsSetCard(0x62e) and c:IsFaceup()
 end
 --function c11200083.con(e)
 --  local ph=Duel.GetCurrentPhase()
@@ -73,7 +73,7 @@ function c11200083.con(e)
 	return ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE
 end
 function c11200083.cfilter(c)
-	return c:IsSetCard(0x131) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0x62e) and c:IsType(TYPE_MONSTER)
 end
 function c11200083.ctcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and tp==rp and ((bit.band(r,REASON_BATTLE)~=0 and c11200083.cfilter(eg:GetFirst())) or (bit.band(r,REASON_EFFECT)~=0) and c11200083.cfilter(re:GetHandler()))

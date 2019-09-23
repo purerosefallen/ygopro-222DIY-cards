@@ -32,7 +32,7 @@ function c11200085.initial_effect(c)
 	
 end
 function c11200085.filter(c)
-	return c:IsSetCard(0x131) and c:IsType(TYPE_MONSTER) and c:IsFaceup()
+	return c:IsSetCard(0x62e) and c:IsType(TYPE_MONSTER) and c:IsFaceup()
 end
 function c11200085.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(c11200085.filter,tp,LOCATION_MZONE+LOCATION_REMOVED,0,1,nil)
@@ -82,7 +82,7 @@ function c11200085.activate(e,tp,eg,ep,ev,re,r,rp)
 	--Duel.RegisterEffect(e1,tp)
 end
 function c11200085.cfilter(c)
-	return c:IsSetCard(0x131) and c:IsType(TYPE_MONSTER) and c:IsOnField()
+	return c:IsSetCard(0x62e) and c:IsType(TYPE_MONSTER) and c:IsOnField()
 end
 function c11200085.ctcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep==1-tp and tp==rp and ((bit.band(r,REASON_BATTLE)~=0 and c11200085.cfilter(eg:GetFirst())) or (bit.band(r,REASON_EFFECT)~=0) and c11200085.cfilter(re:GetHandler()))
@@ -91,10 +91,10 @@ function c11200085.ctop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Damage(1-tp,550,REASON_EFFECT)
 end
 function c11200085.filter2(c)
-	return c:IsSetCard(0x131) and c:IsFaceup()
+	return c:IsSetCard(0x62e) and c:IsFaceup()
 end
 function c11200085.rcheck(c,sg)
-	return c:IsSetCard(0x131) and c:IsFaceup() and sg:IsExists(aux.TRUE,1,c)
+	return c:IsSetCard(0x62e) and c:IsFaceup() and sg:IsExists(aux.TRUE,1,c)
 end
 function c11200085.rselect(c,tp,mg,sg)
 	sg:AddCard(c)

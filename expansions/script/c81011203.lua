@@ -1,7 +1,5 @@
 --选择困难症候群 艾露玛
 function c81011203.initial_effect(c)
---选择困难症候群 艾露玛
-function c81011203.initial_effect(c)
 	--summon with s/t
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
