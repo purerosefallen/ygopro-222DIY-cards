@@ -23,7 +23,7 @@ function c33400200.initial_effect(c)
 	e3:SetHintTiming(0,TIMINGS_CHECK_MONSTER+TIMING_MAIN_END+TIMING_BATTLE_START+TIMING_BATTLE_END)
 	e3:SetCountLimit(1)
 	e3:SetTarget(c33400200.target2)
-	e3:SetCondition(c33400200.condition)
+	e3:SetCondition(c33400200.condition2)
 	e3:SetOperation(c33400200.operation2)
 	c:RegisterEffect(e3)
 	 --future record
@@ -35,7 +35,7 @@ function c33400200.initial_effect(c)
 	e4:SetCode(EVENT_FREE_CHAIN)
 	e4:SetHintTiming(0,TIMINGS_CHECK_MONSTER+TIMING_MAIN_END+TIMING_BATTLE_START+TIMING_BATTLE_END)
 	e4:SetCountLimit(1)
-	e4:SetCondition(c33400200.condition)
+	e4:SetCondition(c33400200.condition3)
 	e4:SetOperation(c33400200.operation3)
 	c:RegisterEffect(e4)
 end
@@ -44,7 +44,7 @@ function c33400200.target1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function c33400200.operation(e,tp,eg,ep,ev,re,r,rp)
 	local op=Duel.SelectOption(tp,aux.Stringid(33400200,0),aux.Stringid(33400200,1))
-	if op==0 then	 
+	if op==0 then	
 		local g=Duel.GetFieldGroup(tp,0,LOCATION_SZONE+LOCATION_MZONE):Filter(Card.IsFacedown,nil)
 		local g1=Duel.GetFieldGroup(tp,0,LOCATION_HAND)
 			g1:Merge(g)
@@ -64,7 +64,7 @@ end
 function c33400200.target2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>0 end
 end
-function c33400200.condition(e,tp,eg,ep,ev,re,r,rp)
+function c33400200.condition2(e,tp,eg,ep,ev,re,r,rp)
 	local tn=Duel.GetTurnPlayer()
 	local ph=Duel.GetCurrentPhase()
 	return tn~=tp and (ph==PHASE_MAIN1 or ph==PHASE_MAIN2 or (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE))
@@ -75,6 +75,12 @@ function c33400200.operation2(e,tp,eg,ep,ev,re,r,rp)
 		local g=Duel.GetDecktopGroup(tp,cm)
 		  Duel.ConfirmCards(tp,g)
 		  Duel.SortDecktop(tp,tp,cm)
+end
+function c33400200.condition3(e,tp,eg,ep,ev,re,r,rp)
+	local tn=Duel.GetTurnPlayer()
+	local ph=Duel.GetCurrentPhase()
+	return tn~=tp and (ph==PHASE_MAIN1 or ph==PHASE_MAIN2 or (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE))
+	and Duel.IsExistingMatchingCard(Card.IsSetCard,tp,LOCATION_GRAVE+LOCATION_ONFIELD,0,1,e:GetHandler(),0x7342)
 end
 function c33400200.operation3(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CODE)
@@ -123,7 +129,7 @@ function c33400200.operation3(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetTarget(c33400200.tgfilter)
 			e1:SetValue(1)
 			e1:SetReset(RESET_PHASE+PHASE_END)
-			Duel.RegisterEffect(e1,tp)	 
+			Duel.RegisterEffect(e1,tp)   
 	end
 end
 function c33400200.tgfilter(e,c)

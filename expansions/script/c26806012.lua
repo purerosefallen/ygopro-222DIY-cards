@@ -1,13 +1,13 @@
 --平行四界·星尘
 function c26806012.initial_effect(c)
-	--spsummon
+	--special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(26806012,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e1:SetProperty(EFFECT_FLAG_DELAY)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
-	e1:SetRange(LOCATION_HAND+LOCATION_GRAVE)
+	e1:SetRange(LOCATION_HAND)
 	e1:SetCountLimit(1,26806012)
 	e1:SetCondition(c26806012.spcon)
 	e1:SetTarget(c26806012.sptg)
@@ -26,11 +26,11 @@ function c26806012.initial_effect(c)
 	e3:SetOperation(c26806012.tdop)
 	c:RegisterEffect(e3)
 end
-function c26806012.cfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsAttack(2200) and c:IsDefense(600)
+function c26806012.spfilter(c,tp)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsAttack(2200) and c:IsDefense(600) and not c:IsCode(26806012)
 end
 function c26806012.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c26806012.cfilter,1,nil,tp)
+	return eg:IsExists(c26806012.spfilter,1,nil,tp)
 end
 function c26806012.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

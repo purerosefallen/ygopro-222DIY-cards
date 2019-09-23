@@ -30,12 +30,8 @@ function c81016009.initial_effect(c)
 	e3:SetOperation(c81016009.activate)
 	c:RegisterEffect(e3)
 end
-function c81016009.cfilter(c)
-	return c:IsSetCard(0x81d) and c:IsType(TYPE_MONSTER)
-end
 function c81016009.actcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_EXTRA,0)==0
-		and Duel.IsExistingMatchingCard(c81016009.cfilter,tp,LOCATION_MZONE,0,1,nil)
 end
 function c81016009.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp

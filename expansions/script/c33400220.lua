@@ -50,7 +50,6 @@ function c33400220.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
 	e5:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e5:SetProperty(EFFECT_FLAG_DELAY)
-	e5:SetCondition(c33400220.Eqcon1)
 	e5:SetOperation(c33400220.Eqop1)
 	c:RegisterEffect(e5)
 end
@@ -177,10 +176,6 @@ function c33400220.operation2(e,tp,eg,ep,ev,re,r,rp)
 		  Duel.SortDecktop(tp,1-tp,cm2)
 end
 --e5
-function c33400220.Eqcon1(e,tp,eg,ep,ev,re,r,rp)
-	if not re then return true end
-	return not re:IsHasType(EFFECT_TYPE_ACTIONS) or re:IsHasType(EFFECT_TYPE_CONTINUOUS)
-end
 function c33400220.Eqop1(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsLocation(LOCATION_MZONE) and Duel.GetLocationCount(tp,LOCATION_SZONE)>0 then

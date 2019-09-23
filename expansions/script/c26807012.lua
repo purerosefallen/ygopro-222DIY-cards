@@ -24,7 +24,7 @@ function c26807012.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c26807012.spfilter(c,e,tp)
-	return c:IsLevel(4) and c:IsAttack(1550) and c:IsDefense(1050) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsAttack(1550) and c:IsDefense(1050) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function c26807012.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and c26807012.spfilter(chkc,e,tp) end

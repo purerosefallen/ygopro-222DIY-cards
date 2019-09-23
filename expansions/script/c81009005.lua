@@ -3,11 +3,14 @@ function c81009005.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
 	aux.AddFusionProcFunRep(c,c81009005.ffilter,2,false)
-	--ritual material
+	--destroy replace
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_EXTRA_RITUAL_MATERIAL)
-	e1:SetValue(c81009005.mtval)
+	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EFFECT_DESTROY_REPLACE)
+	e1:SetRange(LOCATION_GRAVE)
+	e1:SetTarget(c81009005.reptg)
+	e1:SetValue(c81009005.repval)
+	e1:SetOperation(c81009005.repop)
 	c:RegisterEffect(e1)
 	--fusion summon
 	local e2=Effect.CreateEffect(c)
@@ -23,9 +26,6 @@ function c81009005.initial_effect(c)
 end
 function c81009005.ffilter(c)
 	return c:IsFusionType(TYPE_EFFECT) and c:GetBaseAttack()>=2000
-end
-function c81009005.mtval(e,c)
-	return c:IsType(TYPE_PENDULUM)
 end
 function c81009005.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -95,4 +95,18 @@ function c81009005.spop(e,tp,eg,ep,ev,re,r,rp)
 			tc:CompleteProcedure()
 		end
 	end
+end
+function c81009005.repfilter(c,tp)
+	return c:IsFaceup() and c:IsType(TYPE_FUSION) and c:IsLocation(LOCATION_MZONE)
+		and c:IsControler(tp) and c:IsReason(REASON_EFFECT+REASON_BATTLE) and not c:IsReason(REASON_REPLACE)
+end
+function c81009005.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsAbleToRemove() and eg:IsExists(c81009005.repfilter,1,nil,tp) end
+	return Duel.SelectEffectYesNo(tp,e:GetHandler(),96)
+end
+function c81009005.repval(e,c)
+	return c81009005.repfilter(c,e:GetHandlerPlayer())
+end
+function c81009005.repop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_EFFECT)
 end

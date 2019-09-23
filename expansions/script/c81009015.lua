@@ -1,7 +1,7 @@
 --神秘的女神·高垣枫
 function c81009015.initial_effect(c)
 	--link summon
-	aux.AddLinkProcedure(c,c81009015.matfilter,3,3,c81009015.lcheck)
+	aux.AddLinkProcedure(c,nil,3,3,c81009015.lcheck)
 	c:EnableReviveLimit()
 	--cannot link material
 	local e0=Effect.CreateEffect(c)
@@ -37,9 +37,6 @@ function c81009015.initial_effect(c)
 	e3:SetTarget(c81009015.mttg)
 	e3:SetOperation(c81009015.mtop)
 	c:RegisterEffect(e3)
-end
-function c81009015.matfilter(c)
-	return not c:IsLinkType(TYPE_TOKEN)
 end
 function c81009015.lcheck(g,lc)
 	return g:IsExists(Card.IsLinkType,1,nil,TYPE_XYZ)

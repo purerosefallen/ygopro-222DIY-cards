@@ -40,7 +40,7 @@ function c81012009.mfilter(c)
 	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_PENDULUM)
 end
 function c81012009.ovfilter(c)
-	return c:IsFaceup() and c:IsCode(81012008)
+	return c:IsFaceup() and c:IsRace(RACE_PYRO) and c:IsType(TYPE_LINK)
 end
 function c81012009.mtfilter(c,e)
 	return (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsType(TYPE_RITUAL) and c:IsType(TYPE_PENDULUM) and not c:IsImmuneToEffect(e)

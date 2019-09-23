@@ -20,7 +20,6 @@ function c81011107.initial_effect(c)
 	e2:SetOperation(c81011107.spop)
 	c:RegisterEffect(e2)
 end
-c81011107.fit_monster={81011106}
 function c81011107.cfilter(c,e,tp,m)
 	if bit.band(c:GetType(),0x81)~=0x81 or not c:IsType(TYPE_PENDULUM)
 		or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
@@ -28,7 +27,7 @@ function c81011107.cfilter(c,e,tp,m)
 	return mg:CheckWithSumGreater(Card.GetRitualLevel,c:GetLevel(),c)
 end
 function c81011107.mfilter(c)
-	return c:IsAttack(1550) and c:IsDefense(1050)
+	return c:IsAttack(1550)
 end
 function c81011107.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

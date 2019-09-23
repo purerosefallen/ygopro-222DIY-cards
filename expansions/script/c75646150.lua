@@ -14,7 +14,7 @@ function c75646150.initial_effect(c)
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_EQUIP)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
-	e2:SetValue(1000)
+	e2:SetValue(2000)
 	e2:SetCondition(c75646150.con)
 	c:RegisterEffect(e2)
 	--
@@ -63,7 +63,7 @@ function c75646150.operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if e:GetHandler():IsRelateToEffect(e) and tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		Duel.Equip(tp,e:GetHandler(),tc)
-		e:GetHandler():AddCounter(0x1b,2)
+		e:GetHandler():AddCounter(0x1b,4)
 	end
 end
 function c75646150.con(e)
@@ -76,6 +76,7 @@ function c75646150.actcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function c75646150.actop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
+	local tc=c:GetEquipTarget()
 	if not c:IsRelateToEffect(e) then return end
 	c:RemoveCounter(tp,0x1b,1,REASON_EFFECT)
 	local e1=Effect.CreateEffect(c)
@@ -86,6 +87,25 @@ function c75646150.actop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetValue(1)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
+	e2:SetCode(EVENT_DAMAGE_STEP_END)
+	e2:SetOperation(c75646150.adop)
+	e2:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_DAMAGE)
+	tc:RegisterEffect(e2,true)
+end
+function c75646150.adop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local coin=Duel.TossCoin(tp,1)
+	if coin==1 then
+		local e3=Effect.CreateEffect(e:GetOwner())
+		e3:SetType(EFFECT_TYPE_SINGLE)
+		e3:SetCode(EFFECT_UPDATE_ATTACK)
+		e3:SetReset(RESET_EVENT+RESETS_STANDARD)
+		e3:SetValue(300)
+		c:RegisterEffect(e3)
+		Duel.ChainAttack()
+	end
 end
 function c75646150.cfilter(c)
 	return aux.IsCodeListed(c,75646000) and c:IsAbleToRemoveAsCost()

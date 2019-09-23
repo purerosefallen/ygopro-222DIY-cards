@@ -1,5 +1,7 @@
 --选择困难症候群 艾露玛
 function c81011203.initial_effect(c)
+--选择困难症候群 艾露玛
+function c81011203.initial_effect(c)
 	--summon with s/t
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
@@ -15,7 +17,7 @@ function c81011203.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e1:SetProperty(EFFECT_FLAG_DELAY)
 	e1:SetCode(EVENT_SUMMON_SUCCESS)
-	e1:SetRange(LOCATION_HAND+LOCATION_GRAVE)
+	e1:SetRange(LOCATION_GRAVE)
 	e1:SetCountLimit(1,81011203)
 	e1:SetCondition(c81011203.spcon)
 	e1:SetTarget(c81011203.sptg)
@@ -68,7 +70,7 @@ function c81011203.cfilter(c,tp)
 	return c:GetSummonPlayer()==tp and c:IsSummonType(SUMMON_TYPE_ADVANCE) and c:IsRace(RACE_DRAGON)
 end
 function c81011203.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(c81011203.cfilter,1,nil,tp)
+	return eg:IsExists(c81011203.cfilter,1,nil,tp) and aux.exccon(e)
 end
 function c81011203.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
