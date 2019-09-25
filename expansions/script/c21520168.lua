@@ -104,7 +104,7 @@ function c21520168.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not c:IsSetCard(0x490)
 end
 function c21520168.tohandfilter(c)
-	return c:IsSetCard(0x490) and c:IsAbleToHand() and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(0x490) and c:IsAbleToHand()
 end
 function c21520168.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return (chkc:GetControler()==tp and chkc:GetLocation()==LOCATION_GRAVE and c21520168.tohandfilter(chkc)) end

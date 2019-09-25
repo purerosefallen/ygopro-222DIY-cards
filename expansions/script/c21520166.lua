@@ -105,7 +105,7 @@ function c21520166.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp
 end
 function c21520166.thfilter(c)
-	return c:IsSetCard(0x490) and c:IsLevelBelow(4) and c:IsAbleToHand()
+	return c:IsSetCard(0x490) and c:IsLevelBelow(4) and c:IsAbleToHand() and c:IsType(TYPE_MONSTER)
 end
 function c21520166.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c21520166.thfilter,tp,LOCATION_DECK,0,1,nil) end

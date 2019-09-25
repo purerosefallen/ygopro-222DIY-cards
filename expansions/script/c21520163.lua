@@ -73,7 +73,7 @@ function c21520163.ccost(e,tp)
 	end
 end
 function c21520163.rfilter(c)
-	return (c:IsAttribute(ATTRIBUTE_DARK) or c:IsAttribute(ATTRIBUTE_LIGHT)) and c:IsAbleToGraveAsCost()
+	return (c:IsAttribute(ATTRIBUTE_DARK) or c:IsAttribute(ATTRIBUTE_LIGHT)) and c:IsAbleToGraveAsCost() and c:IsType(TYPE_MONSTER)
 end
 function c21520163.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c21520163.rfilter,tp,LOCATION_DECK,0,1,nil) end

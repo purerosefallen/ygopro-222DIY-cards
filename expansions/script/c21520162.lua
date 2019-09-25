@@ -91,7 +91,7 @@ function c21520162.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmDecktop(p,1)
 		local tc=g:GetFirst()
 		local ops=2
-		if tc:IsSetCard(0x490) and (tc:IsCanBeSpecialSummoned(e,0,p,false,false) or tc:IsAbleToGrave()) then 
+		if tc:IsSetCard(0x490) and tc:IsType(TYPE_MONSTER) and (tc:IsCanBeSpecialSummoned(e,0,p,false,false) or tc:IsAbleToGrave()) then 
 			if Duel.GetLocationCount(p,LOCATION_MZONE)>0 then ops=Duel.SelectOption(p,aux.Stringid(21520162,4),aux.Stringid(21520162,5)) 
 			else 
 				ops=1 

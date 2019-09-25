@@ -41,7 +41,7 @@ function c21520189.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c21520189.pfilter(c)
-	return c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK) and not c:IsPublic()
+	return c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK) and not c:IsPublic() and c:IsType(TYPE_MONSTER)
 end
 function c21520189.spfilter(c,e,tp)
 	return c:IsSetCard(0x490) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsType(TYPE_MONSTER)
@@ -137,7 +137,7 @@ function c21520189.sdrop(e,tp,eg,ep,ev,re,r,rp)
 			e1:SetCode(EFFECT_CANNOT_ACTIVATE)
 			e1:SetTargetRange(1,0)
 			e1:SetValue(c21520189.aclimit)
-			e1:SetReset(RESET_PHASE+PHASE_END+RESET_OPPO_TURN)
+			e1:SetReset(RESET_EVENT+0x1fe0000)
 			tc:RegisterEffect(e1)
 			--destroy
 			local e2=Effect.CreateEffect(c)

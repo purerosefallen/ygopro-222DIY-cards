@@ -35,13 +35,11 @@ function cm.ngcon(e,tp,eg,ep,ev,re,r,rp,chk)
 		and not re:GetHandler():IsType(TYPE_TOKEN)
 end
 function cm.ngcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	--local og=e:GetHandler():GetOverlayGroup()
-   -- if chk==0 then return og:GetCount()>0 and og:IsExists(Card.IsSetCard,1,nil,0x556) end
-   -- Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVEXYZ)
-   -- local g=og:FilterSelect(tp,Card.IsSetCard,1,1,nil,0x556)
-   -- Duel.SendtoGrave(g,REASON_COST)
-	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
-	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
+	local og=e:GetHandler():GetOverlayGroup()
+	if chk==0 then return og:GetCount()>0 and og:IsExists(Card.IsSetCard,1,nil,0x556) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVEXYZ)
+	local g=og:FilterSelect(tp,Card.IsSetCard,1,1,nil,0x556)
+	Duel.SendtoGrave(g,REASON_COST)
 end
 function cm.ngtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsType(TYPE_XYZ) end
@@ -59,7 +57,7 @@ function cm.ngop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 --Destroy Replace
-function cm.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
+function cm.reptg(e,c)
 	if chk==0 then return not c:IsReason(REASON_REPLACE) and c:IsReason(REASON_EFFECT)
 		and e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_EFFECT) end
 	if Duel.SelectEffectYesNo(tp,e:GetHandler(),96) then

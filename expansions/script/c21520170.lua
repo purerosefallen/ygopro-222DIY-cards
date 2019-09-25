@@ -72,7 +72,7 @@ function c21520170.ccost(e,tp)
 	end
 end
 function c21520170.spfilter(c,e,tp)
-	return c:IsLevelBelow(4) and c:IsSetCard(0x490) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsLevelBelow(4) and c:IsSetCard(0x490) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsType(TYPE_MONSTER)
 end
 function c21520170.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c21520170.spfilter,tp,LOCATION_REMOVED,0,1,nil,e,tp) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end

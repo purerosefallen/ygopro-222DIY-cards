@@ -76,11 +76,11 @@ end
 function cm.indtg(e,c)
 	return c:IsFaceup() and c:IsSetCard(0x556)
 end
-function cm.indval1(e,re)
-	return aux.indoval(e,re) and re:IsActiveType(TYPE_SPELL)
+function cm.indval1(e,re,rp)
+	return aux.indoval(e,re,rp) and re:IsActiveType(TYPE_SPELL)
 end
-function cm.indval2(e,re)
-	return aux.indoval(e,re) and re:IsActiveType(TYPE_MONSTER)
+function cm.indval2(e,re,rp)
+	return aux.indoval(e,re,rp) and re:IsActiveType(TYPE_MONSTER)
 end
 function cm.efilter(e,te)
 	return te:GetOwnerPlayer()~=e:GetHandlerPlayer() and te:IsActiveType(TYPE_TRAP)

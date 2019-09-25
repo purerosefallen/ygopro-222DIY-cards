@@ -26,7 +26,7 @@ function c21520176.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function c21520176.spfilter(c,e,tp)
-	return c:IsSetCard(0x490) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x490) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:IsType(TYPE_MONSTER)
 end
 function c21520176.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_MAIN1 and not Duel.CheckPhaseActivity()
@@ -86,7 +86,7 @@ function c21520176.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DisableShuffleCheck()
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 	local tf=0
-	if g:GetFirst():IsSetCard(0x490) then tf=1 end 
+	if g:GetFirst():IsSetCard(0x490) and g:GetFirst():IsType(TYPE_MONSTER) then tf=1 end 
 	e:SetLabel(tf)
 end
 function c21520176.thtg(e,tp,eg,ep,ev,re,r,rp,chk)

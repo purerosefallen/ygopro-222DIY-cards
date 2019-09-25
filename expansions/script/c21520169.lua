@@ -72,7 +72,7 @@ function c21520169.ccost(e,tp)
 	end
 end
 function c21520169.dfilter(c)
-	return (c:IsAttribute(ATTRIBUTE_LIGHT) or c:IsAttribute(ATTRIBUTE_DARK)) and not c:IsPublic() 
+	return (c:IsAttribute(ATTRIBUTE_LIGHT) or c:IsAttribute(ATTRIBUTE_DARK)) and not c:IsPublic() and c:IsType(TYPE_MONSTER)
 end
 function c21520169.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c21520169.dfilter,tp,LOCATION_HAND,0,1,nil) end

@@ -116,9 +116,9 @@ end
 
 function c21520165.cfilter(c,stname)
 	if stname==nil then 
-		return (c:IsAttribute(ATTRIBUTE_LIGHT) or c:IsAttribute(ATTRIBUTE_DARK)) and c:IsAbleToGrave()
+		return (c:IsAttribute(ATTRIBUTE_LIGHT) or c:IsAttribute(ATTRIBUTE_DARK)) and c:IsAbleToGrave() and c:IsType(TYPE_MONSTER)
 	else 
-		return c:IsSetCard(stname) and c:IsAbleToGrave()
+		return c:IsSetCard(stname) and c:IsAbleToGrave() and c:IsType(TYPE_MONSTER)
 	end
 end
 function c21520165.cost1(e,tp,eg,ep,ev,re,r,rp,chk)
