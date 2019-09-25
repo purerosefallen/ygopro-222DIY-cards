@@ -1,7 +1,7 @@
 --深界遗物 探窟者的白笛
 local m=33330034
 local cm=_G["c"..m]
-cm.counter=0x1019   --指 示 物
+cm.counter=0x1556   --指 示 物
 cm.atk=500  --攻 击 力
 function cm.initial_effect(c)
 	--Activate

@@ -121,12 +121,12 @@ function cm.lvop(e,tp,eg,ep,ev,re,r,rp)
 	local sg=Duel.GetMatchingGroup(cm.lvfilter,tp,LOCATION_MZONE,0,nil)
 	local tc=sg:GetFirst()
 	while tc do
-		local e1=Effect.CreateEffect(c)
+		local e1=Effect.CreateEffect(tc)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CHANGE_LEVEL)
 		e1:SetValue(8)
 		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
-		c:RegisterEffect(e1)
+		tc:RegisterEffect(e1)
 		tc=sg:GetNext()
 	end
 end

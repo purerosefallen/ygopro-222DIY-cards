@@ -77,5 +77,5 @@ function c14801962.spop(e,tp,eg,ep,ev,re,r,rp,c)
     Duel.Release(sg,REASON_COST+REASON_FUSION+REASON_MATERIAL)
 end
 function c14801962.antarget(e,c,sump,sumtype,sumpos,targetp)
-    return c:IsAttackBelow(3000)
+    return c:IsAttackAbove(3000)
 end

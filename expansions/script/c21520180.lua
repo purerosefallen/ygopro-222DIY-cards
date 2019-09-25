@@ -123,13 +123,13 @@ end
 function c21520180.fstg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then 
 		local mg=Duel.GetMatchingGroup(c21520180.fmfilter,tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,0,nil,e)
-		return Duel.GetLocationCountFromEx(tp)>0
+		return Duel.GetLocationCountFromEx(tp,tp,mg)>0
 			and Duel.IsExistingMatchingCard(c21520180.fsfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
 function c21520180.fsop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetLocationCountFromEx(tp)<=0 then return end
 	local mg=Duel.GetMatchingGroup(c21520180.fmfilter,tp,LOCATION_HAND+LOCATION_ONFIELD+LOCATION_GRAVE,0,nil,e)
+	if Duel.GetLocationCountFromEx(tp,tp,mg)<=0 then return end
 	local sg=Duel.GetMatchingGroup(c21520180.fsfilter,tp,LOCATION_EXTRA,0,nil,e,tp,mg)
 	if sg:GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
@@ -147,7 +147,7 @@ function c21520180.fsop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Remove(mat,POS_FACEUP,REASON_EFFECT+REASON_MATERIAL+REASON_FUSION)
 		local tc=Duel.GetFirstMatchingCard(c21520180.procfilter,tp,LOCATION_EXTRA,0,nil,code,e,tp)
 		if not tc then return end
-		if Duel.GetLocationCountFromEx(tp)<=0 then
+		if Duel.GetLocationCountFromEx(tp,tp,mg)<=0 then
 			Duel.SendtoGrave(tc,REASON_EFFECT)
 			tc:CompleteProcedure()
 		else

@@ -37,6 +37,13 @@ function c81009015.initial_effect(c)
 	e3:SetTarget(c81009015.mttg)
 	e3:SetOperation(c81009015.mtop)
 	c:RegisterEffect(e3)
+	--effect gain
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e4:SetCode(EVENT_BE_MATERIAL)
+	e4:SetCondition(c81009015.efcon)
+	e4:SetOperation(c81009015.efop)
+	c:RegisterEffect(e4)
 end
 function c81009015.lcheck(g,lc)
 	return g:IsExists(Card.IsLinkType,1,nil,TYPE_XYZ)
@@ -76,4 +83,24 @@ function c81009015.mtop(e,tp,eg,ep,ev,re,r,rp)
 	if g:GetCount()>0 then
 		Duel.Overlay(c,g)
 	end
+end
+function c81009015.efcon(e,tp,eg,ep,ev,re,r,rp)
+	return r==REASON_XYZ
+end
+function c81009015.efop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	local rc=c:GetReasonCard()
+	local e1=Effect.CreateEffect(rc)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e1:SetCondition(c81009015.sumcon)
+	e1:SetOperation(c81009015.sumsuc)
+	e1:SetReset(RESET_EVENT+RESETS_STANDARD)
+	rc:RegisterEffect(e1,true)
+end
+function c81009015.sumcon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ)
+end
+function c81009015.sumsuc(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_MUSIC,0,aux.Stringid(81009011,1))
 end
