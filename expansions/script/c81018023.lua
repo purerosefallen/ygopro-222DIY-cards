@@ -7,9 +7,8 @@ function c81018023.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e1:SetCode(EVENT_BATTLE_DAMAGE)
 	e1:SetRange(LOCATION_HAND)
-	e1:SetCode(EVENT_DAMAGE)
-	e1:SetProperty(EFFECT_FLAG_DELAY)
 	e1:SetCountLimit(1,81018023)
 	e1:SetCondition(c81018023.sumcon)
 	e1:SetTarget(c81018023.sumtg)
@@ -40,7 +39,7 @@ function c81018023.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c81018023.sumcon(e,tp,eg,ep,ev,re,r,rp)
-	return bit.band(r,REASON_BATTLE)~=0 and ep~=tp
+	return ep~=tp
 end
 function c81018023.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
