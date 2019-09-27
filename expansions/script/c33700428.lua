@@ -5,7 +5,7 @@ local s = c33700428
 local id = 33700428
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	aux.AddLinkProcedure(c, aux.FilterBoolFunctionEx(Card.IsType, TYPE_TOKEN), 4, 4)
+	aux.AddLinkProcedure(c,aux.FilterBoolFunction(Card.IsLinkType,TYPE_EFFECT),4,4)
 	--battle indestructable
 	local e1 = Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)

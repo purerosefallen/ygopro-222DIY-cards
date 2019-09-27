@@ -6,6 +6,7 @@ cm.dfc_back_side=m-1
 function cm.initial_effect(c)
 	Senya.DFCBackSideCommonEffect(c)
 	c:EnableReviveLimit()
+	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetCode(EFFECT_DESTROY_REPLACE)

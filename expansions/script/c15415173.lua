@@ -12,7 +12,7 @@ function c15415173.initial_effect(c)
 	e1:SetOperation(c15415173.activate)
 	c:RegisterEffect(e1)	
 end
-function c15415158.ctcon(e,tp,eg,ep,ev,re,r,rp)
+function c15415173.ctcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(Card.IsSetCard,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil,0x167)
 end
 function c15415173.filter(c)

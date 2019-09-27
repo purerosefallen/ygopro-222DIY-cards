@@ -59,7 +59,7 @@ function c12031010.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local g=Duel.SelectTarget(tp,aux.TRUE,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
-function c12031001.thfilter(c)
+function c12031010.thfilter(c)
 	return c:IsCode(12031000) and c:IsAbleToHand()
 end
 function c12031010.desop(e,tp,eg,ep,ev,re,r,rp)

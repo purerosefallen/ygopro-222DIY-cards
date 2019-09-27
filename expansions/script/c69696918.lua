@@ -2,18 +2,18 @@
 local m=69696918
 local cm=_G["c"..m]
 function cm.initial_effect(c)
-	cm.AddLinkProcedure(c,nil,2,99,cm.lcheck)
+	aux.AddLinkProcedure(c,nil,2,99,cm.lcheck)
 	c:EnableReviveLimit()
 	--extra link
-    local e0=Effect.CreateEffect(c)
-    e0:SetType(EFFECT_TYPE_FIELD)
-    e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_IGNORE_IMMUNE)
-    e0:SetRange(LOCATION_EXTRA)
-    e0:SetTarget(cm.mattg)
-    e0:SetCode(EFFECT_EXTRA_LINK_MATERIAL)
-    e0:SetTargetRange(LOCATION_EXTRA,0)
-    e0:SetValue(cm.matval)
-    c:RegisterEffect(e0)
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_FIELD)
+	e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_IGNORE_IMMUNE)
+	e0:SetRange(LOCATION_EXTRA)
+	e0:SetTarget(cm.mattg)
+	e0:SetCode(EFFECT_EXTRA_LINK_MATERIAL)
+	e0:SetTargetRange(LOCATION_EXTRA,0)
+	e0:SetValue(cm.matval)
+	c:RegisterEffect(e0)
 	--destroy
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(m,0))
@@ -39,10 +39,10 @@ function cm.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function cm.mattg(e,c)
-    return c:IsRace(RACE_SPELLCASTER) and c:IsFaceup()
+	return c:IsRace(RACE_SPELLCASTER) and c:IsFaceup()
 end
 function cm.matval(e,c,mg)
-    return c:IsCode(69696918)
+	return c:IsCode(69696918)
 end
 function cm.lcheck(g,lc)
 	return g:IsExists(Card.IsRace,1,nil,RACE_SPELLCASTER)

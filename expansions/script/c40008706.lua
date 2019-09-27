@@ -63,18 +63,18 @@ function c40008706.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
-function c40164421.cfilter(c)
+function c40008706.cfilter(c)
 	return c:IsSetCard(0xf14) 
 end
-function c40164421.thfilter(c,lv)
+function c40008706.thfilter(c,lv)
 	return c:IsLevelBelow(lv) and c:IsRace(RACE_DRAGON) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function c40164421.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+function c40008706.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return false end
-		local g=Duel.GetMatchingGroup(c40164421.cfilter,tp,LOCATION_REMOVED,0,nil)
+		local g=Duel.GetMatchingGroup(c40008706.cfilter,tp,LOCATION_REMOVED,0,nil)
 		local ct=g:GetClassCount(Card.GetCode)
-		return Duel.IsExistingMatchingCard(c40164421.thfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp,ct)
+		return Duel.IsExistingMatchingCard(c40008706.thfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp,ct)
 	end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
 end

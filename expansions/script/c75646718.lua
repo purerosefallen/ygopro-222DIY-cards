@@ -97,4 +97,4 @@ function c75646718.op(e,tp,eg,ep,ev,re,r,rp)
 		if cost then cost(te,tep,eg,ep,ev,re,r,rp,1) end
 		Duel.RaiseEvent(tc,4179255,te,0,tp,tp,Duel.GetCurrentChain())
 	end
-endnd
+end

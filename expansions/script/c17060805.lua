@@ -52,7 +52,6 @@ function cm.initial_effect(c)
 	e5:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e5:SetRange(LOCATION_EXTRA)
 	e5:SetHintTiming(0,TIMING_END_PHASE+TIMING_EQUIP)
-	e5:SetProperty()
 	e5:SetCondition(cm.xyzcon)
 	e5:SetCost(cm.xyzcost1)
 	e5:SetTarget(cm.xyztg1)
@@ -75,11 +74,11 @@ function cm.IsMillion_Arthur(c)
 	return m and m.is_named_with_Million_Arthur
 end
 function iCount(name,tp,m,id)
-    return ((name=="get" or name=="set")
-        and {(name=="get"
-            and {tonumber(((Duel.GetFlagEffect(tp,m)==nil) and {0} or {Duel.GetFlagEffect(tp,m)})[1])} 
-            or { Debug.Message("","请使用Duel.RegisterFlagEffect(tp,m,RESET_PHASE+PHASE_END,0,1)") })[1]}
-        or {(bit.band(iCount("get",tp,m,id),math.pow(2,id-1))==0 and {true} or {false})[1]})[1]
+	return ((name=="get" or name=="set")
+		and {(name=="get"
+			and {tonumber(((Duel.GetFlagEffect(tp,m)==nil) and {0} or {Duel.GetFlagEffect(tp,m)})[1])} 
+			or { Debug.Message("","请使用Duel.RegisterFlagEffect(tp,m,RESET_PHASE+PHASE_END,0,1)") })[1]}
+		or {(bit.band(iCount("get",tp,m,id),math.pow(2,id-1))==0 and {true} or {false})[1]})[1]
 end
 function cm.ovfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_PENDULUM) and c:IsType(TYPE_XYZ)

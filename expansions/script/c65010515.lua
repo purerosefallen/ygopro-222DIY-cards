@@ -7,7 +7,7 @@ function cm.initial_effect(c)
 	c:AddLinkProcedure(nil,2,3,cm.gf)
 	local e1=rsef.QO(c,nil,{m,1},{1,m},"sp",nil,LOCATION_MZONE,rscon.phmp,nil,rsop.target2(cm.fun,cm.lfilter,"sp",LOCATION_EXTRA),cm.spop)
 end
-cm.rssetcode=="URBEX"
+cm.rssetcode="URBEX"
 function cm.gf(g)
 	return g:IsExists(rscf.CheckSetCard,1,nil,"URBEX")
 end
