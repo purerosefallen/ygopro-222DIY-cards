@@ -94,7 +94,7 @@ function c81006008.atkval(e,c)
 	return Duel.GetMatchingGroupCount(Card.IsType,c:GetControler(),LOCATION_GRAVE,LOCATION_GRAVE,nil,TYPE_RITUAL)*300
 end
 function c81006008.negcon(e,tp,eg,ep,ev,re,r,rp)
-	return ep~=tp
+	return ep~=tp and Duel.IsExistingMatchingCard(nil,tp,LOCATION_PZONE,0,1,nil)
 end
 function c81006008.thcfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsDiscardable()
