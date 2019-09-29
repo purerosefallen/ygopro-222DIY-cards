@@ -85,7 +85,7 @@ end
 function c33700170.damfilter(c)
 	return not c:IsSetCard(0x3440) 
 end
-function c33700170.op(e,tp,eg,ep,ev,re,r,rp).op(e,tp,eg,ep,ev,re,r,rp)
+function c33700170.op(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
 	Duel.ConfirmDecktop(p,5)

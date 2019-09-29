@@ -58,7 +58,6 @@ function c12009043.hspop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)
-	end
 end
 function c12009043.filter(c,e,sp)
 	return c:IsCode(12009040) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)

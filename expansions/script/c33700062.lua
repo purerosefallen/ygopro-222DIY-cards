@@ -1,7 +1,15 @@
 --动物朋友 PPP×动物饼干
 function c33700062.initial_effect(c)
-	 c:EnableUnsummonable()
- --special summon condition
+	--summon limit
+	local ea=Effect.CreateEffect(c)
+	ea:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	ea:SetType(EFFECT_TYPE_SINGLE)
+	ea:SetCode(EFFECT_CANNOT_SUMMON)
+	c:RegisterEffect(ea)
+	local eb=ea:Clone()
+	eb:SetCode(EFFECT_CANNOT_MSET)
+	c:RegisterEffect(eb)
+	--special summon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SPSUMMON_CONDITION)

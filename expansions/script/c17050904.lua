@@ -2,7 +2,15 @@
 local m=17050904
 local cm=_G["c"..m]
 function cm.initial_effect(c)
-	c:EnableUnsummonable()
+	--summon limit
+	local ea=Effect.CreateEffect(c)
+	ea:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	ea:SetType(EFFECT_TYPE_SINGLE)
+	ea:SetCode(EFFECT_CANNOT_SUMMON)
+	c:RegisterEffect(ea)
+	local eb=ea:Clone()
+	eb:SetCode(EFFECT_CANNOT_MSET)
+	c:RegisterEffect(eb)
 	--indes
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)

@@ -115,7 +115,7 @@ function cm.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 	local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,0,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
-	Duel.SetChainLimit(cm. )
+	Duel.SetChainLimit(cm.chlimit)
 end
 function cm.chlimit(e,ep,tp)
 	return tp==ep

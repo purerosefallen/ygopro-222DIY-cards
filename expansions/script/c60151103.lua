@@ -1,6 +1,14 @@
 --├风语者 妲修斯┤
 function c60151103.initial_effect(c)
-	c:EnableUnsummonable()
+	--summon limit
+	local ea=Effect.CreateEffect(c)
+	ea:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	ea:SetType(EFFECT_TYPE_SINGLE)
+	ea:SetCode(EFFECT_CANNOT_SUMMON)
+	c:RegisterEffect(ea)
+	local eb=ea:Clone()
+	eb:SetCode(EFFECT_CANNOT_MSET)
+	c:RegisterEffect(eb)
 	--special summon
 	local e11=Effect.CreateEffect(c)
 	e11:SetType(EFFECT_TYPE_FIELD)

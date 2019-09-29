@@ -74,6 +74,10 @@ function c75646718.repop(e,tp,eg,ep,ev,re,r,rp)
 	end
 	Duel.Destroy(tg,REASON_EFFECT+REASON_REPLACE)
 end
+function c75646718.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end
+	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
+end
 function c75646718.filter(c,tp)
 	return c:IsCode(75646701) and c:GetActivateEffect() and c:GetActivateEffect():IsActivatable(tp,true,true)
 end

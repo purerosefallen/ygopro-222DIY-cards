@@ -46,6 +46,38 @@ function s.initial_effect(c)
 	e5:SetTarget(s.drtg)
 	e5:SetOperation(s.drop)
 	c:RegisterEffect(e5)
+	--Activate
+	local ea=Effect.CreateEffect(c)
+	ea:SetCategory(CATEGORY_EQUIP)
+	ea:SetType(EFFECT_TYPE_ACTIVATE)
+	ea:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	ea:SetCode(EVENT_FREE_CHAIN)
+	ea:SetTarget(s.target)
+	ea:SetOperation(s.operation)
+	c:RegisterEffect(ea)
+	--Equip limit
+	local eb=Effect.CreateEffect(c)
+	eb:SetType(EFFECT_TYPE_SINGLE)
+	eb:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	eb:SetCode(EFFECT_EQUIP_LIMIT)
+	eb:SetValue(s.eqlimit)
+	c:RegisterEffect(eb)
+end
+function s.eqlimit(e,c)
+	return c:IsControler(e:GetHandlerPlayer())
+end
+function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and chkc:IsFaceup() end
+	if chk==0 then return Duel.IsExistingTarget(Card.IsFaceup,tp,LOCATION_MZONE,0,1,nil) end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
+	Duel.SelectTarget(tp,Card.IsFaceup,tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_EQUIP,e:GetHandler(),1,0,0)
+end
+function s.operation(e,tp,eg,ep,ev,re,r,rp)
+	local tc=Duel.GetFirstTarget()
+	if e:GetHandler():IsRelateToEffect(e) and tc:IsRelateToEffect(e) and tc:IsFaceup() and tc:IsControler(tp) then
+		Duel.Equip(tp,e:GetHandler(),tc)
+	end
 end
 
 function s.atkcon(e, tp, eg, ep, ev, re, r, rp)
