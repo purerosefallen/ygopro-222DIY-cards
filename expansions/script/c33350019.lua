@@ -22,6 +22,7 @@ function c33350019.initial_effect(c)
 	e21:SetCode(EVENT_TO_GRAVE)
 	e21:SetCondition(c33350019.spcon)
 	e21:SetTarget(c33350019.sptg)
+	e21:SetCountLimit(1,33350056)
 	e21:SetOperation(c33350019.spop)
 	c:RegisterEffect(e21)  
 	--destroy

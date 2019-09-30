@@ -23,6 +23,9 @@ function cm.tgop(e,tp)
 		Duel.Remove(tc,POS_FACEUP,REASON_RULE)
 	else
 		Duel.ChangePosition(tc,POS_FACEDOWN_DEFENSE)
+	   if tc:IsFaceup() then
+		Duel.Remove(tc,POS_FACEUP,REASON_RULE)
+	   end
 	end
 end
 function cm.fun(g,e,tp)
