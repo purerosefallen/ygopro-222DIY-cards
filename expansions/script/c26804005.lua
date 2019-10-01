@@ -1,14 +1,10 @@
 --篱下公主·德川茉莉
+require("expansions/script/c26800000")
 function c26804005.initial_effect(c)
 	--xyz summon
 	aux.AddXyzProcedure(c,nil,5,2)
 	c:EnableReviveLimit()
-		--cannot attack
-	local e0=Effect.CreateEffect(c)
-	e0:SetType(EFFECT_TYPE_SINGLE)
-	e0:SetCode(EFFECT_CANNOT_ATTACK)
-	e0:SetCondition(c26804005.atcon)
-	c:RegisterEffect(e0)
+	Amana.AttackBelow(c)
 	--atkup
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_ATKCHANGE)
@@ -34,9 +30,6 @@ function c26804005.initial_effect(c)
 	e5:SetTarget(c26804005.sptg)
 	e5:SetOperation(c26804005.spop)
 	c:RegisterEffect(e5)
-end
-function c26804005.atcon(e)
-	return e:GetHandler():GetAttack()>=2000
 end
 function c26804005.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()
