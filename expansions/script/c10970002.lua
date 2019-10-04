@@ -62,7 +62,6 @@ function c10970002.spop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_EVENT+0x1fe0000)
 		e1:SetValue(0x1233)
 		c:RegisterEffect(e1,true)
-		c:AddMonsterAttributeComplete()
 		Duel.SpecialSummonComplete()
 	end
 end

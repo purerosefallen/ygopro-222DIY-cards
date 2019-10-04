@@ -63,7 +63,6 @@ function c10970008.spop(e,tp,eg,ep,ev,re,r,rp)
 		e2:SetReset(RESET_EVENT+0x47e0000)
 		e2:SetValue(LOCATION_HAND)
 		tc:RegisterEffect(e2,true)
-		tc:AddMonsterAttributeComplete()
 		Duel.SpecialSummonComplete()
 	end
 end
