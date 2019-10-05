@@ -60,7 +60,7 @@ function c65050139.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local efg=eg:Filter(c65050139.spconf1,nil,tp)
 	local efc=efg:GetFirst()
 	if chk==0 then
-		local mg1=Duel.GetMatchingGroup(c65050139.esrifil,tp,LOCATION_GRAVE,0,e:GetHandler())
+		local mg1=Duel.GetMatchingGroup(c65050139.esrifil,tp,LOCATION_GRAVE,0,efc)
 		local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 		return c65050139.filter(efc,e,tp,mg1,ft) and e:GetHandler():GetFlagEffect(65050139)==0
 	end
@@ -71,7 +71,7 @@ function c65050139.spop(e,tp,eg,ep,ev,re,r,rp)
 	local efg=eg:Filter(c65050139.spconf1,nil,tp)
 	local efc=efg:GetFirst()
 	if not efc:IsLocation(LOCATION_GRAVE) then return end
-	local mg1=Duel.GetMatchingGroup(c65050139.esrifil,tp,LOCATION_GRAVE,0,nil)
+	local mg1=Duel.GetMatchingGroup(c65050139.esrifil,tp,LOCATION_GRAVE,0,efc)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if c65050139.filter(efc,e,tp,mg1,ft) then
 		local mg=mg1

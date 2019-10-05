@@ -42,7 +42,7 @@ function cm.activate(e,tp,eg,ep,ev,re,r,rp)
 		local g=Duel.GetMatchingGroup(cm.atkfilter,tp,LOCATION_MZONE,0,nil)
 		local ac=g:GetFirst()
 		while ac do
-			local e3=Effect.CreateEffect(c)
+			local e3=Effect.CreateEffect(e:GetHandler())
 			e3:SetType(EFFECT_TYPE_SINGLE)
 			e3:SetCode(EFFECT_UPDATE_ATTACK)
 			e3:SetReset(RESET_EVENT+RESETS_STANDARD)
