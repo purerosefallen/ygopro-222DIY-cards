@@ -54,14 +54,17 @@ end
 function c65020072.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_SPELL+TYPE_TRAP)
 end
+function c65020072.disfil2(c)
+	return c:IsFaceup() and not c:IsDisabled() and not (c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_EFFECT))
+end
 function c65020072.distg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
 	if chk==0 then return Duel.IsExistingTarget(c65020072.filter,tp,LOCATION_ONFIELD,0,1,e:GetHandler())
-		and Duel.IsExistingTarget(aux.disfilter1,tp,0,LOCATION_ONFIELD,1,nil) end
+		and Duel.IsExistingTarget(c65020072.disfil2,tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SELF)
 	Duel.SelectTarget(tp,aux.filter,tp,LOCATION_ONFIELD,0,1,1,nil)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_OPPO)
-	Duel.SelectTarget(tp,aux.disfilter1,tp,0,LOCATION_ONFIELD,1,1,nil)
+	Duel.SelectTarget(tp,c65020072.disfil2,tp,0,LOCATION_ONFIELD,1,1,nil)
 end
 function c65020072.disop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
