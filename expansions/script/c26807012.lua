@@ -1,4 +1,5 @@
 --天·天·白·布
+xpcall(function() require("expansions/script/c37564765") end,function() require("script/c37564765") end)
 function c26807012.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -16,11 +17,14 @@ function c26807012.initial_effect(c)
 	e2:SetCode(EVENT_LEAVE_FIELD)
 	e2:SetOperation(c26807012.rmop)
 	c:RegisterEffect(e2)
-	--ritual level
+	--
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_EQUIP)
-	e3:SetCode(EFFECT_RITUAL_LEVEL)
-	e3:SetValue(c26807012.rlevel)
+	e3:SetCode(EFFECT_MINIATURE_GARDEN_GIRL)
+	e3:SetValue(1)
+	e3:SetTarget(function(e,c)
+		return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_PENDULUM)
+	end)
 	c:RegisterEffect(e3)
 end
 function c26807012.spfilter(c,e,tp)
@@ -68,11 +72,4 @@ function c26807012.rmop(e,tp,eg,ep,ev,re,r,rp)
 	if tc then
 		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
-end
-function c26807012.rlevel(e,c)
-	local lv=e:GetHandler():GetLevel()
-	if c:IsType(TYPE_PENDULUM) then
-		local clv=c:GetLevel()
-		return lv*65536+clv
-	else return lv end
 end
