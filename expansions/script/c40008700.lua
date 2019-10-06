@@ -1,4 +1,5 @@
 --炼狱骑士团 死神镰刀龙 
+if not pcall(function() require("expansions/script/c40008677") end) then require("script/c40008677") end
 function c40008700.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
@@ -28,7 +29,7 @@ function c40008700.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1,40008701)
-	e3:SetCost(c40008700.thcost)
+	e3:SetCost(rsik.cost())
 	e3:SetTarget(c40008700.target)
 	e3:SetOperation(c40008700.activate)
 	c:RegisterEffect(e3)	 
@@ -63,10 +64,6 @@ function c40008700.rmop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ShuffleHand(1-tp)
 end
 end
-end
-function c40008700.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
-	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function c40008700.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

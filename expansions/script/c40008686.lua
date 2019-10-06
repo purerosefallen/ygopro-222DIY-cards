@@ -1,4 +1,5 @@
 --炼狱骑士团 撒旦邪力龙 
+if not pcall(function() require("expansions/script/c40008677") end) then require("script/c40008677") end
 function c40008686.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsRace,RACE_DRAGON),1)
@@ -27,7 +28,7 @@ function c40008686.initial_effect(c)
 	e3:SetCategory(CATEGORY_HANDES+CATEGORY_LVCHANGE)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCost(c40008686.cost)
+	e3:SetCost(rsik.cost())
 	e3:SetCountLimit(1,40008687)
 	e3:SetTarget(c40008686.target)
 	e3:SetOperation(c40008686.operation)
@@ -69,10 +70,7 @@ end
 function c40008686.lvfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0xf14) and not c:IsLevel(2) and c:IsLevelAbove(1)
 end
-function c40008686.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
-	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
-end
+
 function c40008686.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFieldGroupCount(tp,0,LOCATION_HAND)>0 and Duel.IsExistingMatchingCard(c40008686.lvfilter,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_HANDES,nil,0,1-tp,1)

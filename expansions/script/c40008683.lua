@@ -1,4 +1,5 @@
 --炼狱骑士团 银杖龙
+if not pcall(function() require("expansions/script/c40008677") end) then require("script/c40008677") end
 function c40008683.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -7,8 +8,7 @@ function c40008683.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCountLimit(1,40008683)
-	e1:SetCost(c40008683.cost1)
-	e1:SetCondition(c40008683.spcon1)
+	e1:SetCost(rsik.cost(c40008683.eqfun))
 	e1:SetTarget(c40008683.target)
 	e1:SetOperation(c40008683.activate)
 	c:RegisterEffect(e1)   
@@ -25,70 +25,7 @@ function c40008683.initial_effect(c)
 	e4:SetOperation(c40008683.dbop)
 	c:RegisterEffect(e4)
 end
-function c40008683.spcon1(e,tp,eg,ep,ev,re,r,rp)
-	return not Duel.IsPlayerAffectedByEffect(tp,40008677)
-end
-function c40008683.spcon2(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsPlayerAffectedByEffect(tp,40008677) and Duel.GetTurnPlayer()~=tp
-end
-function c40008683.spcon3(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsPlayerAffectedByEffect(tp,40008677) and not Duel.GetTurnPlayer()~=tp
-end
-function c40008683.cosfilter3(c)
-	return c:IsSetCard(0xf14) and (c:IsAbleToGraveAsCost() or c:IsDiscardable())
-end
-function c40008683.cost3(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c40008683.cosfilter3,tp,LOCATION_DECK+LOCATION_HAND,0,1,nil) end
-	local g=Duel.SelectMatchingCard(tp,c40008683.cosfilter3,tp,LOCATION_DECK+LOCATION_HAND,0,1,1,nil)
-	Duel.SendtoGrave(g,REASON_COST+REASON_DISCARD)
-	local c=e:GetHandler()
-	local cid=Duel.GetChainInfo(0,CHAININFO_CHAIN_ID)
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_REMAIN_FIELD)
-	e1:SetProperty(EFFECT_FLAG_OATH)
-	e1:SetReset(RESET_CHAIN)
-	c:RegisterEffect(e1)
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e2:SetCode(EVENT_CHAIN_DISABLED)
-	e2:SetOperation(c40008683.tgop)
-	e2:SetLabel(cid)
-	e2:SetReset(RESET_CHAIN)
-	Duel.RegisterEffect(e2,tp)
-end
-function c40008683.cost1(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,e:GetHandler()) end
-	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
-	local c=e:GetHandler()
-	local cid=Duel.GetChainInfo(0,CHAININFO_CHAIN_ID)
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_REMAIN_FIELD)
-	e1:SetProperty(EFFECT_FLAG_OATH)
-	e1:SetReset(RESET_CHAIN)
-	c:RegisterEffect(e1)
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e2:SetCode(EVENT_CHAIN_DISABLED)
-	e2:SetOperation(c40008683.tgop)
-	e2:SetLabel(cid)
-	e2:SetReset(RESET_CHAIN)
-	Duel.RegisterEffect(e2,tp)
-end
-function c40008683.cosfilter1(c)
-	return c:IsSetCard(0xf14) and c:IsAbleToGraveAsCost() 
-end
-function c40008683.cosfilter2(c)
-	return c:IsCode(40008683) and c:IsAbleToRemoveAsCost()
-end
-function c40008683.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c40008683.cosfilter1,tp,LOCATION_DECK,0,1,nil) and Duel.IsExistingMatchingCard(c40008683.cosfilter2,tp,LOCATION_GRAVE,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,c40008683.cosfilter2,tp,LOCATION_GRAVE,0,1,1,nil)
-	local g1=Duel.SelectMatchingCard(tp,c40008683.cosfilter1,tp,LOCATION_DECK,0,1,1,nil)
-	Duel.Remove(g,POS_FACEUP,REASON_COST)
-	Duel.SendtoGrave(g1,REASON_COST)
+function c40008683.eqfun(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	local cid=Duel.GetChainInfo(0,CHAININFO_CHAIN_ID)
 	local e1=Effect.CreateEffect(c)

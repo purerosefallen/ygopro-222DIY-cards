@@ -1,4 +1,5 @@
 --炼狱骑士团 残酷指挥官
+if not pcall(function() require("expansions/script/c40008677") end) then require("script/c40008677") end
 function c40008706.initial_effect(c)
 	--link summon
 	aux.AddLinkProcedure(c,nil,2,2,c40008706.lcheck)
@@ -20,7 +21,7 @@ function c40008706.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1,40008707)
-	e3:SetCost(c40008706.thcost)
+	e3:SetCost(rsik.cost())
 	e3:SetTarget(c40008706.thtg)
 	e3:SetOperation(c40008706.spop)
 	c:RegisterEffect(e3)	  
@@ -45,8 +46,8 @@ function c40008706.seqop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOZONE)
 	local s=Duel.SelectDisableField(tp,1,LOCATION_MZONE,0,0)
 	local nseq=math.log(s,2)
-	if Duel.MoveSequence(tc,nseq)>0 then
-		Duel.BreakEffect()
+	if Duel.MoveSequence(tc,nseq)~=0 then
+		--Duel.BreakEffect()
 		local atk=tc:GetAttack()
 	if c:IsRelateToEffect(e) and c:IsFaceup() then
 		local e1=Effect.CreateEffect(c)

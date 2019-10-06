@@ -1,4 +1,5 @@
 --炼狱骑士团 破剑龙 
+if not pcall(function() require("expansions/script/c40008677") end) then require("script/c40008677") end
 function c40008702.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(Card.IsRace,RACE_DRAGON),1)
@@ -29,7 +30,7 @@ function c40008702.initial_effect(c)
 	e3:SetCode(EVENT_BATTLE_DAMAGE)
 	e3:SetCountLimit(1,40008703)
 	e3:SetCondition(c40008702.sumcon)
-	e3:SetCost(c40008702.thcost)
+	e3:SetCost(rsik.cost())
 	e3:SetOperation(c40008702.sumop)
 	c:RegisterEffect(e3)   
 end
@@ -60,10 +61,6 @@ function c40008702.desop(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsRelateToEffect(e) and c:IsFaceup() then
 		c:RegisterFlagEffect(40008702,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,0,1)
 	end
-end
-function c40008702.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
-	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function c40008702.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(40008702)~=0 and ep~=tp

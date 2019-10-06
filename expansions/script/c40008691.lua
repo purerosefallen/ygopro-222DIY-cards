@@ -1,4 +1,5 @@
 --炼狱骑士团 战极颂歌龙 
+if not pcall(function() require("expansions/script/c40008677") end) then require("script/c40008677") end
 function c40008691.initial_effect(c)
 	--synchro summon
 	aux.AddSynchroProcedure(c,nil,aux.NonTuner(nil),1)
@@ -41,8 +42,8 @@ function c40008691.initial_effect(c)
 	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
 	e3:SetCode(EVENT_TO_GRAVE)
 	e3:SetCountLimit(1,40008692)
-	e3:SetCost(c40008691.cost)
-	e3:SetCondition(c40008691.thcon)
+	e3:SetCost(rsik.cost())
+	e3:SetCondition(c40008691.thcon2)
 	e3:SetTarget(c40008691.thtg)
 	e3:SetOperation(c40008691.thop)
 	c:RegisterEffect(e3)   
@@ -97,11 +98,7 @@ function c40008691.scop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SynchroSummon(tp,sg:GetFirst(),c)
 	end
 end
-function c40008691.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
-	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
-end
-function c40008691.thcon(e,tp,eg,ep,ev,re,r,rp)
+function c40008691.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function c40008691.thfilter(c)
