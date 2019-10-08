@@ -43,8 +43,8 @@ function c11200088.initial_effect(c)
 	e4:SetCondition(c11200088.actcon)
 	c:RegisterEffect(e4)
 end
-function c11200088.costfilter(c)
-	return c:IsCode(11200103,11200104) and c:IsAbleToDeckAsCost()
+function c11200088.costfilter(c,ec,tp)
+	return c:IsCode(11200103,11200104) and c:IsAbleToDeckAsCost() and Duel.IsExistingMatchingCard(c11200088.eqfilter,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,c,ec)
 end
 function c11200088.eqcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c11200088.costfilter,tp,LOCATION_REMOVED,0,1,nil) end
