@@ -142,6 +142,33 @@ function c65030008.activate(e,tp,eg,ep,ev,re,r,rp)
 			fop(ce,e,tp,tc,mat2)
 		end
 		tc:CompleteProcedure()
-		Duel.Equip(tp,e:GetHandler(),tc)
+		if Duel.Equip(tp,e:GetHandler(),tc) then
+		local c=e:GetHandler()
+		--Destroy
+		local e2=Effect.CreateEffect(c)
+		e2:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
+		e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+		e2:SetCode(EVENT_LEAVE_FIELD_P)
+		e2:SetOperation(c65030008.checkop)
+		c:RegisterEffect(e2)
+		local e3=Effect.CreateEffect(c)
+		e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
+		e3:SetCode(EVENT_LEAVE_FIELD)
+		e3:SetOperation(c65030008.desop)
+		e3:SetLabelObject(e2)
+		c:RegisterEffect(e3)
+		end
+	end
+end
+function c65030008.checkop(e,tp,eg,ep,ev,re,r,rp)
+	if e:GetHandler():IsDisabled() then
+		e:SetLabel(1)
+	else e:SetLabel(0) end
+end
+function c65030008.desop(e,tp,eg,ep,ev,re,r,rp)
+	if e:GetLabelObject():GetLabel()~=0 then return end
+	local tc=e:GetHandler():GetEquipTarget()
+	if tc and tc:IsLocation(LOCATION_MZONE) then
+		Duel.Destroy(tc,REASON_EFFECT)
 	end
 end

@@ -1,16 +1,8 @@
 --亚特兰蒂斯·海伊
 function c26806030.initial_effect(c)
 	--synchro summon
-	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsCode,26807044),aux.NonTuner(c26806030.synfilter),1,1)
+	aux.AddSynchroProcedure(c,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_WATER),aux.NonTuner(c26806030.synfilter),1,1)
 	c:EnableReviveLimit()
-	--xyzlv
-	local e0=Effect.CreateEffect(c)
-	e0:SetType(EFFECT_TYPE_SINGLE)
-	e0:SetCode(EFFECT_XYZ_LEVEL)
-	e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e0:SetRange(LOCATION_MZONE)
-	e0:SetValue(c26806030.xyzlv)
-	c:RegisterEffect(e0)
 	--remove
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(26806030,0))
@@ -28,13 +20,12 @@ function c26806030.initial_effect(c)
 	e2:SetCategory(CATEGORY_ATKCHANGE)
 	e2:SetType(EFFECT_TYPE_TRIGGER_F+EFFECT_TYPE_SINGLE)
 	e2:SetCode(EVENT_PRE_DAMAGE_CALCULATE)
-	e2:SetCountLimit(1,26806930)
 	e2:SetCondition(c26806030.atkcon)
 	e2:SetOperation(c26806030.atkop)
 	c:RegisterEffect(e2)
 end
 function c26806030.synfilter(c)
-	return c:IsAttack(2200) and c:IsDefense(600)
+	return c:IsAttack(2200) and c:IsDefense(600) and c:IsAttribute(ATTRIBUTE_WATER)
 end
 function c26806030.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
@@ -77,7 +68,4 @@ function c26806030.atkop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetValue(bc:GetAttack())
 		c:RegisterEffect(e1)
 	end
-end
-function c26806030.xyzlv(e,c,rc)
-	return 0x60000+e:GetHandler():GetLevel()
 end

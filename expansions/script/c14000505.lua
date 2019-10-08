@@ -62,7 +62,7 @@ function cm.tdop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsType(TYPE_PENDULUM) or not c:IsRelateToEffect(e) then return end
 	if Duel.SendtoExtraP(c,nil,REASON_EFFECT)==0 then return end
 	if not Duel.IsExistingTarget(cm.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp) then return end
-	if not Duel.SelectYesNo(tp,aux.Stringid(m,1)) then return end
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)==0 or not Duel.SelectYesNo(tp,aux.Stringid(m,1)) then return end
 	Duel.BreakEffect()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,cm.spfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp)

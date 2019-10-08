@@ -40,8 +40,8 @@ if not Spositch then
 		e2:SetProperty(prop,EFFECT_FLAG2_SPOSITCH)
 		e2:SetCode(EVENT_FREE_CHAIN)
 		e2:SetRange(LOCATION_HAND)
-		--e2:SetCondition(spo.spellcon)
-		--e2:SetCost(spo.spellcost)
+		e2:SetCondition(spo.spellcon)
+		e2:SetCost(spo.spellcost)
 		if tg then
 			e2:SetTarget(tg)
 		end
@@ -97,7 +97,7 @@ function spo.plimit(e,c,tp,sumtp,sumpos)
 end
 function spo.spellcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsLocation(LOCATION_HAND) and Duel.GetTurnPlayer()==tp
+	return c:IsLocation(LOCATION_HAND) and (Duel.GetTurnPlayer()==tp  or c:IsHasEffect(EFFECT_QP_ACT_IN_NTPHAND))
 end
 function spo.spellcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

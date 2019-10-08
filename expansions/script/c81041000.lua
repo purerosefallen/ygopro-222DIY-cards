@@ -6,6 +6,7 @@ function c81041000.initial_effect(c)
 	e0:SetType(EFFECT_TYPE_ACTIVATE)
 	e0:SetCode(EVENT_FREE_CHAIN)
 	e0:SetCountLimit(1,81041000+EFFECT_COUNT_CODE_OATH)
+	e0:SetCost(c81041000.cost)
 	e0:SetTarget(c81041000.target)
 	e0:SetOperation(c81041000.activate)
 	c:RegisterEffect(e0)
@@ -31,6 +32,10 @@ function c81041000.initial_effect(c)
 	e3:SetTarget(c81041000.drtg)
 	e3:SetOperation(c81041000.drop)
 	c:RegisterEffect(e3)
+end
+function c81041000.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return true end
+	Duel.Hint(HINT_MUSIC,0,aux.Stringid(81041000,0))
 end
 function c81041000.filter(c)
 	return c:IsCode(81041005) and c:IsAbleToHand()
@@ -77,5 +82,5 @@ function c81041000.drop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e2,tp)
 end
 function c81041000.splimit(e,c)
-	return not ((c:IsAttack(1550) and c:IsDefense(1050)) or (c:IsType(TYPE_RITUAL) and c:IsType(TYPE_PENDULUM)))
+	return not (c:IsAttack(1550) or (c:IsType(TYPE_RITUAL) and c:IsType(TYPE_PENDULUM)))
 end

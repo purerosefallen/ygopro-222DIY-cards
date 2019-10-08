@@ -31,7 +31,7 @@ function c11200104.initial_effect(c)
 	e3:SetCode(EFFECT_CANNOT_ACTIVATE)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetTargetRange(0,1)
-	e3:SetValue(c11200104.aclimit)
+	e3:SetValue(1)
 	e3:SetCondition(c11200104.actcon)
 	c:RegisterEffect(e3)
 end
@@ -65,14 +65,11 @@ end
 function c11200104.tgop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_EFFECT)
 end
-function c11200104.aclimit(e,re,tp)
-	return not re:GetHandler():IsImmuneToEffect(e)
-end
 function c11200104.actcon(e)
 	return Duel.GetAttacker()==e:GetHandler() or Duel.GetAttackTarget()==e:GetHandler()
 end
 function c11200104.thfilter(c)
-	return (c:IsCode(11200103) or c:IsCode(11200104)) and c:IsAbleToHand()
+	return c:IsCode(11200103,11200104) and c:IsAbleToHand()
 end
 function c11200104.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c11200104.thfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end

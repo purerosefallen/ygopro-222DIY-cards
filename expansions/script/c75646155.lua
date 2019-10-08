@@ -76,7 +76,7 @@ function c75646155.op(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_UPDATE_ATTACK)
 	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,2)
-	e1:SetValue(rec)
+	e1:SetValue(rec/2)
 	ec:RegisterEffect(e1)
 end
 function c75646155.damcon(e,tp,eg,ep,ev,re,r,rp)

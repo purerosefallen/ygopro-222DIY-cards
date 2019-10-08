@@ -6,7 +6,7 @@ cm.atk=700  --攻 击 力
 function cm.initial_effect(c)
 	c:EnableReviveLimit()
 	--Xyz Summon
-	aux.AddXyzProcedure(c,nil,4,2)
+	aux.AddXyzProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x556),4,2)
 	--Destroy
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(m,0))
