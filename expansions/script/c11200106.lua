@@ -1,4 +1,4 @@
---虚空之黯
+--虚空的伪约
 function c11200106.initial_effect(c)
 	aux.AddRitualProcGreater2Code2(c,11200103,11200104,nil,c11200106.mfilter)
 	--to hand
@@ -14,7 +14,7 @@ function c11200106.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function c11200106.mfilter(c)
-	return c:IsType(TYPE_MONSTER)
+	return c:IsAttribute(ATTRIBUTE_FIRE)
 end
 function c11200106.cfilter(c)
 	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()

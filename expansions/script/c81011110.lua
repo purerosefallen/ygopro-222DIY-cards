@@ -1,4 +1,4 @@
---宫水静香·幼驯染
+--宫水静香
 function c81011110.initial_effect(c)
 	--pendulum summon
 	aux.EnablePendulumAttribute(c)
@@ -13,5 +13,5 @@ function c81011110.filter(c)
 	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_PENDULUM)
 end
 function c81011110.mfilter(c,e,tp)
-	return c:IsAttack(1550) and c:IsDefense(1050)
+	return c:IsAttack(1550)
 end

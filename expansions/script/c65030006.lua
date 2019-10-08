@@ -24,7 +24,7 @@ function c65030006.initial_effect(c)
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_FZONE)
-	e2:SetCountLimit(1)
+	e2:SetCountLimit(1,65030006)
 	e2:SetCost(c65030006.thcost)
 	e2:SetTarget(c65030006.thtg)
 	e2:SetOperation(c65030006.thop)
@@ -59,8 +59,8 @@ function c65030006.spcfil(c)
 end
 
 function c65030006.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c65030006.spcfil,tp,LOCATION_MZONE,0,1,nil) end
-	local g=Duel.SelectMatchingCard(tp,c65030006.spcfil,tp,LOCATION_MZONE,0,1,1,nil)
+	if chk==0 then return Duel.IsExistingMatchingCard(c65030006.spcfil,tp,LOCATION_MZONE,0,1,e:GetHandler()) end
+	local g=Duel.SelectMatchingCard(tp,c65030006.spcfil,tp,LOCATION_MZONE,0,1,1,e:GetHandler())
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 

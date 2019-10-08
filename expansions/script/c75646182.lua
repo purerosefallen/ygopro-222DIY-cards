@@ -23,9 +23,8 @@ function c75646182.initial_effect(c)
 	e3:SetRange(LOCATION_SZONE)
 	e3:SetTargetRange(0,LOCATION_MZONE)
 	e3:SetCode(EFFECT_CANNOT_SELECT_BATTLE_TARGET)
-	e2:SetCondition(c75646182.effcon)
+	e3:SetCondition(c75646182.effcon1)
 	e3:SetValue(c75646182.atlimit)
-	e3:SetLabel(3)
 	c:RegisterEffect(e3)
 	--Atk up
 	local e4=Effect.CreateEffect(c)
@@ -33,10 +32,9 @@ function c75646182.initial_effect(c)
 	e4:SetRange(LOCATION_SZONE)
 	e4:SetTargetRange(LOCATION_MZONE,0)
 	e4:SetCode(EFFECT_UPDATE_ATTACK)
-	e4:SetCondition(c75646182.effcon)
+	e4:SetCondition(c75646182.effcon2)
 	e4:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x2c0))
 	e4:SetValue(1000)
-	e4:SetLabel(5)
 	c:RegisterEffect(e4)
 	--atk
 	local e5=Effect.CreateEffect(c)
@@ -81,15 +79,24 @@ end
 function c75646182.effilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x2c0)
 end
-function c75646182.effcon(e)
+function c75646182.efilter(c)
+	return c:IsFaceup() and c:IsCode(75646183)
+end
+function c75646182.effcon1(e)
+	if Duel.IsExistingMatchingCard(c75646182.efilter,tp,LOCATION_SZONE,0,1,nil) then e:SetLabel(0) else e:SetLabel(3) end
+	return Duel.GetMatchingGroup(c75646182.effilter,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,nil):GetClassCount(Card.GetCode)>=e:GetLabel()
+end
+function c75646182.effcon2(e)
+	if Duel.IsExistingMatchingCard(c75646182.efilter,tp,LOCATION_SZONE,0,1,nil) then e:SetLabel(2) else e:SetLabel(5) end
 	return Duel.GetMatchingGroup(c75646182.effilter,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,nil):GetClassCount(Card.GetCode)>=e:GetLabel()
 end
 function c75646182.atkcon(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.IsExistingMatchingCard(c75646182.efilter,tp,LOCATION_SZONE,0,1,nil) then e:SetLabel(4) else e:SetLabel(7) end
 	local a=Duel.GetAttacker()
 	if not a:IsControler(tp) then
 		a=Duel.GetAttackTarget()
 	end
-	return a and a:IsSetCard(0x2c0) and Duel.GetMatchingGroup(c75646182.effilter,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,nil):GetClassCount(Card.GetCode)>=7
+	return a and a:IsSetCard(0x2c0) and Duel.GetMatchingGroup(c75646182.effilter,e:GetHandlerPlayer(),LOCATION_ONFIELD,0,nil):GetClassCount(Card.GetCode)>=e:GetLabel()
 end
 function c75646182.atkop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,0,75646182)

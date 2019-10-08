@@ -17,16 +17,21 @@ function c65050141.filter2(c)
 	return c:IsSetCard(0x5da8) and c:IsType(TYPE_SPELL) and c:IsType(TYPE_RITUAL) and c:IsAbleToHand()
 end
 function c65050141.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(c65050141.filter,tp,LOCATION_DECK,0,1,nil) and Duel.IsExistingMatchingCard(c65050141.filter2,tp,LOCATION_DECK,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(c65050141.filter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,2,tp,LOCATION_DECK)
+end
+function c65050141.cfil2(c)
+	return c:IsSetCard(0x5da8) and c:IsFaceup() and c:IsAttackAbove(2000)
 end
 function c65050141.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g1=Duel.SelectMatchingCard(tp,c65050141.filter,tp,LOCATION_DECK,0,1,1,nil)
-	local g2=Duel.SelectMatchingCard(tp,c65050141.filter2,tp,LOCATION_DECK,0,1,1,nil)
-	if g1:GetCount()>0 and g2:GetCount()>0 then
-		g1:Merge(g2)
-		Duel.SendtoHand(g1,nil,REASON_EFFECT)
-		Duel.ConfirmCards(1-tp,g1)
+	local g=Duel.SelectMatchingCard(tp,c65050141.filter,tp,LOCATION_DECK,0,1,1,nil)
+	if g:GetCount()>0 and Duel.SendtoHand(g,nil,REASON_EFFECT)~=0 then
+		Duel.ConfirmCards(1-tp,g)
+		if Duel.IsExistingMatchingCard(c65050141.filter2,tp,LOCATION_DECK,0,1,nil) and Duel.IsExistingMatchingCard(c65050141.cfil2,tp,LOCATION_MZONE,0,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(65050141,0)) then
+			local g2=Duel.SelectMatchingCard(tp,c65050141.filter2,tp,LOCATION_DECK,0,1,1,nil)
+			Duel.SendtoHand(g2,tp,REASON_EFFECT)
+			Duel.ConfirmCards(1-tp,g2)
+		end
 	end
 end

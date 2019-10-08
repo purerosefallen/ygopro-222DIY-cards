@@ -1,8 +1,10 @@
 --茶话会·德川茉莉
+require("expansions/script/c26800000")
 function c26804003.initial_effect(c)
 	--link summon
 	aux.AddLinkProcedure(c,c26804003.mfilter,2)
 	c:EnableReviveLimit()
+	Amana.AttackBelow(c)
 	--immune effect
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)

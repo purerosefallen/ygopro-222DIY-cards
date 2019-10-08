@@ -1,8 +1,8 @@
---柠檬少女
+--Love Addiction
 function c26807008.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	aux.AddFusionProcCode2(c,26800000,81011000,true,true)
+	aux.AddFusionProcFunRep(c,c26807008.ffilter,2,false)
 	--spsummon condition
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -19,6 +19,9 @@ function c26807008.initial_effect(c)
 	e3:SetTarget(c26807008.rmtg1)
 	e3:SetOperation(c26807008.rmop1)
 	c:RegisterEffect(e3)
+end
+function c26807008.ffilter(c)
+	return c:IsFusionAttribute(ATTRIBUTE_WIND) and c:IsFusionType(TYPE_NORMAL)
 end
 function c26807008.rmtg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,0,LOCATION_MZONE,1,nil) end

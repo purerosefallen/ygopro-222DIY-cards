@@ -62,11 +62,11 @@ function c33400207.ckop(e,tp,eg,ep,ev,re,r,rp)
 	else 
 		  local g=Duel.GetDecktopGroup(1-tp,cm2)
 		  Duel.ConfirmCards(tp,g)
-		  Duel.SortDecktop(tp,1-tp,cm2)				   
+		  Duel.SortDecktop(tp,1-tp,cm2)				
 	end
 end
 function c33400207.descon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsSetCard,1,nil,0x7342)
+	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsSetCard,1,nil,0x6342)
 end
 function c33400207.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
@@ -96,7 +96,7 @@ function c33400207.desop(e,tp,eg,ep,ev,re,r,rp)
 	end
 	if tc:IsCode(ac) then 
 		  Duel.Damage(1-tp,1000,REASON_EFFECT)
-		  if tc1:IsRelateToEffect(e) and Duel.SelectYesNo(tp,aux.Stringid(33400207,4)) then				
+		  if tc1:IsRelateToEffect(e) and Duel.SelectYesNo(tp,aux.Stringid(33400207,4)) then			 
 			  Duel.Destroy(tc1,REASON_EFFECT)
 		  end
 			local e1=Effect.CreateEffect(c)

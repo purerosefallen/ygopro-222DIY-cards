@@ -47,7 +47,7 @@ function c33400257.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c33400257.nefilter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0x7342)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsSetCard(0x6342)
 end
 function c33400257.condition(e,tp,eg,ep,ev,re,r,rp)
 	if rp~=1-tp or not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end

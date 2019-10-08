@@ -56,7 +56,7 @@ function c81012025.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function c81012025.spfilter2(c,e,tp)
-	return c:IsFaceup() and c:IsRace(RACE_PYRO) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsFaceup() and c:IsRace(RACE_PYRO) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsCode(81012025)
 end
 function c81012025.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and c81012025.spfilter2(chkc,e,tp) end
