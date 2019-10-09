@@ -812,9 +812,9 @@ function cm.PrismRemoveExtraCostFilter(c)
 	return cm.CheckPrism(c) and c:IsAbleToRemoveAsCost()
 end
 function cm.PrismRemoveExtraCost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(cm.PrismRemoveExtraCostfilter,tp,LOCATION_EXTRA,0,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(cm.PrismRemoveExtraCostFilter,tp,LOCATION_EXTRA,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,cm.PrismRemoveExtraCostfilter,tp,LOCATION_EXTRA,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,cm.PrismRemoveExtraCostFilter,tp,LOCATION_EXTRA,0,1,1,nil)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 
 end
