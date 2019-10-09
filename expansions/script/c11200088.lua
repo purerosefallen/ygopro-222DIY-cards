@@ -43,8 +43,8 @@ function c11200088.initial_effect(c)
 	e4:SetCondition(c11200088.actcon)
 	c:RegisterEffect(e4)
 end
-function c11200088.costfilter(c,ec,tp)
-	return c:IsCode(11200103,11200104) and c:IsAbleToDeckAsCost() and Duel.IsExistingMatchingCard(c11200088.eqfilter,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,c,ec)
+function c11200088.costfilter(c,tp)
+	return c:IsCode(11200103,11200104) and c:IsAbleToDeckAsCost()
 end
 function c11200088.eqcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(c11200088.costfilter,tp,LOCATION_REMOVED,0,1,nil) end
@@ -56,14 +56,15 @@ function c11200088.eqfilter(c,ec)
 	return c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec)
 end
 function c11200088.eqtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and Duel.IsExistingMatchingCard(c11200088.eqfilter,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,nil,ec) end
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
+		and Duel.IsExistingMatchingCard(c11200088.eqfilter,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,nil,e:GetHandler()) end
 	Duel.SetOperationInfo(0,CATEGORY_EQUIP,nil,1,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE)
 end
 function c11200088.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 or c:IsFacedown() or not c:IsRelateToEffect(e) then return end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(c11200088.eqfilter),tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil,c)
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(11200088,1))
+	local g=Duel.SelectMatchingCard(tp,c11200088.eqfilter,tp,LOCATION_HAND+LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil,c)
 	local tc=g:GetFirst()
 	if tc then
 		Duel.Equip(tp,tc,c)

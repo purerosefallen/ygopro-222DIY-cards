@@ -10,7 +10,7 @@ function cm.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetCode(EFFECT_CHANGE_CODE)
 	e1:SetRange(LOCATION_ONFIELD+LOCATION_REMOVED)
-	e1:SetValue(11200203)
+	e1:SetValue(11200103)
 	c:RegisterEffect(e1)
 	--spsummon condition
 	local e2=Effect.CreateEffect(c)
