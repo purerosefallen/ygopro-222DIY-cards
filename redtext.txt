@@ -1,0 +1,127 @@
+[string "./script/utility.lua"]:44: attempt to perform arithmetic on a table value (local 'code')
+"CallCardFunction"(c10199991.initial_effect): attempt to call an error function
+[string "./script/c12030021.lua"]:7: attempt to index a nil value (global 'rscf')
+[string "./script/c12030022.lua"]:8: attempt to index a nil value (global 'rsef')
+"CallCardFunction"(c16080031.initial_effect): attempt to call an error function
+"CallCardFunction"(c21400050.initial_effect): attempt to call an error function
+"CallCardFunction"(c21400120.initial_effect): attempt to call an error function
+"CallCardFunction"(c21400121.initial_effect): attempt to call an error function
+"CallCardFunction"(c21400140.initial_effect): attempt to call an error function
+"CallCardFunction"(c21400141.initial_effect): attempt to call an error function
+"CallCardFunction"(c21499999.initial_effect): attempt to call an error function
+[string "./script/c33400305.lua"]:38: attempt to index a nil value (global 'c33400355')
+[string "./script/c33400305.lua"]:16: Parameter 2 should be "Function".
+"CallCardFunction"(c33700074.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700351.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700411.initial_effect): attempt to call an error function
+[string "./script/c33700425.lua"]:7: attempt to call a nil value (field 'AddEquipProcedure')
+"CallCardFunction"(c33700760.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700761.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700762.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700763.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700764.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700765.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700766.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700767.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700768.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700769.initial_effect): attempt to call an error function
+"CallCardFunction"(c33700794.initial_effect): attempt to call an error function
+[string "./script/c33700937.lua"]:12: attempt to call a nil value (field 'rmxyzs')
+./expansions/script/c33700990.lua:170: attempt to call a nil value (field 'costself')
+./expansions/script/c33700990.lua:170: attempt to call a nil value (field 'costself')
+./expansions/script/c33700990.lua:170: attempt to call a nil value (field 'costself')
+"CallCardFunction"(c33701058.initial_effect): attempt to call an error function
+"CallCardFunction"(c33701059.initial_effect): attempt to call an error function
+[string "./script/c40006827.lua"]:4: attempt to call a nil value (method 'EnableUnsummonable')
+[string "./script/c40008548.lua"]:47: attempt to index a nil value (global 'c40008460')
+[string "./script/c40008674.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008674.initial_effect): attempt to call an error function
+[string "./script/c40008678.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008678.initial_effect): attempt to call an error function
+[string "./script/c40008680.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008680.initial_effect): attempt to call an error function
+[string "./script/c40008683.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008683.initial_effect): attempt to call an error function
+[string "./script/c40008686.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008686.initial_effect): attempt to call an error function
+[string "./script/c40008688.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008688.initial_effect): attempt to call an error function
+[string "./script/c40008691.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008691.initial_effect): attempt to call an error function
+[string "./script/c40008694.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008694.initial_effect): attempt to call an error function
+[string "./script/c40008697.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008697.initial_effect): attempt to call an error function
+[string "./script/c40008700.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008700.initial_effect): attempt to call an error function
+[string "./script/c40008702.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008702.initial_effect): attempt to call an error function
+[string "./script/c40008706.lua"]:2: module 'script/c40008677' not found:
+	no field package.preload['script/c40008677']
+	no file '/usr/local/share/lua/5.3/script/c40008677.lua'
+	no file '/usr/local/share/lua/5.3/script/c40008677/init.lua'
+	no file '/usr/l
+"CallCardFunction"(c40008706.initial_effect): attempt to call an error function
+"CallCardFunction"(c47510300.initial_effect): attempt to call an error function
+[string "./script/c47570004.lua"]:22: Parameter 2 should be "Function".
+"CallCardFunction"(c50218134.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218135.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218136.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218137.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218138.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218141.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218142.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218143.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218144.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218145.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218146.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218147.initial_effect): attempt to call an error function
+"CallCardFunction"(c50218148.initial_effect): attempt to call an error function
+"CallCardFunction"(c62200000.initial_effect): attempt to call an error function
+[string "./script/utility.lua"]:1834: Parameter 1 should be "Card".
+[string "./script/c65050166.lua"]:55: attempt to index a nil value (global 'c65050164')
+[string "./script/c65050166.lua"]:5: attempt to index a nil value (global 'c65050164')
